@@ -5,7 +5,7 @@
       <article class="mood-cards__card" {{ block.shopify_attributes }}>
         <a href="{{ block.settings.link }}">
           {% if block.settings.image %}
-            {% render 'image', image: block.settings.image, alt: block.settings.title, fallback_alt: block.settings.title, class: 'mood-cards__image', width: 600 %}
+            {% render 'image', image: block.settings.image, alt: block.settings.image_alt, fallback_alt: block.settings.title, class: 'mood-cards__image', width: 600 %}
           {% endif %}
           <div class="mood-cards__content">
             <h3>{{ block.settings.title }}</h3>
@@ -83,6 +83,13 @@
       "name": "بطاقة",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "الصورة" },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "نص alt للصورة (مطلوب)",
+          "default": "صورة البطاقة",
+          "info": "مطلوب عند رفع صورة. لا تتركي الحقل فارغًا."
+        },
         { "type": "text", "id": "title", "label": "العنوان", "default": "عنوان" },
         { "type": "textarea", "id": "text", "label": "النص" },
         { "type": "url", "id": "link", "label": "الرابط" }

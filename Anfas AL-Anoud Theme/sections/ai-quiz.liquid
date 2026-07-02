@@ -2,7 +2,7 @@
   <div class="ai-quiz__inner">
     <div class="ai-quiz__intro">
       {% if section.settings.avatar %}
-        {% render 'image', image: section.settings.avatar, alt: 'صورة العنود للمساعدة', class: 'ai-quiz__avatar', width: 120 %}
+        {% render 'image', image: section.settings.avatar, alt: section.settings.avatar_alt, fallback_alt: section.settings.heading, class: 'ai-quiz__avatar', width: 120 %}
       {% endif %}
       <h2 class="section-heading">{{ section.settings.heading }}</h2>
       <p class="section-subheading">{{ section.settings.subheading }}</p>
@@ -143,6 +143,13 @@
   "class": "ai-quiz-section",
   "settings": [
     { "type": "image_picker", "id": "avatar", "label": "صورة العنود (anoud-avatar.png)" },
+    {
+      "type": "text",
+      "id": "avatar_alt",
+      "label": "نص alt للصورة (مطلوب)",
+      "default": "صورة العنود للمساعدة",
+      "info": "مطلوب عند رفع صورة العنود. لا تتركي الحقل فارغًا."
+    },
     { "type": "text", "id": "heading", "label": "العنوان", "default": "سولفي وياي" },
     { "type": "textarea", "id": "subheading", "label": "النص", "default": "محتارة شو اللي يلوق على شخصيتج؟ أنا هنيه عشان أساعدج تختارين صح." }
   ],

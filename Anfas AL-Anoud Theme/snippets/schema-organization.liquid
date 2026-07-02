@@ -1,0 +1,16 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | json }},
+  {% if settings.logo %}
+  "logo": {{ settings.logo | image_url: width: 500 | json }},
+  {% endif %}
+  "description": "متجر أنفاس العنود - دخون وعطور ومنتجات عناية فاخرة للسوق الإماراتي",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "AE"
+  }
+}
+</script>

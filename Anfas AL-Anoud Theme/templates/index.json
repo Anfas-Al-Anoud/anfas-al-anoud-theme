@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {}
+    },
+    "categories": {
+      "type": "category-icons",
+      "settings": {},
+      "blocks": {
+        "cat1": { "type": "category", "settings": { "title": "دخون السنع" } },
+        "cat2": { "type": "category", "settings": { "title": "عطور الكشخة" } },
+        "cat3": { "type": "category", "settings": { "title": "دلع وعناية" } },
+        "cat4": { "type": "category", "settings": { "title": "بوكسات الزين" } }
+      },
+      "block_order": ["cat1", "cat2", "cat3", "cat4"]
+    },
+    "mood": {
+      "type": "mood-cards",
+      "settings": {},
+      "blocks": {
+        "m1": { "type": "mood", "settings": { "title": "حق الدوام والطلعات", "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم." } },
+        "m2": { "type": "mood", "settings": { "title": "الدلع والشاور", "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج." } },
+        "m3": { "type": "mood", "settings": { "title": "فخامة الميلس والمواجيب", "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح." } },
+        "m4": { "type": "mood", "settings": { "title": "للسهرات والعزايم", "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟" } },
+        "m5": { "type": "mood", "settings": { "title": "زْهبة العروس", "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال." } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4", "m5"]
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {}
+    },
+    "gifts": {
+      "type": "image-with-text",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "quality": {
+      "type": "quality-banner",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-features",
+      "settings": {}
+    },
+    "quiz": {
+      "type": "ai-quiz",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "categories", "mood", "bestsellers", "gifts", "testimonials", "quality", "faq", "trust", "quiz"]
+}

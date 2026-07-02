@@ -1,0 +1,141 @@
+{
+  "general": {
+    "404": "Page not found",
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "menu": "Menu",
+      "search": "Search"
+    },
+    "header": "Header",
+    "footer": "Footer",
+    "primary": "Primary font",
+    "typography": "Typography",
+    "layout": "Layout",
+    "colors": "Colors",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search products...",
+      "no_results": "No results found"
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is empty",
+      "checkout": "Checkout",
+      "continue_shopping": "Continue shopping",
+      "remove": "Remove",
+      "subtotal": "Subtotal",
+      "view_cart": "View cart"
+    },
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity"
+    }
+  },
+  "labels": {
+    "menu": "Menu",
+    "page_width": "Page width",
+    "page_margin": "Page margin",
+    "background": "Background",
+    "foreground": "Foreground",
+    "input_corner_radius": "Input corner radius",
+    "customer_account_menu": "Customer account menu",
+    "show_payment_icons": "Show payment icons"
+  },
+  "options": {
+    "page_width": {
+      "narrow": "Narrow",
+      "wide": "Wide"
+    }
+  },
+  "settings": {
+    "brand": {
+      "name": "Brand",
+      "logo": "Logo",
+      "logo_width": "Logo width",
+      "whatsapp": "WhatsApp number"
+    },
+    "colors": {
+      "palette": "Brand colors"
+    },
+    "cart": {
+      "name": "Cart",
+      "free_shipping_threshold": "Free shipping threshold (AED)",
+      "show_free_shipping_bar": "Show free shipping bar"
+    },
+    "social": {
+      "name": "Social media"
+    }
+  },
+  "sections": {
+    "announcement_bar": { "name": "Announcement bar" },
+    "hero_banner": { "name": "Hero banner" },
+    "category_icons": { "name": "Category icons" },
+    "mood_cards": { "name": "Mood cards" },
+    "featured_collection": { "name": "Featured collection" },
+    "image_with_text": { "name": "Image with text" },
+    "testimonials": { "name": "Testimonials" },
+    "quality_banner": { "name": "Quality banner" },
+    "faq_accordion": { "name": "FAQ" },
+    "trust_features": { "name": "Trust features" },
+    "ai_quiz": { "name": "AI quiz assistant" },
+    "link_hub": { "name": "Link hub" },
+    "cart_drawer": { "name": "Cart drawer" }
+  },
+  "404": {
+    "title": "404",
+    "not_found": "Page not found.",
+    "back_to_shopping": "Back to shopping"
+  },
+  "blog": {
+    "article_comments": "Comments",
+    "article_metadata_html": "{{ date }} by {{ author }}",
+    "comment_form_body": "Comment",
+    "comment_form_email": "Email",
+    "comment_form_name": "Name",
+    "comment_form_submit": "Post",
+    "comment_form_title": "Add a comment"
+  },
+  "cart": {
+    "checkout": "Checkout",
+    "title": "Cart",
+    "update": "Update",
+    "remove": "Remove"
+  },
+  "customers": {
+    "login": {
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "title": "Login"
+    }
+  },
+  "collections": {
+    "title": "Collections"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "card": "Gift card",
+    "expired": "This gift card has expired",
+    "expires_on": "Expires on {{ expires_on }}",
+    "use_at_checkout": "Use this gift card at checkout"
+  },
+  "password": {
+    "title": "This shop is private",
+    "password": "Password",
+    "enter": "Enter"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search articles, pages, or products",
+    "submit": "Search",
+    "no_results_html": "No results found for {{ terms }}",
+    "results_for_html": "{{ count }} results found for {{ terms }}"
+  }
+}

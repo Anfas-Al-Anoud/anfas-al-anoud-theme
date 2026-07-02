@@ -1,0 +1,38 @@
+<div class="wishlist-drawer" data-wishlist-drawer aria-hidden="true">
+  <div class="wishlist-drawer__overlay" data-wishlist-close></div>
+  <aside class="wishlist-drawer__panel" role="dialog" aria-label="المفضلة">
+    <header class="wishlist-drawer__header">
+      <h2>مفضلتج</h2>
+      <button type="button" data-wishlist-close aria-label="إغلاق">&times;</button>
+    </header>
+    <div class="wishlist-drawer__items" data-wishlist-items></div>
+  </aside>
+</div>
+
+{% stylesheet %}
+  .wishlist-drawer { position: fixed; inset: 0; z-index: 200; pointer-events: none; }
+  .wishlist-drawer.is-open { pointer-events: auto; }
+  .wishlist-drawer__overlay {
+    position: absolute; inset: 0;
+    background: rgba(61, 43, 31, 0.5);
+    opacity: 0; transition: opacity var(--transition-base);
+  }
+  .wishlist-drawer.is-open .wishlist-drawer__overlay { opacity: 1; }
+  .wishlist-drawer__panel {
+    position: absolute; top: 0; inset-inline-start: 0;
+    width: min(100%, 24rem); height: 100%;
+    background: var(--color-white);
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+  }
+  [dir="rtl"] .wishlist-drawer__panel { transform: translateX(100%); }
+  .wishlist-drawer.is-open .wishlist-drawer__panel { transform: translateX(0); }
+  .wishlist-drawer__header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem; border-block-end: 1px solid var(--color-sand);
+  }
+  .wishlist-drawer__header button {
+    background: none; border: none; font-size: 1.5rem; cursor: pointer;
+  }
+  .wishlist-drawer__items { padding: 1rem; overflow-y: auto; }
+{% endstylesheet %}

@@ -1,0 +1,158 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Anfas Al-Anoud",
+    "theme_version": "1.0.0",
+    "theme_author": "Anfas Al-Anoud",
+    "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
+    "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
+  },
+  {
+    "name": "t:settings.brand.name",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "t:settings.brand.logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 60,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "t:settings.brand.logo_width",
+        "default": 160
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "t:settings.brand.whatsapp",
+        "default": "971500000000"
+      }
+    ]
+  },
+  {
+    "name": "t:general.typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_primary_font",
+        "default": "tajawal_n4",
+        "label": "t:general.primary"
+      }
+    ]
+  },
+  {
+    "name": "t:general.layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "t:labels.page_width",
+        "options": [
+          { "value": "90rem", "label": "t:options.page_width.narrow" },
+          { "value": "110rem", "label": "t:options.page_width.wide" }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.page_margin",
+        "default": 20
+      }
+    ]
+  },
+  {
+    "name": "t:general.colors",
+    "settings": [
+      {
+        "type": "color_palette",
+        "id": "colors",
+        "default": {
+          "gold": "#C4A35A",
+          "sand": "#E8D5B7",
+          "cream": "#FAF7F2",
+          "dark": "#3D2B1F",
+          "accent": "#8B6914",
+          "white": "#FFFFFF"
+        }
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#FAF7F2",
+        "label": "t:labels.background"
+      },
+      {
+        "type": "color",
+        "id": "foreground_color",
+        "default": "#3D2B1F",
+        "label": "t:labels.foreground"
+      },
+      {
+        "type": "range",
+        "id": "input_corner_radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.input_corner_radius",
+        "default": 24
+      }
+    ]
+  },
+  {
+    "name": "t:settings.cart.name",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "t:settings.cart.free_shipping_threshold",
+        "default": 200
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping_bar",
+        "label": "t:settings.cart.show_free_shipping_bar",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "t:settings.social.name",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "social_snapchat",
+        "label": "Snapchat"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_threads",
+        "label": "Threads"
+      }
+    ]
+  }
+]

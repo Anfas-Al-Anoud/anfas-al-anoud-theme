@@ -1,0 +1,35 @@
+{% doc %}
+  Renders a responsive image with required alt text fallback.
+  @param {object} image - Shopify image object
+  @param {string} [alt] - Alt text override
+  @param {string} [fallback_alt] - Fallback alt if image alt is blank
+  @param {string} [class] - CSS class
+  @param {number} [width] - Max width
+  @param {string} [loading] - lazy or eager
+  @param {string} [sizes] - Image sizes attribute
+{% enddoc %}
+
+{% liquid
+  assign alt_text = alt | default: image.alt | default: ''
+  if alt_text == blank and fallback_alt != blank
+    assign alt_text = fallback_alt
+  endif
+  if alt_text == blank
+    assign alt_text = shop.name
+  endif
+  assign img_width = width | default: 1200
+  assign img_loading = loading | default: 'lazy'
+%}
+
+{% if image != blank %}
+  {{
+    image
+    | image_url: width: img_width
+    | image_tag:
+      alt: alt_text,
+      class: class,
+      loading: img_loading,
+      widths: '375, 550, 750, 1100, 1500',
+      sizes: sizes | default: '100vw'
+  }}
+{% endif %}

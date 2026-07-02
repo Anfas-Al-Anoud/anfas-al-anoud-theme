@@ -1,0 +1,93 @@
+<div class="collection-page section-padding">
+  <header class="collection-page__header">
+    <h1 class="section-heading">{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+      <div class="collection-page__description rte">{{ collection.description }}</div>
+    {% endif %}
+  </header>
+
+  <div class="collection-page__toolbar">
+    <span class="collection-page__count">{{ collection.products_count }} منتج</span>
+    <select class="collection-page__sort" onchange="window.location.href=this.value">
+      {% for option in collection.sort_options %}
+        <option value="{{ collection.url }}?sort_by={{ option.value }}" {% if collection.sort_by == option.value %}selected{% endif %}>
+          {{ option.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {% paginate collection.products by section.settings.products_per_page %}
+    <div class="collection-page__grid">
+      {% for product in collection.products %}
+        {% render 'product-card', product: product %}
+      {% else %}
+        <p>ما في منتجات في هالمجموعة.</p>
+      {% endfor %}
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <nav class="collection-page__pagination" aria-label="التصفح">
+        {% if paginate.previous %}
+          <a href="{{ paginate.previous.url }}" class="btn btn--outline">{{ 'general.pagination.previous' | t }}</a>
+        {% endif %}
+        {% if paginate.next %}
+          <a href="{{ paginate.next.url }}" class="btn btn--outline">{{ 'general.pagination.next' | t }}</a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  {% endpaginate %}
+</div>
+
+{% stylesheet %}
+  .collection-page__header { text-align: center; margin-block-end: 2rem; padding-inline: var(--page-margin); }
+  .collection-page__description { max-width: 40rem; margin-inline: auto; line-height: 1.8; color: var(--color-accent); }
+  .collection-page__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    margin-block-end: 1.5rem;
+  }
+  .collection-page__sort { padding: 0.5rem 1rem; border-radius: var(--style-border-radius-inputs); border: 1px solid var(--color-sand); }
+  .collection-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  @media (min-width: 768px) {
+    .collection-page__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .collection-page__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .collection-page__pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-block-start: 2rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "collection-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 16,
+      "label": "منتجات لكل صفحة"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,75 @@
+<section class="category-icons section-padding" data-animate-section>
+  <ul class="category-icons__grid">
+    {% for block in section.blocks %}
+      <li class="category-icons__item" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.link }}">
+          {% if block.settings.icon %}
+            {% render 'image', image: block.settings.icon, alt: block.settings.title, fallback_alt: block.settings.title, width: 120 %}
+          {% endif %}
+          <span>{{ block.settings.title }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% stylesheet %}
+  .category-icons__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  @media (min-width: 768px) {
+    .category-icons__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .category-icons__item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--color-dark);
+    padding: 1.5rem 1rem;
+    background: var(--color-white);
+    border-radius: var(--style-border-radius-cards);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base);
+  }
+  .category-icons__item a:hover { transform: translateY(-4px); }
+  .category-icons__item img { width: 4rem; height: 4rem; object-fit: contain; }
+  .category-icons__item span { font-weight: 700; text-align: center; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.category_icons.name",
+  "class": "category-icons-section",
+  "blocks": [
+    {
+      "type": "category",
+      "name": "فئة",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "الأيقونة" },
+        { "type": "text", "id": "title", "label": "العنوان", "default": "فئة" },
+        { "type": "url", "id": "link", "label": "الرابط" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.category_icons.name",
+      "blocks": [
+        { "type": "category", "settings": { "title": "دخون السنع" } },
+        { "type": "category", "settings": { "title": "عطور الكشخة" } },
+        { "type": "category", "settings": { "title": "دلع وعناية" } },
+        { "type": "category", "settings": { "title": "بوكسات الزين" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

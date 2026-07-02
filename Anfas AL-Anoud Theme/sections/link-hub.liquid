@@ -1,0 +1,79 @@
+<section class="link-hub section-padding">
+  <h1 class="section-heading">{{ section.settings.heading }}</h1>
+  <p class="section-subheading">{{ section.settings.subheading }}</p>
+
+  <div class="link-hub__grid">
+    {% for block in section.blocks %}
+      <a
+        href="{{ block.settings.link }}"
+        class="link-hub__card"
+        {{ block.shopify_attributes }}
+        {% if block.settings.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+      >
+        {% if block.settings.icon %}
+          {% render 'image', image: block.settings.icon, alt: block.settings.title, fallback_alt: block.settings.title, width: 80 %}
+        {% endif %}
+        <span>{{ block.settings.title }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .link-hub__grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 28rem;
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  .link-hub__card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--color-white);
+    border-radius: var(--style-border-radius-buttons);
+    box-shadow: var(--shadow-soft);
+    text-decoration: none;
+    color: var(--color-dark);
+    font-weight: 700;
+    transition: transform var(--transition-base);
+  }
+  .link-hub__card:hover { transform: scale(1.02); background: var(--color-gold); color: var(--color-white); }
+  .link-hub__card img { width: 2.5rem; height: 2.5rem; object-fit: contain; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.link_hub.name",
+  "class": "link-hub-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "العنوان", "default": "لمتنا أحلى وياج" },
+    { "type": "textarea", "id": "subheading", "label": "النص", "default": "تابعينا وتواصلي معنا من هنا" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "رابط",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "الأيقونة" },
+        { "type": "text", "id": "title", "label": "العنوان", "default": "رابط" },
+        { "type": "url", "id": "link", "label": "الرابط" },
+        { "type": "checkbox", "id": "external", "label": "رابط خارجي", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.link_hub.name",
+      "blocks": [
+        { "type": "link", "settings": { "title": "واتساب", "link": "https://wa.me/" } },
+        { "type": "link", "settings": { "title": "انستجرام", "external": true } },
+        { "type": "link", "settings": { "title": "تيكتوك", "external": true } },
+        { "type": "link", "settings": { "title": "تسوقي الآن", "link": "/collections/all" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

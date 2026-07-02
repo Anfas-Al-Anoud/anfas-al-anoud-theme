@@ -1,0 +1,141 @@
+{
+  "general": {
+    "404": "الصفحة غير موجودة",
+    "accessibility": {
+      "skip_to_content": "انتقلي للمحتوى",
+      "close": "إغلاق",
+      "menu": "القائمة",
+      "search": "بحث"
+    },
+    "header": "الرأس",
+    "footer": "التذييل",
+    "primary": "الخط الأساسي",
+    "typography": "الخطوط",
+    "layout": "التخطيط",
+    "colors": "الألوان",
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "search": {
+      "title": "دوري اللي بخاطرج",
+      "placeholder": "دوري اللي بخاطرج...",
+      "no_results": "ما لقينا نتائج"
+    },
+    "cart": {
+      "title": "سلتج",
+      "empty": "سلتج فاضية",
+      "checkout": "إتمام الطلب",
+      "continue_shopping": "كمّلي تسوق",
+      "remove": "احذفي",
+      "subtotal": "المجموع",
+      "view_cart": "عرض السلة"
+    },
+    "product": {
+      "add_to_cart": "أضيفي للسلة",
+      "sold_out": "نفذ",
+      "unavailable": "غير متوفر",
+      "quantity": "الكمية"
+    }
+  },
+  "labels": {
+    "menu": "القائمة",
+    "page_width": "عرض الصفحة",
+    "page_margin": "هامش الصفحة",
+    "background": "لون الخلفية",
+    "foreground": "لون النص",
+    "input_corner_radius": "انحناء الحواف",
+    "customer_account_menu": "قائمة الحساب",
+    "show_payment_icons": "عرض أيقونات الدفع"
+  },
+  "options": {
+    "page_width": {
+      "narrow": "ضيق",
+      "wide": "واسع"
+    }
+  },
+  "settings": {
+    "brand": {
+      "name": "العلامة التجارية",
+      "logo": "الشعار",
+      "logo_width": "عرض الشعار",
+      "whatsapp": "رقم الواتساب"
+    },
+    "colors": {
+      "palette": "ألوان العلامة"
+    },
+    "cart": {
+      "name": "السلة",
+      "free_shipping_threshold": "حد الشحن المجاني (درهم)",
+      "show_free_shipping_bar": "عرض شريط الشحن المجاني"
+    },
+    "social": {
+      "name": "وسائل التواصل"
+    }
+  },
+  "sections": {
+    "announcement_bar": { "name": "شريط الإعلانات" },
+    "hero_banner": { "name": "بانر رئيسي" },
+    "category_icons": { "name": "الفئات الرئيسية" },
+    "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
+    "featured_collection": { "name": "منتجات مميزة" },
+    "image_with_text": { "name": "صورة مع نص" },
+    "testimonials": { "name": "آراء العملاء" },
+    "quality_banner": { "name": "بانر الجودة" },
+    "faq_accordion": { "name": "الأسئلة الشائعة" },
+    "trust_features": { "name": "مميزات الثقة" },
+    "ai_quiz": { "name": "مساعد العنود" },
+    "link_hub": { "name": "روابط التواصل" },
+    "cart_drawer": { "name": "درج السلة" }
+  },
+  "404": {
+    "title": "404",
+    "not_found": "الصفحة غير موجودة.",
+    "back_to_shopping": "ارجعي للتسوق"
+  },
+  "blog": {
+    "article_comments": "التعليقات",
+    "article_metadata_html": "{{ date }} بواسطة {{ author }}",
+    "comment_form_body": "التعليق",
+    "comment_form_email": "الإيميل",
+    "comment_form_name": "الاسم",
+    "comment_form_submit": "أرسلي",
+    "comment_form_title": "أضيفي تعليق"
+  },
+  "cart": {
+    "checkout": "إتمام الطلب",
+    "title": "السلة",
+    "update": "تحديث",
+    "remove": "احذفي"
+  },
+  "customers": {
+    "login": {
+      "email": "الإيميل",
+      "password": "كلمة المرور",
+      "submit": "دخول",
+      "title": "تسجيل الدخول"
+    }
+  },
+  "collections": {
+    "title": "المجموعات"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "أضيفي لـ Apple Wallet",
+    "card": "بطاقة هدايا",
+    "expired": "انتهت صلاحية بطاقة الهدايا",
+    "expires_on": "تنتهي في {{ expires_on }}",
+    "use_at_checkout": "استخدمي البطاقة عند الدفع"
+  },
+  "password": {
+    "title": "المتجر خاص",
+    "password": "كلمة المرور",
+    "enter": "دخول"
+  },
+  "search": {
+    "title": "بحث",
+    "placeholder": "دوري منتجات، صفحات، أو مقالات",
+    "submit": "بحث",
+    "no_results_html": "ما لقينا نتائج لـ {{ terms }}",
+    "results_for_html": "{{ count }} نتيجة لـ {{ terms }}"
+  }
+}

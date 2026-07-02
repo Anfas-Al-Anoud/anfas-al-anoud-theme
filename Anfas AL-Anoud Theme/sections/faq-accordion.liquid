@@ -1,0 +1,75 @@
+<section class="faq-accordion section-padding" data-animate-section>
+  <h2 class="section-heading">{{ section.settings.heading }}</h2>
+  <div class="faq-accordion__list" itemscope itemtype="https://schema.org/FAQPage">
+    {% for block in section.blocks %}
+      <details class="faq-accordion__item" {{ block.shopify_attributes }} itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary class="faq-accordion__question" itemprop="name">{{ block.settings.question }}</summary>
+        <div class="faq-accordion__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">{{ block.settings.answer }}</div>
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .faq-accordion__list {
+    max-width: 48rem;
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  .faq-accordion__item {
+    border-block-end: 1px solid var(--color-sand);
+    padding-block: 0.25rem;
+  }
+  .faq-accordion__question {
+    padding: 1rem 0;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    color: var(--color-dark);
+  }
+  .faq-accordion__question::-webkit-details-marker { display: none; }
+  .faq-accordion__answer {
+    padding-block-end: 1rem;
+    line-height: 1.8;
+    color: var(--color-accent);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.faq_accordion.name",
+  "class": "faq-accordion-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "العنوان", "default": "في خاطرج سؤال؟ أنا حاضرة عشانج" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "سؤال",
+      "settings": [
+        { "type": "text", "id": "question", "label": "السؤال", "default": "سؤال" },
+        { "type": "richtext", "id": "answer", "label": "الجواب", "default": "<p>الجواب</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq_accordion.name",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "شو نوع الدخون اللي عندج؟", "answer": "<p>عندنا دخون إماراتي فاخر بخلطات أصلية ومكونات طبيعية.</p>" } },
+        { "type": "faq", "settings": { "question": "ايش هي طرق الدفع المتوفرة عندج؟", "answer": "<p>بطاقات، Apple Pay، تابي، وتمارا.</p>" } },
+        { "type": "faq", "settings": { "question": "كم حبة دخون في الغرشة؟", "answer": "<p>تختلف حسب المنتج، التفاصيل موجودة في صفحة كل منتج.</p>" } },
+        { "type": "faq", "settings": { "question": "كيف أطلب؟", "answer": "<p>اختاري المنتج، أضيفيه للسلة، وكمّلي الدفع.</p>" } },
+        { "type": "faq", "settings": { "question": "اقدر أدفع بتابي أو تمارا؟", "answer": "<p>نعم، متوفرين في صفحة الدفع.</p>" } },
+        { "type": "faq", "settings": { "question": "وين توصلين؟", "answer": "<p>نوصل لكل الإمارات، وخارج الإمارات حسب التوفر.</p>" } },
+        { "type": "faq", "settings": { "question": "ايش هي العروض اللي عاملتيها؟", "answer": "<p>تابعينا على السوشيال أو اشتركي بالنشرة للعروض.</p>" } },
+        { "type": "faq", "settings": { "question": "هل في شحن لخارج الإمارات؟", "answer": "<p>نعم، حسب الدولة والوزن.</p>" } },
+        { "type": "faq", "settings": { "question": "ايش أسوي لو المنتج لو ما عيبني؟", "answer": "<p>تقدرين ترجعينه خلال 3 أيام حسب سياسة الإرجاع.</p>" } },
+        { "type": "faq", "settings": { "question": "هل الروائح عندج مناسبة للنساء والرجال؟", "answer": "<p>نعم، عندنا روائح تناسب الجميع.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

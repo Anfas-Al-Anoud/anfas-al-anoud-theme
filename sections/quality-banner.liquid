@@ -1,6 +1,8 @@
 <section class="quality-banner section-padding" data-animate-section>
   <div class="quality-banner__inner">
-    {% if section.settings.image %}
+    {% if section.settings.image_url != blank %}
+      {% render 'external-image', url: section.settings.image_url, alt: section.settings.image_alt, class: 'quality-banner__image', width: 1200 %}
+    {% elsif section.settings.image %}
       {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, class: 'quality-banner__image', width: 1200 %}
     {% endif %}
     <div class="quality-banner__overlay">
@@ -49,6 +51,7 @@
   "class": "quality-banner-section",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "الصورة (ingredients-banner.jpg)" },
+    { "type": "text", "id": "image_url", "label": "رابط الصورة (CDN)" },
     {
       "type": "text",
       "id": "image_alt",

@@ -1,6 +1,10 @@
 <section class="image-with-text section-padding" data-animate-section>
   <div class="image-with-text__inner">
-    {% if section.settings.image %}
+    {% if section.settings.image_url != blank %}
+      <div class="image-with-text__media">
+        {% render 'external-image', url: section.settings.image_url, alt: section.settings.image_alt, class: '', width: 800 %}
+      </div>
+    {% elsif section.settings.image %}
       <div class="image-with-text__media">
         {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, width: 800 %}
       </div>
@@ -41,6 +45,7 @@
   "class": "image-with-text-section",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "الصورة" },
+    { "type": "text", "id": "image_url", "label": "رابط الصورة (CDN)" },
     {
       "type": "text",
       "id": "image_alt",

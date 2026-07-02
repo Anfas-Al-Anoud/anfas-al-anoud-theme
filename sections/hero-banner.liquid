@@ -1,7 +1,15 @@
 <section class="hero-banner" data-animate-section>
   <div class="hero-banner__frame">
     <div class="hero-banner__media" aria-hidden="true">
-      {% if section.settings.image_desktop %}
+      {% if section.settings.image_desktop_url != blank %}
+        {% render 'external-image',
+          url: section.settings.image_desktop_url,
+          alt: section.settings.image_alt,
+          class: 'hero-banner__image hero-banner__image--desktop',
+          width: 1920,
+          loading: 'eager'
+        %}
+      {% elsif section.settings.image_desktop %}
         {% render 'image',
           image: section.settings.image_desktop,
           alt: section.settings.image_alt,
@@ -18,11 +26,27 @@
           height: '100%'
         %}
       {% endif %}
-      {% if section.settings.image_mobile %}
+      {% if section.settings.image_mobile_url != blank %}
+        {% render 'external-image',
+          url: section.settings.image_mobile_url,
+          alt: section.settings.image_alt,
+          class: 'hero-banner__image hero-banner__image--mobile',
+          width: 900,
+          loading: 'eager'
+        %}
+      {% elsif section.settings.image_mobile %}
         {% render 'image',
           image: section.settings.image_mobile,
           alt: section.settings.image_alt,
           fallback_alt: section.settings.heading,
+          class: 'hero-banner__image hero-banner__image--mobile',
+          width: 900,
+          loading: 'eager'
+        %}
+      {% elsif section.settings.image_desktop_url != blank %}
+        {% render 'external-image',
+          url: section.settings.image_desktop_url,
+          alt: section.settings.image_alt,
           class: 'hero-banner__image hero-banner__image--mobile',
           width: 900,
           loading: 'eager'
@@ -181,6 +205,17 @@
       "type": "image_picker",
       "id": "image_mobile",
       "label": "صورة الجوال (hero_banner_mobile.jpg)"
+    },
+    {
+      "type": "text",
+      "id": "image_desktop_url",
+      "label": "رابط صورة الديسكتوب (CDN)",
+      "info": "يُستخدم تلقائيًا من Git إذا لم تُرفع صورة من المحرر."
+    },
+    {
+      "type": "text",
+      "id": "image_mobile_url",
+      "label": "رابط صورة الجوال (CDN)"
     },
     {
       "type": "text",

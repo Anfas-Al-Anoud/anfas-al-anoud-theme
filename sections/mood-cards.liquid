@@ -4,7 +4,9 @@
     {% for block in section.blocks %}
       <article class="mood-cards__card" {{ block.shopify_attributes }}>
         <a href="{{ block.settings.link }}">
-          {% if block.settings.image %}
+          {% if block.settings.image_url != blank %}
+            {% render 'external-image', url: block.settings.image_url, alt: block.settings.image_alt, class: 'mood-cards__image', width: 600 %}
+          {% elsif block.settings.image %}
             {% render 'image', image: block.settings.image, alt: block.settings.image_alt, fallback_alt: block.settings.title, class: 'mood-cards__image', width: 600 %}
           {% else %}
             {% render 'placeholder-svg',
@@ -91,6 +93,7 @@
       "name": "بطاقة",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "الصورة" },
+        { "type": "text", "id": "image_url", "label": "رابط الصورة (CDN)" },
         {
           "type": "text",
           "id": "image_alt",

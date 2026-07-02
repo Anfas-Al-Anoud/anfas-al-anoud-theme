@@ -1,5 +1,4 @@
 # Shopify theme configuration
-# Update store URL after linking via: shopify theme dev
 
 [environments.development]
-# store = "your-store.myshopify.com"
+store = "564178-5f.myshopify.com"

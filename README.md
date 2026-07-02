@@ -14,10 +14,26 @@
 
 1. **المزامنة اللحظية:** `git push origin main` يُطبّق التغييرات على المتجر تلقائيًا عبر GitHub integration.
 2. **ممنوع:** لا تستخدم `shopify theme push` — يتسبب بتضارب مع المزامنة.
-3. **Releases:** بعد كل تحديث رئيسي:
+3. **مزامنة الإصدار (Version sync rule):** حدّثي دائمًا `theme_version` في `config/settings_schema.json` ليطابق tag إصدار GitHub (بدون البادئة `v`، مثال: `v1.0.2` → `"1.0.2"`) **قبل** إنشاء الإصدار.
+4. **ترتيب إنشاء الإصدار (Release workflow order):**
+   1. حدّثي `theme_version` في `config/settings_schema.json`
+   2. `git commit` و `git push` إلى `main`
+   3. `gh release create v1.0.x --title "عنوان التحديث" --generate-notes`
+5. **Releases:** بعد كل تحديث رئيسي:
    ```bash
    gh release create v1.0.x --title "عنوان التحديث" --generate-notes
    ```
+
+### الدفع اليدوي إلى main (عند الحاجة)
+
+> **ملاحظة:** عند العمل مع وكيل Cursor، الوكيل يتولى `git push` تلقائيًا — لا حاجة للخطوات التالية إلا عند الدفع يدويًا.
+
+1. افتحي الطرفية (Terminal) داخل مجلد السمة: `Anfas AL-Anoud Theme`
+2. `git status` — لمعاينة التغييرات
+3. `git add .`
+4. `git commit -m "رسالتك هنا"`
+5. `git push origin main`
+6. تحققي من Shopify Admin → **Themes** → **View logs** للتأكد من نجاح المزامنة
 
 ## التطوير المحلي
 

@@ -9,9 +9,9 @@
  */
 {
   "current": {
+    "arabic_font_family": "noto_sans",
     "logo_width": 160,
     "whatsapp_number": "971503140223",
-    "type_primary_font": "assistant_n4",
     "max_page_width": "90rem",
     "min_page_margin": 20,
     "background_color": "#FAF7F2",

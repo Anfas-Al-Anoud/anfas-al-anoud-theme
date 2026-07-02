@@ -46,7 +46,8 @@
     "foreground": "لون النص",
     "input_corner_radius": "انحناء الحواف",
     "customer_account_menu": "قائمة الحساب",
-    "show_payment_icons": "عرض أيقونات الدفع"
+    "show_payment_icons": "عرض أيقونات الدفع",
+    "arabic_font": "خط عربي"
   },
   "options": {
     "page_width": {
@@ -71,6 +72,9 @@
     },
     "social": {
       "name": "وسائل التواصل"
+    },
+    "typography": {
+      "arabic_font_info": "Noto Sans Arabic و IBM Plex Sans Arabic غير متوفرين في font picker لـ Shopify، لذلك نحمّلهما عبر Google Fonts CDN."
     }
   },
   "sections": {
@@ -85,7 +89,16 @@
     "faq_accordion": { "name": "الأسئلة الشائعة" },
     "trust_features": { "name": "مميزات الثقة" },
     "ai_quiz": { "name": "مساعد العنود" },
-    "link_hub": { "name": "روابط التواصل" },
+    "link_hub": {
+      "name": "روابط التواصل",
+      "whatsapp": "واتساب",
+      "instagram": "انستجرام",
+      "tiktok": "تيكتوك",
+      "snapchat": "سناب شات",
+      "facebook": "فيسبوك",
+      "threads": "ثريدز",
+      "shop": "تسوقي الآن"
+    },
     "cart_drawer": { "name": "درج السلة" }
   },
   "404": {

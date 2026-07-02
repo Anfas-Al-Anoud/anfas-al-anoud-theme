@@ -104,6 +104,8 @@
     "bestsellers": {
       "type": "featured-collection",
       "settings": {
+        "heading": "الأكثر مبيعًا",
+        "subheading": "هذي أكثر المنتجات اللي حبوها البنات ورجعوا طلبوها مرة ثانية.. جربيها وما بتندمين.",
         "collection": "best-sellers"
       }
     },

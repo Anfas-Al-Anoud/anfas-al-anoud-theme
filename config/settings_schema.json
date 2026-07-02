@@ -37,10 +37,16 @@
     "name": "t:general.typography",
     "settings": [
       {
-        "type": "font_picker",
-        "id": "type_primary_font",
-        "default": "assistant_n4",
-        "label": "t:general.primary"
+        "type": "select",
+        "id": "arabic_font_family",
+        "label": "t:labels.arabic_font",
+        "info": "t:settings.typography.arabic_font_info",
+        "default": "noto_sans",
+        "options": [
+          { "value": "noto_sans", "label": "Noto Sans Arabic" },
+          { "value": "ibm_plex", "label": "IBM Plex Sans Arabic" },
+          { "value": "cairo", "label": "Cairo" }
+        ]
       }
     ]
   },

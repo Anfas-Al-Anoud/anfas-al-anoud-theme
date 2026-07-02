@@ -46,7 +46,8 @@
     "foreground": "Foreground",
     "input_corner_radius": "Input corner radius",
     "customer_account_menu": "Customer account menu",
-    "show_payment_icons": "Show payment icons"
+    "show_payment_icons": "Show payment icons",
+    "arabic_font": "Arabic font"
   },
   "options": {
     "page_width": {
@@ -71,6 +72,9 @@
     },
     "social": {
       "name": "Social media"
+    },
+    "typography": {
+      "arabic_font_info": "Noto Sans Arabic and IBM Plex Sans Arabic are loaded via Google Fonts CDN because they are not available in Shopify's font picker."
     }
   },
   "sections": {
@@ -85,7 +89,16 @@
     "faq_accordion": { "name": "FAQ" },
     "trust_features": { "name": "Trust features" },
     "ai_quiz": { "name": "AI quiz assistant" },
-    "link_hub": { "name": "Link hub" },
+    "link_hub": {
+      "name": "Link hub",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "snapchat": "Snapchat",
+      "facebook": "Facebook",
+      "threads": "Threads",
+      "shop": "Shop now"
+    },
     "cart_drawer": { "name": "Cart drawer" }
   },
   "404": {

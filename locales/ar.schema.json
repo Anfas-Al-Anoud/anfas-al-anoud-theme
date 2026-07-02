@@ -47,6 +47,7 @@
     "page_margin": "هامش الصفحة",
     "page_width": "عرض الصفحة",
     "show_payment_icons": "عرض أيقونات الدفع",
+    "arabic_font": "خط عربي",
     "text_style": "نمط النص",
     "text": "نص"
   },
@@ -91,6 +92,9 @@
     },
     "social": {
       "name": "وسائل التواصل"
+    },
+    "typography": {
+      "arabic_font_info": "Noto Sans Arabic و IBM Plex Sans Arabic غير متوفرين في font picker لـ Shopify، لذلك نحمّلهما عبر Google Fonts CDN."
     }
   },
   "sections": {

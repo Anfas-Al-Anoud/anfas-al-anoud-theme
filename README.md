@@ -8,20 +8,21 @@
 - حساب Shopify Partner أو متجر
 - Ruby (لـ Theme Check)
 
-## التثبيت
+## CI/CD — GitHub ↔ Shopify Sync
+
+**قواعد إلزامية:**
+
+1. **المزامنة اللحظية:** `git push origin main` يُطبّق التغييرات على المتجر تلقائيًا عبر GitHub integration.
+2. **ممنوع:** لا تستخدم `shopify theme push` — يتسبب بتضارب مع المزامنة.
+3. **Releases:** بعد كل تحديث رئيسي:
+   ```bash
+   gh release create v1.0.x --title "عنوان التحديث" --generate-notes
+   ```
+
+## التطوير المحلي
 
 ```bash
-cd "C:\Projects\Cursor\متجر أنفاس العنود"
 shopify theme dev
-```
-
-## ربط GitHub
-
-المستودع: `Anfas-Al-Anoud/anfas-al-anoud-theme`
-
-```bash
-git remote add origin https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme.git
-git push -u origin main
 ```
 
 ## استيراد المنتجات

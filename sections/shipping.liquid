@@ -1,0 +1,26 @@
+<article class="page-content section-padding">
+  <div class="page-content__inner">
+    <h1 class="page-content__title">الشحن والتوصيل</h1>
+    <div class="page-content__body rte">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% else %}
+        <p>نوصل لجميع إمارات الدولة — توصيل سريع لباب البيت.</p>
+        <p>الشحن المجاني متوفر للطلبات فوق الحد المحدد في المتجر.</p>
+      {% endif %}
+    </div>
+  </div>
+</article>
+
+{% stylesheet %}
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shipping",
+  "class": "shipping-section",
+  "settings": []
+}
+{% endschema %}

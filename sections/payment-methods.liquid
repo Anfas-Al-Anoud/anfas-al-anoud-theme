@@ -1,0 +1,32 @@
+<article class="page-content section-padding">
+  <div class="page-content__inner">
+    <h1 class="page-content__title">دفعي باللي يريّحج</h1>
+    <div class="page-content__body rte">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% else %}
+        <p>نوفر لج طرق دفع آمنة ومريحة:</p>
+        <ul>
+          <li>بطاقات Visa / Mastercard</li>
+          <li>Apple Pay</li>
+          <li>تابي — تقسيط بدون فوائد</li>
+          <li>تمارا — ادفعي على دفعات</li>
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</article>
+
+{% stylesheet %}
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
+  .page-content__body ul { padding-inline-start: 1.5rem; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Payment methods",
+  "class": "payment-methods-section",
+  "settings": []
+}
+{% endschema %}

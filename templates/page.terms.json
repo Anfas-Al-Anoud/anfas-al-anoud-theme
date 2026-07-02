@@ -1,9 +1,4 @@
 {
-  "sections": {
-    "main": {
-      "type": "page",
-      "settings": {}
-    }
-  },
+  "sections": { "main": { "type": "terms", "settings": {} } },
   "order": ["main"]
 }

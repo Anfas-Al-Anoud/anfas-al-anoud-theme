@@ -1,0 +1,111 @@
+{
+  "general": {
+    "404": "Not found",
+    "article": "Article",
+    "block": "Block",
+    "blog": "Blog",
+    "cart": "Cart",
+    "collection": "Collection",
+    "collections": "Collections",
+    "collection_card": "Collection card",
+    "collections_grid": "Collections grid",
+    "colors": "Colors",
+    "column": "Column",
+    "content": "Content",
+    "custom_section": "Custom section",
+    "fonts": "Fonts",
+    "footer": "Footer",
+    "group": "Group",
+    "header": "Header",
+    "layout": "Layout",
+    "main": "Main",
+    "page": "Page",
+    "password": "Password",
+    "primary": "Primary",
+    "product": "Product",
+    "row": "Row",
+    "search": "Search",
+    "secondary": "Secondary",
+    "section": "Section",
+    "settings": "Settings",
+    "sidebar": "Sidebar",
+    "text": "Text",
+    "theme": "Theme",
+    "typography": "Typography"
+  },
+  "labels": {
+    "alignment": "Alignment",
+    "background": "Background",
+    "foreground": "Foreground",
+    "grid_gap": "Grid spacing",
+    "grid_item_width": "Grid item width",
+    "input_corner_radius": "Input corner radius",
+    "layout_direction": "Layout direction",
+    "menu": "Menu",
+    "customer_account_menu": "Customer account menu",
+    "padding": "Padding",
+    "page_margin": "Page margin",
+    "page_width": "Page width",
+    "show_payment_icons": "Show payment icons",
+    "text_style": "Text style",
+    "text": "Text"
+  },
+  "options": {
+    "alignment": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    },
+    "direction": {
+      "horizontal": "Horizontal",
+      "vertical": "Vertical"
+    },
+    "page_width": {
+      "narrow": "Narrow",
+      "wide": "Wide"
+    },
+    "size": {
+      "large": "Large",
+      "small": "Small"
+    },
+    "text_style": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "normal": "Normal text"
+    }
+  },
+  "settings": {
+    "brand": {
+      "name": "Brand",
+      "logo": "Logo",
+      "logo_width": "Logo width",
+      "whatsapp": "WhatsApp number"
+    },
+    "colors": {
+      "palette": "Brand colors"
+    },
+    "cart": {
+      "name": "Cart",
+      "free_shipping_threshold": "Free shipping threshold (AED)",
+      "show_free_shipping_bar": "Show free shipping bar"
+    },
+    "social": {
+      "name": "Social media"
+    }
+  },
+  "sections": {
+    "announcement_bar": { "name": "Announcement bar" },
+    "hero_banner": { "name": "Hero banner" },
+    "category_icons": { "name": "Category icons" },
+    "mood_cards": { "name": "Mood cards" },
+    "featured_collection": { "name": "Featured collection" },
+    "image_with_text": { "name": "Image with text" },
+    "testimonials": { "name": "Testimonials" },
+    "quality_banner": { "name": "Quality banner" },
+    "faq_accordion": { "name": "FAQ" },
+    "trust_features": { "name": "Trust features" },
+    "ai_quiz": { "name": "AI quiz assistant" },
+    "link_hub": { "name": "Link hub" },
+    "cart_drawer": { "name": "Cart drawer" }
+  }
+}

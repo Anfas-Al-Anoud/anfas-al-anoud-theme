@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "link-hub",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

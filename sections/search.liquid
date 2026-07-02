@@ -1,0 +1,76 @@
+<div class="search-page section-padding">
+  <h1 class="section-heading">{{ 'general.search.title' | t }}</h1>
+
+  <form action="{{ routes.search_url }}" method="get" class="search-page__form" role="search">
+    <input
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'general.search.placeholder' | t }}"
+      aria-label="{{ 'general.search.title' | t }}"
+    >
+    <button type="submit" class="btn">بحث</button>
+  </form>
+
+  {% if search.performed %}
+    {% if search.results_count > 0 %}
+      <p class="search-page__count">{{ search.results_count }} نتيجة</p>
+      <div class="search-page__grid">
+        {% for item in search.results %}
+          {% if item.object_type == 'product' %}
+            {% render 'product-card', product: item %}
+          {% else %}
+            <a href="{{ item.url }}" class="search-page__result">{{ item.title }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="search-page__empty">{{ 'general.search.no_results' | t }}</p>
+    {% endif %}
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .search-page__form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 32rem;
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    margin-block-end: 2rem;
+  }
+  .search-page__form input {
+    flex: 1;
+    padding: 0.875rem 1.25rem;
+    border: 1px solid var(--color-sand);
+    border-radius: var(--style-border-radius-inputs);
+  }
+  .search-page__count { text-align: center; margin-block-end: 1.5rem; }
+  .search-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  @media (min-width: 768px) {
+    .search-page__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .search-page__empty { text-align: center; color: #999; }
+  .search-page__result {
+    padding: 1rem;
+    background: var(--color-white);
+    border-radius: var(--style-border-radius-cards);
+    text-decoration: none;
+    color: var(--color-dark);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Search",
+  "class": "search-section",
+  "settings": []
+}
+{% endschema %}

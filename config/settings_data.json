@@ -1,0 +1,22 @@
+{
+  "current": {
+    "type_primary_font": "assistant_n4",
+    "max_page_width": "90rem",
+    "min_page_margin": 20,
+    "colors": {
+      "gold": "#C4A35A",
+      "sand": "#E8D5B7",
+      "cream": "#FAF7F2",
+      "dark": "#3D2B1F",
+      "accent": "#8B6914",
+      "white": "#FFFFFF"
+    },
+    "background_color": "#FAF7F2",
+    "foreground_color": "#3D2B1F",
+    "input_corner_radius": 24,
+    "logo_width": 160,
+    "whatsapp_number": "971503140223",
+    "free_shipping_threshold": 200,
+    "show_free_shipping_bar": true
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "general": {
+    "404": "غير موجود",
+    "article": "مقال",
+    "block": "كتلة",
+    "blog": "مدونة",
+    "cart": "سلة",
+    "collection": "مجموعة",
+    "collections": "المجموعات",
+    "collection_card": "بطاقة مجموعة",
+    "collections_grid": "شبكة المجموعات",
+    "colors": "الألوان",
+    "column": "عمود",
+    "content": "المحتوى",
+    "custom_section": "قسم مخصص",
+    "fonts": "الخطوط",
+    "footer": "التذييل",
+    "group": "مجموعة",
+    "header": "الرأس",
+    "layout": "التخطيط",
+    "main": "رئيسي",
+    "page": "صفحة",
+    "password": "كلمة المرور",
+    "primary": "أساسي",
+    "product": "منتج",
+    "row": "صف",
+    "search": "بحث",
+    "secondary": "ثانوي",
+    "section": "قسم",
+    "settings": "الإعدادات",
+    "sidebar": "الشريط الجانبي",
+    "text": "نص",
+    "theme": "السمة",
+    "typography": "الخطوط"
+  },
+  "labels": {
+    "alignment": "المحاذاة",
+    "background": "الخلفية",
+    "foreground": "النص",
+    "grid_gap": "المسافة بين العناصر",
+    "grid_item_width": "عرض عنصر الشبكة",
+    "input_corner_radius": "انحناء الحواف",
+    "layout_direction": "اتجاه التخطيط",
+    "menu": "القائمة",
+    "customer_account_menu": "قائمة الحساب",
+    "padding": "الحشو",
+    "page_margin": "هامش الصفحة",
+    "page_width": "عرض الصفحة",
+    "show_payment_icons": "عرض أيقونات الدفع",
+    "text_style": "نمط النص",
+    "text": "نص"
+  },
+  "options": {
+    "alignment": {
+      "left": "يسار",
+      "center": "وسط",
+      "right": "يمين"
+    },
+    "direction": {
+      "horizontal": "أفقي",
+      "vertical": "عمودي"
+    },
+    "page_width": {
+      "narrow": "ضيق",
+      "wide": "واسع"
+    },
+    "size": {
+      "large": "كبير",
+      "small": "صغير"
+    },
+    "text_style": {
+      "title": "عنوان",
+      "subtitle": "عنوان فرعي",
+      "normal": "نص عادي"
+    }
+  },
+  "settings": {
+    "brand": {
+      "name": "العلامة التجارية",
+      "logo": "الشعار",
+      "logo_width": "عرض الشعار",
+      "whatsapp": "رقم الواتساب"
+    },
+    "colors": {
+      "palette": "ألوان العلامة"
+    },
+    "cart": {
+      "name": "السلة",
+      "free_shipping_threshold": "حد الشحن المجاني (درهم)",
+      "show_free_shipping_bar": "عرض شريط الشحن المجاني"
+    },
+    "social": {
+      "name": "وسائل التواصل"
+    }
+  },
+  "sections": {
+    "announcement_bar": { "name": "شريط الإعلانات" },
+    "hero_banner": { "name": "بانر رئيسي" },
+    "category_icons": { "name": "الفئات الرئيسية" },
+    "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
+    "featured_collection": { "name": "منتجات مميزة" },
+    "image_with_text": { "name": "صورة مع نص" },
+    "testimonials": { "name": "آراء العملاء" },
+    "quality_banner": { "name": "بانر الجودة" },
+    "faq_accordion": { "name": "الأسئلة الشائعة" },
+    "trust_features": { "name": "مميزات الثقة" },
+    "ai_quiz": { "name": "مساعد العنود" },
+    "link_hub": { "name": "روابط التواصل" },
+    "cart_drawer": { "name": "درج السلة" }
+  }
+}

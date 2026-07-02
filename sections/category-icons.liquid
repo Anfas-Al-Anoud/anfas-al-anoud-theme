@@ -1,0 +1,208 @@
+<section class="category-icons section-padding" data-animate-section>
+  <div class="category-icons__header">
+    <h2 class="section-heading">{{ section.settings.heading }}</h2>
+    {% if section.settings.subheading != blank %}
+      <p class="section-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+  </div>
+
+  <div class="category-icons__track-wrap">
+    <ul class="category-icons__track" role="list">
+      {% for block in section.blocks %}
+        <li class="category-icons__item" {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.link | default: '#' }}" class="category-icons__card">
+            {% if block.settings.icon %}
+              {% render 'image',
+                image: block.settings.icon,
+                alt: block.settings.icon_alt,
+                fallback_alt: block.settings.title,
+                class: 'category-icons__icon',
+                width: 160
+              %}
+            {% else %}
+              {% render 'placeholder-svg',
+                text: block.settings.icon_alt | default: block.settings.title,
+                class: 'category-icons__icon category-icons__placeholder',
+                width: 68,
+                height: 68
+              %}
+            {% endif %}
+            <span class="category-icons__label">{{ block.settings.title }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+  .category-icons__header {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .category-icons__track-wrap {
+    margin-block-start: 1.5rem;
+    padding-inline: var(--page-margin);
+    overflow: hidden;
+  }
+
+  .category-icons__track {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.25rem 0 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .category-icons__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-icons__item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: clamp(8.5rem, 38vw, 11rem);
+  }
+
+  @media (min-width: 768px) {
+    .category-icons__track {
+      max-width: var(--page-width);
+      margin-inline: auto;
+      gap: 1.25rem;
+    }
+
+    .category-icons__item {
+      width: calc((100% - 3.75rem) / 4);
+      min-width: 9.5rem;
+    }
+  }
+
+  .category-icons__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    min-height: 9.5rem;
+    padding: 1.25rem 1rem;
+    text-decoration: none;
+    color: var(--color-dark);
+    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-cream) 100%);
+    border: 1px solid rgba(196, 163, 90, 0.25);
+    border-radius: var(--style-border-radius-cards);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    touch-action: manipulation;
+  }
+
+  .category-icons__card:hover,
+  .category-icons__card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(61, 43, 31, 0.12);
+  }
+
+  .category-icons__icon {
+    width: 4.25rem;
+    height: 4.25rem;
+    object-fit: contain;
+  }
+
+  .category-icons__placeholder {
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .category-icons__label {
+    font-weight: 700;
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.category_icons.name",
+  "class": "category-icons-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "العنوان",
+      "default": "اختاري فئتج المفضلة"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "النص الفرعي",
+      "default": "اسحبي يمين ويسار لاستكشاف مجموعات أنفاس العنود"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "فئة",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "الأيقونة" },
+        {
+          "type": "text",
+          "id": "icon_alt",
+          "label": "نص alt للأيقونة (مطلوب)",
+          "default": "أيقونة الفئة",
+          "info": "مطلوب عند رفع أيقونة. لا تتركي الحقل فارغًا."
+        },
+        { "type": "text", "id": "title", "label": "العنوان", "default": "فئة" },
+        { "type": "url", "id": "link", "label": "الرابط" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.category_icons.name",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "دخون السنع",
+            "icon_alt": "أيقونة دخون السنع",
+            "link": "/collections/dokhoon-al-san3"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "عطور الكشخة",
+            "icon_alt": "أيقونة عطور الكشخة",
+            "link": "/collections/perfumes"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "دلع وعناية",
+            "icon_alt": "أيقونة دلع وعناية",
+            "link": "/collections/care"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "بوكسات الزين",
+            "icon_alt": "أيقونة بوكسات الزين",
+            "link": "/collections/gift-boxes"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,87 @@
+/** Anfas Al-Anoud theme styles */
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: -9999px;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  background: var(--color-dark);
+  color: var(--color-white);
+}
+
+.skip-link:focus {
+  inset-inline-start: 1rem;
+  top: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  border: none;
+  border-radius: var(--style-border-radius-buttons);
+  background: var(--color-gold);
+  color: var(--color-white);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-base), transform var(--transition-base);
+}
+
+.btn:hover {
+  background: var(--color-accent);
+}
+
+.btn--outline {
+  background: transparent;
+  border: 2px solid var(--color-gold);
+  color: var(--color-dark);
+}
+
+.btn--outline:hover {
+  background: var(--color-gold);
+  color: var(--color-white);
+}
+
+.section-heading {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-block-end: 0.75rem;
+  text-align: center;
+}
+
+.section-subheading {
+  font-size: 1rem;
+  color: var(--color-accent);
+  text-align: center;
+  margin-block-end: 2rem;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

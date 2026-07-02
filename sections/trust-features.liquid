@@ -1,0 +1,92 @@
+<section class="trust-features section-padding" data-animate-section>
+  <div class="trust-features__grid">
+    {% for block in section.blocks %}
+      <div class="trust-features__item" {{ block.shopify_attributes }}>
+        <div class="trust-features__icon" aria-hidden="true">
+          {% case block.settings.icon %}
+            {% when 'delivery' %}
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M1 3h15v13H1V3zm16 8h3l3 3v2h-6v-5zm-1 5a2 2 0 100 4 2 2 0 000-4zM5 21a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.5"/></svg>
+            {% when 'payment' %}
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.5"/></svg>
+            {% when 'quality' %}
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7l3-7z" stroke="currentColor" stroke-width="1.5"/></svg>
+            {% else %}
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 015 5c0 3.5-5 9-5 9s-5-5.5-5-9a5 5 0 015-5z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+          {% endcase %}
+        </div>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .trust-features__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  @media (min-width: 768px) {
+    .trust-features__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .trust-features__item {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--color-white);
+    border-radius: var(--style-border-radius-cards);
+    box-shadow: var(--shadow-soft);
+  }
+  .trust-features__icon {
+    color: var(--color-gold);
+    margin-block-end: 0.75rem;
+    display: flex;
+    justify-content: center;
+  }
+  .trust-features__item p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--color-dark);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.trust_features.name",
+  "class": "trust-features-section",
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "ميزة",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "الأيقونة",
+          "options": [
+            { "value": "delivery", "label": "توصيل" },
+            { "value": "payment", "label": "دفع" },
+            { "value": "quality", "label": "جودة" },
+            { "value": "support", "label": "دعم" }
+          ],
+          "default": "delivery"
+        },
+        { "type": "textarea", "id": "text", "label": "النص" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.trust_features.name",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "delivery", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
+        { "type": "feature", "settings": { "icon": "payment", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
+        { "type": "feature", "settings": { "icon": "quality", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
+        { "type": "feature", "settings": { "icon": "support", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

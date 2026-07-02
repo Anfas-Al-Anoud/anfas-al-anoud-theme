@@ -1,0 +1,14 @@
+extends: theme-check:recommended
+
+ignore:
+  - scripts/**
+  - "Google AI Pro/**"
+  - Logo/**
+  - .github/**
+  - "*.csv"
+  - "*.md"
+  - "*.log"
+  - "*.mjs"
+  - "*.py"
+  - gemini-code-*.json
+  - "Anfas AL-Anoud Theme/**"

@@ -1,0 +1,136 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "image_alt": "صورة للمنتجات من الأعلى - أنفاس العنود",
+        "heading": "عيشي جوج.. وخلج غير عنهم",
+        "text": "تميزي بخلطات ما تتقلد، تعطيج حضورًا قويًا وتلفت الانتباه",
+        "button_label": "تسوقي الآن",
+        "button_link": "/collections/all"
+      }
+    },
+    "categories": {
+      "type": "category-icons",
+      "settings": {
+        "heading": "اختاري فئتج المفضلة",
+        "subheading": "اسحبي يمين ويسار لاستكشاف مجموعات أنفاس العنود"
+      },
+      "blocks": {
+        "cat1": {
+          "type": "category",
+          "settings": {
+            "title": "دخون السنع",
+            "icon_alt": "أيقونة دخون السنع",
+            "link": "/collections/dokhoon-al-san3"
+          }
+        },
+        "cat2": {
+          "type": "category",
+          "settings": {
+            "title": "عطور الكشخة",
+            "icon_alt": "أيقونة عطور الكشخة",
+            "link": "/collections/perfumes"
+          }
+        },
+        "cat3": {
+          "type": "category",
+          "settings": {
+            "title": "دلع وعناية",
+            "icon_alt": "أيقونة دلع وعناية",
+            "link": "/collections/care"
+          }
+        },
+        "cat4": {
+          "type": "category",
+          "settings": {
+            "title": "بوكسات الزين",
+            "icon_alt": "أيقونة بوكسات الزين",
+            "link": "/collections/gift-boxes"
+          }
+        }
+      },
+      "block_order": ["cat1", "cat2", "cat3", "cat4"]
+    },
+    "mood": {
+      "type": "mood-cards",
+      "settings": {
+        "heading": "اختاري اللي يلوق على جوج"
+      },
+      "blocks": {
+        "m1": {
+          "type": "mood",
+          "settings": {
+            "title": "حق الدوام والطلعات",
+            "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم.",
+            "image_alt": "بطاقة حق الدوام والطلعات"
+          }
+        },
+        "m2": {
+          "type": "mood",
+          "settings": {
+            "title": "الدلع والشاور",
+            "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج.",
+            "image_alt": "بطاقة الدلع والشاور"
+          }
+        },
+        "m3": {
+          "type": "mood",
+          "settings": {
+            "title": "فخامة الميلس والمواجيب",
+            "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح.",
+            "image_alt": "بطاقة فخامة الميلس والمواجيب"
+          }
+        },
+        "m4": {
+          "type": "mood",
+          "settings": {
+            "title": "للسهرات والعزايم",
+            "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟",
+            "image_alt": "بطاقة للسهرات والعزايم"
+          }
+        },
+        "m5": {
+          "type": "mood",
+          "settings": {
+            "title": "زْهبة العروس",
+            "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال.",
+            "image_alt": "بطاقة زهبة العروس"
+          }
+        }
+      },
+      "block_order": ["m1", "m2", "m3", "m4", "m5"]
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "best-sellers"
+      }
+    },
+    "gifts": {
+      "type": "image-with-text",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "quality": {
+      "type": "quality-banner",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-features",
+      "settings": {}
+    },
+    "quiz": {
+      "type": "ai-quiz",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "categories", "mood", "bestsellers", "gifts", "testimonials", "quality", "faq", "trust", "quiz"]
+}

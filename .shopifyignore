@@ -1,0 +1,13 @@
+# Non-theme project files (repo root holds theme + setup assets)
+scripts/**
+Google AI Pro/**
+Logo/**
+.github/**
+*.csv
+SETUP.md
+CLAUDE.md
+AGENTS.md
+copilot-instructions.md
+setup-report.log
+gemini-code-*.json
+Anfas AL-Anoud Theme/**

@@ -1,0 +1,64 @@
+{% doc %}
+  Inline SVG placeholder with brand gradient and Arabic label.
+  @param {string} [text] - Placeholder label
+  @param {number} [width] - SVG width
+  @param {number} [height] - SVG height
+  @param {string} [class] - CSS class on root SVG
+{% enddoc %}
+
+{% liquid
+  assign placeholder_text = text | default: 'مكان الصورة'
+  assign svg_width = width | default: 800
+  assign svg_height = height | default: 600
+  assign svg_class = class | default: 'placeholder-svg'
+%}
+
+<svg
+  class="{{ svg_class }}"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 800 600"
+  width="{{ svg_width }}"
+  height="{{ svg_height }}"
+  role="img"
+  aria-label="{{ placeholder_text | escape }}"
+  preserveAspectRatio="xMidYMid slice"
+>
+  <defs>
+    <linearGradient id="placeholder-gradient-{{ placeholder_text | handleize }}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8DCC8"/>
+      <stop offset="45%" stop-color="#C4A35A"/>
+      <stop offset="100%" stop-color="#3D2B1F"/>
+    </linearGradient>
+    <radialGradient id="placeholder-glow-{{ placeholder_text | handleize }}" cx="75%" cy="25%" r="55%">
+      <stop offset="0%" stop-color="rgba(196, 163, 90, 0.45)"/>
+      <stop offset="100%" stop-color="rgba(196, 163, 90, 0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#placeholder-gradient-{{ placeholder_text | handleize }})"/>
+  <rect width="800" height="600" fill="url(#placeholder-glow-{{ placeholder_text | handleize }})"/>
+  <rect x="48" y="48" width="704" height="504" rx="24" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2" stroke-dasharray="10 8"/>
+  <text
+    x="400"
+    y="300"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="rgba(255,255,255,0.92)"
+    font-family="'Noto Sans Arabic', 'Tajawal', sans-serif"
+    font-size="28"
+    font-weight="700"
+  >
+    {{ placeholder_text | escape }}
+  </text>
+  <text
+    x="400"
+    y="345"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="rgba(232, 220, 200, 0.85)"
+    font-family="'Noto Sans Arabic', 'Tajawal', sans-serif"
+    font-size="16"
+    font-weight="500"
+  >
+    أنفاس العنود
+  </text>
+</svg>

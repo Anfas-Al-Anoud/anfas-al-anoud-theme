@@ -1,0 +1,101 @@
+{% doc %}
+  Product card for collection grids and carousels.
+  @param {object} product - Product object
+  @param {boolean} [show_wishlist] - Show wishlist button
+{% enddoc %}
+
+<article class="product-card" data-product-id="{{ product.id }}">
+  <a href="{{ product.url }}" class="product-card__link">
+    <div class="product-card__media">
+      {% if product.featured_image %}
+        {% render 'image',
+          image: product.featured_image,
+          alt: product.featured_image.alt | default: product.title,
+          fallback_alt: product.title,
+          class: 'product-card__image',
+          width: 600
+        %}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+      {% endif %}
+      {% if product.compare_at_price > product.price %}
+        <span class="product-card__badge">عرض</span>
+      {% endif %}
+    </div>
+    <div class="product-card__info">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__price">
+        {% if product.compare_at_price > product.price %}
+          <s class="product-card__compare">{{ product.compare_at_price | money }}</s>
+        {% endif %}
+        <span class="product-card__current">{{ product.price | money }}</span>
+      </div>
+    </div>
+  </a>
+  {% if show_wishlist != false %}
+    {% render 'wishlist-button', product: product %}
+  {% endif %}
+</article>
+
+{% stylesheet %}
+  .product-card {
+    position: relative;
+    border-radius: var(--style-border-radius-cards);
+    overflow: hidden;
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base);
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
+  .product-card__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .product-card__media {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--color-sand);
+  }
+  .product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .product-card__badge {
+    position: absolute;
+    top: 0.75rem;
+    inset-inline-start: 0.75rem;
+    background: var(--color-gold);
+    color: var(--color-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--style-border-radius-buttons);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .product-card__info {
+    padding: 1rem;
+  }
+  .product-card__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-block-end: 0.5rem;
+    line-height: 1.4;
+  }
+  .product-card__price {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .product-card__compare {
+    color: #999;
+    font-size: 0.85rem;
+  }
+  .product-card__current {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+{% endstylesheet %}

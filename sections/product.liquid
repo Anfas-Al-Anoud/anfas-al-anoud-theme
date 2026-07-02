@@ -1,0 +1,145 @@
+<div class="product-page section-padding">
+  <div class="product-page__inner">
+    <div class="product-page__gallery">
+      {% if product.media.size > 0 %}
+        <div class="product-page__main-image">
+          {% render 'image',
+            image: product.featured_media,
+            alt: product.featured_media.alt | default: product.title,
+            fallback_alt: product.title,
+            width: 900,
+            loading: 'eager'
+          %}
+        </div>
+        {% if product.media.size > 1 %}
+          <div class="product-page__thumbs">
+            {% for media in product.media limit: 5 %}
+              <button type="button" class="product-page__thumb" data-media-id="{{ media.id }}">
+                {% render 'image', image: media, alt: media.alt | default: product.title, width: 100 %}
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="product-page__info">
+      <h1 class="product-page__title">{{ product.title }}</h1>
+      <div class="product-page__price">
+        {% if product.compare_at_price > product.price %}
+          <s>{{ product.compare_at_price | money }}</s>
+        {% endif %}
+        <span class="product-page__current">{{ product.price | money }}</span>
+      </div>
+
+      <div class="product-page__description rte">
+        {{ product.description }}
+      </div>
+
+      {% form 'product', product, id: 'product-form', class: 'product-page__form' %}
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <div class="product-page__option">
+              <label for="Option-{{ forloop.index }}">{{ option.name }}</label>
+              <select id="Option-{{ forloop.index }}" name="options[{{ option.name | escape }}]">
+                {% for value in option.values %}
+                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endfor %}
+        {% endunless %}
+
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        <div class="product-page__quantity">
+          <label for="Quantity">{{ 'general.product.quantity' | t }}</label>
+          <input type="number" id="Quantity" name="quantity" value="1" min="1">
+        </div>
+
+        <button
+          type="submit"
+          class="btn product-page__add"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {% if product.available %}
+            {{ 'general.product.add_to_cart' | t }}
+          {% else %}
+            {{ 'general.product.sold_out' | t }}
+          {% endif %}
+        </button>
+      {% endform %}
+
+      <div class="product-page__wishlist">
+        {% render 'wishlist-button', product: product %}
+      </div>
+    </div>
+  </div>
+
+  <div class="product-page__sticky-atc" data-sticky-atc hidden>
+    <span>{{ product.title }}</span>
+    <span>{{ product.price | money }}</span>
+    <button type="button" class="btn" data-sticky-add>{{ 'general.product.add_to_cart' | t }}</button>
+  </div>
+</div>
+
+{% stylesheet %}
+  .product-page__inner {
+    display: grid;
+    gap: 2rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  @media (min-width: 768px) {
+    .product-page__inner { grid-template-columns: 1fr 1fr; }
+  }
+  .product-page__main-image img { border-radius: var(--style-border-radius-cards); width: 100%; }
+  .product-page__thumbs { display: flex; gap: 0.5rem; margin-block-start: 0.75rem; }
+  .product-page__thumb {
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+  }
+  .product-page__thumb.is-active { border-color: var(--color-gold); }
+  .product-page__title { font-size: clamp(1.5rem, 4vw, 2rem); margin-block-end: 0.75rem; }
+  .product-page__price { display: flex; gap: 0.75rem; align-items: center; margin-block-end: 1.5rem; font-size: 1.25rem; }
+  .product-page__current { color: var(--color-accent); font-weight: 700; }
+  .product-page__description { line-height: 1.8; margin-block-end: 1.5rem; }
+  .product-page__option { margin-block-end: 1rem; }
+  .product-page__option label { display: block; font-weight: 600; margin-block-end: 0.35rem; }
+  .product-page__option select { width: 100%; padding: 0.75rem; border: 1px solid var(--color-sand); }
+  .product-page__quantity { margin-block-end: 1rem; }
+  .product-page__quantity input { width: 5rem; padding: 0.5rem; border: 1px solid var(--color-sand); }
+  .product-page__add { width: 100%; margin-block-end: 1rem; }
+  .product-page__wishlist { position: relative; display: inline-block; }
+  .product-page__wishlist .wishlist-btn { position: static; margin-block-start: 0.5rem; }
+  .product-page__sticky-atc {
+    position: fixed;
+    bottom: 0;
+    inset-inline: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem var(--page-margin);
+    background: var(--color-white);
+    border-block-start: 1px solid var(--color-sand);
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    z-index: 80;
+  }
+  @media (min-width: 768px) {
+    .product-page__sticky-atc { display: none !important; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product",
+  "class": "product-section",
+  "settings": []
+}
+{% endschema %}

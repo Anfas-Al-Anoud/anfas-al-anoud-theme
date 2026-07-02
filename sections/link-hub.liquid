@@ -30,35 +30,35 @@
 
       {% if settings.social_instagram != blank %}
         <a href="{{ settings.social_instagram }}" class="link-hub__card" target="_blank" rel="noopener noreferrer">
-          <span class="link-hub__label">IG</span>
+          <span class="link-hub__icon" aria-hidden="true">{{ 'icon-instagram.svg' | inline_asset_content }}</span>
           <span>{{ 'sections.link_hub.instagram' | t }}</span>
         </a>
       {% endif %}
 
       {% if settings.social_tiktok != blank %}
         <a href="{{ settings.social_tiktok }}" class="link-hub__card" target="_blank" rel="noopener noreferrer">
-          <span class="link-hub__label">TT</span>
+          <span class="link-hub__icon" aria-hidden="true">{{ 'icon-tiktok.svg' | inline_asset_content }}</span>
           <span>{{ 'sections.link_hub.tiktok' | t }}</span>
         </a>
       {% endif %}
 
       {% if settings.social_snapchat != blank %}
         <a href="{{ settings.social_snapchat }}" class="link-hub__card" target="_blank" rel="noopener noreferrer">
-          <span class="link-hub__label">SC</span>
+          <span class="link-hub__icon" aria-hidden="true">{{ 'icon-snapchat.svg' | inline_asset_content }}</span>
           <span>{{ 'sections.link_hub.snapchat' | t }}</span>
         </a>
       {% endif %}
 
       {% if settings.social_facebook != blank %}
         <a href="{{ settings.social_facebook }}" class="link-hub__card" target="_blank" rel="noopener noreferrer">
-          <span class="link-hub__label">FB</span>
+          <span class="link-hub__icon" aria-hidden="true">{{ 'icon-facebook.svg' | inline_asset_content }}</span>
           <span>{{ 'sections.link_hub.facebook' | t }}</span>
         </a>
       {% endif %}
 
       {% if settings.social_threads != blank %}
         <a href="{{ settings.social_threads }}" class="link-hub__card" target="_blank" rel="noopener noreferrer">
-          <span class="link-hub__label">TH</span>
+          <span class="link-hub__icon" aria-hidden="true">{{ 'icon-threads.svg' | inline_asset_content }}</span>
           <span>{{ 'sections.link_hub.threads' | t }}</span>
         </a>
       {% endif %}
@@ -114,20 +114,17 @@
     color: var(--color-white);
   }
   .link-hub__card img { width: 2.5rem; height: 2.5rem; object-fit: contain; }
-  .link-hub__icon svg { width: 2.5rem; height: 2.5rem; }
-  .link-hub__label {
+  .link-hub__icon {
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: var(--color-cream);
-    font-size: 0.75rem;
-    font-weight: 700;
     flex-shrink: 0;
+    color: var(--color-dark);
   }
-  .link-hub__card:hover .link-hub__label { background: rgba(255, 255, 255, 0.25); color: var(--color-white); }
+  .link-hub__icon svg { width: 1.75rem; height: 1.75rem; display: block; }
+  .link-hub__card:hover .link-hub__icon { color: var(--color-white); }
 {% endstylesheet %}
 
 {% schema %}

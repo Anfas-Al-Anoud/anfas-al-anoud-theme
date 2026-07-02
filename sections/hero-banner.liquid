@@ -1,15 +1,7 @@
 <section class="hero-banner" data-animate-section>
   <div class="hero-banner__frame">
     <div class="hero-banner__media" aria-hidden="true">
-      {% if section.settings.image_desktop_url != blank %}
-        {% render 'external-image',
-          url: section.settings.image_desktop_url,
-          alt: section.settings.image_alt,
-          class: 'hero-banner__image hero-banner__image--desktop',
-          width: 1920,
-          loading: 'eager'
-        %}
-      {% elsif section.settings.image_desktop %}
+      {% if section.settings.image_desktop %}
         {% render 'image',
           image: section.settings.image_desktop,
           alt: section.settings.image_alt,
@@ -19,22 +11,18 @@
           loading: 'eager'
         %}
       {% else %}
-        {% render 'placeholder-svg',
-          text: section.settings.image_alt,
-          class: 'hero-banner__image hero-banner__image--desktop hero-banner__placeholder',
-          width: '100%',
-          height: '100%'
+        {% liquid
+          assign desktop_asset = section.settings.image_desktop_asset | default: 'hero-banner-desktop.jpg'
         %}
-      {% endif %}
-      {% if section.settings.image_mobile_url != blank %}
-        {% render 'external-image',
-          url: section.settings.image_mobile_url,
+        {% render 'theme-asset-image',
+          asset: desktop_asset,
           alt: section.settings.image_alt,
-          class: 'hero-banner__image hero-banner__image--mobile',
-          width: 900,
+          class: 'hero-banner__image hero-banner__image--desktop',
+          width: 1920,
           loading: 'eager'
         %}
-      {% elsif section.settings.image_mobile %}
+      {% endif %}
+      {% if section.settings.image_mobile %}
         {% render 'image',
           image: section.settings.image_mobile,
           alt: section.settings.image_alt,
@@ -43,14 +31,6 @@
           width: 900,
           loading: 'eager'
         %}
-      {% elsif section.settings.image_desktop_url != blank %}
-        {% render 'external-image',
-          url: section.settings.image_desktop_url,
-          alt: section.settings.image_alt,
-          class: 'hero-banner__image hero-banner__image--mobile',
-          width: 900,
-          loading: 'eager'
-        %}
       {% elsif section.settings.image_desktop %}
         {% render 'image',
           image: section.settings.image_desktop,
@@ -61,11 +41,15 @@
           loading: 'eager'
         %}
       {% else %}
-        {% render 'placeholder-svg',
-          text: section.settings.image_alt,
-          class: 'hero-banner__image hero-banner__image--mobile hero-banner__placeholder',
-          width: '100%',
-          height: '100%'
+        {% liquid
+          assign mobile_asset = section.settings.image_mobile_asset | default: 'hero-banner-mobile.jpg'
+        %}
+        {% render 'theme-asset-image',
+          asset: mobile_asset,
+          alt: section.settings.image_alt,
+          class: 'hero-banner__image hero-banner__image--mobile',
+          width: 900,
+          loading: 'eager'
         %}
       {% endif %}
       <div class="hero-banner__veil"></div>
@@ -208,14 +192,16 @@
     },
     {
       "type": "text",
-      "id": "image_desktop_url",
-      "label": "رابط صورة الديسكتوب (CDN)",
-      "info": "يُستخدم تلقائيًا من Git إذا لم تُرفع صورة من المحرر."
+      "id": "image_desktop_asset",
+      "label": "ملف صورة الديسكتوب (assets/)",
+      "default": "hero-banner-desktop.jpg",
+      "info": "صورة سياقية من مجلد assets — ليست صورة منتج."
     },
     {
       "type": "text",
-      "id": "image_mobile_url",
-      "label": "رابط صورة الجوال (CDN)"
+      "id": "image_mobile_asset",
+      "label": "ملف صورة الجوال (assets/)",
+      "default": "hero-banner-mobile.jpg"
     },
     {
       "type": "text",

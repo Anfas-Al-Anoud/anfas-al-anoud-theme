@@ -1,10 +1,10 @@
 <section class="ai-quiz section-padding" id="ai-quiz" data-animate-section>
   <div class="ai-quiz__inner">
     <div class="ai-quiz__intro">
-      {% if section.settings.avatar_url != blank %}
-        {% render 'external-image', url: section.settings.avatar_url, alt: section.settings.avatar_alt, class: 'ai-quiz__avatar', width: 120, loading: 'eager' %}
-      {% elsif section.settings.avatar %}
+      {% if section.settings.avatar %}
         {% render 'image', image: section.settings.avatar, alt: section.settings.avatar_alt, fallback_alt: section.settings.heading, class: 'ai-quiz__avatar', width: 120 %}
+      {% elsif section.settings.avatar_asset != blank %}
+        {% render 'theme-asset-image', asset: section.settings.avatar_asset, alt: section.settings.avatar_alt, class: 'ai-quiz__avatar', width: 120, loading: 'eager' %}
       {% else %}
         {% render 'placeholder-svg',
           text: section.settings.avatar_alt | default: 'العنود',
@@ -155,7 +155,7 @@
   "class": "ai-quiz-section",
   "settings": [
     { "type": "image_picker", "id": "avatar", "label": "صورة العنود (anoud-avatar.png)" },
-    { "type": "text", "id": "avatar_url", "label": "رابط صورة العنود (CDN)" },
+    { "type": "text", "id": "avatar_asset", "label": "ملف صورة العنود (assets/)", "default": "anoud-avatar.jpg" },
     {
       "type": "text",
       "id": "avatar_alt",

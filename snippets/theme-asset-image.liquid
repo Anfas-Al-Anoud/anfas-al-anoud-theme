@@ -1,0 +1,18 @@
+{% doc %}
+  Renders image from theme assets/ folder by filename.
+  @param {string} asset - Filename in assets/ e.g. hero-banner-desktop.jpg
+  @param {string} [alt]
+  @param {string} [class]
+  @param {number} [width]
+  @param {string} [loading]
+{% enddoc %}
+
+{% if asset != blank %}
+  {% render 'external-image',
+    url: asset | asset_url,
+    alt: alt,
+    class: class,
+    width: width,
+    loading: loading
+  %}
+{% endif %}

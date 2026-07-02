@@ -12,8 +12,8 @@
     "hero": {
       "type": "hero-banner",
       "settings": {
-        "image_desktop_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/028825b182a4bc301603fb840395b415.png?width=1920",
-        "image_mobile_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/028825b182a4bc301603fb840395b415.png?width=1080",
+        "image_desktop_asset": "hero-banner-desktop.jpg",
+        "image_mobile_asset": "hero-banner-mobile.jpg",
         "image_alt": "صورة للمنتجات من الأعلى - أنفاس العنود",
         "heading": "عيشي جوج.. وخلج غير عنهم",
         "text": "تميزي بخلطات ما تتقلد، تعطيج حضورًا قويًا وتلفت الانتباه",
@@ -33,7 +33,7 @@
           "settings": {
             "title": "دخون السنع",
             "icon_alt": "أيقونة دخون السنع",
-            "icon_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/028825b182a4bc301603fb840395b415.png?width=640",
+            "icon_asset": "category-icon-dokhoon.jpg",
             "link": "/collections/dokhoon-al-san3"
           }
         },
@@ -42,7 +42,7 @@
           "settings": {
             "title": "عطور الكشخة",
             "icon_alt": "أيقونة عطور الكشخة",
-            "icon_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/Ateeq.png?width=640",
+            "icon_asset": "category-icon-perfumes.jpg",
             "link": "/collections/perfumes"
           }
         },
@@ -51,7 +51,7 @@
           "settings": {
             "title": "دلع وعناية",
             "icon_alt": "أيقونة دلع وعناية",
-            "icon_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/4aff02f3af87b9494d6aa33407a602b8.png?width=640",
+            "icon_asset": "category-icon-care.jpg",
             "link": "/collections/care"
           }
         },
@@ -60,7 +60,7 @@
           "settings": {
             "title": "بوكسات الزين",
             "icon_alt": "أيقونة بوكسات الزين",
-            "icon_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/675cf5e2ba09fb39a0eca8f682b5604f.png?width=640",
+            "icon_asset": "category-icon-gift-boxes.jpg",
             "link": "/collections/gift-boxes"
           }
         }
@@ -79,7 +79,7 @@
             "title": "حق الدوام والطلعات",
             "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم.",
             "image_alt": "بطاقة حق الدوام والطلعات",
-            "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/Ateeq.png?width=800"
+            "image_asset": "mood-card-1-work.jpg"
           }
         },
         "m2": {
@@ -88,7 +88,7 @@
             "title": "الدلع والشاور",
             "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج.",
             "image_alt": "بطاقة الدلع والشاور",
-            "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/4aff02f3af87b9494d6aa33407a602b8.png?width=800"
+            "image_asset": "mood-card-2-shower.jpg"
           }
         },
         "m3": {
@@ -97,7 +97,7 @@
             "title": "فخامة الميلس والمواجيب",
             "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح.",
             "image_alt": "بطاقة فخامة الميلس والمواجيب",
-            "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/028825b182a4bc301603fb840395b415.png?width=800"
+            "image_asset": "mood-card-3-majlis.jpg"
           }
         },
         "m4": {
@@ -106,7 +106,7 @@
             "title": "للسهرات والعزايم",
             "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟",
             "image_alt": "بطاقة للسهرات والعزايم",
-            "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/887d0f4ab5f0e26468fd5b37e49fca1e.png?width=800"
+            "image_asset": "mood-card-4-evening.jpg"
           }
         },
         "m5": {
@@ -115,7 +115,7 @@
             "title": "زْهبة العروس",
             "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال.",
             "image_alt": "بطاقة زهبة العروس",
-            "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/675cf5e2ba09fb39a0eca8f682b5604f.png?width=800"
+            "image_asset": "mood-card-5-bride.jpg"
           }
         }
       },
@@ -132,7 +132,7 @@
     "gifts": {
       "type": "image-with-text",
       "settings": {
-        "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/028825b182a4bc301603fb840395b415.png?width=800",
+        "image_asset": "gifts-image-with-text.jpg",
         "image_alt": "بوكسات هدايا فاخرة - أنفاس العنود",
         "heading": "تبين تهدين حد غالي؟",
         "text": "لا تحاتين غناتي، مجهزين لج بوكسات تبيض الويه وتفرح القلب، بس اختاري وبنوصلها للي يعزون عليج.",
@@ -147,7 +147,7 @@
     "quality": {
       "type": "quality-banner",
       "settings": {
-        "image_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/4aff02f3af87b9494d6aa33407a602b8.png?width=1920",
+        "image_asset": "quality-banner-ingredients.jpg",
         "image_alt": "صورة تعبر عن جودة المكونات - أنفاس العنود",
         "heading": "سر الزين في تفاصيلنا.. أنا دايمًا أختار لج أصفى المكونات عشان تميزج في كل خطوة.",
         "button_label": "اكتشفي أسرار منتجاتي",
@@ -165,7 +165,7 @@
     "quiz": {
       "type": "ai-quiz",
       "settings": {
-        "avatar_url": "https://cdn.shopify.com/s/files/1/0698/1717/2189/files/4aff02f3af87b9494d6aa33407a602b8.png?width=240",
+        "avatar_asset": "anoud-avatar.jpg",
         "avatar_alt": "صورة العنود للمساعدة"
       }
     }

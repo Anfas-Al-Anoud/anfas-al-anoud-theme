@@ -11,18 +11,18 @@
       {% for block in section.blocks %}
         <li class="category-icons__item" {{ block.shopify_attributes }}>
           <a href="{{ block.settings.link | default: '#' }}" class="category-icons__card">
-            {% if block.settings.icon_url != blank %}
-              {% render 'external-image',
-                url: block.settings.icon_url,
-                alt: block.settings.icon_alt,
-                class: 'category-icons__icon',
-                width: 160
-              %}
-            {% elsif block.settings.icon %}
+            {% if block.settings.icon %}
               {% render 'image',
                 image: block.settings.icon,
                 alt: block.settings.icon_alt,
                 fallback_alt: block.settings.title,
+                class: 'category-icons__icon',
+                width: 160
+              %}
+            {% elsif block.settings.icon_asset != blank %}
+              {% render 'theme-asset-image',
+                asset: block.settings.icon_asset,
+                alt: block.settings.icon_alt,
                 class: 'category-icons__icon',
                 width: 160
               %}
@@ -160,7 +160,7 @@
       "name": "فئة",
       "settings": [
         { "type": "image_picker", "id": "icon", "label": "الأيقونة" },
-        { "type": "text", "id": "icon_url", "label": "رابط الأيقونة (CDN)" },
+        { "type": "text", "id": "icon_asset", "label": "ملف الأيقونة (assets/)", "info": "صورة سياقية — ليست صورة منتج." },
         {
           "type": "text",
           "id": "icon_alt",

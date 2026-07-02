@@ -1,12 +1,12 @@
 <section class="image-with-text section-padding" data-animate-section>
   <div class="image-with-text__inner">
-    {% if section.settings.image_url != blank %}
-      <div class="image-with-text__media">
-        {% render 'external-image', url: section.settings.image_url, alt: section.settings.image_alt, class: '', width: 800 %}
-      </div>
-    {% elsif section.settings.image %}
+    {% if section.settings.image %}
       <div class="image-with-text__media">
         {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, width: 800 %}
+      </div>
+    {% elsif section.settings.image_asset != blank %}
+      <div class="image-with-text__media">
+        {% render 'theme-asset-image', asset: section.settings.image_asset, alt: section.settings.image_alt, width: 800 %}
       </div>
     {% endif %}
     <div class="image-with-text__content">
@@ -45,7 +45,7 @@
   "class": "image-with-text-section",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "الصورة" },
-    { "type": "text", "id": "image_url", "label": "رابط الصورة (CDN)" },
+    { "type": "text", "id": "image_asset", "label": "ملف الصورة (assets/)", "default": "gifts-image-with-text.jpg" },
     {
       "type": "text",
       "id": "image_alt",

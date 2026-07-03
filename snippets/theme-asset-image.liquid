@@ -1,5 +1,5 @@
 {% doc %}
-  Renders image from theme assets/ folder by filename.
+  Renders an image stored in the theme assets/ folder by filename.
   @param {string} asset - Filename in assets/ e.g. hero-banner-desktop.jpg
   @param {string} [alt]
   @param {string} [class]
@@ -14,9 +14,12 @@
 %}
 
 {% if asset != blank %}
-  {{
-    asset
-    | asset_img_url: width: img_width
-    | image_tag: alt: alt_text, class: class, loading: img_loading, widths: '375, 550, 750, 1100, 1500', sizes: '100vw'
-  }}
+  <img
+    src="{{ asset | asset_url }}"
+    alt="{{ alt_text | escape }}"
+    class="{{ class }}"
+    loading="{{ img_loading }}"
+    width="{{ img_width }}"
+    decoding="async"
+  >
 {% endif %}

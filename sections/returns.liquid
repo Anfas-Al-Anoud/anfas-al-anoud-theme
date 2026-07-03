@@ -5,16 +5,47 @@
       {% if page.content != blank %}
         {{ page.content }}
       {% else %}
-        <p>إذا ما عجبج المنتج، تقدرين ترجعينه خلال 3 أيام من استلام الطلب بشرط أن يكون بحالته الأصلية.</p>
-        <p>تواصلي معنا عبر واتساب لترتيب الإرجاع — شكرًا لتفهمج.</p>
+        <p>راحتج تهمنا، وإذا وصلج طلبج وما كان على توقّعج، إحنا وياج خطوة بخطوة عشان نحلّها بأسرع وقت.</p>
+
+        <h2>مدّة الإرجاع والاستبدال</h2>
+        <p>تقدرين تطلبين الإرجاع أو الاستبدال خلال ٣ أيام من استلامج للطلب، بشرط أن يكون المنتج بحالته الأصلية، غير مستخدَم، وبغلافه وتغليفه الأصلي.</p>
+
+        <h2>منتجات ما يمكن إرجاعها</h2>
+        <p>لأسباب صحيّة وحفاظًا على سلامتج، ما نقدر نستقبل إرجاع العطور والدخون ومنتجات العناية إذا انفتح غلافها أو استُخدمت، إلا إذا وصلتج تالفة أو فيها عيب من عندنا.</p>
+
+        <h2>إذا وصلج منتج تالف أو غلط</h2>
+        <p>إذا كان في خطأ من طرفنا (منتج تالف أو مختلف عن طلبج)، بنستبدله لج أو نرجّع لج مبلغه كامل بدون أي تكلفة إضافية. بس صوّري المنتج وراسلينا.</p>
+
+        <h2>خطوات الإرجاع</h2>
+        <ul>
+          <li>راسلينا عبر واتساب مع رقم طلبج وسبب الإرجاع.</li>
+          <li>بنأكد لج طلب الإرجاع ونرتّب لج طريقة الاستلام.</li>
+          <li>بعد وصول المنتج وفحصه، نبدأ إجراءات الاسترجاع أو الاستبدال.</li>
+        </ul>
+
+        <h2>استرجاع المبلغ</h2>
+        <p>يتم استرجاع المبلغ بنفس وسيلة الدفع خلال ٥ إلى ٧ أيام عمل بعد استلامنا للمنتج وفحصه.</p>
+
+        <p>لأي مساعدة، راسلينا عبر
+          {% if settings.whatsapp_number != blank %}
+            <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">واتساب</a>
+          {% else %}
+            قنواتنا الرسمية
+          {% endif %}
+          ومابنقصّر وياج.</p>
       {% endif %}
     </div>
   </div>
 </article>
 
 {% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
   .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
+  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
+  .page-content__body p { margin-block-end: 0.85rem; }
+  .page-content__body ul { padding-inline-start: 1.5rem; margin-block-end: 0.85rem; }
+  .page-content__body li { margin-block-end: 0.35rem; }
+  .page-content__body a { color: var(--color-accent); font-weight: 600; }
 {% endstylesheet %}
 
 {% schema %}

@@ -5,22 +5,41 @@
       {% if page.content != blank %}
         {{ page.content }}
       {% else %}
-        <p>نوفر لج طرق دفع آمنة ومريحة:</p>
+        <p>وفّرنا لج طرق دفع آمنة ومتعددة، عشان تختارين اللي يريّحج وتكملين طلبج بكل ثقة.</p>
+
+        <h2>البطاقات والمحافظ الرقمية</h2>
         <ul>
-          <li>بطاقات Visa / Mastercard</li>
-          <li>Apple Pay</li>
-          <li>تابي — تقسيط بدون فوائد</li>
-          <li>تمارا — ادفعي على دفعات</li>
+          <li>بطاقات Visa و Mastercard.</li>
+          <li>Apple Pay و Google Pay.</li>
+          <li>مدى / البطاقات المحلية المدعومة.</li>
         </ul>
+
+        <h2>ادفعي على دفعات</h2>
+        <ul>
+          <li>تابي (Tabby) — قسّمي مشترياتج بدون فوائد.</li>
+          <li>تمارا (Tamara) — ادفعي لاحقًا أو على دفعات.</li>
+        </ul>
+
+        <h2>الدفع عند الاستلام</h2>
+        <p>في حال توفّر الخيار في منطقتج، تقدرين تدفعين نقدًا عند استلام طلبج.</p>
+
+        <h2>أمان الدفع</h2>
+        <p>جميع عمليات الدفع تتم عبر بوابات مشفّرة وآمنة، وما نحتفظ بأي بيانات بطاقة لدينا. خصوصيتج وأمانج أولويّة عندنا.</p>
+
+        <p>طرق الدفع المتاحة تظهر لج بالكامل في صفحة الدفع حسب طلبج ومنطقتج.</p>
       {% endif %}
     </div>
   </div>
 </article>
 
 {% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
   .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
-  .page-content__body ul { padding-inline-start: 1.5rem; }
+  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
+  .page-content__body p { margin-block-end: 0.85rem; }
+  .page-content__body ul { padding-inline-start: 1.5rem; margin-block-end: 0.85rem; }
+  .page-content__body li { margin-block-end: 0.35rem; }
+  .page-content__body a { color: var(--color-accent); font-weight: 600; }
 {% endstylesheet %}
 
 {% schema %}

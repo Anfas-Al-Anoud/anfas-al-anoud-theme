@@ -5,16 +5,46 @@
       {% if page.content != blank %}
         {{ page.content }}
       {% else %}
-        <p>نوصل لجميع إمارات الدولة — توصيل سريع لباب البيت.</p>
-        <p>الشحن المجاني متوفر للطلبات فوق الحد المحدد في المتجر.</p>
+        <p>نوصل طلبج لباب بيتج في كل إمارات الدولة، بعناية وسرعة عشان يوصلج بأحلى حالة.</p>
+
+        <h2>مناطق التوصيل</h2>
+        <p>نغطّي جميع إمارات دولة الإمارات العربية المتحدة: أبوظبي، دبي، الشارقة، عجمان، أم القيوين، رأس الخيمة، والفجيرة.</p>
+
+        <h2>مدّة التوصيل</h2>
+        <ul>
+          <li>يتم تجهيز طلبج خلال ١ إلى ٢ يوم عمل.</li>
+          <li>التوصيل داخل الدولة عادةً من ٢ إلى ٤ أيام عمل حسب إمارتج.</li>
+        </ul>
+
+        <h2>رسوم الشحن</h2>
+        {% if settings.free_shipping_threshold and settings.free_shipping_threshold > 0 %}
+          <p>التوصيل مجاني على الطلبات فوق {{ settings.free_shipping_threshold }} درهم. وللطلبات الأقل، تُضاف رسوم توصيل رمزيّة تظهر لج بوضوح عند إتمام الطلب.</p>
+        {% else %}
+          <p>رسوم التوصيل تظهر لج بوضوح عند إتمام الطلب قبل الدفع.</p>
+        {% endif %}
+
+        <h2>متابعة الشحنة</h2>
+        <p>بعد شحن طلبج بنرسل لج تفاصيل التتبّع، وتقدرين تتابعين حالته من صفحة <a href="/pages/order-tracking">وين طلبج؟</a> أو من حسابج.</p>
+
+        <p>لأي استفسار عن شحنتج، راسلينا عبر
+          {% if settings.whatsapp_number != blank %}
+            <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">واتساب</a>
+          {% else %}
+            قنواتنا الرسمية
+          {% endif %}.</p>
       {% endif %}
     </div>
   </div>
 </article>
 
 {% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
   .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
+  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
+  .page-content__body p { margin-block-end: 0.85rem; }
+  .page-content__body ul { padding-inline-start: 1.5rem; margin-block-end: 0.85rem; }
+  .page-content__body li { margin-block-end: 0.35rem; }
+  .page-content__body a { color: var(--color-accent); font-weight: 600; }
 {% endstylesheet %}
 
 {% schema %}

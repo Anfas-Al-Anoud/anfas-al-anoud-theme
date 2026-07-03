@@ -41,22 +41,22 @@
 shopify theme dev
 ```
 
-## استيراد المنتجات
+## المنتجات
 
-1. من Shopify Admin: **Products → Import**
-2. ارفعي `products_export_1.csv` من جذر المشروع
-3. تأكدي من تطابق الصور (CDN URLs موجودة في CSV)
-4. أضيفي Alt Text عربي لكل منتج (حاليًا فارغ في CSV)
+المنتجات مسحوبة مباشرةً من المتجر (Shopify Admin) — لا يتم الاعتماد على أي ملف CSV. السمة تعرض المنتجات والصور والأوصاف كما هي في المتجر.
+
+- تأكدي أن لكل منتج صورة ووصف ونص Alt عربي.
+- المخزون والأسعار تُدار من Shopify Admin.
 
 ### المجموعات المقترحة
 
-| المجموعة | نوع المنتج |
-|----------|------------|
-| دخون السنع | دخون السنع |
-| عطور الكشخة | عطور |
-| دلع وعناية | منتجات العناية |
-| بوكسات الزين | بوكسات |
-| Best Sellers | يدوي — أشهر المنتجات |
+| المجموعة | المصدر |
+|----------|--------|
+| دخون السنع | حسب نوع المنتج |
+| عطور الكشخة | حسب نوع المنتج |
+| دلع وعناية | حسب نوع المنتج |
+| بوكسات الزين | حسب نوع المنتج |
+| الأكثر مبيعًا | ترتيب تلقائي حسب المبيعات (Best selling) |
 
 ## الصور (Theme Editor)
 
@@ -87,17 +87,19 @@ shopify theme dev
 ## Theme Check
 
 ```bash
-gem install theme-check
-cd "C:\Projects\Cursor\متجر أنفاس العنود"
-theme-check .
+cd "C:\Projects\Cursor\متجر أنفاس العنود\Anfas AL-Anoud Theme"
+shopify theme check --path .
 ```
 
 ## الميزات
 
-- RTL عربي كامل
-- Cart drawer + شريط شحن مجاني
-- Wishlist (localStorage)
-- مساعد اختيار المنتج (rule-based quiz)
-- SEO: JSON-LD, FAQ schema, hreflang
+- RTL عربي كامل + دعم كامل للهواتف
+- سلة AJAX (Cart drawer + صفحة السلة) مع شريط شحن مجاني وعدّاد حيّ
+- صفحة منتج: اختيار المتغيرات (swatches)، معرض صور، عدّاد كمية، إضافة للسلة بدون تحديث
+- بطاقة منتج: صورة ثانية عند المرور، إضافة سريعة، شارات مترجمة
+- صفحة المجموعة: عوامل تصفية (facets) + ترقيم صفحات مرقّم
+- Wishlist (localStorage) + درج مفضلة
+- مساعد اختيار المنتج الذكي (تحليل الإجابات + اقتراحات مع إضافة للسلة)
+- SEO/GEO: JSON-LD (Organization + sameAs + contactPoint، WebSite، BreadcrumbList، Product)، Open Graph (ar_AE)، hreflang
 - WhatsApp float
 - بدون Linktree — صفحة link-hub داخلية

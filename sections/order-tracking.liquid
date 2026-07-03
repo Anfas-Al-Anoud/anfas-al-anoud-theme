@@ -5,16 +5,32 @@
       {% if page.content != blank %}
         {{ page.content }}
       {% else %}
-        <p>تقدرين تتابعين طلبج من حسابج أو عبر واتساب. رقّم الطلب يوصلج بالإيميل بعد الشراء.</p>
-        <p><a href="{{ routes.account_url }}">دخول حسابج</a></p>
+        <p>تبين تعرفين وين وصل طلبج؟ عندج أكثر من طريقة سهلة تتابعين فيها كل خطوة.</p>
+
+        <h2>من حسابج</h2>
+        <p>سجّلي دخولج على <a href="{{ routes.account_url }}">حسابج</a> وبتلاقين كل طلباتج وحالتها ومعلومات الشحن.</p>
+
+        <h2>من رسالة التأكيد</h2>
+        <p>بعد الشراء يوصلج بريد إلكتروني فيه رقم طلبج، وبعد الشحن نرسل لج رابط التتبّع مباشرةً.</p>
+
+        <h2>عبر واتساب</h2>
+        <p>حابّة تطمّنين بسرعة؟ راسلينا مع رقم طلبج ونعطيج آخر تحديث عن شحنتج.</p>
+
+        {% if settings.whatsapp_number != blank %}
+          <p><a class="btn" href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">تابعي طلبج عبر واتساب</a></p>
+        {% endif %}
       {% endif %}
     </div>
   </div>
 </article>
 
 {% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
   .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
+  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
+  .page-content__body p { margin-block-end: 0.85rem; }
+  .page-content__body a { color: var(--color-accent); font-weight: 600; }
+  .page-content__body a.btn { color: var(--color-white); display: inline-block; margin-block-start: 0.5rem; }
 {% endstylesheet %}
 
 {% schema %}

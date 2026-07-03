@@ -5,15 +5,41 @@
       {% if page.content != blank %}
         {{ page.content }}
       {% else %}
-        <p>باستخدامك لمتجر أنفاس العنود، فإنتِ توافقين على الشروط والأحكام التالية. شكرًا لثقتج بنا.</p>
+        <p>أهلًا فيج في متجر {{ shop.name }}. باستخدامج للموقع وتصفّحج للمنتجات أو إتمامج لأي طلب، فإنتِ توافقين على الشروط والأحكام التالية. قريناها لج بلغة بسيطة عشان كلّ شي يكون واضح ومريح.</p>
+
+        <h2>المنتجات والأسعار</h2>
+        <p>نحرص أن تكون كل المعلومات والصور والأوصاف دقيقة قدر الإمكان. الأسعار معروضة بالدرهم الإماراتي وتشمل ما هو موضّح عند الدفع. نحتفظ بحقنا في تعديل الأسعار أو توفّر المنتجات في أي وقت وبدون إشعار مسبق.</p>
+
+        <h2>الطلبات والتأكيد</h2>
+        <p>بعد إتمامج للطلب يوصلج تأكيد على بريدج الإلكتروني. في حال وجود أي مشكلة في التوفّر أو الدفع، بنتواصل معاج مباشرةً لإيجاد الحل المناسب.</p>
+
+        <h2>الاستخدام العادل</h2>
+        <p>يُمنع استخدام الموقع لأي غرض غير قانوني أو بطريقة تضرّ بالمتجر أو بالعميلات الأخريات. المحتوى والصور والتصاميم في الموقع ملك لـ{{ shop.name }} ولا يجوز نسخها أو إعادة استخدامها بدون إذن.</p>
+
+        <h2>المسؤولية</h2>
+        <p>نبذل جهدنا عشان تكون تجربتج مثاليّة، لكننا غير مسؤولين عن أي سوء استخدام للمنتجات بخلاف تعليمات الاستعمال. المنتجات مخصّصة للاستخدام الشخصي.</p>
+
+        <h2>تواصلي معنا</h2>
+        <p>أي استفسار عن هذي الشروط، راسلينا عبر
+          {% if settings.whatsapp_number != blank %}
+            <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">واتساب</a>
+          {% else %}
+            قنواتنا الرسمية
+          {% endif %}
+          ويسعدنا نخدمج.</p>
       {% endif %}
     </div>
   </div>
 </article>
 
 {% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.8; }
+  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
   .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
+  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
+  .page-content__body p { margin-block-end: 0.85rem; }
+  .page-content__body ul { padding-inline-start: 1.5rem; margin-block-end: 0.85rem; }
+  .page-content__body li { margin-block-end: 0.35rem; }
+  .page-content__body a { color: var(--color-accent); font-weight: 600; }
 {% endstylesheet %}
 
 {% schema %}

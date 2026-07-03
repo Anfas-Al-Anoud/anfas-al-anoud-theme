@@ -1,5 +1,12 @@
 # Shopify theme configuration
+#
+# Deployment happens automatically via the GitHub <-> Shopify integration:
+# every `git push origin main` is pulled into the live theme.
+# Do NOT run `shopify theme push` (it conflicts with the GitHub sync).
+#
+# The theme id below is the live, GitHub-connected theme, used only for
+# local preview with `shopify theme dev` when needed.
 
 [environments.development]
 store = "564178-5f.myshopify.com"
-theme = "163177332957"
+theme = "163180806365"

@@ -1,6 +1,11 @@
-<section class="product-recommendations section-padding" data-url="{{ routes.product_recommendations_url }}?product_id={{ product.id }}&limit=4&section_id={{ section.id }}">
+<section
+  class="product-recommendations section-padding"
+  data-recommendations
+  data-url="{{ routes.product_recommendations_url }}?product_id={{ product.id }}&limit={{ section.settings.limit | default: 4 }}&section_id={{ section.id }}"
+  {% if recommendations.performed and recommendations.products_count == 0 %}hidden{% endif %}
+>
   <h2 class="section-heading">{{ section.settings.heading }}</h2>
-  <div class="product-recommendations__grid" id="product-recommendations-{{ section.id }}">
+  <div class="product-recommendations__grid" data-recommendations-grid>
     {% if recommendations.performed and recommendations.products_count > 0 %}
       {% for rec_product in recommendations.products %}
         {% render 'product-card', product: rec_product %}
@@ -33,6 +38,15 @@
       "id": "heading",
       "label": "العنوان",
       "default": "قد يعجبج أيضًا"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "عدد المنتجات"
     }
   ]
 }

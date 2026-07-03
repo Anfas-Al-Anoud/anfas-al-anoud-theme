@@ -10,6 +10,10 @@
 {
   "general": {
     "404": "الصفحة غير موجودة",
+    "meta": {
+      "tagged": "بوسم",
+      "page": "صفحة {{ page }}"
+    },
     "accessibility": {
       "skip_to_content": "انتقلي للمحتوى",
       "close": "إغلاق",
@@ -24,7 +28,8 @@
     "colors": "الألوان",
     "pagination": {
       "previous": "السابق",
-      "next": "التالي"
+      "next": "التالي",
+      "label": "تصفح الصفحات"
     },
     "search": {
       "title": "دوري اللي بخاطرج",
@@ -36,15 +41,37 @@
       "empty": "سلتج فاضية",
       "checkout": "إتمام الطلب",
       "continue_shopping": "كمّلي تسوق",
+      "continue": "كمّلي تسوق",
       "remove": "احذفي",
       "subtotal": "المجموع",
-      "view_cart": "عرض السلة"
+      "view_cart": "عرض السلة",
+      "update": "تحديث",
+      "summary": "ملخص الطلب",
+      "tax_note": "الضريبة والشحن يُحتسبان عند إتمام الطلب",
+      "decrease": "نقص الكمية",
+      "increase": "زيادة الكمية"
     },
     "product": {
       "add_to_cart": "أضيفي للسلة",
-      "sold_out": "نفذ",
+      "sold_out": "نفدت الكمية",
       "unavailable": "غير متوفر",
       "quantity": "الكمية"
+    }
+  },
+  "products": {
+    "quick_add": "أضيفي بسرعة",
+    "ask_whatsapp": "استفسري عبر واتساب",
+    "ingredients": "المكونات",
+    "usage": "طريقة الاستخدام",
+    "story": "قصة {{ title }}",
+    "trust": {
+      "authentic": "منتج أصلي ١٠٠٪",
+      "shipping": "توصيل سريع",
+      "secure": "دفع آمن"
+    },
+    "badges": {
+      "sale": "عرض",
+      "sold_out": "نفدت الكمية"
     }
   },
   "labels": {
@@ -139,7 +166,18 @@
     }
   },
   "collections": {
-    "title": "المجموعات"
+    "title": "المجموعات",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "apply": "طبّقي",
+    "clear": "مسح الكل",
+    "empty": "ما في منتجات في هالمجموعة.",
+    "count": {
+      "one": "منتج واحد",
+      "other": "{{ count }} منتج"
+    },
+    "price_from": "من",
+    "price_to": "إلى"
   },
   "gift_card": {
     "add_to_apple_wallet": "أضيفي لـ Apple Wallet",

@@ -1,66 +1,183 @@
+/*
+ * Anfas Al-Anoud — AJAX cart drawer.
+ * Uses the Shopify Cart API (/cart/add.js, /cart/change.js, /cart.js) and
+ * re-renders the drawer client-side from the returned cart JSON.
+ * Exposes window.cartDrawer for the product page and quick-add buttons.
+ */
 class CartDrawer {
   constructor() {
     this.drawer = document.querySelector('[data-cart-drawer]');
     if (!this.drawer) return;
 
-    document.querySelectorAll('[data-cart-open]').forEach((btn) => {
-      btn.addEventListener('click', () => this.open());
-    });
-    document.querySelectorAll('[data-cart-close]').forEach((btn) => {
-      btn.addEventListener('click', () => this.close());
+    this.itemsEl = this.drawer.querySelector('[data-cart-items]');
+    this.subtotalEl = this.drawer.querySelector('[data-cart-subtotal]');
+    this.footerEl = this.drawer.querySelector('[data-cart-footer]');
+    this.countEls = document.querySelectorAll('[data-cart-count]');
+    this.bar = this.drawer.querySelector('[data-free-shipping-bar]');
+    this.threshold = this.bar ? parseInt(this.bar.dataset.threshold, 10) : 0;
+    this.currency = this.drawer.dataset.currency || 'AED';
+    this.lastFocus = null;
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-cart-open]')) {
+        e.preventDefault();
+        this.open();
+      }
+      if (e.target.closest('[data-cart-close]')) this.close();
     });
 
     this.drawer.addEventListener('click', (e) => {
-      if (e.target.matches('[data-remove-line]')) {
-        this.updateLine(e.target.dataset.removeLine, 0);
+      const remove = e.target.closest('[data-remove-line]');
+      if (remove) {
+        this.changeLine(remove.dataset.removeLine, 0);
+        return;
+      }
+      const step = e.target.closest('[data-qty-change]');
+      if (step) {
+        const key = step.dataset.key;
+        const next = parseInt(step.dataset.qtyChange, 10);
+        if (key) this.changeLine(key, Math.max(0, next));
       }
     });
 
-    this.updateShippingBar();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.drawer.classList.contains('is-open')) this.close();
+    });
+
+    // Sync counts/bar from the server-rendered state on load.
+    this.fetchCart().then((cart) => cart && this.render(cart));
+  }
+
+  money(cents) {
+    try {
+      return new Intl.NumberFormat('ar-AE', {
+        style: 'currency',
+        currency: this.currency,
+      }).format((cents || 0) / 100);
+    } catch {
+      return `${((cents || 0) / 100).toFixed(2)}`;
+    }
   }
 
   open() {
+    this.lastFocus = document.activeElement;
     this.drawer.classList.add('is-open');
     this.drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    this.drawer.querySelector('[data-cart-close]')?.focus();
   }
 
   close() {
     this.drawer.classList.remove('is-open');
     this.drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    this.lastFocus?.focus();
   }
 
-  async updateLine(line, quantity) {
-    const res = await fetch('/cart/change.js', {
+  async fetchCart() {
+    try {
+      const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart.js`, {
+        headers: { Accept: 'application/json' },
+      });
+      return res.ok ? await res.json() : null;
+    } catch {
+      return null;
+    }
+  }
+
+  async addItem(id, quantity = 1) {
+    const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/add.js`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ line, quantity }),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ id, quantity }),
     });
-    if (res.ok) window.location.reload();
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.description || 'add failed');
+    }
+    const cart = await this.fetchCart();
+    if (cart) this.render(cart);
+    this.open();
+    return cart;
   }
 
-  updateShippingBar() {
-    const bar = document.querySelector('[data-free-shipping-bar]');
-    if (!bar) return;
-    const threshold = parseInt(bar.dataset.threshold, 10);
-    const subtotalEl = document.querySelector('[data-cart-subtotal]');
-    if (!subtotalEl || !threshold) return;
+  async changeLine(key, quantity) {
+    const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/change.js`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ id: key, quantity }),
+    });
+    if (res.ok) this.render(await res.json());
+  }
 
-    const subtotalText = subtotalEl.textContent.replace(/[^\d.]/g, '');
-    const subtotal = parseFloat(subtotalText) * 100 || 0;
-    const remaining = Math.max(0, threshold - subtotal);
-    const progress = Math.min(100, (subtotal / threshold) * 100);
-    const msg = bar.querySelector('[data-shipping-message]');
-    const progressBar = bar.querySelector('[data-shipping-progress]');
+  render(cart) {
+    this.countEls.forEach((el) => {
+      el.textContent = cart.item_count;
+      el.hidden = cart.item_count === 0;
+    });
 
-    if (remaining <= 0) {
-      msg.textContent = 'مبروك! توصيل مجاني 🎉';
-    } else {
-      msg.textContent = `باقي ${(remaining / 100).toFixed(0)} درهم للتوصيل المجاني`;
+    if (this.subtotalEl) this.subtotalEl.textContent = this.money(cart.total_price);
+
+    if (this.itemsEl) {
+      if (cart.item_count === 0) {
+        this.itemsEl.innerHTML = `<p class="cart-drawer__empty">${this.itemsEl.dataset.emptyText || 'سلتج فاضية'}</p>`;
+        if (this.footerEl) this.footerEl.hidden = true;
+      } else {
+        if (this.footerEl) this.footerEl.hidden = false;
+        this.itemsEl.innerHTML = cart.items.map((item) => this.lineHTML(item)).join('');
+      }
+    }
+
+    this.renderShippingBar(cart.total_price);
+  }
+
+  lineHTML(item) {
+    const img = item.image
+      ? `<img src="${item.image.replace(/(\.[^.]+)$/, '_120x$1')}" alt="${this.escape(item.product_title)}" width="60" height="60" loading="lazy">`
+      : '';
+    const variant =
+      item.variant_title && !/^default title$/i.test(item.variant_title)
+        ? `<span class="cart-drawer__variant">${this.escape(item.variant_title)}</span>`
+        : '';
+    return `
+      <div class="cart-drawer__item" data-line-key="${item.key}">
+        ${img}
+        <div class="cart-drawer__item-info">
+          <a href="${item.url}">${this.escape(item.product_title)}</a>
+          ${variant}
+          <div class="cart-drawer__qty">
+            <button type="button" data-qty-change="${item.quantity - 1}" data-key="${item.key}" aria-label="نقص">−</button>
+            <span>${item.quantity}</span>
+            <button type="button" data-qty-change="${item.quantity + 1}" data-key="${item.key}" aria-label="زيادة">+</button>
+          </div>
+          <p class="cart-drawer__line-price">${this.money(item.final_line_price)}</p>
+        </div>
+        <button type="button" class="cart-drawer__remove" data-remove-line="${item.key}" aria-label="حذف">&times;</button>
+      </div>`;
+  }
+
+  renderShippingBar(total) {
+    if (!this.bar || !this.threshold) return;
+    const remaining = Math.max(0, this.threshold - total);
+    const progress = Math.min(100, (total / this.threshold) * 100);
+    const msg = this.bar.querySelector('[data-shipping-message]');
+    const progressBar = this.bar.querySelector('[data-shipping-progress]');
+    if (msg) {
+      msg.textContent =
+        remaining <= 0
+          ? 'مبروك! حصلتي على توصيل مجاني 🎉'
+          : `باقي ${this.money(remaining)} وتحصلين توصيل مجاني`;
     }
     if (progressBar) progressBar.style.width = `${progress}%`;
   }
+
+  escape(str) {
+    const d = document.createElement('div');
+    d.textContent = str || '';
+    return d.innerHTML;
+  }
 }
 
-document.addEventListener('DOMContentLoaded', () => new CartDrawer());
+document.addEventListener('DOMContentLoaded', () => {
+  window.cartDrawer = new CartDrawer();
+});

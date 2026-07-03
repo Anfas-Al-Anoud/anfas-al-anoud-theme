@@ -15,10 +15,32 @@ function saveWishlist(items) {
 }
 
 function syncWishlistButtons() {
-  const ids = getWishlist().map((i) => String(i.id));
+  const items = getWishlist();
+  const ids = items.map((i) => String(i.id));
   document.querySelectorAll('[data-wishlist-toggle]').forEach((btn) => {
     btn.classList.toggle('is-active', ids.includes(btn.dataset.productId));
   });
+  document.querySelectorAll('[data-wishlist-count]').forEach((el) => {
+    el.textContent = items.length;
+    el.hidden = items.length === 0;
+  });
+}
+
+function openWishlistDrawer() {
+  const drawer = document.querySelector('[data-wishlist-drawer]');
+  if (!drawer) return;
+  renderWishlistDrawer();
+  drawer.classList.add('is-open');
+  drawer.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWishlistDrawer() {
+  const drawer = document.querySelector('[data-wishlist-drawer]');
+  if (!drawer) return;
+  drawer.classList.remove('is-open');
+  drawer.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
 }
 
 function renderWishlistDrawer() {
@@ -44,7 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
   syncWishlistButtons();
   renderWishlistDrawer();
 
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeWishlistDrawer();
+  });
+
   document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-wishlist-open]')) {
+      e.preventDefault();
+      openWishlistDrawer();
+      return;
+    }
+    if (e.target.closest('[data-wishlist-close]')) {
+      closeWishlistDrawer();
+      return;
+    }
+
     const toggle = e.target.closest('[data-wishlist-toggle]');
     if (toggle) {
       const item = {

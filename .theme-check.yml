@@ -11,4 +11,3 @@ ignore:
   - "*.mjs"
   - "*.py"
   - gemini-code-*.json
-  - "Anfas AL-Anoud Theme/**"

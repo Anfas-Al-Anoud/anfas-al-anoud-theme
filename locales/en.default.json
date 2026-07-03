@@ -10,6 +10,10 @@
 {
   "general": {
     "404": "Page not found",
+    "meta": {
+      "tagged": "tagged",
+      "page": "Page {{ page }}"
+    },
     "accessibility": {
       "skip_to_content": "Skip to content",
       "close": "Close",
@@ -24,7 +28,8 @@
     "colors": "Colors",
     "pagination": {
       "previous": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "label": "Pagination"
     },
     "search": {
       "title": "Search",
@@ -36,15 +41,37 @@
       "empty": "Your cart is empty",
       "checkout": "Checkout",
       "continue_shopping": "Continue shopping",
+      "continue": "Continue shopping",
       "remove": "Remove",
       "subtotal": "Subtotal",
-      "view_cart": "View cart"
+      "view_cart": "View cart",
+      "update": "Update",
+      "summary": "Order summary",
+      "tax_note": "Taxes and shipping calculated at checkout",
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity"
     },
     "product": {
       "add_to_cart": "Add to cart",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "quantity": "Quantity"
+    }
+  },
+  "products": {
+    "quick_add": "Quick add",
+    "ask_whatsapp": "Ask on WhatsApp",
+    "ingredients": "Ingredients",
+    "usage": "How to use",
+    "story": "The story of {{ title }}",
+    "trust": {
+      "authentic": "100% authentic",
+      "shipping": "Fast delivery",
+      "secure": "Secure payment"
+    },
+    "badges": {
+      "sale": "Sale",
+      "sold_out": "Sold out"
     }
   },
   "labels": {
@@ -139,7 +166,18 @@
     }
   },
   "collections": {
-    "title": "Collections"
+    "title": "Collections",
+    "filter": "Filter",
+    "sort": "Sort",
+    "apply": "Apply",
+    "clear": "Clear all",
+    "empty": "No products in this collection.",
+    "count": {
+      "one": "1 product",
+      "other": "{{ count }} products"
+    },
+    "price_from": "From",
+    "price_to": "To"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",

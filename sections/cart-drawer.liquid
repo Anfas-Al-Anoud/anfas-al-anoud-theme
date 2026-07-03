@@ -1,4 +1,4 @@
-<div class="cart-drawer" data-cart-drawer aria-hidden="true">
+<div class="cart-drawer" data-cart-drawer aria-hidden="true" data-currency="{{ cart.currency.iso_code | default: shop.currency }}">
   <div class="cart-drawer__overlay" data-cart-close></div>
   <aside class="cart-drawer__panel" role="dialog" aria-label="{{ 'general.cart.title' | t }}">
     <header class="cart-drawer__header">
@@ -15,18 +15,26 @@
       </div>
     {% endif %}
 
-    <div class="cart-drawer__items" data-cart-items>
+    <div class="cart-drawer__items" data-cart-items data-empty-text="{{ 'general.cart.empty' | t }}">
       {% if cart.item_count > 0 %}
         {% for item in cart.items %}
-          <div class="cart-drawer__item" data-line="{{ forloop.index }}">
+          <div class="cart-drawer__item" data-line-key="{{ item.key }}">
             {% if item.image %}
-              <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.image.alt | default: item.title }}" width="60" height="60" loading="lazy">
+              <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.image.alt | default: item.product.title | escape }}" width="60" height="60" loading="lazy">
             {% endif %}
             <div class="cart-drawer__item-info">
               <a href="{{ item.url }}">{{ item.product.title }}</a>
-              <p>{{ item.final_line_price | money }} × {{ item.quantity }}</p>
+              {% unless item.variant.title contains 'Default' %}
+                <span class="cart-drawer__variant">{{ item.variant.title }}</span>
+              {% endunless %}
+              <div class="cart-drawer__qty">
+                <button type="button" data-qty-change="{{ item.quantity | minus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.decrease' | t }}">&minus;</button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" data-qty-change="{{ item.quantity | plus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.increase' | t }}">+</button>
+              </div>
+              <p class="cart-drawer__line-price">{{ item.final_line_price | money }}</p>
             </div>
-            <button type="button" class="cart-drawer__remove" data-remove-line="{{ forloop.index }}" aria-label="{{ 'general.cart.remove' | t }}">&times;</button>
+            <button type="button" class="cart-drawer__remove" data-remove-line="{{ item.key }}" aria-label="{{ 'general.cart.remove' | t }}">&times;</button>
           </div>
         {% endfor %}
       {% else %}
@@ -34,11 +42,12 @@
       {% endif %}
     </div>
 
-    <footer class="cart-drawer__footer">
+    <footer class="cart-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}hidden{% endif %}>
       <div class="cart-drawer__subtotal">
         <span>{{ 'general.cart.subtotal' | t }}</span>
         <span data-cart-subtotal>{{ cart.total_price | money }}</span>
       </div>
+      <p class="cart-drawer__taxnote">{{ 'general.cart.tax_note' | t }}</p>
       <a href="{{ routes.cart_url }}" class="btn btn--outline">{{ 'general.cart.view_cart' | t }}</a>
       <form action="{{ routes.cart_url }}" method="post">
         <button type="submit" name="checkout" class="btn cart-drawer__checkout">{{ 'general.cart.checkout' | t }}</button>
@@ -113,15 +122,38 @@
     padding-block: 0.75rem;
     border-block-end: 1px solid var(--color-sand);
   }
-  .cart-drawer__item img { border-radius: 8px; object-fit: cover; }
-  .cart-drawer__item-info { flex: 1; }
+  .cart-drawer__item img { border-radius: 8px; object-fit: cover; width: 60px; height: 60px; }
+  .cart-drawer__item-info { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
   .cart-drawer__item-info a { color: var(--color-dark); text-decoration: none; font-weight: 600; }
+  .cart-drawer__variant { font-size: 0.8rem; color: var(--color-accent); }
+  .cart-drawer__line-price { font-weight: 700; color: var(--color-dark); }
+  .cart-drawer__qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    align-self: flex-start;
+    border: 1px solid var(--color-sand);
+    border-radius: 999px;
+    padding: 0.15rem 0.5rem;
+  }
+  .cart-drawer__qty button {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-dark);
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .cart-drawer__taxnote { font-size: 0.75rem; color: var(--color-accent); text-align: center; }
   .cart-drawer__remove {
     background: none;
     border: none;
     font-size: 1.25rem;
     cursor: pointer;
     color: #999;
+    align-self: flex-start;
   }
   .cart-drawer__empty { text-align: center; color: #999; padding: 2rem; }
   .cart-drawer__footer {

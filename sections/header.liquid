@@ -1,18 +1,19 @@
 <header class="site-header" data-header>
   <div class="site-header__inner">
-    <button class="site-header__menu-toggle" type="button" aria-label="{{ 'general.accessibility.menu' | t }}" data-menu-toggle>
+    <button class="site-header__menu-toggle" type="button" aria-label="{{ 'general.accessibility.menu' | t }}" aria-expanded="false" aria-controls="MobileNav" data-menu-toggle>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
 
-    <nav class="site-header__nav" data-mobile-nav aria-label="القائمة الرئيسية">
+    <nav class="site-header__nav" id="MobileNav" data-mobile-nav aria-label="القائمة الرئيسية">
       <a href="{{ routes.account_url }}" class="site-header__nav-link">حسابج</a>
+      <button type="button" class="site-header__nav-link" data-wishlist-open aria-label="المفضلة">
+        مفضلتج
+      </button>
       <button type="button" class="site-header__nav-link site-header__cart-trigger" data-cart-open aria-label="{{ 'general.cart.title' | t }}">
         سلتج
-        {% if cart.item_count > 0 %}
-          <span class="site-header__cart-count" data-cart-count>{{ cart.item_count }}</span>
-        {% endif %}
+        <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
       </button>
       <a href="{{ routes.search_url }}" class="site-header__nav-link">{{ 'general.search.title' | t }}</a>
       {% for link in section.settings.menu.links %}
@@ -50,11 +51,13 @@
           {{ 'icon-account.svg' | inline_asset_content }}
         </a>
       {% endif %}
+      <button type="button" class="site-header__icon" data-wishlist-open aria-label="المفضلة">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="site-header__cart-count" data-wishlist-count hidden>0</span>
+      </button>
       <button type="button" class="site-header__icon site-header__cart-trigger" data-cart-open aria-label="{{ 'general.cart.title' | t }}">
         {{ 'icon-cart.svg' | inline_asset_content }}
-        {% if cart.item_count > 0 %}
-          <span class="site-header__cart-count" data-cart-count>{{ cart.item_count }}</span>
-        {% endif %}
+        <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
       </button>
     </div>
   </div>

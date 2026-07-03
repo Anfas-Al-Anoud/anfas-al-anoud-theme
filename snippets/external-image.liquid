@@ -4,6 +4,7 @@
   @param {string} [alt] - Alt text
   @param {string} [class] - CSS class
   @param {number} [width] - Width hint for sizes
+  @param {number} [height] - Height hint
   @param {string} [loading] - lazy or eager
 {% enddoc %}
 
@@ -11,6 +12,7 @@
   assign alt_text = alt | default: shop.name
   assign img_loading = loading | default: 'lazy'
   assign img_width = width | default: 1200
+  assign img_height = height | default: img_width
 %}
 
 {% if url != blank %}
@@ -20,6 +22,7 @@
     class="{{ class }}"
     loading="{{ img_loading }}"
     width="{{ img_width }}"
+    height="{{ img_height }}"
     decoding="async"
   >
 {% endif %}

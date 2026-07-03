@@ -7,12 +7,16 @@
   @param {string} [loading]
 {% enddoc %}
 
+{% liquid
+  assign alt_text = alt | default: shop.name
+  assign img_loading = loading | default: 'lazy'
+  assign img_width = width | default: 1200
+%}
+
 {% if asset != blank %}
-  {% render 'external-image',
-    url: asset | asset_url,
-    alt: alt,
-    class: class,
-    width: width,
-    loading: loading
-  %}
+  {{
+    asset
+    | asset_img_url: width: img_width
+    | image_tag: alt: alt_text, class: class, loading: img_loading, widths: '375, 550, 750, 1100, 1500', sizes: '100vw'
+  }}
 {% endif %}

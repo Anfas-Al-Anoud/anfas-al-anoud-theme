@@ -34,19 +34,29 @@
       <p class="site-footer__text">{{ section.settings.social_text }}</p>
       <div class="site-footer__social">
         {% if settings.social_instagram != blank %}
-          <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="{{ settings.social_instagram }}" class="site-footer__social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <span class="site-footer__social-icon" aria-hidden="true">{{ 'icon-instagram.svg' | inline_asset_content }}</span>
+          </a>
         {% endif %}
         {% if settings.social_tiktok != blank %}
-          <a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+          <a href="{{ settings.social_tiktok }}" class="site-footer__social-link" target="_blank" rel="noopener" aria-label="TikTok">
+            <span class="site-footer__social-icon" aria-hidden="true">{{ 'icon-tiktok.svg' | inline_asset_content }}</span>
+          </a>
         {% endif %}
         {% if settings.social_snapchat != blank %}
-          <a href="{{ settings.social_snapchat }}" target="_blank" rel="noopener" aria-label="Snapchat">SC</a>
+          <a href="{{ settings.social_snapchat }}" class="site-footer__social-link" target="_blank" rel="noopener" aria-label="Snapchat">
+            <span class="site-footer__social-icon" aria-hidden="true">{{ 'icon-snapchat.svg' | inline_asset_content }}</span>
+          </a>
         {% endif %}
         {% if settings.social_facebook != blank %}
-          <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+          <a href="{{ settings.social_facebook }}" class="site-footer__social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <span class="site-footer__social-icon" aria-hidden="true">{{ 'icon-facebook.svg' | inline_asset_content }}</span>
+          </a>
         {% endif %}
         {% if settings.social_threads != blank %}
-          <a href="{{ settings.social_threads }}" target="_blank" rel="noopener" aria-label="Threads">TH</a>
+          <a href="{{ settings.social_threads }}" class="site-footer__social-link" target="_blank" rel="noopener" aria-label="Threads">
+            <span class="site-footer__social-icon" aria-hidden="true">{{ 'icon-threads.svg' | inline_asset_content }}</span>
+          </a>
         {% endif %}
       </div>
     </div>
@@ -132,8 +142,16 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    font-size: 0.75rem;
-    font-weight: 700;
+    transition: background var(--transition-base), transform var(--transition-base);
+  }
+  .site-footer__social a:hover {
+    background: var(--color-gold);
+    transform: scale(1.05);
+  }
+  .site-footer__social-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
   }
   .site-footer__newsletter {
     max-width: var(--page-width);

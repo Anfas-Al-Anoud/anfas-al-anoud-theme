@@ -27,6 +27,13 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+  @keyframes marquee-rtl {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+  }
+  [dir="rtl"] .announcement-bar__track {
+    animation-name: marquee-rtl;
+  }
   @media (prefers-reduced-motion: reduce) {
     .announcement-bar__track { animation: none; }
   }

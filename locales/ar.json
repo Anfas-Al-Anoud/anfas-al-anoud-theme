@@ -10,6 +10,7 @@
 {
   "general": {
     "404": "الصفحة غير موجودة",
+    "currency": "د.إ.",
     "meta": {
       "tagged": "بوسم",
       "page": "صفحة {{ page }}"
@@ -183,6 +184,7 @@
   },
   "collections": {
     "title": "المجموعات",
+    "all_title": "كل المنتجات",
     "filter": "تصفية",
     "sort": "ترتيب",
     "apply": "طبّقي",
@@ -193,7 +195,24 @@
       "other": "{{ count }} منتج"
     },
     "price_from": "من",
-    "price_to": "إلى"
+    "price_to": "إلى",
+    "sort_options": {
+      "featured": "المميّزة",
+      "best_selling": "الأكثر مبيعًا",
+      "az": "الاسم: أ إلى ي",
+      "za": "الاسم: ي إلى أ",
+      "price_ascending": "السعر: من الأقل للأعلى",
+      "price_descending": "السعر: من الأعلى للأقل",
+      "date_ascending": "الأقدم أولًا",
+      "date_descending": "الأحدث أولًا",
+      "relevance": "الأكثر ملاءمة"
+    },
+    "filters": {
+      "availability": "التوفّر",
+      "price": "السعر",
+      "in_stock": "متوفّر",
+      "out_of_stock": "خلص من عندنا"
+    }
   },
   "gift_card": {
     "add_to_apple_wallet": "أضيفي لـ Apple Wallet",

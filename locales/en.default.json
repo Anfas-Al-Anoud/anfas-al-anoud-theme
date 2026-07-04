@@ -10,6 +10,7 @@
 {
   "general": {
     "404": "Page not found",
+    "currency": "AED",
     "meta": {
       "tagged": "tagged",
       "page": "Page {{ page }}"
@@ -183,6 +184,7 @@
   },
   "collections": {
     "title": "Collections",
+    "all_title": "All products",
     "filter": "Filter",
     "sort": "Sort",
     "apply": "Apply",
@@ -193,7 +195,24 @@
       "other": "{{ count }} products"
     },
     "price_from": "From",
-    "price_to": "To"
+    "price_to": "To",
+    "sort_options": {
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_ascending": "Date, old to new",
+      "date_descending": "Date, new to old",
+      "relevance": "Most relevant"
+    },
+    "filters": {
+      "availability": "Availability",
+      "price": "Price",
+      "in_stock": "In stock",
+      "out_of_stock": "Out of stock"
+    }
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",

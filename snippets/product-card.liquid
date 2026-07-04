@@ -83,9 +83,9 @@
     {% endif %}
     <div class="product-card__price">
       {% if on_sale %}
-        <s class="product-card__compare">{{ product.compare_at_price | money }}</s>
+        <s class="product-card__compare">{{ product.compare_at_price | money_without_currency }} {{ 'general.currency' | t }}</s>
       {% endif %}
-      <span class="product-card__current">{{ product.price | money }}</span>
+      <span class="product-card__current">{{ product.price | money_without_currency }} {{ 'general.currency' | t }}</span>
     </div>
   </div>
 </article>

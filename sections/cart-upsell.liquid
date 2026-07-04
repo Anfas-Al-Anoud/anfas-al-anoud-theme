@@ -16,7 +16,7 @@
         </a>
         <div class="cart-upsell__info">
           <a href="{{ product.url }}" class="cart-upsell__name">{{ product.title }}</a>
-          <span class="cart-upsell__price">{{ product.price | money }}</span>
+          <span class="cart-upsell__price">{{ product.price | money_without_currency }} {{ 'general.currency' | t }}</span>
         </div>
         {%- if product.available -%}
           {%- if product.variants.size == 1 -%}

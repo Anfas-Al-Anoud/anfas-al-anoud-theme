@@ -21,7 +21,7 @@
               {% unless item.variant.title contains 'Default' %}
                 <p class="cart-page__item-variant">{{ item.variant.title }}</p>
               {% endunless %}
-              <p class="cart-page__item-price">{{ item.final_price | money }}</p>
+              <p class="cart-page__item-price">{{ item.final_price | money_without_currency }} {{ 'general.currency' | t }}</p>
               <a href="{{ item.url_to_remove }}" class="cart-page__remove">{{ 'general.cart.remove' | t }}</a>
             </div>
             <div class="cart-page__item-controls">
@@ -33,7 +33,7 @@
                 aria-label="{{ 'general.product.quantity' | t }}"
                 class="cart-page__qty"
               >
-              <span class="cart-page__line-price">{{ item.final_line_price | money }}</span>
+              <span class="cart-page__line-price">{{ item.final_line_price | money_without_currency }} {{ 'general.currency' | t }}</span>
             </div>
           </div>
         {% endfor %}
@@ -43,7 +43,7 @@
         <h2>{{ 'general.cart.summary' | t }}</h2>
         <div class="cart-page__summary-row">
           <span>{{ 'general.cart.subtotal' | t }}</span>
-          <span>{{ cart.total_price | money }}</span>
+          <span>{{ cart.total_price | money_without_currency }} {{ 'general.currency' | t }}</span>
         </div>
         <p class="cart-page__note">{{ 'general.cart.tax_note' | t }}</p>
         <button type="submit" name="update" class="btn btn--outline cart-page__update">{{ 'general.cart.update' | t }}</button>

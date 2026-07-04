@@ -51,7 +51,7 @@
                 </span>
                 <span class="predictive__meta">
                   <span class="predictive__name">{% render 'tanween', text: product.title %}</span>
-                  <span class="predictive__price">{{ product.price | money }}</span>
+                  <span class="predictive__price">{{ product.price | money_without_currency }} {{ 'general.currency' | t }}</span>
                 </span>
               </a>
             </li>

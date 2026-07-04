@@ -1,4 +1,4 @@
-<section class="quality-banner section-padding full-width" data-animate-section>
+<section class="quality-banner section-padding" data-animate-section>
   <div class="quality-banner__inner">
     {% if section.settings.image %}
       {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, class: 'quality-banner__image', width: 1200 %}
@@ -17,6 +17,10 @@
 {% stylesheet %}
   .quality-banner__inner {
     position: relative;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    border-radius: var(--style-border-radius-cards);
     overflow: hidden;
   }
   .quality-banner__image {

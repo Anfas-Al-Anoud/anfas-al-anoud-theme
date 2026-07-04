@@ -1,4 +1,4 @@
-<section class="hero-banner full-width" data-animate-section>
+<section class="hero-banner" data-animate-section>
   <div class="hero-banner__frame">
     <div class="hero-banner__media" aria-hidden="true">
       {% if section.settings.image_desktop %}
@@ -70,12 +70,17 @@
 
 {% stylesheet %}
   .hero-banner {
-    padding: 0;
+    padding-block: clamp(1rem, 3vw, 2rem);
+    padding-inline: var(--page-margin);
   }
 
   .hero-banner__frame {
     position: relative;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    border-radius: calc(var(--style-border-radius-cards) + 4px);
     overflow: hidden;
+    box-shadow: 0 24px 60px rgba(61, 43, 31, 0.18);
     max-height: 100vh;
   }
 

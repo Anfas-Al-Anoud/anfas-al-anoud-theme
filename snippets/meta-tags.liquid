@@ -13,6 +13,8 @@
     assign seo_title = 'general.meta.search_title' | t: terms: search.terms
   elsif request.page_type == 'collection' and collection.handle == 'all'
     assign seo_title = 'collections.all_title' | t
+  elsif request.page_type == '404'
+    assign seo_title = 'general.meta.not_found_title' | t
   endif
 
   assign og_title = seo_title | default: shop.name

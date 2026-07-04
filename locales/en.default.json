@@ -15,7 +15,8 @@
       "tagged": "tagged",
       "page": "Page {{ page }}",
       "home_title": "Anfas Al-Anoud — Emirati bakhoor, perfumes and care",
-      "search_title": "Search results for {{ terms }}"
+      "search_title": "Search results for {{ terms }}",
+      "not_found_title": "Page not found"
     },
     "accessibility": {
       "skip_to_content": "Skip to content",

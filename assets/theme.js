@@ -1,32 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // #region agent log
-  if (typeof fetch === 'function') {
-    const audit = {
-      template: document.body?.className || '',
-      dir: document.documentElement.getAttribute('dir'),
-      lang: document.documentElement.getAttribute('lang'),
-      headerFullWidth: !!document.querySelector('.site-header.full-width'),
-      heroContained: !!document.querySelector('.hero-banner') && !document.querySelector('.hero-banner.full-width'),
-      moodLinkCount: document.querySelectorAll('a[href*="anoud-vibe-"]').length,
-      jsonLdCount: document.querySelectorAll('script[type="application/ld+json"]').length,
-      fontLinkCount: document.querySelectorAll('link[href*="fonts.googleapis.com"]').length,
-    };
-    fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
-      body: JSON.stringify({
-        sessionId: '489563',
-        runId: 'audit-pre-fix',
-        hypothesisId: 'H1-H5',
-        location: 'theme.js:audit',
-        message: 'storefront runtime audit',
-        data: audit,
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-  }
-  // #endregion
-
   /* ---- App-style mobile menu (bottom sheet) ---- */
   const menuToggle = document.querySelector('[data-menu-toggle]');
   const menuSheet = document.querySelector('[data-mobile-menu]');

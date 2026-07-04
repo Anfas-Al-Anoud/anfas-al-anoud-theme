@@ -5,9 +5,9 @@
   endif
 %}
 <section class="featured-collection section-padding" data-animate-section>
-  <h2 class="section-heading">{{ section.settings.heading }}</h2>
+  <h2 class="section-heading">{% render 'tanween', text: section.settings.heading %}</h2>
   {% if section.settings.subheading != blank %}
-    <p class="section-subheading">{{ section.settings.subheading }}</p>
+    <p class="section-subheading">{% render 'tanween', text: section.settings.subheading %}</p>
   {% endif %}
 
   {% if featured_products.size > 0 %}

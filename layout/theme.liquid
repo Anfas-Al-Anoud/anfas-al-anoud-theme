@@ -44,8 +44,8 @@
     {% endif %}
     {% if template.name == 'index' %}
       <script src="{{ 'ai-quiz.js' | asset_url }}" defer></script>
-      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
-      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+      <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+      <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
       <script src="{{ 'animations.js' | asset_url }}" defer></script>
     {% endif %}
   </body>

@@ -38,14 +38,18 @@
     </a>
 
     <div class="site-header__actions">
-      <form action="{{ routes.search_url }}" method="get" class="site-header__search" role="search">
+      <form action="{{ routes.search_url }}" method="get" class="site-header__search" role="search" data-predictive-search>
         <input
           type="search"
           name="q"
           placeholder="{{ 'general.search.placeholder' | t }}"
           aria-label="{{ 'general.search.title' | t }}"
           autocomplete="off"
+          data-predictive-input
+          aria-expanded="false"
+          aria-controls="PredictiveResults"
         >
+        <div class="site-header__predictive" id="PredictiveResults" data-predictive-results role="listbox" hidden></div>
       </form>
       {% if shop.customer_accounts_enabled %}
         <a href="{{ routes.account_url }}" class="site-header__icon" aria-label="حسابج">
@@ -136,13 +140,29 @@
     gap: 0.75rem;
     justify-self: end;
   }
-  .site-header__search { display: none; }
+  .site-header__search { display: none; position: relative; }
   .site-header__search input {
     padding: 0.5rem 1rem;
     border: 1px solid var(--color-sand);
     border-radius: var(--style-border-radius-inputs);
     min-width: 12rem;
   }
+  .site-header__search input:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+  .site-header__predictive {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    inset-inline: 0;
+    width: min(24rem, 90vw);
+    inset-inline-end: 0;
+    background: var(--color-white);
+    border: 1px solid var(--color-sand);
+    border-radius: var(--style-border-radius-cards);
+    box-shadow: 0 16px 40px rgba(61, 43, 31, 0.16);
+    max-height: min(70vh, 32rem);
+    overflow-y: auto;
+    z-index: 120;
+  }
+  .site-header__predictive[hidden] { display: none; }
   .site-header__icon {
     position: relative;
     background: none;

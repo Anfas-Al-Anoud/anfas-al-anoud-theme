@@ -35,10 +35,12 @@
     {% section 'cart-drawer' %}
     {% render 'whatsapp-float' %}
     {% render 'wishlist-drawer' %}
+    {% render 'quick-view-modal' %}
 
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
     <script src="{{ 'wishlist.js' | asset_url }}" defer></script>
+    <script src="{{ 'store-enhancements.js' | asset_url }}" defer></script>
     {% if template.name == 'product' %}
       <script src="{{ 'product.js' | asset_url }}" defer></script>
     {% endif %}

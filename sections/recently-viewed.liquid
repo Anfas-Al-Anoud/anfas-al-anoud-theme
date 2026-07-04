@@ -1,0 +1,59 @@
+{%- comment -%}
+  Recently viewed products. Rendered empty; the store-enhancements.js
+  recently-viewed module fills the grid from localStorage (no network),
+  and unhides the section only when there are items to show.
+{%- endcomment -%}
+
+<section class="recently-viewed section-padding" data-recently-viewed hidden>
+  <h2 class="section-heading section-heading--accent">{{ section.settings.heading }}</h2>
+  <div class="recently-viewed__grid" data-recently-grid></div>
+</section>
+
+{% stylesheet %}
+  .recently-viewed[hidden] { display: none; }
+  .recently-viewed__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+  @media (min-width: 768px) {
+    .recently-viewed__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .recently-viewed__card { display: flex; flex-direction: column; }
+  .recently-viewed__media {
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--style-border-radius-cards);
+    background: var(--color-sand);
+  }
+  .recently-viewed__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-base); }
+  .recently-viewed__card:hover .recently-viewed__media img { transform: scale(1.04); }
+  .recently-viewed__title-link { text-decoration: none; color: var(--color-dark); }
+  .recently-viewed__name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-block: 0.6rem 0.3rem;
+    line-height: 1.4;
+  }
+  .recently-viewed__price { color: var(--color-primary); font-weight: 700; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Recently viewed",
+  "class": "recently-viewed-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "العنوان",
+      "default": "شفتيها مؤخّرًا"
+    }
+  ],
+  "presets": [{ "name": "Recently viewed" }]
+}
+{% endschema %}

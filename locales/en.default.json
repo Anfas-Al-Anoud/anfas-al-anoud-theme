@@ -34,7 +34,9 @@
     "search": {
       "title": "Search",
       "placeholder": "Search products...",
-      "no_results": "No results found"
+      "no_results": "No results found",
+      "view_all": "View all results",
+      "searching": "Searching..."
     },
     "cart": {
       "title": "Cart",
@@ -49,7 +51,8 @@
       "summary": "Order summary",
       "tax_note": "Taxes and shipping calculated at checkout",
       "decrease": "Decrease quantity",
-      "increase": "Increase quantity"
+      "increase": "Increase quantity",
+      "upsell_title": "Complete your order"
     },
     "product": {
       "add_to_cart": "Add to cart",
@@ -60,6 +63,12 @@
   },
   "products": {
     "quick_add": "Quick add",
+    "quick_view": "Quick view",
+    "view_details": "Full details",
+    "recently_viewed": "Recently viewed",
+    "low_stock": "Only {{ count }} left!",
+    "share": "Share product",
+    "copied": "Link copied",
     "ask_whatsapp": "Ask on WhatsApp",
     "ingredients": "Ingredients",
     "usage": "How to use",

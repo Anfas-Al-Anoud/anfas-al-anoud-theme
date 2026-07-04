@@ -99,6 +99,11 @@
       "free_shipping_threshold": "Free shipping threshold (AED)",
       "show_free_shipping_bar": "Show free shipping bar"
     },
+    "product": {
+      "name": "Product",
+      "low_stock_threshold": "Low stock threshold",
+      "low_stock_info": "Shows an \"Only X left\" urgency notice when the remaining quantity is at or below this number."
+    },
     "social": {
       "name": "Social media"
     },

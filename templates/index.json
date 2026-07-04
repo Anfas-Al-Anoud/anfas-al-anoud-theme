@@ -140,6 +140,12 @@
         "button_link": "/collections/gift-boxes"
       }
     },
+    "recently": {
+      "type": "recently-viewed",
+      "settings": {
+        "heading": "شفتيها مؤخّرًا"
+      }
+    },
     "testimonials": {
       "type": "testimonials",
       "settings": {}
@@ -170,5 +176,5 @@
       }
     }
   },
-  "order": ["hero", "categories", "mood", "bestsellers", "gifts", "testimonials", "quality", "faq", "trust", "quiz"]
+  "order": ["hero", "categories", "mood", "bestsellers", "gifts", "recently", "testimonials", "quality", "faq", "trust", "quiz"]
 }

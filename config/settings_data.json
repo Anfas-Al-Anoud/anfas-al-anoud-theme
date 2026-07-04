@@ -20,6 +20,7 @@
     "input_corner_radius": 24,
     "free_shipping_threshold": 200,
     "show_free_shipping_bar": true,
+    "low_stock_threshold": 10,
     "social_instagram": "https://www.instagram.com/al.anoud2000",
     "social_tiktok": "https://www.tiktok.com/@al.anoud6",
     "social_snapchat": "https://www.snapchat.com/@lnwd20248766",

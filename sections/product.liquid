@@ -6,7 +6,7 @@
   endif
 -%}
 
-<div class="product-page section-padding" data-product data-currency="{{ cart.currency.iso_code | default: shop.currency }}">
+<div class="product-page section-padding" data-product data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-threshold="{{ settings.low_stock_threshold | default: 10 }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
   <div class="product-page__inner">
     <div class="product-page__gallery" data-gallery>
       {% if product.media.size > 0 %}
@@ -50,6 +50,8 @@
         </s>
         <span class="product-page__current" data-price>{{ current_variant.price | money }}</span>
       </div>
+
+      <p class="product-page__low-stock" data-low-stock hidden></p>
 
       <ul class="product-page__trust">
         <li>{% render 'icon-inline', name: 'check' %} {{ 'products.trust.authentic' | t }}</li>
@@ -114,6 +116,25 @@
         {% endif %}
       </div>
 
+      {%- assign share_url = shop.secure_url | append: product.url -%}
+      <div class="product-page__share" data-share data-title="{{ product.title | escape }}" data-url="{{ share_url }}">
+        <span class="product-page__share-label">{{ 'products.share' | t }}</span>
+        <a
+          class="product-page__share-btn"
+          href="https://wa.me/?text={{ product.title | append: ' ' | append: share_url | url_encode }}"
+          target="_blank"
+          rel="noopener"
+          aria-label="WhatsApp"
+        >{{ 'icon-whatsapp.svg' | inline_asset_content }}</a>
+        <button type="button" class="product-page__share-btn" data-share-native hidden aria-label="{{ 'products.share' | t }}">
+          {% render 'icon-inline', name: 'share' %}
+        </button>
+        <button type="button" class="product-page__share-btn" data-share-copy aria-label="{{ 'products.copied' | t }}">
+          {% render 'icon-inline', name: 'link' %}
+        </button>
+        <span class="product-page__share-toast" data-share-toast hidden>{{ 'products.copied' | t }}</span>
+      </div>
+
       {% if product.description != blank %}
         <div class="product-page__description rte">{{ product.description }}</div>
       {% endif %}
@@ -162,10 +183,24 @@
           "price": {{ variant.price }},
           "compare_at_price": {{ variant.compare_at_price | default: 0 }},
           "available": {{ variant.available }},
+          "inventory_management": {{ variant.inventory_management | json }},
+          "inventory_quantity": {{ variant.inventory_quantity | default: 0 }},
           "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id }}{% else %}null{% endif %}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
+  </script>
+
+  <script type="application/json" data-recently-current>
+    {
+      "id": {{ product.id }},
+      "handle": {{ product.handle | json }},
+      "title": {{ product.title | json }},
+      "url": {{ product.url | json }},
+      "image": {{ product.featured_image | image_url: width: 500 | json }},
+      "price": {{ product.price | money | json }},
+      "available": {{ product.available }}
+    }
   </script>
 </div>
 
@@ -188,7 +223,29 @@
   .product-page__title { font-size: clamp(1.5rem, 4vw, 2.25rem); margin-block-end: 0.75rem; }
   .product-page__price { display: flex; gap: 0.75rem; align-items: baseline; margin-block-end: 1.25rem; font-size: 1.4rem; }
   .product-page__price s { color: #b0a99f; font-size: 1rem; }
-  .product-page__current { color: var(--color-accent); font-weight: 700; }
+  .product-page__current { color: var(--color-primary); font-weight: 700; }
+  .product-page__low-stock { color: #c0392b; font-weight: 700; font-size: 0.9rem; margin-block-end: 1.25rem; }
+  .product-page__low-stock[hidden] { display: none; }
+  .product-page__share { display: flex; align-items: center; gap: 0.6rem; margin-block-start: 1.25rem; flex-wrap: wrap; }
+  .product-page__share-label { font-weight: 600; color: var(--color-accent); font-size: 0.9rem; }
+  .product-page__share-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-sand);
+    background: var(--color-white);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+  .product-page__share-btn:hover { border-color: var(--color-primary); background: var(--color-cream); }
+  .product-page__share-btn[hidden] { display: none; }
+  .product-page__share-btn svg { width: 1.15rem; height: 1.15rem; }
+  .product-page__share-toast { font-size: 0.85rem; color: var(--color-primary); font-weight: 600; }
+  .product-page__share-toast[hidden] { display: none; }
   .product-page__trust { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; padding: 0; margin-block-end: 1.5rem; font-size: 0.85rem; color: var(--color-dark); }
   .product-page__trust li { display: inline-flex; align-items: center; gap: 0.4rem; }
   .product-page__trust svg { width: 1.1rem; height: 1.1rem; color: var(--color-gold); }

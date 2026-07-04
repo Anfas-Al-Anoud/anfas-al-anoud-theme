@@ -7,7 +7,13 @@
     "recommendations": {
       "type": "product-recommendations",
       "settings": {}
+    },
+    "recently": {
+      "type": "recently-viewed",
+      "settings": {
+        "heading": "شفتيها مؤخّرًا"
+      }
     }
   },
-  "order": ["main", "recommendations"]
+  "order": ["main", "recommendations", "recently"]
 }

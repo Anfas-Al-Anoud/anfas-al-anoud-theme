@@ -18,6 +18,7 @@
 
   if (root) initProduct(root);
   initRecommendations();
+  initShare();
 
   function initProduct(el) {
     const currency = el.dataset.currency || 'AED';
@@ -37,6 +38,9 @@
     const errorEl = el.querySelector('[data-cart-error]');
     const form = el.querySelector('[data-product-form]');
     const qtyInput = el.querySelector('[data-qty-input]');
+    const lowStock = el.querySelector('[data-low-stock]');
+    const threshold = parseInt(el.dataset.threshold, 10) || 0;
+    const lowTemplate = el.dataset.lowTemplate || 'باقٍ __N__ قطع بس!';
 
     function selectedOptions() {
       return optionGroups.map((group) => {
@@ -51,7 +55,7 @@
 
     function updateForVariant() {
       const selected = selectedOptions();
-      const variant = findVariant(selected);
+      const variant = optionGroups.length ? findVariant(selected) : variants[0];
 
       if (!variant) {
         if (idInput) idInput.value = '';
@@ -59,6 +63,7 @@
           addButton.disabled = true;
           if (addLabel) addLabel.textContent = addButton.dataset.unavailableText || 'غير متوفر';
         }
+        if (lowStock) lowStock.hidden = true;
         return;
       }
 
@@ -81,6 +86,16 @@
         }
       }
       if (variant.featured_media_id) switchMedia(variant.featured_media_id);
+
+      if (lowStock) {
+        const q = variant.inventory_quantity;
+        if (variant.available && variant.inventory_management && threshold > 0 && q > 0 && q <= threshold) {
+          lowStock.textContent = lowTemplate.replace('__N__', q);
+          lowStock.hidden = false;
+        } else {
+          lowStock.hidden = true;
+        }
+      }
 
       try {
         const url = new URL(window.location);
@@ -168,6 +183,51 @@
     updateForVariant();
   }
 
+  function initShare() {
+    const share = document.querySelector('[data-share]');
+    if (!share) return;
+    const title = share.dataset.title || document.title;
+    const url = share.dataset.url || window.location.href;
+    const nativeBtn = share.querySelector('[data-share-native]');
+    const copyBtn = share.querySelector('[data-share-copy]');
+    const toast = share.querySelector('[data-share-toast]');
+
+    let toastTimer;
+    const showToast = () => {
+      if (!toast) return;
+      toast.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.hidden = true;
+      }, 2000);
+    };
+
+    if (nativeBtn && navigator.share) {
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener('click', () => {
+        navigator.share({ title, url }).catch(() => {});
+      });
+    }
+
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          const tmp = document.createElement('input');
+          tmp.value = url;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand('copy');
+          document.body.removeChild(tmp);
+        }
+        showToast();
+      } catch {
+        /* ignore */
+      }
+    });
+  }
+
   function initRecommendations() {
     const section = document.querySelector('[data-recommendations]');
     if (!section) return;
@@ -180,6 +240,13 @@
         const html = new DOMParser().parseFromString(text, 'text/html');
         const grid = html.querySelector('[data-recommendations-grid]');
         if (grid && grid.innerHTML.trim()) {
+          // Adopt the section's subsetted CSS (product-card styles), since this
+          // section is fetched on demand and isn't in the page render tree.
+          const style = html.querySelector('style[data-section-stylesheet]');
+          if (style && !document.getElementById('recs-section-style')) {
+            style.id = 'recs-section-style';
+            document.head.appendChild(style);
+          }
           target.innerHTML = grid.innerHTML;
         } else {
           section.hidden = true;

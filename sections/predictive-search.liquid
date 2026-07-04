@@ -1,0 +1,137 @@
+{%- comment -%}
+  Predictive search results, rendered on demand via the Shopify Predictive
+  Search API: /search/suggest?q=TERM&section_id=predictive-search
+  The store-enhancements.js predictive module injects the inner markup into
+  the header search dropdown.
+{%- endcomment -%}
+
+{%- liquid
+  assign products = predictive_search.resources.products
+  assign collections = predictive_search.resources.collections
+  assign queries = predictive_search.resources.queries
+-%}
+
+<div class="predictive" data-predictive-panel>
+  {%- if predictive_search.performed -%}
+    {%- if products.size == 0 and collections.size == 0 and queries.size == 0 -%}
+      <p class="predictive__empty">{{ 'general.search.no_results' | t }}</p>
+    {%- else -%}
+      {%- if queries.size > 0 -%}
+        <ul class="predictive__queries" role="list">
+          {%- for query in queries -%}
+            <li>
+              <a href="{{ query.url }}" class="predictive__query" data-predictive-item>
+                {% render 'icon-inline', name: 'search' %}
+                <span>{{ query.styled_text }}</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if collections.size > 0 -%}
+        <ul class="predictive__collections" role="list">
+          {%- for collection in collections -%}
+            <li>
+              <a href="{{ collection.url }}" class="predictive__collection" data-predictive-item>{{ collection.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if products.size > 0 -%}
+        <ul class="predictive__products" role="list">
+          {%- for product in products -%}
+            <li>
+              <a href="{{ product.url }}" class="predictive__product" data-predictive-item>
+                <span class="predictive__thumb">
+                  {%- if product.featured_media -%}
+                    {{ product.featured_media | image_url: width: 100 | image_tag: loading: 'lazy', width: 50, height: 50, alt: product.featured_media.alt | default: product.title | escape }}
+                  {%- endif -%}
+                </span>
+                <span class="predictive__meta">
+                  <span class="predictive__name">{{ product.title }}</span>
+                  <span class="predictive__price">{{ product.price | money }}</span>
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <a class="predictive__all" href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product" data-predictive-item>
+          {{ 'general.search.view_all' | t }}
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .predictive { display: flex; flex-direction: column; }
+  .predictive__empty { padding: 1rem; text-align: center; color: var(--color-accent); margin: 0; }
+  .predictive__queries,
+  .predictive__collections,
+  .predictive__products { list-style: none; margin: 0; padding: 0; }
+  .predictive__queries { padding: 0.25rem; border-block-end: 1px solid var(--color-sand); }
+  .predictive__query {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: var(--color-dark);
+    border-radius: 10px;
+  }
+  .predictive__query svg { width: 1rem; height: 1rem; color: var(--color-accent); }
+  .predictive__collections { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.6rem 0.75rem; }
+  .predictive__collection {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--color-sand);
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+  .predictive__product {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    text-decoration: none;
+    color: var(--color-dark);
+    border-radius: 12px;
+  }
+  .predictive__product:hover,
+  .predictive__query:hover,
+  .predictive__product.is-active,
+  .predictive__query.is-active { background: var(--color-cream); }
+  .predictive__thumb {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--color-sand);
+  }
+  .predictive__thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .predictive__meta { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .predictive__name { font-weight: 600; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .predictive__price { color: var(--color-primary); font-weight: 700; font-size: 0.85rem; }
+  .predictive__all {
+    display: block;
+    text-align: center;
+    padding: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-block-start: 1px solid var(--color-sand);
+  }
+  .predictive__all:hover { background: var(--color-cream); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Predictive search",
+  "settings": []
+}
+{% endschema %}

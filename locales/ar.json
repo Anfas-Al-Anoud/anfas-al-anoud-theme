@@ -34,7 +34,9 @@
     "search": {
       "title": "دوري اللي بخاطرج",
       "placeholder": "دوري اللي بخاطرج...",
-      "no_results": "ما لقينا نتائج"
+      "no_results": "ما لقينا نتائج",
+      "view_all": "عرض كل النتائج",
+      "searching": "نبحث لج..."
     },
     "cart": {
       "title": "سلتج",
@@ -49,7 +51,8 @@
       "summary": "ملخص الطلب",
       "tax_note": "الضريبة والشحن يُحتسبان عند إتمام الطلب",
       "decrease": "نقص الكمية",
-      "increase": "زيادة الكمية"
+      "increase": "زيادة الكمية",
+      "upsell_title": "يكمّلون طلبج"
     },
     "product": {
       "add_to_cart": "أضيفي للسلة",
@@ -60,6 +63,12 @@
   },
   "products": {
     "quick_add": "أضيفي بسرعة",
+    "quick_view": "معاينة سريعة",
+    "view_details": "التفاصيل الكاملة",
+    "recently_viewed": "شفتيها مؤخّرًا",
+    "low_stock": "باقٍ {{ count }} قطع بس!",
+    "share": "شاركي المنتج",
+    "copied": "تم نسخ الرابط",
     "ask_whatsapp": "استفسري عبر واتساب",
     "ingredients": "المكونات",
     "usage": "طريقة الاستخدام",

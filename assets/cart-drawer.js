@@ -16,6 +16,8 @@ class CartDrawer {
     this.bar = this.drawer.querySelector('[data-free-shipping-bar]');
     this.threshold = this.bar ? parseInt(this.bar.dataset.threshold, 10) : 0;
     this.currency = this.drawer.dataset.currency || 'AED';
+    this.upsellEl = this.drawer.querySelector('[data-cart-upsell]');
+    this.upsellBody = this.drawer.querySelector('[data-cart-upsell-body]');
     this.lastFocus = null;
 
     document.addEventListener('click', (e) => {
@@ -129,6 +131,59 @@ class CartDrawer {
     }
 
     this.renderShippingBar(cart.total_price);
+    this.renderUpsell(cart);
+  }
+
+  async renderUpsell(cart) {
+    if (!this.upsellEl || !this.upsellBody) return;
+    if (!cart.items || cart.items.length === 0) {
+      this.upsellEl.hidden = true;
+      return;
+    }
+    const productId = cart.items[0].product_id;
+    const inCart = new Set(cart.items.map((i) => i.product_id));
+    const params = new URLSearchParams({
+      product_id: productId,
+      intent: 'complementary',
+      limit: '6',
+      section_id: 'cart-upsell',
+    });
+    try {
+      const res = await fetch(`${window.Shopify?.routes?.root || '/'}recommendations/products?${params}`);
+      if (!res.ok) throw new Error('upsell failed');
+      const text = await res.text();
+      const doc = new DOMParser().parseFromString(text, 'text/html');
+      // Adopt the section's subsetted CSS once (fetched on demand, not in the
+      // page render tree).
+      const style = doc.querySelector('style[data-section-stylesheet]');
+      if (style && !document.getElementById('cart-upsell-style')) {
+        style.id = 'cart-upsell-style';
+        document.head.appendChild(style);
+      }
+      const content = doc.querySelector('[data-cart-upsell-content]');
+      if (!content) {
+        this.upsellEl.hidden = true;
+        return;
+      }
+      content
+        .querySelectorAll('[data-upsell-product-id]')
+        .forEach((item) => {
+          if (inCart.has(Number(item.dataset.upsellProductId))) item.remove();
+        });
+      const items = content.querySelectorAll('[data-upsell-product-id]');
+      if (items.length === 0) {
+        this.upsellEl.hidden = true;
+        return;
+      }
+      // Cap to 4 after filtering.
+      Array.from(items)
+        .slice(4)
+        .forEach((el) => el.remove());
+      this.upsellBody.innerHTML = content.innerHTML;
+      this.upsellEl.hidden = false;
+    } catch {
+      this.upsellEl.hidden = true;
+    }
   }
 
   lineHTML(item) {

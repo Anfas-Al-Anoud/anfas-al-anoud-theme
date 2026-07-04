@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "1.2.0",
+    "theme_version": "1.3.0",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -130,6 +130,18 @@
         "id": "show_free_shipping_bar",
         "label": "t:settings.cart.show_free_shipping_bar",
         "default": true
+      }
+    ]
+  },
+  {
+    "name": "t:settings.product.name",
+    "settings": [
+      {
+        "type": "number",
+        "id": "low_stock_threshold",
+        "label": "t:settings.product.low_stock_threshold",
+        "info": "t:settings.product.low_stock_info",
+        "default": 10
       }
     ]
   },

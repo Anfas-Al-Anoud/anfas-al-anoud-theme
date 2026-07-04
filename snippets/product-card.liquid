@@ -49,6 +49,14 @@
       {% render 'wishlist-button', product: product %}
     {% endif %}
 
+    <button
+      type="button"
+      class="product-card__quick-view"
+      data-quick-view
+      data-url="{{ product.url }}"
+      aria-label="{{ 'products.quick_view' | t }}"
+    >{% render 'icon-inline', name: 'eye' %}</button>
+
     {% if product.available %}
       <button
         type="button"
@@ -116,6 +124,31 @@
   .product-card__media-wrap:hover .product-card__quick-add,
   .product-card__quick-add:focus-visible { opacity: 1; transform: translateY(0); }
   @media (hover: none) { .product-card__quick-add { opacity: 1; transform: none; } }
+  .product-card__quick-view {
+    position: absolute;
+    top: 3.25rem;
+    inset-inline-end: 0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-white);
+    color: var(--color-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-soft);
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(-0.35rem);
+    transition: opacity var(--transition-base), transform var(--transition-base), color var(--transition-base);
+  }
+  .product-card__quick-view svg { width: 1.15rem; height: 1.15rem; }
+  .product-card__quick-view:hover { color: var(--color-primary-dark); }
+  .product-card__media-wrap:hover .product-card__quick-view,
+  .product-card__quick-view:focus-visible { opacity: 1; transform: translateY(0); }
+  @media (hover: none) { .product-card__quick-view { opacity: 1; transform: none; } }
   .product-card__info { padding: 1rem; }
   .product-card__title-link { text-decoration: none; color: inherit; }
   .product-card__title { font-size: 0.95rem; font-weight: 600; margin-block-end: 0.5rem; line-height: 1.4; }

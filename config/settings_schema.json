@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "1.1.1",
+    "theme_version": "1.2.0",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -41,11 +41,12 @@
         "id": "arabic_font_family",
         "label": "t:labels.arabic_font",
         "info": "t:settings.typography.arabic_font_info",
-        "default": "noto_sans",
+        "default": "tajawal",
         "options": [
+          { "value": "tajawal", "label": "Tajawal" },
+          { "value": "cairo", "label": "Cairo" },
           { "value": "noto_sans", "label": "Noto Sans Arabic" },
-          { "value": "ibm_plex", "label": "IBM Plex Sans Arabic" },
-          { "value": "cairo", "label": "Cairo" }
+          { "value": "ibm_plex", "label": "IBM Plex Sans Arabic" }
         ]
       }
     ]
@@ -82,10 +83,11 @@
         "type": "color_palette",
         "id": "colors",
         "default": {
-          "gold": "#C4A35A",
+          "burgundy": "#7A1F2B",
+          "gold": "#C9A24C",
           "sand": "#E8D5B7",
-          "cream": "#FAF7F2",
-          "dark": "#3D2B1F",
+          "cream": "#FAF6EF",
+          "dark": "#3A2418",
           "accent": "#8B6914",
           "white": "#FFFFFF"
         }
@@ -93,13 +95,13 @@
       {
         "type": "color",
         "id": "background_color",
-        "default": "#FAF7F2",
+        "default": "#FAF6EF",
         "label": "t:labels.background"
       },
       {
         "type": "color",
         "id": "foreground_color",
-        "default": "#3D2B1F",
+        "default": "#3A2418",
         "label": "t:labels.foreground"
       },
       {

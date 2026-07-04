@@ -20,37 +20,75 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  border: none;
+  border: 2px solid transparent;
   border-radius: var(--style-border-radius-buttons);
-  background: var(--color-gold);
-  color: var(--color-white);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
   font-weight: 700;
+  line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
-  transition: background var(--transition-base), transform var(--transition-base);
+  transition: background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .btn:hover {
-  background: var(--color-accent);
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn--gold {
+  background: var(--color-gold);
+  color: var(--color-dark);
+  box-shadow: 0 6px 20px rgba(201, 162, 76, 0.35);
+}
+
+.btn--gold:hover {
+  background: #b8912f;
+  color: var(--color-dark);
 }
 
 .btn--outline {
   background: transparent;
-  border: 2px solid var(--color-gold);
-  color: var(--color-dark);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
 }
 
 .btn--outline:hover {
-  background: var(--color-gold);
-  color: var(--color-white);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  transform: translateY(-1px);
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--style-border-radius-inputs);
 }
 
 .section-heading {
   font-size: clamp(1.5rem, 4vw, 2.25rem);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--color-dark);
   margin-block-end: 0.75rem;
   text-align: center;
+}
+
+.section-heading--accent {
+  display: inline-block;
+  padding-block-end: 0.5rem;
+  position: relative;
+}
+
+.section-heading--accent::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  width: 3rem;
+  height: 3px;
+  margin-inline: auto;
+  background: var(--color-gold);
+  border-radius: 999px;
 }
 
 .section-subheading {

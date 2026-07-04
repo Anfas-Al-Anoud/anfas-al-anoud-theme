@@ -4,9 +4,15 @@
       assign font_primary = "'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif"
     when 'cairo'
       assign font_primary = "'Cairo', 'Noto Sans Arabic', sans-serif"
-    else
+    when 'noto_sans'
       assign font_primary = "'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif"
+    else
+      assign font_primary = "'Tajawal', 'Cairo', 'Noto Sans Arabic', sans-serif"
   endcase
+
+  assign color_primary = settings.colors.burgundy | default: '#7A1F2B'
+  assign color_gold = settings.colors.gold | default: '#C9A24C'
+  assign color_cream = settings.colors.cream | default: '#FAF6EF'
 %}
 
 {% style %}
@@ -18,15 +24,18 @@
     --page-margin: {{ settings.min_page_margin }}px;
     --color-background: {{ settings.background_color }};
     --color-foreground: {{ settings.foreground_color }};
-    --color-gold: {{ settings.colors.gold }};
+    --color-primary: {{ color_primary }};
+    --color-primary-foreground: #FBF3E6;
+    --color-primary-dark: #5E141F;
+    --color-gold: {{ color_gold }};
     --color-sand: {{ settings.colors.sand }};
-    --color-cream: {{ settings.colors.cream }};
+    --color-cream: {{ color_cream }};
     --color-dark: {{ settings.colors.dark }};
     --color-accent: {{ settings.colors.accent }};
     --color-white: {{ settings.colors.white }};
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
     --style-border-radius-buttons: {{ settings.input_corner_radius }}px;
-    --style-border-radius-cards: 12px;
+    --style-border-radius-cards: 16px;
     --transition-base: 0.25s ease;
     --shadow-soft: 0 4px 24px rgba(61, 43, 31, 0.08);
     --header-height: 4.5rem;

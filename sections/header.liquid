@@ -34,6 +34,7 @@
       {% else %}
         <span class="site-header__logo-text">{{ shop.name }}</span>
       {% endif %}
+      <span class="site-header__logo-subtitle" aria-hidden="true">ALANOUD</span>
     </a>
 
     <div class="site-header__actions">
@@ -68,8 +69,10 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--color-white);
-    border-block-end: 1px solid var(--color-sand);
+    background: color-mix(in srgb, var(--color-white) 82%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
     box-shadow: var(--shadow-soft);
   }
   .site-header__inner {
@@ -84,13 +87,25 @@
   }
   .site-header__logo {
     justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
     text-decoration: none;
     color: var(--color-dark);
   }
   .site-header__logo-text {
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+  .site-header__logo-subtitle {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-indent: 0.35em;
     color: var(--color-gold);
+    text-transform: uppercase;
   }
   .site-header__nav {
     display: none;
@@ -135,14 +150,17 @@
     cursor: pointer;
     color: var(--color-dark);
     padding: 0.25rem;
+    transition: color var(--transition-base);
   }
+  .site-header__icon:hover { color: var(--color-primary); }
+  .site-header__nav-link:hover { color: var(--color-primary); }
   .site-header__icon svg { width: 1.5rem; height: 1.5rem; }
   .site-header__cart-count {
     position: absolute;
     top: -4px;
     inset-inline-start: -4px;
-    background: var(--color-gold);
-    color: var(--color-white);
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
     font-size: 0.65rem;
     font-weight: 700;
     min-width: 1.125rem;

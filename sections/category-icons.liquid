@@ -103,23 +103,32 @@
     text-decoration: none;
     color: var(--color-dark);
     background: linear-gradient(180deg, var(--color-white) 0%, var(--color-cream) 100%);
-    border: 1px solid rgba(196, 163, 90, 0.25);
+    border: 1px solid rgba(201, 162, 76, 0.3);
     border-radius: var(--style-border-radius-cards);
     box-shadow: var(--shadow-soft);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), color var(--transition-base);
     touch-action: manipulation;
   }
 
   .category-icons__card:hover,
   .category-icons__card:focus-visible {
     transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(61, 43, 31, 0.12);
+    box-shadow: 0 16px 32px rgba(122, 31, 43, 0.16);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .category-icons__icon {
     width: 4.25rem;
     height: 4.25rem;
     object-fit: contain;
+    border-radius: 50%;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .category-icons__card:hover .category-icons__icon,
+  .category-icons__card:focus-visible .category-icons__icon {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 45%, transparent);
   }
 
   .category-icons__placeholder {

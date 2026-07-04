@@ -1,3 +1,4 @@
+/* Anfas Al-Anoud storefront interactions (theme.js v1.5.1) */
 document.addEventListener('DOMContentLoaded', () => {
   /* ---- App-style mobile menu (bottom sheet) ---- */
   const menuToggle = document.querySelector('[data-menu-toggle]');

@@ -1,15 +1,21 @@
+{% liquid
+  assign featured_products = section.settings.collection.products
+  if featured_products == blank or featured_products.size == 0
+    assign featured_products = collections.all.products
+  endif
+%}
 <section class="featured-collection section-padding" data-animate-section>
   <h2 class="section-heading">{{ section.settings.heading }}</h2>
   {% if section.settings.subheading != blank %}
     <p class="section-subheading">{{ section.settings.subheading }}</p>
   {% endif %}
 
-  {% if section.settings.collection != blank %}
+  {% if featured_products.size > 0 %}
     <div class="featured-collection__carousel" data-carousel>
       <button type="button" class="featured-collection__nav featured-collection__nav--prev" data-carousel-prev aria-label="السابق">&lsaquo;</button>
       <div class="featured-collection__track-wrap">
         <div class="featured-collection__track" data-carousel-track>
-          {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+          {% for product in featured_products limit: section.settings.products_to_show %}
             <div class="featured-collection__slide">
               {% render 'product-card', product: product %}
             </div>

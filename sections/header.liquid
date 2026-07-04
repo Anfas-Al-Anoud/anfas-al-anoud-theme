@@ -197,6 +197,19 @@
     color: var(--color-dark);
     justify-self: start;
   }
+  @media (max-width: 767px) {
+    /* App-style top bar: the fixed bottom nav + menu sheet already provide
+       menu, search, wishlist, cart and account, so hide the duplicated
+       header controls and keep a clean, centered logo. */
+    .site-header__actions,
+    .site-header__menu-toggle {
+      display: none;
+    }
+    .site-header__logo {
+      justify-self: center;
+      grid-column: 1 / -1;
+    }
+  }
   @media (min-width: 768px) {
     .site-header__menu-toggle { display: none; }
     .site-header__nav {

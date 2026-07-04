@@ -191,6 +191,7 @@
     ]
   </script>
 
+  {%- capture recent_price -%}{{ product.price | money_without_currency }} {{ 'general.currency' | t }}{%- endcapture -%}
   <script type="application/json" data-recently-current>
     {
       "id": {{ product.id }},
@@ -198,7 +199,7 @@
       "title": {{ product.title | replace: 'اً', 'ًا' | json }},
       "url": {{ product.url | json }},
       "image": {{ product.featured_image | image_url: width: 500 | json }},
-      "price": {{ product.price | money | json }},
+      "price": {{ recent_price | strip | json }},
       "available": {{ product.available }}
     }
   </script>

@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "1.4.6",
+    "theme_version": "1.4.7",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -60,9 +60,10 @@
         "label": "t:labels.page_width",
         "options": [
           { "value": "90rem", "label": "t:options.page_width.narrow" },
+          { "value": "100rem", "label": "متوسط" },
           { "value": "110rem", "label": "t:options.page_width.wide" }
         ],
-        "default": "90rem"
+        "default": "100rem"
       },
       {
         "type": "range",

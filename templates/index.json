@@ -148,7 +148,13 @@
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "quote": "الدخون يفوح فخامة، والتوصيل سريع!", "author": "فاطمة - دبي" } },
+        "t2": { "type": "testimonial", "settings": { "quote": "بدي أويل ناعم وريحته ثابتة طول اليوم.", "author": "مريم - أبوظبي" } },
+        "t3": { "type": "testimonial", "settings": { "quote": "بوكس الهدية كان تحفة، والتغليف فخم.", "author": "شما - الشارقة" } }
+      },
+      "block_order": ["t1", "t2", "t3"]
     },
     "quality": {
       "type": "quality-banner",
@@ -162,11 +168,31 @@
     },
     "faq": {
       "type": "faq-accordion",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "q1": { "type": "faq", "settings": { "question": "شو نوع الدخون اللي عندج؟", "answer": "<p>عندنا دخون إماراتي فاخر بخلطات أصلية ومكونات طبيعية.</p>" } },
+        "q2": { "type": "faq", "settings": { "question": "ايش هي طرق الدفع المتوفرة عندج؟", "answer": "<p>بطاقات، Apple Pay، تابي، وتمارا.</p>" } },
+        "q3": { "type": "faq", "settings": { "question": "كم حبة دخون في الغرشة؟", "answer": "<p>تختلف حسب المنتج، التفاصيل موجودة في صفحة كل منتج.</p>" } },
+        "q4": { "type": "faq", "settings": { "question": "كيف أطلب؟", "answer": "<p>اختاري المنتج، أضيفيه للسلة، وكمّلي الدفع.</p>" } },
+        "q5": { "type": "faq", "settings": { "question": "اقدر أدفع بتابي أو تمارا؟", "answer": "<p>نعم، متوفرين في صفحة الدفع.</p>" } },
+        "q6": { "type": "faq", "settings": { "question": "وين توصلين؟", "answer": "<p>نوصل لكل الإمارات، وخارج الإمارات حسب التوفر.</p>" } },
+        "q7": { "type": "faq", "settings": { "question": "ايش هي العروض اللي عاملتيها؟", "answer": "<p>تابعينا على السوشيال أو اشتركي بالنشرة للعروض.</p>" } },
+        "q8": { "type": "faq", "settings": { "question": "هل في شحن لخارج الإمارات؟", "answer": "<p>نعم، حسب الدولة والوزن.</p>" } },
+        "q9": { "type": "faq", "settings": { "question": "ايش أسوي لو المنتج لو ما عيبني؟", "answer": "<p>تقدرين ترجعينه خلال 3 أيام حسب سياسة الإرجاع.</p>" } },
+        "q10": { "type": "faq", "settings": { "question": "هل الروائح عندج مناسبة للنساء والرجال؟", "answer": "<p>نعم، عندنا روائح تناسب الجميع.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"]
     },
     "trust": {
       "type": "trust-features",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "delivery", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
+        "f2": { "type": "feature", "settings": { "icon": "payment", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
+        "f3": { "type": "feature", "settings": { "icon": "quality", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
+        "f4": { "type": "feature", "settings": { "icon": "support", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
     },
     "quiz": {
       "type": "ai-quiz",

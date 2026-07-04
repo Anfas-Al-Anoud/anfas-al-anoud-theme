@@ -17,14 +17,14 @@
                 alt: block.settings.icon_alt,
                 fallback_alt: block.settings.title,
                 class: 'category-icons__icon',
-                width: 160
+                width: 240
               %}
             {% elsif block.settings.icon_asset != blank %}
               {% render 'theme-asset-image',
                 asset: block.settings.icon_asset,
                 alt: block.settings.icon_alt,
                 class: 'category-icons__icon',
-                width: 160
+                width: 240
               %}
             {% else %}
               {% render 'placeholder-svg',
@@ -96,39 +96,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.85rem;
-    min-height: 9.5rem;
-    padding: 1.25rem 1rem;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0.25rem;
     text-decoration: none;
     color: var(--color-dark);
-    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-cream) 100%);
-    border: 1px solid rgba(201, 162, 76, 0.3);
-    border-radius: var(--style-border-radius-cards);
-    box-shadow: var(--shadow-soft);
-    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+    transition: transform var(--transition-base), color var(--transition-base);
     touch-action: manipulation;
   }
 
   .category-icons__card:hover,
   .category-icons__card:focus-visible {
     transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(122, 31, 43, 0.16);
-    border-color: var(--color-primary);
     color: var(--color-primary);
   }
 
   .category-icons__icon {
-    width: 4.25rem;
-    height: 4.25rem;
-    object-fit: contain;
+    width: clamp(5rem, 20vw, 7.5rem);
+    height: clamp(5rem, 20vw, 7.5rem);
+    object-fit: cover;
     border-radius: 50%;
-    transition: box-shadow var(--transition-base);
+    border: 3px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+    box-shadow: var(--shadow-soft);
+    background: var(--color-cream);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   }
 
   .category-icons__card:hover .category-icons__icon,
   .category-icons__card:focus-visible .category-icons__icon {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 45%, transparent);
+    border-color: var(--color-primary);
+    box-shadow: 0 12px 28px rgba(122, 31, 43, 0.22);
   }
 
   .category-icons__placeholder {

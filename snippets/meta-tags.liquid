@@ -5,7 +5,17 @@
 <link rel="alternate" hreflang="ar" href="{{ canonical_url }}">
 
 {%- liquid
-  assign og_title = page_title | default: shop.name
+  assign seo_title = page_title | default: shop.name
+
+  if request.page_type == 'index'
+    assign seo_title = 'general.meta.home_title' | t
+  elsif request.page_type == 'search'
+    assign seo_title = 'general.meta.search_title' | t: terms: search.terms
+  elsif request.page_type == 'collection' and collection.handle == 'all'
+    assign seo_title = 'collections.all_title' | t
+  endif
+
+  assign og_title = seo_title | default: shop.name
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: 'متجر أنفاس العنود - دخون وعطور ومنتجات عناية فاخرة'
@@ -105,10 +115,10 @@
 >
 
 <title>
-  {{ page_title }}
+  {{ seo_title }}
   {%- if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} {{ current_tags | join: ', ' }}{% endif -%}
   {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- unless seo_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
 </title>
 
 {% render 'schema-breadcrumbs' %}

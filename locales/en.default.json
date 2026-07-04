@@ -13,7 +13,9 @@
     "currency": "AED",
     "meta": {
       "tagged": "tagged",
-      "page": "Page {{ page }}"
+      "page": "Page {{ page }}",
+      "home_title": "Anfas Al-Anoud — Emirati bakhoor, perfumes and care",
+      "search_title": "Search results for {{ terms }}"
     },
     "accessibility": {
       "skip_to_content": "Skip to content",

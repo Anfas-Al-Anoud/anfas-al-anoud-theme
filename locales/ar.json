@@ -13,7 +13,9 @@
     "currency": "د.إ.",
     "meta": {
       "tagged": "بوسم",
-      "page": "صفحة {{ page }}"
+      "page": "صفحة {{ page }}",
+      "home_title": "أنفاس العنود — دخون وعطور ومنتجات عناية فاخرة",
+      "search_title": "نتائج البحث عن {{ terms }}"
     },
     "accessibility": {
       "skip_to_content": "انتقلي للمحتوى",

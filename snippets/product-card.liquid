@@ -71,7 +71,7 @@
 
   <div class="product-card__info">
     <a href="{{ product.url }}" class="product-card__title-link">
-      <h3 class="product-card__title">{{ product.title }}</h3>
+      <h3 class="product-card__title">{% render 'tanween', text: product.title %}</h3>
     </a>
     {% if rating != blank %}
       <div class="product-card__rating" aria-label="{{ rating }}">

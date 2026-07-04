@@ -59,6 +59,13 @@
       "sold_out": "نفدت الكمية",
       "unavailable": "غير متوفر",
       "quantity": "الكمية"
+    },
+    "nav": {
+      "home": "الرئيسية",
+      "search": "بحث",
+      "wishlist": "مفضلتج",
+      "cart": "سلتج",
+      "menu": "القائمة"
     }
   },
   "products": {

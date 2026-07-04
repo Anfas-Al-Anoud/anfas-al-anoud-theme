@@ -3,25 +3,35 @@
 
 ## Store Identity
 - Brand: أنفاس العنود (Anfas Al-Anoud)
+- URL: {{ shop.url }}
 - Market: UAE, Arabic RTL storefront
 - Products: Incense (dokhoon), perfumes, body care, gift boxes
 
+## Collections
+{% for collection in collections -%}
+- {{ collection.title }} ({{ collection.products_count }}): {{ shop.url }}{{ collection.url }}
+{% endfor %}
 ## Customer Support
-- WhatsApp support available via floating button
+- WhatsApp{% if settings.whatsapp_number != blank %}: https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}{% else %} via floating button{% endif %}
 - Free shipping threshold configurable in theme settings
 - Returns within 3 days per store policy
 
 ## Product Discovery
 - AI quiz section helps customers find products by occasion and mood
-- Collections organized by product type and use case
+- Predictive search and collections organized by product type and use case
 
 ## Policies
-- Privacy: /pages/privacy-policy
-- Terms: /pages/terms
-- Returns: /pages/returns
-- Shipping: /pages/shipping
-- Payments: Tabby, Tamara, cards at /pages/payment-methods
+- Privacy: {{ shop.url }}/pages/privacy-policy
+- Terms: {{ shop.url }}/pages/terms
+- Returns: {{ shop.url }}/pages/returns
+- Shipping: {{ shop.url }}/pages/shipping
+- Payments: Tabby, Tamara, cards at {{ shop.url }}/pages/payment-methods
 
+## Social
+{% if settings.social_instagram != blank %}- Instagram: {{ settings.social_instagram }}
+{% endif %}{% if settings.social_tiktok != blank %}- TikTok: {{ settings.social_tiktok }}
+{% endif %}{% if settings.social_snapchat != blank %}- Snapchat: {{ settings.social_snapchat }}
+{% endif %}
 ## Cultural Notes
 - Modest imagery only, UAE-appropriate content
-- No external Linktree - internal link hub at /pages/link-hub
+- Internal link hub at {{ shop.url }}/pages/link-hub

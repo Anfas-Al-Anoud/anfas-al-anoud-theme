@@ -1,0 +1,12 @@
+{% doc %}
+  Normalizes Arabic tanween al-fath: converts "اً" (fathatan placed on the
+  alef) to "ًا" (fathatan on the preceding letter, before the alef). Use for
+  dynamic, store-sourced text (product/collection/menu titles) where the
+  tanween can't be corrected by hand.
+
+  @param {string} text - The text to normalize
+
+  @example
+  {% render 'tanween', text: product.title %}
+{% enddoc %}
+{{- text | replace: 'اً', 'ًا' -}}

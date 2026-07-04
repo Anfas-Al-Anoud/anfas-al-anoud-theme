@@ -59,6 +59,13 @@
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "quantity": "Quantity"
+    },
+    "nav": {
+      "home": "Home",
+      "search": "Search",
+      "wishlist": "Wishlist",
+      "cart": "Cart",
+      "menu": "Menu"
     }
   },
   "products": {

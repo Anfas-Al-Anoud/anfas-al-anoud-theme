@@ -1,0 +1,111 @@
+{% doc %}
+  App-style mobile bottom navigation (mobile only). Reuses existing hooks:
+  the cart drawer ([data-cart-open]), the wishlist drawer ([data-wishlist-open])
+  and the mobile menu sheet ([data-mobile-menu-open], wired in theme.js). Count
+  badges are kept in sync by cart-drawer.js ([data-cart-count]) and wishlist.js
+  ([data-wishlist-count]).
+
+  @example
+  {% render 'mobile-bottom-nav' %}
+{% enddoc %}
+
+<nav class="mobile-bottom-nav" aria-label="{{ 'general.accessibility.menu' | t }}">
+  <a
+    href="{{ routes.root_url }}"
+    class="mobile-bottom-nav__item{% if template.name == 'index' %} is-active{% endif %}"
+    {% if template.name == 'index' %}aria-current="page"{% endif %}
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <span>{{ 'general.nav.home' | t }}</span>
+  </a>
+
+  <a
+    href="{{ routes.search_url }}"
+    class="mobile-bottom-nav__item{% if template.name == 'search' %} is-active{% endif %}"
+    {% if template.name == 'search' %}aria-current="page"{% endif %}
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>{{ 'general.nav.search' | t }}</span>
+  </a>
+
+  <button type="button" class="mobile-bottom-nav__item" data-wishlist-open aria-label="{{ 'general.nav.wishlist' | t }}">
+    <span class="mobile-bottom-nav__icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21.35 10.55 20C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" stroke="currentColor" stroke-width="1.7"/></svg>
+      <span class="mobile-bottom-nav__badge" data-wishlist-count hidden>0</span>
+    </span>
+    <span>{{ 'general.nav.wishlist' | t }}</span>
+  </button>
+
+  <button type="button" class="mobile-bottom-nav__item" data-cart-open aria-label="{{ 'general.cart.title' | t }}">
+    <span class="mobile-bottom-nav__icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-1.4 9.2a2 2 0 0 1-2 1.7H9.4a2 2 0 0 1-2-1.7L6 6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="9.5" cy="20" r="1.2" fill="currentColor"/><circle cx="17" cy="20" r="1.2" fill="currentColor"/></svg>
+      <span class="mobile-bottom-nav__badge" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+    </span>
+    <span>{{ 'general.nav.cart' | t }}</span>
+  </button>
+
+  <button type="button" class="mobile-bottom-nav__item" data-mobile-menu-open aria-label="{{ 'general.nav.menu' | t }}">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>{{ 'general.nav.menu' | t }}</span>
+  </button>
+</nav>
+
+{% stylesheet %}
+  .mobile-bottom-nav {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 95;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    height: var(--mobile-nav-height);
+    padding-block-end: env(safe-area-inset-bottom);
+    background: color-mix(in srgb, var(--color-white) 92%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-block-start: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
+    box-shadow: 0 -4px 20px rgba(61, 43, 31, 0.1);
+  }
+  .mobile-bottom-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-dark);
+    transition: color var(--transition-base);
+  }
+  .mobile-bottom-nav__item svg { width: 1.5rem; height: 1.5rem; }
+  .mobile-bottom-nav__item.is-active,
+  .mobile-bottom-nav__item:hover { color: var(--color-primary); }
+  .mobile-bottom-nav__icon-wrap { position: relative; display: inline-flex; }
+  .mobile-bottom-nav__badge {
+    position: absolute;
+    top: -0.4rem;
+    inset-inline-start: -0.5rem;
+    min-width: 1.05rem;
+    height: 1.05rem;
+    padding-inline: 0.25rem;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    font-size: 0.62rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-bottom-nav__badge[hidden] { display: none; }
+  @media (min-width: 768px) {
+    .mobile-bottom-nav { display: none; }
+  }
+{% endstylesheet %}

@@ -1,21 +1,31 @@
 {% layout none %}
-# أنفاس العنود - Anfas Al-Anoud Store
+# أنفاس العنود - Anfas Al-Anoud
 
-متجر إلكتروني: عطور، دخون، عناية، بوكسات هدايا في الإمارات.
+> {{ shop.description | default: 'متجر إماراتي متخصص في العطور، الدخون، منتجات العناية، وبوكسات الهدايا.' }}
 
-## المنتجات
-- دخون السنع: بخور ودخون تقليدي
-- عطور الكشخة: عطور فاخرة للمناسبات
-- دلع وعناية: منتجات عناية بالجسم
-- بوكسات الزين: هدايا جاهزة للتقديم
+## المتجر
+- الرابط: {{ shop.url }}
+- اللغة: العربية (RTL)
+- صفحة الروابط: {{ shop.url }}/pages/link-hub
 
+## المجموعات
+{% for collection in collections -%}
+- {{ collection.title }}: {{ shop.url }}{{ collection.url }} ({{ collection.products_count }} منتج)
+{% endfor %}
+## منتجات مختارة
+{% for product in collections.all.products limit: 12 -%}
+- {{ product.title }}: {{ shop.url }}{{ product.url }} — {{ product.price | money }}
+{% endfor %}
 ## السياسات
-- /pages/privacy-policy - سياسة الخصوصية
-- /pages/terms - الشروط والأحكام
-- /pages/returns - سياسة الإرجاع
-- /pages/shipping - سياسة الشحن
-- /pages/payment-methods - طرق الدفع (تابي، تمارا، بطاقات)
+- سياسة الخصوصية: {{ shop.url }}/pages/privacy-policy
+- الشروط والأحكام: {{ shop.url }}/pages/terms
+- سياسة الإرجاع: {{ shop.url }}/pages/returns
+- سياسة الشحن: {{ shop.url }}/pages/shipping
+- طرق الدفع (تابي، تمارا، بطاقات): {{ shop.url }}/pages/payment-methods
 
-## الاتصال
-- واتساب عبر زر الدعم في المتجر
-- متجر عربي بالكامل (RTL)
+## التواصل
+{% if settings.whatsapp_number != blank %}- واتساب: https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}
+{% endif %}{% if settings.social_instagram != blank %}- Instagram: {{ settings.social_instagram }}
+{% endif %}{% if settings.social_tiktok != blank %}- TikTok: {{ settings.social_tiktok }}
+{% endif %}{% if settings.social_snapchat != blank %}- Snapchat: {{ settings.social_snapchat }}
+{% endif %}

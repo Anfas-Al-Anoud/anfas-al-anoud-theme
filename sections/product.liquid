@@ -42,7 +42,7 @@
       {% if product.vendor != blank %}
         <p class="product-page__vendor">{{ product.vendor }}</p>
       {% endif %}
-      <h1 class="product-page__title">{{ product.title }}</h1>
+      <h1 class="product-page__title">{% render 'tanween', text: product.title %}</h1>
 
       <div class="product-page__price">
         <s data-compare {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
@@ -195,7 +195,7 @@
     {
       "id": {{ product.id }},
       "handle": {{ product.handle | json }},
-      "title": {{ product.title | json }},
+      "title": {{ product.title | replace: 'اً', 'ًا' | json }},
       "url": {{ product.url | json }},
       "image": {{ product.featured_image | image_url: width: 500 | json }},
       "price": {{ product.price | money | json }},
@@ -205,7 +205,7 @@
 </div>
 
 <div class="product-page__sticky-atc" data-sticky-atc hidden>
-  <span class="product-page__sticky-title">{{ product.title }}</span>
+  <span class="product-page__sticky-title">{% render 'tanween', text: product.title %}</span>
   <span data-price>{{ current_variant.price | money }}</span>
   <button type="button" class="btn" data-sticky-add>{{ 'general.product.add_to_cart' | t }}</button>
 </div>

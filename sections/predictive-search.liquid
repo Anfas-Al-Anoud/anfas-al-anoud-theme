@@ -33,7 +33,7 @@
         <ul class="predictive__collections" role="list">
           {%- for collection in collections -%}
             <li>
-              <a href="{{ collection.url }}" class="predictive__collection" data-predictive-item>{{ collection.title }}</a>
+              <a href="{{ collection.url }}" class="predictive__collection" data-predictive-item>{% render 'tanween', text: collection.title %}</a>
             </li>
           {%- endfor -%}
         </ul>
@@ -50,7 +50,7 @@
                   {%- endif -%}
                 </span>
                 <span class="predictive__meta">
-                  <span class="predictive__name">{{ product.title }}</span>
+                  <span class="predictive__name">{% render 'tanween', text: product.title %}</span>
                   <span class="predictive__price">{{ product.price | money }}</span>
                 </span>
               </a>

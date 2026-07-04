@@ -28,7 +28,7 @@
     {% if product.vendor != blank %}
       <p class="quickview__vendor">{{ product.vendor }}</p>
     {% endif %}
-    <h2 class="quickview__title">{{ product.title }}</h2>
+    <h2 class="quickview__title">{% render 'tanween', text: product.title %}</h2>
 
     <div class="quickview__price">
       <s data-qv-compare {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>{{ current_variant.compare_at_price | money }}</s>

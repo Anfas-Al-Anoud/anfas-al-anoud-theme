@@ -123,3 +123,23 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---- App-style mobile navigation spacing (mobile only) ---- */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom));
+  }
+  /* Lift the floating WhatsApp button above the bottom nav. */
+  body .whatsapp-float {
+    bottom: calc(var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom) + 0.75rem);
+  }
+  /* Product pages already surface WhatsApp (ask + share); hide the float to
+     avoid clashing with the sticky add-to-cart bar. */
+  body.template-product .whatsapp-float {
+    display: none;
+  }
+  /* Stack the product sticky add-to-cart bar directly above the bottom nav. */
+  body .product-page__sticky-atc {
+    bottom: calc(var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom));
+  }
+}

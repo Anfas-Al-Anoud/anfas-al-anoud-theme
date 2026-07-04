@@ -79,7 +79,8 @@
             "title": "حق الدوام والطلعات",
             "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم.",
             "image_alt": "بطاقة حق الدوام والطلعات",
-            "image_asset": "mood-card-1-work.jpg"
+            "image_asset": "mood-card-1-work.jpg",
+            "link": "/collections/anoud-vibe-daily"
           }
         },
         "m2": {
@@ -88,7 +89,8 @@
             "title": "الدلع والشاور",
             "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج.",
             "image_alt": "بطاقة الدلع والشاور",
-            "image_asset": "mood-card-2-shower.jpg"
+            "image_asset": "mood-card-2-shower.jpg",
+            "link": "/collections/anoud-vibe-shower"
           }
         },
         "m3": {
@@ -97,7 +99,8 @@
             "title": "فخامة الميلس والمواجيب",
             "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح.",
             "image_alt": "بطاقة فخامة الميلس والمواجيب",
-            "image_asset": "mood-card-3-majlis.jpg"
+            "image_asset": "mood-card-3-majlis.jpg",
+            "link": "/collections/anoud-vibe-majlis"
           }
         },
         "m4": {
@@ -106,7 +109,8 @@
             "title": "للسهرات والعزايم",
             "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟",
             "image_alt": "بطاقة للسهرات والعزايم",
-            "image_asset": "mood-card-4-evening.jpg"
+            "image_asset": "mood-card-4-evening.jpg",
+            "link": "/collections/anoud-vibe-evening"
           }
         },
         "m5": {
@@ -115,7 +119,8 @@
             "title": "زْهبة العروس",
             "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال.",
             "image_alt": "بطاقة زهبة العروس",
-            "image_asset": "mood-card-5-bride.jpg"
+            "image_asset": "mood-card-5-bride.jpg",
+            "link": "/collections/anoud-vibe-bride"
           }
         }
       },

@@ -13,6 +13,10 @@
     assign seo_title = 'general.meta.search_title' | t: terms: search.terms
   elsif request.page_type == 'collection' and collection.handle == 'all'
     assign seo_title = 'collections.all_title' | t
+  elsif request.page_type == 'list-collections'
+    assign seo_title = 'collections.title' | t
+  elsif request.page_type == 'cart'
+    assign seo_title = 'general.cart.title' | t
   elsif request.page_type == '404'
     assign seo_title = 'general.meta.not_found_title' | t
   endif

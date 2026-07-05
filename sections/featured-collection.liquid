@@ -3,16 +3,27 @@
   if featured_products == blank or featured_products.size == 0
     assign featured_products = collections.all.products
   endif
+  assign collection_url = section.settings.collection.url | default: routes.all_products_collection_url
 %}
 <section class="featured-collection section-padding" data-animate-section>
-  <h2 class="section-heading">{% render 'tanween', text: section.settings.heading %}</h2>
-  {% if section.settings.subheading != blank %}
-    <p class="section-subheading">{% render 'tanween', text: section.settings.subheading %}</p>
-  {% endif %}
+  <div class="featured-collection__header">
+    <div class="featured-collection__titles">
+      <h2 class="section-heading featured-collection__heading">{% render 'tanween', text: section.settings.heading %}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="section-subheading featured-collection__subheading">{% render 'tanween', text: section.settings.subheading %}</p>
+      {% endif %}
+    </div>
+    {% if section.settings.show_view_all %}
+      <a href="{{ collection_url }}" class="featured-collection__view-all">
+        {{ 'sections.featured_collection.view_all' | t }}
+        <span aria-hidden="true">&lsaquo;</span>
+      </a>
+    {% endif %}
+  </div>
 
   {% if featured_products.size > 0 %}
     <div class="featured-collection__carousel" data-carousel>
-      <button type="button" class="featured-collection__nav featured-collection__nav--prev" data-carousel-prev aria-label="السابق">&lsaquo;</button>
+      <button type="button" class="featured-collection__nav featured-collection__nav--prev" data-carousel-prev aria-label="{{ 'general.pagination.previous' | t }}">&lsaquo;</button>
       <div class="featured-collection__track-wrap">
         <div class="featured-collection__track" data-carousel-track>
           {% for product in featured_products limit: section.settings.products_to_show %}
@@ -22,24 +33,75 @@
           {% endfor %}
         </div>
       </div>
-      <button type="button" class="featured-collection__nav featured-collection__nav--next" data-carousel-next aria-label="التالي">&rsaquo;</button>
+      <button type="button" class="featured-collection__nav featured-collection__nav--next" data-carousel-next aria-label="{{ 'general.pagination.next' | t }}">&rsaquo;</button>
+      <div class="featured-collection__dots" data-carousel-dots role="tablist" aria-label="{{ 'general.pagination.label' | t }}"></div>
     </div>
   {% endif %}
 </section>
 
 {% stylesheet %}
+  .featured-collection__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    margin-block-end: 0.25rem;
+  }
+
+  .featured-collection__titles {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .featured-collection__heading,
+  .featured-collection__subheading {
+    text-align: start;
+    margin-inline: 0;
+  }
+
+  .featured-collection__subheading {
+    margin-block-end: 0;
+  }
+
+  .featured-collection__view-all {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding-block: 0.25rem;
+    transition: color var(--transition-base);
+  }
+
+  .featured-collection__view-all:hover {
+    color: var(--color-primary-dark);
+  }
+
+  .featured-collection__view-all span {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
   .featured-collection__carousel {
     position: relative;
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-margin);
   }
+
   .featured-collection__track-wrap {
     overflow: hidden;
   }
+
   .featured-collection__track {
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -49,24 +111,60 @@
     padding-block: 0.5rem;
     padding-inline: 0.25rem;
   }
-  .featured-collection__track::-webkit-scrollbar { display: none; }
+
+  .featured-collection__track::-webkit-scrollbar {
+    display: none;
+  }
+
   .featured-collection__slide {
-    flex: 0 0 calc(78% - 0.625rem);
+    flex: 0 0 calc(72% - 0.5rem);
     scroll-snap-align: start;
     min-width: 0;
   }
+
+  .featured-collection__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.375rem;
+    margin-block-start: 0.75rem;
+    min-height: 0.5rem;
+  }
+
+  .featured-collection__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    cursor: pointer;
+    transition: background var(--transition-base), transform var(--transition-base);
+  }
+
+  .featured-collection__dot.is-active {
+    background: var(--color-primary);
+    transform: scale(1.15);
+  }
+
   @media (min-width: 768px) {
     .featured-collection__carousel {
       padding-inline: calc(var(--page-margin) + 2rem);
     }
-    .featured-collection__slide { flex: 0 0 calc(33.333% - 0.833rem); }
+
+    .featured-collection__slide {
+      flex: 0 0 calc(33.333% - 0.667rem);
+    }
   }
+
   @media (min-width: 1024px) {
-    .featured-collection__slide { flex: 0 0 calc(25% - 0.9375rem); }
+    .featured-collection__slide {
+      flex: 0 0 calc(25% - 0.75rem);
+    }
   }
+
   .featured-collection__nav {
     position: absolute;
-    top: 50%;
+    top: 42%;
     transform: translateY(-50%);
     width: 2.5rem;
     height: 2.5rem;
@@ -83,12 +181,35 @@
     box-shadow: 0 6px 18px rgba(122, 31, 43, 0.28);
     transition: background var(--transition-base), transform var(--transition-base);
   }
-  .featured-collection__nav:hover { background: var(--color-primary-dark); }
-  @media (min-width: 768px) {
-    .featured-collection__nav { display: flex; }
+
+  .featured-collection__nav:hover {
+    background: var(--color-primary-dark);
   }
-  .featured-collection__nav--prev { inset-inline-start: 0; }
-  .featured-collection__nav--next { inset-inline-end: 0; }
+
+  @media (min-width: 768px) {
+    .featured-collection__nav {
+      display: flex;
+    }
+  }
+
+  .featured-collection__nav--prev {
+    inset-inline-start: 0;
+  }
+
+  .featured-collection__nav--next {
+    inset-inline-end: 0;
+  }
+
+  @media (max-width: 767px) {
+    .featured-collection__header {
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .featured-collection__view-all {
+      font-size: 0.8125rem;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -121,6 +242,12 @@
       "step": 1,
       "default": 8,
       "label": "عدد المنتجات"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "عرض رابط «شوفي الكل»",
+      "default": true
     }
   ],
   "presets": [{ "name": "t:sections.featured_collection.name" }]

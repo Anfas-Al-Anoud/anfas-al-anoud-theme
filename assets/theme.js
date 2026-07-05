@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const track = carousel.querySelector('[data-carousel-track]');
     if (!track) return;
     const isRTL = getComputedStyle(track).direction === 'rtl';
-    const step = () => (track.querySelector(':scope > *')?.offsetWidth || 280) + 20;
+    const slides = [...track.querySelectorAll(':scope > *')];
+    const step = () => (slides[0]?.offsetWidth || 280) + 16;
+    const dotsContainer = carousel.querySelector('[data-carousel-dots]');
 
     carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => {
       track.scrollBy({ left: isRTL ? step() : -step(), behavior: 'smooth' });
@@ -64,6 +66,54 @@ document.addEventListener('DOMContentLoaded', () => {
     carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => {
       track.scrollBy({ left: isRTL ? -step() : step(), behavior: 'smooth' });
     });
+
+    if (!dotsContainer || slides.length < 2) return;
+
+    const getVisibleCount = () => {
+      const slideWidth = slides[0]?.offsetWidth || 1;
+      return Math.max(1, Math.round(track.clientWidth / slideWidth));
+    };
+
+    const getPageCount = () => Math.max(1, slides.length - getVisibleCount() + 1);
+
+    const renderDots = () => {
+      const pageCount = getPageCount();
+      dotsContainer.innerHTML = '';
+      if (pageCount <= 1) return;
+
+      for (let i = 0; i < pageCount; i += 1) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'featured-collection__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `${i + 1} / ${pageCount}`);
+        dot.addEventListener('click', () => {
+          const target = slides[i];
+          if (!target) return;
+          const offset = isRTL ? track.scrollWidth - target.offsetLeft - track.clientWidth : target.offsetLeft;
+          track.scrollTo({ left: offset, behavior: 'smooth' });
+        });
+        dotsContainer.appendChild(dot);
+      }
+      updateActiveDot();
+    };
+
+    const updateActiveDot = () => {
+      const dots = [...dotsContainer.querySelectorAll('.featured-collection__dot')];
+      if (!dots.length) return;
+      const scrollPos = Math.abs(track.scrollLeft);
+      let active = 0;
+      slides.forEach((slide, index) => {
+        if (slide.offsetLeft <= scrollPos + 8) active = index;
+      });
+      const maxActive = dots.length - 1;
+      active = Math.min(active, maxActive);
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === active));
+    };
+
+    renderDots();
+    track.addEventListener('scroll', updateActiveDot, { passive: true });
+    window.addEventListener('resize', renderDots, { passive: true });
   });
 
   /* ---- Quick add from product cards ---- */

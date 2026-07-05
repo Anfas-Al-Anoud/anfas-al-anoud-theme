@@ -4,6 +4,21 @@
   "sections": {
     "announcement": {
       "type": "announcement-bar",
+      "blocks": {
+        "msg1": {
+          "type": "message",
+          "settings": {
+            "text": "🚚 توصيل مجاني داخل الإمارات للطلبات فوق 200 درهم"
+          }
+        },
+        "msg2": {
+          "type": "message",
+          "settings": {
+            "text": "🎁 هدية مجانية مع طلبات مختارة – تابعي حساباتنا"
+          }
+        }
+      },
+      "block_order": ["msg1", "msg2"],
       "settings": {}
     },
     "header": {

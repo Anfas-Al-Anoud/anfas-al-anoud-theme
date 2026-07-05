@@ -7,10 +7,29 @@
 {%- liquid
   assign second_image = product.media[1].preview_image | default: product.images[1]
   assign on_sale = false
+  assign discount_percent = 0
   if product.compare_at_price > product.price
     assign on_sale = true
+    assign savings = product.compare_at_price | minus: product.price
+    assign discount_percent = savings | times: 100 | divided_by: product.compare_at_price
   endif
   assign rating = product.metafields.reviews.rating.value
+  assign promo_label = ''
+  for tag in product.tags
+    assign tag_down = tag | downcase
+    if tag contains '1+1'
+      assign promo_label = tag
+      break
+    endif
+    if tag contains 'عرض'
+      assign promo_label = tag
+      break
+    endif
+    if tag_down contains 'offer'
+      assign promo_label = tag
+      break
+    endif
+  endfor
 -%}
 
 <article class="product-card" data-product-id="{{ product.id }}">
@@ -39,8 +58,19 @@
       <div class="product-card__badges">
         {% if product.available == false %}
           <span class="product-card__badge product-card__badge--sold">{{ 'products.badges.sold_out' | t }}</span>
-        {% elsif on_sale %}
-          <span class="product-card__badge product-card__badge--sale">{{ 'products.badges.sale' | t }}</span>
+        {% else %}
+          {% if promo_label != blank %}
+            <span class="product-card__badge product-card__badge--promo">{{ promo_label }}</span>
+          {% endif %}
+          {% if on_sale %}
+            {% if discount_percent > 0 %}
+              <span class="product-card__badge product-card__badge--percent">
+                {{ 'products.badges.percent_off' | t: percent: discount_percent }}
+              </span>
+            {% else %}
+              <span class="product-card__badge product-card__badge--sale">{{ 'products.badges.sale' | t }}</span>
+            {% endif %}
+          {% endif %}
         {% endif %}
       </div>
     </a>
@@ -65,7 +95,7 @@
         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
         data-url="{{ product.url }}"
         data-single="{% if product.variants.size == 1 %}true{% else %}false{% endif %}"
-      >{{ 'products.quick_add' | t }}</button>
+      >{{ 'general.product.add_to_cart' | t }}</button>
     {% endif %}
   </div>
 
@@ -102,7 +132,9 @@
   .product-card__badges { position: absolute; top: 0.75rem; inset-inline-start: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
   .product-card__badge { padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: var(--color-white); }
   .product-card__badge--sale { background: var(--color-gold); }
-  .product-card__badge--sold { background: #8a8178; }
+  .product-card__badge--percent { background: var(--color-primary); }
+  .product-card__badge--promo { background: var(--color-primary-dark); }
+  .product-card__badge--sold { background: #6b635c; }
   .product-card__quick-add {
     position: absolute;
     inset-inline: 0.75rem;
@@ -123,7 +155,14 @@
   .product-card__quick-add:hover { background: var(--color-primary-dark); }
   .product-card__media-wrap:hover .product-card__quick-add,
   .product-card__quick-add:focus-visible { opacity: 1; transform: translateY(0); }
-  @media (hover: none) { .product-card__quick-add { opacity: 1; transform: none; } }
+  @media (hover: none) {
+    .product-card__quick-add {
+      opacity: 1;
+      transform: none;
+      font-size: 0.8125rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
   .product-card__quick-view {
     position: absolute;
     top: 3.25rem;
@@ -155,6 +194,6 @@
   .product-card__rating { display: flex; align-items: center; gap: 0.35rem; margin-block-end: 0.4rem; color: var(--color-gold); }
   .product-card__rating-count { color: #999; font-size: 0.8rem; }
   .product-card__price { display: flex; gap: 0.5rem; align-items: center; }
-  .product-card__compare { color: #999; font-size: 0.85rem; }
-  .product-card__current { color: var(--color-primary); font-weight: 700; }
+  .product-card__compare { color: #6b635c; font-size: 0.85rem; text-decoration-thickness: 1px; }
+  .product-card__current { color: var(--color-primary-dark); font-weight: 700; font-size: 1rem; }
 {% endstylesheet %}

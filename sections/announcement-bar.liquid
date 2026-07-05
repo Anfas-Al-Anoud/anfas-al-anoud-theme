@@ -1,7 +1,16 @@
 <div class="announcement-bar full-width" role="region" aria-label="{{ 'sections.announcement_bar.name' | t }}">
   <div class="announcement-bar__track">
-    <p class="announcement-bar__text">{{ section.settings.text }}</p>
-    <p class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</p>
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        <p class="announcement-bar__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+      {% endfor %}
+      {% for block in section.blocks %}
+        <p class="announcement-bar__text" aria-hidden="true">{{ block.settings.text }}</p>
+      {% endfor %}
+    {% else %}
+      <p class="announcement-bar__text">{{ section.settings.text }}</p>
+      <p class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</p>
+    {% endif %}
   </div>
 </div>
 
@@ -12,28 +21,34 @@
     overflow: hidden;
     padding-block: 0.625rem;
   }
+
   .announcement-bar__track {
     display: flex;
     width: max-content;
-    animation: marquee 30s linear infinite;
+    animation: marquee 36s linear infinite;
   }
+
   .announcement-bar__text {
     white-space: nowrap;
     padding-inline: 3rem;
     font-size: 0.875rem;
     margin: 0;
   }
+
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+
   @keyframes marquee-rtl {
     0% { transform: translateX(0); }
     100% { transform: translateX(50%); }
   }
+
   [dir="rtl"] .announcement-bar__track {
     animation-name: marquee-rtl;
   }
+
   @media (max-width: 767px) {
     .announcement-bar {
       padding-block: 0.35rem;
@@ -46,7 +61,16 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .announcement-bar__track { animation: none; }
+    .announcement-bar__track {
+      animation: none;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .announcement-bar__text[aria-hidden="true"] {
+      display: none;
+    }
   }
 {% endstylesheet %}
 
@@ -54,12 +78,46 @@
 {
   "name": "t:sections.announcement_bar.name",
   "class": "announcement-bar-section",
+  "max_blocks": 3,
   "settings": [
     {
       "type": "text",
       "id": "text",
-      "label": "النص",
+      "label": "النص (عند عدم وجود blocks)",
       "default": "استغلي وقتج الذهبي.. توصيل مجاني اليوم لعيونج – عروض عيد الأضحى... ما عيبج المنتج؟ ما تحاتين رديه خلال 3 أيام"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "رسالة",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "النص",
+          "default": "🚚 توصيل مجاني داخل الإمارات للطلبات فوق 200 درهم"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement_bar.name",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "text": "🚚 توصيل مجاني داخل الإمارات للطلبات فوق 200 درهم"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "text": "🎁 هدية مجانية مع طلبات مختارة – تابعي حساباتنا"
+          }
+        }
+      ]
     }
   ]
 }

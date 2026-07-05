@@ -67,6 +67,16 @@
       },
       "block_order": ["cat1", "cat2", "cat3", "cat4"]
     },
+    "featured_new": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "جديدنا",
+        "subheading": "آخر ما وصل عند العنود — جربيه قبل ما ينفد.",
+        "collection": "",
+        "products_to_show": 8,
+        "show_view_all": true
+      }
+    },
     "mood": {
       "type": "mood-cards",
       "settings": {
@@ -131,7 +141,27 @@
       "settings": {
         "heading": "الأكثر مبيعًا",
         "subheading": "هذي أكثر المنتجات اللي حبوها البنات ورجعوا طلبوها مرة ثانية.. جربيها وما بتندمين.",
-        "collection": "best-sellers"
+        "collection": "best-sellers",
+        "products_to_show": 8,
+        "show_view_all": true
+      }
+    },
+    "spotlight": {
+      "type": "featured-product-spotlight",
+      "settings": {
+        "heading": "",
+        "subheading": "عرض حصري لفترة محدودة — لا تفوتيه.",
+        "badge": "عرض محدود"
+      }
+    },
+    "featured_boxes": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "بوكسات الزين",
+        "subheading": "هدايا تبيّض الويه وتفرح القلب — اختاري ونوصّلها لمن يعزّ عليج.",
+        "collection": "gift-boxes",
+        "products_to_show": 8,
+        "show_view_all": true
       }
     },
     "gifts": {
@@ -192,10 +222,10 @@
       "type": "trust-features",
       "settings": {},
       "blocks": {
-        "f1": { "type": "feature", "settings": { "icon": "delivery", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
-        "f2": { "type": "feature", "settings": { "icon": "payment", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
-        "f3": { "type": "feature", "settings": { "icon": "quality", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
-        "f4": { "type": "feature", "settings": { "icon": "support", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
+        "f1": { "type": "feature", "settings": { "icon": "delivery", "label": "توصيل سريع", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
+        "f2": { "type": "feature", "settings": { "icon": "payment", "label": "دفع آمن", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
+        "f3": { "type": "feature", "settings": { "icon": "quality", "label": "جودة أصلية", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
+        "f4": { "type": "feature", "settings": { "icon": "support", "label": "دعم مباشر", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
       },
       "block_order": ["f1", "f2", "f3", "f4"]
     },
@@ -207,5 +237,5 @@
       }
     }
   },
-  "order": ["hero", "categories", "mood", "bestsellers", "gifts", "recently", "testimonials", "quality", "faq", "trust", "quiz"]
+  "order": ["hero", "categories", "featured_new", "mood", "bestsellers", "spotlight", "gifts", "featured_boxes", "testimonials", "quality", "faq", "trust", "quiz"]
 }

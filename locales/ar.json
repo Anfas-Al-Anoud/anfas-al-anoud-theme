@@ -91,7 +91,9 @@
     },
     "badges": {
       "sale": "عرض",
-      "sold_out": "نفدت الكمية"
+      "sold_out": "نفدت الكمية",
+      "percent_off": "−{{ percent }}%",
+      "promo": "عرض"
     }
   },
   "labels": {
@@ -138,7 +140,11 @@
     "hero_banner": { "name": "بانر رئيسي" },
     "category_icons": { "name": "الفئات الرئيسية" },
     "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
-    "featured_collection": { "name": "منتجات مميزة" },
+    "featured_collection": {
+      "name": "منتجات مميزة",
+      "view_all": "شوفي الكل"
+    },
+    "featured_product_spotlight": { "name": "منتج مميز" },
     "image_with_text": { "name": "صورة مع نص" },
     "testimonials": { "name": "آراء العملاء" },
     "quality_banner": { "name": "بانر الجودة" },

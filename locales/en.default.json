@@ -91,7 +91,9 @@
     },
     "badges": {
       "sale": "Sale",
-      "sold_out": "Sold out"
+      "sold_out": "Sold out",
+      "percent_off": "-{{ percent }}%",
+      "promo": "Offer"
     }
   },
   "labels": {
@@ -138,7 +140,11 @@
     "hero_banner": { "name": "Hero banner" },
     "category_icons": { "name": "Category icons" },
     "mood_cards": { "name": "Mood cards" },
-    "featured_collection": { "name": "Featured collection" },
+    "featured_collection": {
+      "name": "Featured collection",
+      "view_all": "View all"
+    },
+    "featured_product_spotlight": { "name": "Featured product spotlight" },
     "image_with_text": { "name": "Image with text" },
     "testimonials": { "name": "Testimonials" },
     "quality_banner": { "name": "Quality banner" },

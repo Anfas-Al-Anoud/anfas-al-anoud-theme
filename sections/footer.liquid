@@ -29,7 +29,7 @@
       </nav>
     </div>
 
-    <div class="site-footer__col">
+    <div class="site-footer__col site-footer__col--social">
       <h3 class="site-footer__heading">{{ section.settings.social_heading }}</h3>
       <p class="site-footer__text">{{ section.settings.social_text }}</p>
       <div class="site-footer__social">
@@ -204,6 +204,22 @@
 
     .site-footer__col:first-child {
       grid-column: 1 / -1;
+    }
+
+    .site-footer__col--social {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .site-footer__col--social .site-footer__heading {
+      margin-block-end: 0.625rem;
+    }
+
+    .site-footer__social {
+      justify-content: center;
     }
 
     .site-footer__text {

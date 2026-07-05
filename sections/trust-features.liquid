@@ -36,39 +36,28 @@
     }
 
     .trust-features__grid {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 0.625rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-block-end: 0.25rem;
-    }
-
-    .trust-features__grid::-webkit-scrollbar {
-      display: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      overflow: visible;
     }
 
     .trust-features__item {
-      flex: 0 0 min(78vw, 16rem);
-      scroll-snap-align: start;
-      padding: 0.875rem 0.625rem;
+      padding: 0.625rem 0.375rem;
     }
 
     .trust-features__icon svg {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
 
     .trust-features__icon {
-      margin-block-end: 0.5rem;
+      margin-block-end: 0.375rem;
     }
 
     .trust-features__item p {
-      font-size: 0.75rem;
-      line-height: 1.5;
+      font-size: 0.6875rem;
+      line-height: 1.45;
     }
   }
 

@@ -1,6 +1,16 @@
 <section class="trust-features section-padding" data-animate-section>
   <div class="trust-features__grid">
     {% for block in section.blocks %}
+      {% liquid
+        assign feature_label = block.settings.label
+        if feature_label == blank
+          assign feature_parts = block.settings.text | split: ':'
+          assign feature_label = feature_parts | first | strip
+        endif
+        if feature_label == blank
+          assign feature_label = block.settings.text | truncate: 32
+        endif
+      %}
       <div class="trust-features__item" {{ block.shopify_attributes }}>
         <div class="trust-features__icon" aria-hidden="true">
           {% case block.settings.icon %}
@@ -14,7 +24,8 @@
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 015 5c0 3.5-5 9-5 9s-5-5.5-5-9a5 5 0 015-5z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
           {% endcase %}
         </div>
-        <p>{{ block.settings.text }}</p>
+        <p class="trust-features__label">{{ feature_label }}</p>
+        <p class="trust-features__detail">{{ block.settings.text }}</p>
       </div>
     {% endfor %}
   </div>
@@ -23,71 +34,88 @@
 {% stylesheet %}
   .trust-features__grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-margin);
   }
 
+  .trust-features__item {
+    text-align: center;
+    padding: 1.25rem 0.875rem;
+    background: var(--color-white);
+    border-radius: var(--style-border-radius-cards);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .trust-features__icon {
+    color: var(--color-gold);
+    margin-block-end: 0.625rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .trust-features__icon svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .trust-features__label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--color-dark);
+    margin: 0;
+  }
+
+  .trust-features__detail {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-accent);
+    margin: 0.375rem 0 0;
+  }
+
   @media (max-width: 767px) {
     .trust-features.section-padding {
-      padding-block: clamp(0.875rem, 2.5vw, 1.25rem);
+      padding-block: 0.875rem;
     }
 
     .trust-features__grid {
-      display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.375rem;
-      overflow: visible;
     }
 
     .trust-features__item {
       padding: 0.5rem 0.25rem;
       box-shadow: none;
-      background: color-mix(in srgb, var(--color-white) 88%, transparent);
-      border-radius: calc(var(--style-border-radius-cards) - 6px);
-    }
-
-    .trust-features__icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      background: var(--color-white);
+      border-radius: calc(var(--style-border-radius-cards) - 4px);
     }
 
     .trust-features__icon {
       margin-block-end: 0.25rem;
     }
 
-    .trust-features__item p {
-      font-size: 0.5625rem;
+    .trust-features__icon svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
+    .trust-features__label {
+      font-size: 0.625rem;
       line-height: 1.35;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+    }
+
+    .trust-features__detail {
+      display: none;
     }
   }
 
-  @media (min-width: 768px) {
-    .trust-features__grid { grid-template-columns: repeat(4, 1fr); }
-  }
-  .trust-features__item {
-    text-align: center;
-    padding: 1.5rem 1rem;
-    background: var(--color-white);
-    border-radius: var(--style-border-radius-cards);
-    box-shadow: var(--shadow-soft);
-  }
-  .trust-features__icon {
-    color: var(--color-gold);
-    margin-block-end: 0.75rem;
-    display: flex;
-    justify-content: center;
-  }
-  .trust-features__item p {
-    font-size: 0.875rem;
-    line-height: 1.7;
-    color: var(--color-dark);
+  @media (max-width: 380px) {
+    .trust-features__label {
+      font-size: 0.5625rem;
+    }
   }
 {% endstylesheet %}
 
@@ -112,7 +140,13 @@
           ],
           "default": "delivery"
         },
-        { "type": "textarea", "id": "text", "label": "النص" }
+        {
+          "type": "text",
+          "id": "label",
+          "label": "عنوان مختصر (للجوال)",
+          "info": "يظهر في صف واحد على الجوال. إن تُرك فارغًا يُستخدم الجزء قبل النقطتين من النص."
+        },
+        { "type": "textarea", "id": "text", "label": "النص الكامل" }
       ]
     }
   ],
@@ -120,10 +154,10 @@
     {
       "name": "t:sections.trust_features.name",
       "blocks": [
-        { "type": "feature", "settings": { "icon": "delivery", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
-        { "type": "feature", "settings": { "icon": "payment", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
-        { "type": "feature", "settings": { "icon": "quality", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
-        { "type": "feature", "settings": { "icon": "support", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
+        { "type": "feature", "settings": { "icon": "delivery", "label": "توصيل سريع", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
+        { "type": "feature", "settings": { "icon": "payment", "label": "دفع آمن", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
+        { "type": "feature", "settings": { "icon": "quality", "label": "جودة أصلية", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
+        { "type": "feature", "settings": { "icon": "support", "label": "دعم مباشر", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
       ]
     }
   ]

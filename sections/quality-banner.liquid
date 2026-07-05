@@ -1,53 +1,38 @@
 <section class="quality-banner section-padding full-width" data-animate-section>
-  <div class="quality-banner__inner">
-    <div class="quality-banner__media" aria-hidden="true">
-      {% if section.settings.image %}
-        {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, class: 'quality-banner__image', width: 1200 %}
-      {% elsif section.settings.image_asset != blank %}
-        {% render 'theme-asset-image', asset: section.settings.image_asset, alt: section.settings.image_alt, class: 'quality-banner__image', width: 1200 %}
-      {% endif %}
-    </div>
-    <div class="quality-banner__overlay">
-      <h2 class="quality-banner__heading">{{ section.settings.heading }}</h2>
-      {% if section.settings.button_label != blank %}
-        <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_label }}</a>
-      {% endif %}
+  <div class="quality-banner__shell">
+    <div class="quality-banner__inner">
+      <div class="quality-banner__media" aria-hidden="true">
+        {% if section.settings.image %}
+          {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, class: 'quality-banner__image', width: 1200 %}
+        {% elsif section.settings.image_asset != blank %}
+          {% render 'theme-asset-image', asset: section.settings.image_asset, alt: section.settings.image_alt, class: 'quality-banner__image', width: 1200 %}
+        {% endif %}
+      </div>
+      <div class="quality-banner__overlay">
+        <div class="quality-banner__copy">
+          <h2 class="quality-banner__heading">{{ section.settings.heading }}</h2>
+          {% if section.settings.button_label != blank %}
+            <a href="{{ section.settings.button_link }}" class="btn quality-banner__btn">{{ section.settings.button_label }}</a>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 {% stylesheet %}
-  .quality-banner__inner {
-    position: relative;
+  .quality-banner__shell {
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-margin);
-    border-radius: var(--style-border-radius-cards);
-    overflow: hidden;
-    aspect-ratio: 21 / 9;
-    max-height: clamp(11rem, 22vw, 16rem);
   }
 
-  @media (min-width: 768px) {
-    .quality-banner.section-padding {
-      padding-block: clamp(1.25rem, 3vw, 2rem);
-    }
-
-    .quality-banner__inner {
-      aspect-ratio: auto;
-      max-height: clamp(11rem, 18vw, 15rem);
-      min-height: 10rem;
-    }
-
-    .quality-banner__heading {
-      font-size: clamp(1rem, 1.8vw, 1.375rem);
-      margin-block-end: 1rem;
-      max-width: 36rem;
-    }
-
-    .quality-banner__overlay {
-      padding: clamp(1rem, 2.5vw, 1.75rem);
-    }
+  .quality-banner__inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--style-border-radius-cards);
+    aspect-ratio: 2.6 / 1;
+    max-height: 13.5rem;
   }
 
   .quality-banner__media {
@@ -60,6 +45,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     display: block;
   }
 
@@ -68,55 +54,61 @@
     inset: 0;
     z-index: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: clamp(0.875rem, 2.5vw, 1.5rem);
+    background: rgba(61, 43, 31, 0.72);
+  }
+
+  .quality-banner__copy {
     text-align: center;
-    padding: clamp(1.25rem, 4vw, 3rem);
-    background: linear-gradient(
-      to top,
-      rgba(61, 43, 31, 0.94) 0%,
-      rgba(61, 43, 31, 0.78) 40%,
-      rgba(61, 43, 31, 0.52) 100%
-    );
+    max-width: 38rem;
   }
 
   .quality-banner__heading {
     color: var(--color-white);
-    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-size: clamp(0.9375rem, 1.6vw, 1.25rem);
     font-weight: 700;
-    margin-block-end: 1.5rem;
-    max-width: 40rem;
-    line-height: 1.5;
+    margin: 0 0 0.75rem;
+    line-height: 1.45;
     text-wrap: balance;
+  }
+
+  .quality-banner__btn {
+    font-size: 0.8125rem;
+    padding: 0.5rem 1.125rem;
   }
 
   @media (max-width: 767px) {
     .quality-banner.section-padding {
-      padding-block: clamp(0.75rem, 2.5vw, 1.25rem);
+      padding-block: 0.75rem;
+    }
+
+    .quality-banner__shell {
+      padding-inline: 0;
+      max-width: none;
     }
 
     .quality-banner__inner {
-      aspect-ratio: 5 / 3;
-      max-width: none;
-      margin-inline: 0;
-      padding-inline: 0;
       border-radius: 0;
+      aspect-ratio: 2.15 / 1;
+      max-height: 11rem;
     }
 
     .quality-banner__overlay {
-      padding: clamp(0.875rem, 3vw, 1.25rem);
+      padding: 0.625rem var(--page-margin);
+      background: rgba(61, 43, 31, 0.78);
     }
 
     .quality-banner__heading {
-      font-size: clamp(0.875rem, 3.6vw, 1rem);
-      margin-block-end: 0.75rem;
-      line-height: 1.45;
+      font-size: clamp(0.75rem, 3.2vw, 0.875rem);
+      margin-block-end: 0.5rem;
+      line-height: 1.4;
     }
 
-    .quality-banner__overlay .btn {
-      padding: 0.5rem 1rem;
-      font-size: 0.8125rem;
+    .quality-banner__btn {
+      font-size: 0.75rem;
+      padding: 0.4375rem 0.875rem;
     }
   }
 {% endstylesheet %}

@@ -76,6 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getPageCount = () => Math.max(1, slides.length - getVisibleCount() + 1);
 
+    const scrollToSlide = (index) => {
+      const target = slides[index];
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    };
+
     const renderDots = () => {
       const pageCount = getPageCount();
       dotsContainer.innerHTML = '';
@@ -86,12 +92,24 @@ document.addEventListener('DOMContentLoaded', () => {
         dot.type = 'button';
         dot.className = 'featured-collection__dot';
         dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', 'false');
         dot.setAttribute('aria-label', `${i + 1} / ${pageCount}`);
         dot.addEventListener('click', () => {
-          const target = slides[i];
-          if (!target) return;
-          const offset = isRTL ? track.scrollWidth - target.offsetLeft - track.clientWidth : target.offsetLeft;
-          track.scrollTo({ left: offset, behavior: 'smooth' });
+          // #region agent log
+          fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
+            body: JSON.stringify({
+              sessionId: '489563',
+              location: 'theme.js:carousel-dot',
+              message: 'dot click',
+              data: { index: i, isRTL, scrollLeft: track.scrollLeft },
+              timestamp: Date.now(),
+              hypothesisId: 'H1',
+            }),
+          }).catch(() => {});
+          // #endregion
+          scrollToSlide(i);
         });
         dotsContainer.appendChild(dot);
       }
@@ -101,14 +119,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateActiveDot = () => {
       const dots = [...dotsContainer.querySelectorAll('.featured-collection__dot')];
       if (!dots.length) return;
-      const scrollPos = Math.abs(track.scrollLeft);
+      const trackRect = track.getBoundingClientRect();
       let active = 0;
+      let minDist = Infinity;
       slides.forEach((slide, index) => {
-        if (slide.offsetLeft <= scrollPos + 8) active = index;
+        const slideRect = slide.getBoundingClientRect();
+        const dist = isRTL
+          ? Math.abs(slideRect.right - trackRect.right)
+          : Math.abs(slideRect.left - trackRect.left);
+        if (dist < minDist) {
+          minDist = dist;
+          active = index;
+        }
       });
-      const maxActive = dots.length - 1;
-      active = Math.min(active, maxActive);
-      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === active));
+      active = Math.min(active, dots.length - 1);
+      dots.forEach((dot, i) => {
+        const on = i === active;
+        dot.classList.toggle('is-active', on);
+        dot.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
     };
 
     renderDots();

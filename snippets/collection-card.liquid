@@ -1,0 +1,163 @@
+{% doc %}
+  Renders a collection card for list-collections grids.
+
+  @param {object} collection - Collection object
+  @param {boolean} [show_product_count] - Show product count meta line
+  @param {boolean} [show_description] - Show truncated description (2 lines max)
+
+  @example
+  {% render 'collection-card', collection: collection, show_product_count: true %}
+{% enddoc %}
+
+<article class="collection-card">
+  <a href="{{ collection.url }}" class="collection-card__link">
+    <div class="collection-card__media">
+      {% if collection.featured_image %}
+        {% render 'image',
+          image: collection.featured_image,
+          alt: collection.featured_image.alt | default: collection.title,
+          fallback_alt: collection.title,
+          class: 'collection-card__image',
+          width: 600,
+          height: 600,
+          crop: 'center'
+        %}
+      {% else %}
+        {% render 'placeholder-svg',
+          text: collection.title,
+          class: 'collection-card__image collection-card__placeholder',
+          width: '100%',
+          height: '100%'
+        %}
+      {% endif %}
+    </div>
+
+    <div class="collection-card__content">
+      <h2 class="collection-card__title">{% render 'tanween', text: collection.title %}</h2>
+
+      {% if show_description %}
+        {% if collection.description != blank %}
+          <p class="collection-card__description">
+            {{ collection.description | strip_html | truncatewords: 12 }}
+          </p>
+        {% endif %}
+      {% endif %}
+
+      {% if show_product_count %}
+        <p class="collection-card__meta">
+          {{ 'collections.count' | t: count: collection.products_count }}
+        </p>
+      {% endif %}
+    </div>
+  </a>
+</article>
+
+{% stylesheet %}
+  .collection-card {
+    height: 100%;
+  }
+
+  .collection-card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--style-border-radius-cards);
+    overflow: hidden;
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .collection-card__link:hover,
+  .collection-card__link:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(122, 31, 43, 0.14);
+  }
+
+  .collection-card__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--color-sand);
+  }
+
+  .collection-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .collection-card__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  .collection-card__link:hover .collection-card__image,
+  .collection-card__link:focus-visible .collection-card__image {
+    transform: scale(1.03);
+  }
+
+  .collection-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.35rem;
+    padding: 0.875rem 0.75rem 1rem;
+    min-height: 4.5rem;
+  }
+
+  .collection-card__title {
+    margin: 0;
+    font-size: clamp(0.875rem, 2.2vw, 1rem);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-dark);
+    text-wrap: balance;
+    transition: color var(--transition-base);
+  }
+
+  .collection-card__link:hover .collection-card__title,
+  .collection-card__link:focus-visible .collection-card__title {
+    color: var(--color-primary);
+  }
+
+  .collection-card__description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-accent);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .collection-card__meta {
+    margin: 0;
+    margin-block-start: auto;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b635c;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collection-card__link,
+    .collection-card__image {
+      transition: none;
+    }
+
+    .collection-card__link:hover,
+    .collection-card__link:focus-visible {
+      transform: none;
+    }
+
+    .collection-card__link:hover .collection-card__image,
+    .collection-card__link:focus-visible .collection-card__image {
+      transform: none;
+    }
+  }
+{% endstylesheet %}

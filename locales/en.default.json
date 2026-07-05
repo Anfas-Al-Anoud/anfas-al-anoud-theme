@@ -193,6 +193,9 @@
   },
   "collections": {
     "title": "Collections",
+    "subtitle": "Browse our curated collections and find your next favorite scent.",
+    "empty_list": "No collections to show right now.",
+    "explore": "Explore",
     "all_title": "All products",
     "filter": "Filter",
     "sort": "Sort",

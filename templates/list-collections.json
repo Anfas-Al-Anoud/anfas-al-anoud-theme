@@ -11,7 +11,13 @@
   "sections": {
     "main": {
       "type": "collections",
-      "settings": {}
+      "settings": {
+        "subheading": "اختاري مجموعتج وابدئي التسوّق",
+        "hide_vibe_collections": true,
+        "show_product_count": true,
+        "show_description": false,
+        "columns_desktop": "3"
+      }
     }
   },
   "order": [

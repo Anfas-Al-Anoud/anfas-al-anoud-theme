@@ -1,81 +1,172 @@
-{% comment %}
-  This section is used in the list-collections template to render a list of
-  collections.
+{% liquid
+  assign page_heading = section.settings.heading
+  if page_heading == blank
+    assign page_heading = 'collections.title' | t
+  endif
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+  assign page_subheading = section.settings.subheading
+  if page_subheading == blank
+    assign page_subheading = 'collections.subtitle' | t
+  endif
 
-<h1>{{ 'collections.title' | t }}</h1>
+  assign columns_class = 'collections-page__grid--cols-3'
+  if section.settings.columns_desktop == '4'
+    assign columns_class = 'collections-page__grid--cols-4'
+  endif
 
-<div
-  class="collections {{ section.settings.grid_item_width }}"
-  style="--grid-gap: {{ section.settings.grid_gap }}px"
->
-  {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
+  assign listed_count = 0
+%}
+
+<section class="collections-page section-padding" data-animate-section>
+  <header class="collections-page__header">
+    <h1 class="section-heading">{{ page_heading }}</h1>
+    {% if page_subheading != blank %}
+      <p class="section-subheading">{{ page_subheading }}</p>
+    {% endif %}
+  </header>
+
+  <div class="collections-page__inner">
+    <div class="collections-page__grid {{ columns_class }}">
+      {% if section.settings.collection_list != blank %}
+        {% for collection in section.settings.collection_list %}
+          {% if collection.products_count > 0 %}
+            {% assign listed_count = listed_count | plus: 1 %}
+            {% render 'collection-card',
+              collection: collection,
+              show_product_count: section.settings.show_product_count,
+              show_description: section.settings.show_description
+            %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% assign sorted_collections = collections | sort_natural: 'title' %}
+        {% for collection in sorted_collections %}
+          {% if collection.products_count == 0 %}
+            {% continue %}
+          {% endif %}
+
+          {% if section.settings.hide_vibe_collections %}
+            {% if collection.handle contains 'anoud-vibe' %}
+              {% continue %}
+            {% endif %}
+          {% endif %}
+
+          {% assign listed_count = listed_count | plus: 1 %}
+          {% render 'collection-card',
+            collection: collection,
+            show_product_count: section.settings.show_product_count,
+            show_description: section.settings.show_description
+          %}
+        {% endfor %}
       {% endif %}
+    </div>
 
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
-
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
-        {% endif %}
-      </div>
-    </a>
-  {% endfor %}
-</div>
+    {% if listed_count == 0 %}
+      <p class="collections-page__empty">{{ 'collections.empty_list' | t }}</p>
+    {% endif %}
+  </div>
+</section>
 
 {% stylesheet %}
-  .collections {
+  .collections-page__header {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    margin-block-end: 0.25rem;
+  }
+
+  .collections-page__inner {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .collections-page__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
+    gap: clamp(0.625rem, 2vw, 1.25rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .collections--compact {
-    --collection-card-size: 160px;
+
+  @media (min-width: 768px) {
+    .collections-page__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
-  .collections--full {
-    --collection-card-size: 280px;
+
+  @media (min-width: 1024px) {
+    .collections-page__grid--cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
   }
-  .collection-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+
+  .collections-page__empty {
+    margin-block-start: 2rem;
+    text-align: center;
+    color: var(--color-accent);
+    font-size: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .collections-page.section-padding {
+      padding-block: clamp(1.25rem, 4vw, 2rem);
+    }
+
+    .collections-page__header .section-subheading {
+      margin-block-end: 0.875rem;
+    }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "t:general.collections_grid",
+  "class": "collections-page-section",
   "settings": [
     {
-      "type": "select",
-      "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
-      "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
-      ],
-      "default": "collections--full"
+      "type": "text",
+      "id": "heading",
+      "label": "العنوان",
+      "info": "اتركيه فارغًا لاستخدام «المجموعات» من الترجمة."
     },
     {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "t:labels.grid_gap",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 10
+      "type": "textarea",
+      "id": "subheading",
+      "label": "النص الفرعي",
+      "default": "اختاري مجموعتج وابدئي التسوّق"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "مجموعات مخصصة (اختياري)",
+      "info": "إذا حددتِ مجموعات هنا، تُعرض فقط هذه القائمة. وإلا تُعرض كل المجموعات مع الفلترة."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_vibe_collections",
+      "label": "إخفاء مجموعات الجوج الداخلية",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "عرض عدد المنتجات",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "عرض وصف المجموعة (سطران كحد أقصى)",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "أعمدة سطح المكتب",
+      "default": "3",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
     }
   ],
   "presets": [{ "name": "t:general.collections_grid" }]

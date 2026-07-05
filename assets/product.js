@@ -6,14 +6,9 @@
 (function () {
   const root = document.querySelector('[data-product]');
 
-  function money(cents, currency) {
-    try {
-      return new Intl.NumberFormat('ar-AE', { style: 'currency', currency: currency || 'AED' }).format(
-        (cents || 0) / 100
-      );
-    } catch {
-      return `${((cents || 0) / 100).toFixed(2)}`;
-    }
+  function money(cents, currencyLabel) {
+    const amount = ((cents || 0) / 100).toFixed(2);
+    return `${amount} ${currencyLabel || 'د.إ.'}`;
   }
 
   if (root) initProduct(root);
@@ -21,7 +16,7 @@
   initShare();
 
   function initProduct(el) {
-    const currency = el.dataset.currency || 'AED';
+    const currencyLabel = el.dataset.currencyLabel || 'د.إ.';
     let variants = [];
     try {
       variants = JSON.parse(el.querySelector('[data-product-json]')?.textContent || '[]');
@@ -32,6 +27,7 @@
     const optionGroups = Array.from(el.querySelectorAll('[data-option-index]'));
     const idInput = el.querySelector('[data-variant-id]');
     const priceEl = el.querySelector('[data-price]');
+    const stickyPriceEl = document.querySelector('[data-sticky-price]');
     const compareEl = el.querySelector('[data-compare]');
     const addButton = el.querySelector('[data-add-button]');
     const addLabel = addButton?.querySelector('[data-add-label]') || addButton;
@@ -68,10 +64,12 @@
       }
 
       if (idInput) idInput.value = variant.id;
-      if (priceEl) priceEl.textContent = money(variant.price, currency);
+      const formatted = money(variant.price, currencyLabel);
+      if (priceEl) priceEl.textContent = formatted;
+      if (stickyPriceEl) stickyPriceEl.textContent = formatted;
       if (compareEl) {
         if (variant.compare_at_price && variant.compare_at_price > variant.price) {
-          compareEl.textContent = money(variant.compare_at_price, currency);
+          compareEl.textContent = money(variant.compare_at_price, currencyLabel);
           compareEl.hidden = false;
         } else {
           compareEl.hidden = true;
@@ -170,14 +168,15 @@
 
     // Sticky add-to-cart bar visibility (mobile)
     const sticky = document.querySelector('[data-sticky-atc]');
-    if (sticky && form && 'IntersectionObserver' in window) {
+    const observeTarget = addButton || form;
+    if (sticky && observeTarget && 'IntersectionObserver' in window) {
       const io = new IntersectionObserver(
         ([entry]) => {
           sticky.hidden = entry.isIntersecting;
         },
-        { threshold: 0 }
+        { threshold: 0, rootMargin: '0px 0px -1px 0px' }
       );
-      io.observe(form);
+      io.observe(observeTarget);
     }
 
     updateForVariant();

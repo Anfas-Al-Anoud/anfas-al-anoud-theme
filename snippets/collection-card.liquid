@@ -45,7 +45,7 @@
 
       {% if show_product_count %}
         <p class="collection-card__meta">
-          {{ 'collections.count' | t: count: collection.products_count }}
+          {% render 'arabic-product-count', count: collection.products_count %}
         </p>
       {% endif %}
     </div>

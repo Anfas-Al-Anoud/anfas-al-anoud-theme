@@ -1,0 +1,29 @@
+{% doc %}
+  Renders an Arabic product count with correct grammar (no digit for 1–2).
+
+  @param {number} count - Number of products
+
+  @example
+  {% render 'arabic-product-count', count: collection.products_count %}
+{% enddoc %}
+
+{%- liquid
+  assign n = count | plus: 0
+  assign r100 = n | modulo: 100
+  assign r10 = n | modulo: 10
+-%}
+{%- if n == 0 -%}
+  {{ 'collections.count_zero' | t }}
+{%- elsif n == 1 -%}
+  {{ 'collections.count_one' | t }}
+{%- elsif n == 2 -%}
+  {{ 'collections.count_two' | t }}
+{%- elsif n >= 3 and n <= 10 -%}
+  {{ 'collections.count_few' | t: count: n }}
+{%- elsif r100 >= 11 and r100 <= 99 -%}
+  {{ 'collections.count_many_accusative' | t: count: n }}
+{%- elsif r10 >= 3 and r10 <= 9 -%}
+  {{ 'collections.count_few' | t: count: n }}
+{%- else -%}
+  {{ 'collections.count_many' | t: count: n }}
+{%- endif -%}

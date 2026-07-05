@@ -72,10 +72,12 @@
     transition: opacity var(--transition-base);
   }
   .cart-drawer.is-open .cart-drawer__overlay { opacity: 1; }
+  /* Opens from the physical left — matches cart icon placement in this RTL layout. */
   .cart-drawer__panel {
     position: absolute;
     top: 0;
-    inset-inline-start: 0;
+    left: 0;
+    right: auto;
     width: min(100%, 24rem);
     height: 100%;
     background: var(--color-white);
@@ -85,7 +87,6 @@
     transition: transform var(--transition-base);
     box-shadow: var(--shadow-soft);
   }
-  [dir="rtl"] .cart-drawer__panel { transform: translateX(100%); }
   .cart-drawer.is-open .cart-drawer__panel { transform: translateX(0); }
   .cart-drawer__header {
     display: flex;

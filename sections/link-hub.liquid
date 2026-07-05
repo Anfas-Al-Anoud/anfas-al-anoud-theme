@@ -16,6 +16,12 @@
 
   <div class="link-hub__grid">
     {% if use_auto_links and has_blocks == false %}
+      {% if section.settings.show_shop_link %}
+        <a href="{{ routes.root_url }}" class="link-hub__card link-hub__card--store">
+          <span class="link-hub__icon" aria-hidden="true">{{ 'icon-store.svg' | inline_asset_content }}</span>
+          <span>{{ 'sections.link_hub.shop' | t }}</span>
+        </a>
+      {% endif %}
       {% if settings.whatsapp_number != blank %}
         <a
           href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-' }}"
@@ -63,12 +69,6 @@
         </a>
       {% endif %}
 
-      {% if section.settings.show_shop_link %}
-        <a href="{{ routes.all_products_collection_url }}" class="link-hub__card">
-          <span class="link-hub__label">🛍</span>
-          <span>{{ 'sections.link_hub.shop' | t }}</span>
-        </a>
-      {% endif %}
     {% else %}
       {% for block in section.blocks %}
         <a
@@ -113,7 +113,11 @@
     background: var(--color-gold);
     color: var(--color-white);
   }
-  .link-hub__card img { width: 2.5rem; height: 2.5rem; object-fit: contain; }
+  .link-hub__card--store {
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-sand));
+  }
+  .link-hub__card--store .link-hub__icon { color: var(--color-primary); }
+  .link-hub__card--store:hover { background: var(--color-primary); }
   .link-hub__icon {
     width: 2.5rem;
     height: 2.5rem;
@@ -154,8 +158,8 @@
     {
       "type": "checkbox",
       "id": "show_shop_link",
-      "label": "إظهار رابط المتجر (اختياري)",
-      "default": false
+      "label": "إظهار زر المتجر",
+      "default": true
     }
   ],
   "blocks": [
@@ -175,7 +179,7 @@
       "name": "t:sections.link_hub.name",
       "settings": {
         "use_auto_links": true,
-        "show_shop_link": false
+        "show_shop_link": true
       }
     }
   ]

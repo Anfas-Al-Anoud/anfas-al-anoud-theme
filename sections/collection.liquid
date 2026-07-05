@@ -75,7 +75,7 @@
 
       <div class="collection-page__main">
         <div class="collection-page__toolbar">
-          <span class="collection-page__count">{{ 'collections.count' | t: count: collection.products_count }}</span>
+          <span class="collection-page__count">{% render 'arabic-product-count', count: collection.products_count %}</span>
           <label class="collection-page__sort-wrap">
             <span class="visually-hidden">{{ 'collections.sort' | t }}</span>
             <select class="collection-page__sort" onchange="window.location.href=this.value">

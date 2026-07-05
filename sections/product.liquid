@@ -6,7 +6,7 @@
   endif
 -%}
 
-<div class="product-page section-padding" data-product data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-threshold="{{ settings.low_stock_threshold | default: 10 }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
+<div class="product-page section-padding" data-product data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-currency-label="{{ 'general.currency' | t }}" data-threshold="{{ settings.low_stock_threshold | default: 10 }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
   <div class="product-page__inner">
     <div class="product-page__gallery" data-gallery>
       {% if product.media.size > 0 %}
@@ -46,9 +46,9 @@
 
       <div class="product-page__price">
         <s data-compare {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
-          {{ current_variant.compare_at_price | money }}
+          {{ current_variant.compare_at_price | money_without_currency }} {{ 'general.currency' | t }}
         </s>
-        <span class="product-page__current" data-price>{{ current_variant.price | money }}</span>
+        <span class="product-page__current" data-price>{{ current_variant.price | money_without_currency }} {{ 'general.currency' | t }}</span>
       </div>
 
       <p class="product-page__low-stock" data-low-stock hidden></p>
@@ -207,7 +207,7 @@
 
 <div class="product-page__sticky-atc" data-sticky-atc hidden>
   <span class="product-page__sticky-title">{% render 'tanween', text: product.title %}</span>
-  <span data-price>{{ current_variant.price | money }}</span>
+  <span data-sticky-price>{{ current_variant.price | money_without_currency }} {{ 'general.currency' | t }}</span>
   <button type="button" class="btn" data-sticky-add>{{ 'general.product.add_to_cart' | t }}</button>
 </div>
 
@@ -277,7 +277,9 @@
   .product-page__story-media img { width: 100%; border-radius: var(--style-border-radius-cards); }
   .product-page__story-text { line-height: 1.9; }
   .product-page__story-text h2 { margin-block-end: 1rem; }
-  .product-page__sticky-atc { position: fixed; bottom: 0; inset-inline: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem var(--page-margin); background: var(--color-white); border-block-start: 1px solid var(--color-sand); box-shadow: 0 -4px 16px rgba(0,0,0,0.08); z-index: 80; }
+  .product-page__sticky-atc[hidden] { display: none !important; }
+  .product-page__sticky-atc:not([hidden]) { display: flex; }
+  .product-page__sticky-atc { position: fixed; bottom: 0; inset-inline: 0; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem var(--page-margin); background: var(--color-white); border-block-start: 1px solid var(--color-sand); box-shadow: 0 -4px 16px rgba(0,0,0,0.08); z-index: 80; }
   .product-page__sticky-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   @media (min-width: 900px) { .product-page__sticky-atc { display: none !important; } }
 {% endstylesheet %}

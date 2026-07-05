@@ -38,6 +38,7 @@
     "search": {
       "title": "Search",
       "placeholder": "Search products...",
+      "submit": "Search",
       "no_results": "No results found",
       "view_all": "View all results",
       "searching": "Searching..."
@@ -159,14 +160,15 @@
       "snapchat": "Snapchat",
       "facebook": "Facebook",
       "threads": "Threads",
-      "shop": "Shop now"
+      "shop": "Store"
     },
     "cart_drawer": { "name": "Cart drawer" }
   },
   "404": {
-    "title": "404",
-    "not_found": "Page not found.",
-    "back_to_shopping": "Back to shopping"
+    "title": "Page not found",
+    "not_found": "The link may be broken or the page may have moved.",
+    "back_home": "Home",
+    "back_to_shopping": "Shop now"
   },
   "blog": {
     "article_comments": "Comments",
@@ -202,6 +204,12 @@
     "apply": "Apply",
     "clear": "Clear all",
     "empty": "No products in this collection.",
+    "count_zero": "No products",
+    "count_one": "1 product",
+    "count_two": "2 products",
+    "count_few": "{{ count }} products",
+    "count_many_accusative": "{{ count }} products",
+    "count_many": "{{ count }} products",
     "count": {
       "one": "1 product",
       "other": "{{ count }} products"

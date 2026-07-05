@@ -38,6 +38,7 @@
     "search": {
       "title": "دوري اللي بخاطرج",
       "placeholder": "دوري اللي بخاطرج...",
+      "submit": "بحث",
       "no_results": "ما لقينا نتائج",
       "view_all": "عرض كل النتائج",
       "searching": "نبحث لج..."
@@ -159,14 +160,15 @@
       "snapchat": "سناب شات",
       "facebook": "فيسبوك",
       "threads": "ثريدز",
-      "shop": "تسوقي الآن"
+      "shop": "المتجر"
     },
     "cart_drawer": { "name": "درج السلة" }
   },
   "404": {
-    "title": "404",
-    "not_found": "الصفحة غير موجودة.",
-    "back_to_shopping": "ارجعي للتسوق"
+    "title": "ما لقينا الصفحة",
+    "not_found": "يبدو أن الرابط غير صحيح أو أن الصفحة انتقلت لمكان ثاني.",
+    "back_home": "الصفحة الرئيسية",
+    "back_to_shopping": "تسوقي الآن"
   },
   "blog": {
     "article_comments": "التعليقات",
@@ -202,6 +204,12 @@
     "apply": "طبّقي",
     "clear": "مسح الكل",
     "empty": "ما في منتجات في هالمجموعة.",
+    "count_zero": "لا منتجات",
+    "count_one": "منتج واحد",
+    "count_two": "منتجان",
+    "count_few": "{{ count }} منتجات",
+    "count_many_accusative": "{{ count }} منتجاً",
+    "count_many": "{{ count }} منتج",
     "count": {
       "one": "منتج واحد",
       "other": "{{ count }} منتج"

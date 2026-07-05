@@ -95,20 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dot.setAttribute('aria-selected', 'false');
         dot.setAttribute('aria-label', `${i + 1} / ${pageCount}`);
         dot.addEventListener('click', () => {
-          // #region agent log
-          fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
-            body: JSON.stringify({
-              sessionId: '489563',
-              location: 'theme.js:carousel-dot',
-              message: 'dot click',
-              data: { index: i, isRTL, scrollLeft: track.scrollLeft },
-              timestamp: Date.now(),
-              hypothesisId: 'H1',
-            }),
-          }).catch(() => {});
-          // #endregion
           scrollToSlide(i);
         });
         dotsContainer.appendChild(dot);

@@ -13,7 +13,7 @@
   assign low_threshold = settings.low_stock_threshold | default: 10
 -%}
 
-<div class="quickview" data-quickview data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-threshold="{{ low_threshold }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
+<div class="quickview" data-quickview data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-currency-label="{{ 'general.currency' | t }}" data-threshold="{{ low_threshold }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
   <div class="quickview__media">
     {%- if product.featured_image -%}
       {% render 'image',
@@ -31,8 +31,8 @@
     <h2 class="quickview__title">{% render 'tanween', text: product.title %}</h2>
 
     <div class="quickview__price">
-      <s data-qv-compare {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>{{ current_variant.compare_at_price | money }}</s>
-      <span class="quickview__current" data-qv-price>{{ current_variant.price | money }}</span>
+      <s data-qv-compare {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>{{ current_variant.compare_at_price | money_without_currency }} {{ 'general.currency' | t }}</s>
+      <span class="quickview__current" data-qv-price>{{ current_variant.price | money_without_currency }} {{ 'general.currency' | t }}</span>
     </div>
 
     <p class="quickview__low-stock" data-qv-low-stock hidden></p>

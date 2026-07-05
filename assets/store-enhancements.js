@@ -6,15 +6,10 @@
 (function () {
   const root = () => window.Shopify?.routes?.root || '/';
 
-  function money(cents, currency) {
-    try {
-      return new Intl.NumberFormat('ar-AE', {
-        style: 'currency',
-        currency: currency || 'AED',
-      }).format((cents || 0) / 100);
-    } catch {
-      return `${((cents || 0) / 100).toFixed(2)}`;
-    }
+  function money(cents, currencyLabel) {
+    const label = currencyLabel || 'د.إ.';
+    const amount = ((cents || 0) / 100).toFixed(2);
+    return `${amount} ${label}`;
   }
 
   function escapeHtml(str) {
@@ -186,7 +181,7 @@
 
     function bindProduct(el) {
       if (!el) return;
-      const currency = el.dataset.currency || 'AED';
+      const currencyLabel = el.dataset.currencyLabel || 'د.إ.';
       const threshold = parseInt(el.dataset.threshold, 10) || 0;
       let variants = [];
       try {
@@ -222,11 +217,11 @@
           return;
         }
         if (idInput) idInput.value = variant.id;
-        if (priceEl) priceEl.textContent = money(variant.price, currency);
+        if (priceEl) priceEl.textContent = money(variant.price, currencyLabel);
         if (compareEl) {
           const onSale = variant.compare_at_price && variant.compare_at_price > variant.price;
           compareEl.hidden = !onSale;
-          if (onSale) compareEl.textContent = money(variant.compare_at_price, currency);
+          if (onSale) compareEl.textContent = money(variant.compare_at_price, currencyLabel);
         }
         if (addBtn) {
           addBtn.disabled = !variant.available;
@@ -304,6 +299,37 @@
   const RECENT_KEY = 'anfas:recently';
   const RECENT_MAX = 8;
 
+  function currencyLabel() {
+    return document.querySelector('[data-recently-viewed]')?.dataset.currencyLabel || 'د.إ.';
+  }
+
+  function formatRecentPrice(cents, label) {
+    if (typeof cents !== 'number' || isNaN(cents)) return '';
+    return money(cents, label);
+  }
+
+  function normalizeRecentPrice(price, label) {
+    if (!price) return '';
+    const text = String(price).trim();
+    if (/AED/i.test(text)) {
+      const num = text.replace(/[^\d.,]/g, '').replace(',', '.');
+      const parsed = parseFloat(num);
+      if (!isNaN(parsed)) return `${parsed.toFixed(2)} ${label}`;
+    }
+    return text;
+  }
+
+  function normalizeRecentItem(item, label) {
+    if (!item || typeof item !== 'object') return item;
+    const next = { ...item };
+    if (typeof next.priceCents === 'number') {
+      next.price = formatRecentPrice(next.priceCents, label);
+    } else if (next.price) {
+      next.price = normalizeRecentPrice(next.price, label);
+    }
+    return next;
+  }
+
   function readRecent() {
     try {
       const raw = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
@@ -314,14 +340,15 @@
   }
 
   function initRecentlyViewed() {
-    let list = readRecent();
+    const label = currencyLabel();
+    let list = readRecent().map((p) => normalizeRecentItem(p, label));
 
     // Record the current product (PDP) before rendering.
     const currentEl = document.querySelector('[data-recently-current]');
     let currentId = null;
     if (currentEl) {
       try {
-        const snap = JSON.parse(currentEl.textContent);
+        const snap = normalizeRecentItem(JSON.parse(currentEl.textContent), label);
         if (snap && snap.id) {
           currentId = snap.id;
           list = list.filter((p) => p.id !== snap.id);
@@ -332,6 +359,8 @@
       } catch {
         /* ignore */
       }
+    } else if (list.length > 0) {
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
     }
 
     const section = document.querySelector('[data-recently-viewed]');

@@ -200,6 +200,7 @@
       "url": {{ product.url | json }},
       "image": {{ product.featured_image | image_url: width: 500 | json }},
       "price": {{ recent_price | strip | json }},
+      "priceCents": {{ product.price }},
       "available": {{ product.available }}
     }
   </script>

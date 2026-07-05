@@ -4,7 +4,7 @@
   and unhides the section only when there are items to show.
 {%- endcomment -%}
 
-<section class="recently-viewed section-padding" data-recently-viewed hidden>
+<section class="recently-viewed section-padding" data-recently-viewed data-currency-label="{{ 'general.currency' | t }}" hidden>
   <h2 class="section-heading section-heading--accent">{{ section.settings.heading }}</h2>
   <div class="recently-viewed__grid" data-recently-grid></div>
 </section>

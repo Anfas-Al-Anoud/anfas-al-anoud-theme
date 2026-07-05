@@ -208,7 +208,6 @@
     "count_one": "منتج واحد",
     "count_two": "منتجان",
     "count_few": "{{ count }} منتجات",
-    "count_many_accusative": "{{ count }} منتجاً",
     "count_many": "{{ count }} منتج",
     "count": {
       "one": "منتج واحد",

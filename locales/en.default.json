@@ -208,7 +208,6 @@
     "count_one": "1 product",
     "count_two": "2 products",
     "count_few": "{{ count }} products",
-    "count_many_accusative": "{{ count }} products",
     "count_many": "{{ count }} products",
     "count": {
       "one": "1 product",

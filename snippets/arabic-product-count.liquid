@@ -21,7 +21,7 @@
 {%- elsif n >= 3 and n <= 10 -%}
   {{ 'collections.count_few' | t: count: n }}
 {%- elsif r100 >= 11 and r100 <= 99 -%}
-  {{ 'collections.count_many_accusative' | t: count: n }}
+  {{ 'collections.count_many' | t: count: n }}
 {%- elsif r10 >= 3 and r10 <= 9 -%}
   {{ 'collections.count_few' | t: count: n }}
 {%- else -%}

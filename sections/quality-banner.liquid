@@ -24,7 +24,30 @@
     padding-inline: var(--page-margin);
     border-radius: var(--style-border-radius-cards);
     overflow: hidden;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 21 / 9;
+    max-height: clamp(11rem, 22vw, 16rem);
+  }
+
+  @media (min-width: 768px) {
+    .quality-banner.section-padding {
+      padding-block: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    .quality-banner__inner {
+      aspect-ratio: auto;
+      max-height: clamp(11rem, 18vw, 15rem);
+      min-height: 10rem;
+    }
+
+    .quality-banner__heading {
+      font-size: clamp(1rem, 1.8vw, 1.375rem);
+      margin-block-end: 1rem;
+      max-width: 36rem;
+    }
+
+    .quality-banner__overlay {
+      padding: clamp(1rem, 2.5vw, 1.75rem);
+    }
   }
 
   .quality-banner__media {

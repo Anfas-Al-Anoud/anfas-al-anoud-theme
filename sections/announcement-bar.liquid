@@ -34,6 +34,17 @@
   [dir="rtl"] .announcement-bar__track {
     animation-name: marquee-rtl;
   }
+  @media (max-width: 767px) {
+    .announcement-bar {
+      padding-block: 0.35rem;
+    }
+
+    .announcement-bar__text {
+      font-size: 0.75rem;
+      padding-inline: 1.75rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .announcement-bar__track { animation: none; }
   }

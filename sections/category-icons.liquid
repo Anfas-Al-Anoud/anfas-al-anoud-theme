@@ -55,6 +55,17 @@
     overflow: hidden;
   }
 
+  @media (max-width: 767px) {
+    .category-icons__header {
+      margin-block-end: 0;
+    }
+
+    .category-icons__track-wrap {
+      margin-block-start: 0.75rem;
+      overflow: visible;
+    }
+  }
+
   .category-icons__track {
     display: flex;
     gap: 1rem;
@@ -77,6 +88,37 @@
     flex: 0 0 auto;
     scroll-snap-align: start;
     width: clamp(8.5rem, 38vw, 11rem);
+  }
+
+  @media (max-width: 767px) {
+    .category-icons__track {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.625rem 0.75rem;
+      overflow-x: visible;
+      scroll-snap-type: none;
+      padding-block-end: 0;
+    }
+
+    .category-icons__item {
+      width: auto;
+    }
+
+    .category-icons__card {
+      gap: 0.5rem;
+      padding: 0.25rem;
+    }
+
+    .category-icons__icon {
+      width: clamp(4.25rem, 22vw, 5.25rem);
+      height: clamp(4.25rem, 22vw, 5.25rem);
+      border-width: 2px;
+    }
+
+    .category-icons__label {
+      font-size: 0.8125rem;
+      line-height: 1.35;
+    }
   }
 
   @media (min-width: 768px) {
@@ -157,7 +199,7 @@
       "type": "text",
       "id": "subheading",
       "label": "النص الفرعي",
-      "default": "اسحبي يمين ويسار لاستكشاف مجموعات أنفاس العنود"
+      "default": "اكتشفي مجموعات أنفاس العنود الأربعة"
     }
   ],
   "blocks": [

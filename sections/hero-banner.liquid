@@ -74,6 +74,13 @@
     padding-inline: var(--page-margin);
   }
 
+  @media (max-width: 767px) {
+    .hero-banner {
+      padding-block: 0;
+      padding-inline: 0;
+    }
+  }
+
   .hero-banner__frame {
     position: relative;
     max-width: var(--page-width);
@@ -82,6 +89,16 @@
     overflow: hidden;
     box-shadow: 0 24px 60px rgba(61, 43, 31, 0.18);
     max-height: 100vh;
+  }
+
+  @media (max-width: 767px) {
+    .hero-banner__frame {
+      max-width: none;
+      border-radius: 0;
+      box-shadow: none;
+      aspect-ratio: 16 / 10;
+      max-height: none;
+    }
   }
 
   @media (min-width: 768px) {
@@ -136,6 +153,29 @@
     min-height: clamp(17rem, 52vh, 30rem);
     padding: clamp(1.75rem, 6vw, 4.5rem);
     color: var(--color-white);
+  }
+
+  @media (max-width: 767px) {
+    .hero-banner__content {
+      min-height: 100%;
+      padding: clamp(1rem, 4vw, 1.5rem) var(--page-margin);
+    }
+
+    .hero-banner__heading {
+      font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+      margin-block-end: 0.5rem;
+    }
+
+    .hero-banner__text {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      margin-block-end: 1rem;
+    }
+
+    .hero-banner__eyebrow {
+      font-size: 0.75rem;
+      margin-block-end: 0.5rem;
+    }
   }
 
   @media (min-width: 768px) {

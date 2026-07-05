@@ -22,25 +22,62 @@
     padding-inline: var(--page-margin);
     border-radius: var(--style-border-radius-cards);
     overflow: hidden;
+    min-height: clamp(15rem, 42vw, 22rem);
   }
+
+  @media (max-width: 767px) {
+    .quality-banner.section-padding {
+      padding-block: clamp(1rem, 3vw, 1.5rem);
+    }
+
+    .quality-banner__inner {
+      min-height: clamp(10rem, 34vw, 14rem);
+      margin-inline: calc(-1 * var(--page-margin));
+      max-width: none;
+      padding-inline: 0;
+      border-radius: 0;
+    }
+  }
+
   .quality-banner__image {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 0;
   }
+
   .quality-banner__overlay {
-    position: relative;
-    min-height: clamp(15rem, 42vw, 22rem);
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: clamp(1.5rem, 5vw, 3rem);
-    background: linear-gradient(to top, rgba(61, 43, 31, 0.85), rgba(61, 43, 31, 0.4));
+    padding: clamp(1.25rem, 4vw, 3rem);
+    background: linear-gradient(
+      to top,
+      rgba(61, 43, 31, 0.92) 0%,
+      rgba(61, 43, 31, 0.72) 45%,
+      rgba(61, 43, 31, 0.45) 100%
+    );
   }
+
+  @media (max-width: 767px) {
+    .quality-banner__overlay {
+      padding: clamp(1rem, 3.5vw, 1.5rem);
+    }
+
+    .quality-banner__heading {
+      font-size: clamp(0.9375rem, 3.8vw, 1.125rem);
+      margin-block-end: 0.875rem;
+      line-height: 1.45;
+    }
+  }
+
   .quality-banner__heading {
     color: var(--color-white);
     font-size: clamp(1.25rem, 3vw, 2rem);

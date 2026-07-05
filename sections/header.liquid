@@ -196,12 +196,21 @@
     .site-header__menu-toggle {
       display: none;
     }
-    .site-header__inner { min-height: 3.5rem; }
+    .site-header__inner { min-height: 3.25rem; }
     .site-header__logo {
       justify-self: center;
       grid-column: 1 / -1;
     }
-    .site-header__logo img { max-height: 2.5rem; width: auto; }
+    .site-header__logo img {
+      max-height: clamp(2.75rem, 11vw, 3.5rem);
+      width: auto;
+    }
+    .site-header__logo-text {
+      font-size: clamp(1.35rem, 5.5vw, 1.65rem);
+    }
+    .site-header__logo-subtitle {
+      font-size: 0.62rem;
+    }
   }
   @media (min-width: 768px) {
     .site-header__menu-toggle { display: none; }

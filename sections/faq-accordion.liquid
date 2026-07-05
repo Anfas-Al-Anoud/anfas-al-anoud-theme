@@ -35,6 +35,32 @@
     line-height: 1.8;
     color: var(--color-accent);
   }
+
+  @media (max-width: 767px) {
+    .faq-accordion.section-padding {
+      padding-block: clamp(1rem, 3vw, 1.5rem);
+    }
+
+    .faq-accordion__list {
+      padding-inline: calc(var(--page-margin) * 0.75);
+    }
+
+    .faq-accordion__item {
+      padding-block: 0;
+    }
+
+    .faq-accordion__question {
+      padding: 0.625rem 0;
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+
+    .faq-accordion__answer {
+      padding-block-end: 0.625rem;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

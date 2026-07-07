@@ -1,46 +1,67 @@
-<article class="page-content section-padding">
-  <div class="page-content__inner">
-    <h1 class="page-content__title">اتفاقنا الحلو</h1>
-    <div class="page-content__body rte">
-      {% if page.content != blank %}
-        {{ page.content }}
-      {% else %}
-        <p>أهلًا فيج في متجر {{ shop.name }}. باستخدامج للموقع وتصفّحج للمنتجات أو إتمامج لأي طلب، فإنتِ توافقين على الشروط والأحكام التالية. قريناها لج بلغة بسيطة عشان كلّ شي يكون واضح ومريح.</p>
+<article class="policy-page section-padding">
+  <div class="policy-page__inner">
+    <h1 class="policy-page__title">اتفاقنا الحلو</h1>
+    <p class="policy-page__intro">
+      هلا بالغالية، نورتي متجري! أنا العنود، ووجودج هنا يعني الكثير لي. قبل ما تكملين تسوقج، خليني أوضح لج شويات نقاط بسيطة عشان تكون تجربتج معاي مريحة وواضحة من البداية.
+    </p>
 
-        <h2>المنتجات والأسعار</h2>
-        <p>نحرص أن تكون كل المعلومات والصور والأوصاف دقيقة قدر الإمكان. الأسعار معروضة بالدرهم الإماراتي وتشمل ما هو موضّح عند الدفع. نحتفظ بحقنا في تعديل الأسعار أو توفّر المنتجات في أي وقت وبدون إشعار مسبق.</p>
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>خصوصيتج في الحفظ والصون</h2>
+        <p>أنا أحترم خصوصيتج وأسرارج. أي معلومة تعطيني إياها (اسمج، رقمج، عنوانج) تبقى عندي في الحفظ والصون، وما أشاركها مع أحد إلا عشان أوصل لج طلبج أو أحسّن خدمتي.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-shield.svg' | inline_asset_content }}</div>
+    </div>
 
-        <h2>الطلبات والتأكيد</h2>
-        <p>بعد إتمامج للطلب يوصلج تأكيد على بريدج الإلكتروني. في حال وجود أي مشكلة في التوفّر أو الدفع، بنتواصل معاج مباشرةً لإيجاد الحل المناسب.</p>
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>منتجاتي.. شغل من القلب</h2>
+        <p>كل المنتجات اللي تشوفينها عندي أصلية 100%، وأنا شخصيًا أختارها وأتأكد من جودتها. الصور قريبة جدًا من الواقع، لكن أحيانًا اختلاف بسيط في الإضاءة ممكن يصير — وهذا طبيعي.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-camera.svg' | inline_asset_content }}</div>
+    </div>
 
-        <h2>الاستخدام العادل</h2>
-        <p>يُمنع استخدام الموقع لأي غرض غير قانوني أو بطريقة تضرّ بالمتجر أو بالعميلات الأخريات. المحتوى والصور والتصاميم في الموقع ملك لـ{{ shop.name }} ولا يجوز نسخها أو إعادة استخدامها بدون إذن.</p>
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>تعبي ومجهودي</h2>
+        <p>التصاميم، الصور، الأسماء، والمحتوى في الموقع من تعبي ومجهودي. يُمنع نسخها أو استخدامها بدون إذني.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-heart.svg' | inline_asset_content }}</div>
+    </div>
 
-        <h2>المسؤولية</h2>
-        <p>نبذل جهدنا عشان تكون تجربتج مثاليّة، لكننا غير مسؤولين عن أي سوء استخدام للمنتجات بخلاف تعليمات الاستعمال. المنتجات مخصّصة للاستخدام الشخصي.</p>
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>الطلبات والمخزون</h2>
+        <p>أحيانًا ينفد منتج معيّن بسرعة. إذا صار وما كان متوفر، بتواصل معاج فورًا ونعوّضج أو نرجع لج المبلغ — راحتج أهم من أي شي.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-box.svg' | inline_asset_content }}</div>
+    </div>
 
-        <h2>تواصلي معنا</h2>
-        <p>أي استفسار عن هذي الشروط، راسلينا عبر
-          {% if settings.whatsapp_number != blank %}
-            <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">واتساب</a>
-          {% else %}
-            قنواتنا الرسمية
-          {% endif %}
-          ويسعدنا نخدمج.</p>
-      {% endif %}
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>تعديلات خفيفة</h2>
+        <p>ممكن أعدّل هالشروط من وقت لوقت عشان أحسّن المتجر. أي تعديل بيكون هنا، واستمرارج بالتسوق يعني موافقتج على التحديث.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-gear.svg' | inline_asset_content }}</div>
+    </div>
+
+    <hr class="policy-page__divider">
+
+    <div class="policy-page__closing">
+      <div class="policy-page__closing-icon">{{ 'icon-policy-heart.svg' | inline_asset_content }}</div>
+      <h2>كلمة أخيرة</h2>
+      <p>
+        باستخدامج للموقع، فإنتِ توافقين على هالشروط. إذا عندج أي سؤال،
+        {% if settings.whatsapp_number != blank %}
+          <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">رمسيني واتساب</a>
+        {% else %}
+          تواصلي معاي
+        {% endif %}
+        — أنا حاضرة عشانج.
+      </p>
     </div>
   </div>
 </article>
-
-{% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
-  .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
-  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
-  .page-content__body p { margin-block-end: 0.85rem; }
-  .page-content__body ul { padding-inline-start: 1.5rem; margin-block-end: 0.85rem; }
-  .page-content__body li { margin-block-end: 0.35rem; }
-  .page-content__body a { color: var(--color-accent); font-weight: 600; }
-{% endstylesheet %}
 
 {% schema %}
 {

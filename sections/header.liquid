@@ -8,9 +8,12 @@
 
     <a href="{{ routes.root_url }}" class="site-header__logo">
       {% if settings.logo %}
+        {% liquid
+          assign logo_render_width = settings.logo_width | times: 2 | at_most: 440
+        %}
         {{
           settings.logo
-          | image_url: width: settings.logo_width
+          | image_url: width: logo_render_width
           | image_tag:
             alt: shop.name,
             width: settings.logo_width,
@@ -202,7 +205,7 @@
       grid-column: 1 / -1;
     }
     .site-header__logo img {
-      max-height: clamp(2.75rem, 11vw, 3.5rem);
+      max-height: clamp(3.75rem, 18vw, 5rem);
       width: auto;
     }
     .site-header__logo-text {

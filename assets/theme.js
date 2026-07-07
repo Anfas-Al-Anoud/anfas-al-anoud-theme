@@ -1,6 +1,114 @@
-/* Anfas Al-Anoud storefront interactions (theme.js v1.5.1) */
+/* Anfas Al-Anoud storefront interactions (theme.js v1.7.0) */
+
+function parseGapPx(track) {
+  const gap = getComputedStyle(track).gap || '0.5rem';
+  const probe = document.createElement('div');
+  probe.style.width = gap;
+  probe.style.position = 'absolute';
+  probe.style.visibility = 'hidden';
+  document.body.appendChild(probe);
+  const px = probe.offsetWidth || 8;
+  probe.remove();
+  return px;
+}
+
+function initCarousels(root = document) {
+  root.querySelectorAll('[data-carousel]:not([data-carousel-init])').forEach((carousel) => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    if (!track) return;
+
+    carousel.setAttribute('data-carousel-init', '');
+
+    const isRTL = getComputedStyle(track).direction === 'rtl';
+    const dotsContainer = carousel.querySelector('[data-carousel-dots]');
+
+    const getSlides = () => [...track.querySelectorAll(':scope > *')];
+
+    const step = () => {
+      const slides = getSlides();
+      const gapPx = parseGapPx(track);
+      return (slides[0]?.offsetWidth || 280) + gapPx;
+    };
+
+    carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => {
+      track.scrollBy({ left: isRTL ? step() : -step(), behavior: 'smooth' });
+    });
+
+    carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => {
+      track.scrollBy({ left: isRTL ? -step() : step(), behavior: 'smooth' });
+    });
+
+    if (!dotsContainer) return;
+
+    const getVisibleCount = () => {
+      const slides = getSlides();
+      const slideWidth = slides[0]?.offsetWidth || 1;
+      return Math.max(1, Math.round(track.clientWidth / slideWidth));
+    };
+
+    const getPageCount = () => Math.max(1, getSlides().length - getVisibleCount() + 1);
+
+    const scrollToSlide = (index) => {
+      const target = getSlides()[index];
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    };
+
+    const updateActiveDot = () => {
+      const slides = getSlides();
+      const dots = [...dotsContainer.querySelectorAll('.carousel__dot, .featured-collection__dot')];
+      if (!dots.length || !slides.length) return;
+
+      const trackRect = track.getBoundingClientRect();
+      let active = 0;
+      let minDist = Infinity;
+
+      slides.forEach((slide, index) => {
+        const slideRect = slide.getBoundingClientRect();
+        const dist = isRTL
+          ? Math.abs(slideRect.right - trackRect.right)
+          : Math.abs(slideRect.left - trackRect.left);
+        if (dist < minDist) {
+          minDist = dist;
+          active = index;
+        }
+      });
+
+      active = Math.min(active, dots.length - 1);
+      dots.forEach((dot, i) => {
+        const on = i === active;
+        dot.classList.toggle('is-active', on);
+        dot.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+    };
+
+    const renderDots = () => {
+      const pageCount = getPageCount();
+      dotsContainer.innerHTML = '';
+      if (pageCount <= 1) return;
+
+      for (let i = 0; i < pageCount; i += 1) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', 'false');
+        dot.setAttribute('aria-label', `${i + 1} / ${pageCount}`);
+        dot.addEventListener('click', () => scrollToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      updateActiveDot();
+    };
+
+    renderDots();
+    track.addEventListener('scroll', updateActiveDot, { passive: true });
+    window.addEventListener('resize', renderDots, { passive: true });
+  });
+}
+
+window.initCarousels = initCarousels;
+
 document.addEventListener('DOMContentLoaded', () => {
-  /* ---- App-style mobile menu (bottom sheet) ---- */
   const menuToggle = document.querySelector('[data-menu-toggle]');
   const menuSheet = document.querySelector('[data-mobile-menu]');
   const menuBackdrop = document.querySelector('[data-mobile-menu-backdrop]');
@@ -51,87 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   menuSheet?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 
-  /* ---- RTL-aware carousels ---- */
-  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
-    const track = carousel.querySelector('[data-carousel-track]');
-    if (!track) return;
-    const isRTL = getComputedStyle(track).direction === 'rtl';
-    const slides = [...track.querySelectorAll(':scope > *')];
-    const step = () => (slides[0]?.offsetWidth || 280) + 16;
-    const dotsContainer = carousel.querySelector('[data-carousel-dots]');
+  initCarousels();
 
-    carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => {
-      track.scrollBy({ left: isRTL ? step() : -step(), behavior: 'smooth' });
-    });
-    carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => {
-      track.scrollBy({ left: isRTL ? -step() : step(), behavior: 'smooth' });
-    });
-
-    if (!dotsContainer || slides.length < 2) return;
-
-    const getVisibleCount = () => {
-      const slideWidth = slides[0]?.offsetWidth || 1;
-      return Math.max(1, Math.round(track.clientWidth / slideWidth));
-    };
-
-    const getPageCount = () => Math.max(1, slides.length - getVisibleCount() + 1);
-
-    const scrollToSlide = (index) => {
-      const target = slides[index];
-      if (!target) return;
-      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-    };
-
-    const renderDots = () => {
-      const pageCount = getPageCount();
-      dotsContainer.innerHTML = '';
-      if (pageCount <= 1) return;
-
-      for (let i = 0; i < pageCount; i += 1) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'featured-collection__dot';
-        dot.setAttribute('role', 'tab');
-        dot.setAttribute('aria-selected', 'false');
-        dot.setAttribute('aria-label', `${i + 1} / ${pageCount}`);
-        dot.addEventListener('click', () => {
-          scrollToSlide(i);
-        });
-        dotsContainer.appendChild(dot);
-      }
-      updateActiveDot();
-    };
-
-    const updateActiveDot = () => {
-      const dots = [...dotsContainer.querySelectorAll('.featured-collection__dot')];
-      if (!dots.length) return;
-      const trackRect = track.getBoundingClientRect();
-      let active = 0;
-      let minDist = Infinity;
-      slides.forEach((slide, index) => {
-        const slideRect = slide.getBoundingClientRect();
-        const dist = isRTL
-          ? Math.abs(slideRect.right - trackRect.right)
-          : Math.abs(slideRect.left - trackRect.left);
-        if (dist < minDist) {
-          minDist = dist;
-          active = index;
-        }
-      });
-      active = Math.min(active, dots.length - 1);
-      dots.forEach((dot, i) => {
-        const on = i === active;
-        dot.classList.toggle('is-active', on);
-        dot.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-    };
-
-    renderDots();
-    track.addEventListener('scroll', updateActiveDot, { passive: true });
-    window.addEventListener('resize', renderDots, { passive: true });
-  });
-
-  /* ---- Quick add from product cards ---- */
   document.addEventListener('click', (e) => {
     const qa = e.target.closest('[data-quick-add]');
     if (!qa) return;

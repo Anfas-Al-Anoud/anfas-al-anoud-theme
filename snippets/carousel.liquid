@@ -1,0 +1,64 @@
+{% doc %}
+  Shared horizontal carousel shell with RTL-aware scroll and optional dots/nav.
+
+  @param {string} slides - HTML for direct children of the track (use capture)
+  @param {string} [class] - Extra class on the carousel root
+  @param {string} [gap] - CSS gap value (default 0.5rem)
+  @param {boolean} [show_nav] - Show prev/next buttons (default false)
+  @param {boolean} [show_dots] - Show dot pagination (default true)
+  @param {string} [track_tag] - HTML tag for track (default div)
+
+  @example
+  {% capture slides %}
+    <div class="carousel__slide">...</div>
+  {% endcapture %}
+  {% render 'carousel', slides: slides, class: 'my-carousel', gap: '0.5rem' %}
+{% enddoc %}
+
+{% liquid
+  assign carousel_gap = gap | default: '0.5rem'
+  assign carousel_track_tag = track_tag | default: 'div'
+  assign carousel_show_nav = show_nav | default: false
+  assign carousel_show_dots = true
+  if show_dots == false
+    assign carousel_show_dots = false
+  endif
+%}
+
+<div
+  class="carousel{% if class != blank %} {{ class }}{% endif %}"
+  data-carousel
+  style="--carousel-gap: {{ carousel_gap }};"
+>
+  {% if carousel_show_nav %}
+    <button
+      type="button"
+      class="carousel__nav carousel__nav--prev"
+      data-carousel-prev
+      aria-label="{{ 'general.pagination.previous' | t }}"
+    >
+      &lsaquo;
+    </button>
+  {% endif %}
+
+  <div class="carousel__track-wrap">
+    <{{ carousel_track_tag }} class="carousel__track" data-carousel-track>
+      {{ slides }}
+    </{{ carousel_track_tag }}>
+  </div>
+
+  {% if carousel_show_nav %}
+    <button
+      type="button"
+      class="carousel__nav carousel__nav--next"
+      data-carousel-next
+      aria-label="{{ 'general.pagination.next' | t }}"
+    >
+      &rsaquo;
+    </button>
+  {% endif %}
+
+  {% if carousel_show_dots %}
+    <div class="carousel__dots" data-carousel-dots role="tablist" aria-label="{{ 'general.pagination.label' | t }}"></div>
+  {% endif %}
+</div>

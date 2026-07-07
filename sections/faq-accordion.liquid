@@ -1,8 +1,23 @@
-<section class="faq-accordion section-padding" data-animate-section>
+<section class="faq-accordion section-padding" data-animate-section data-faq-accordion>
   <h2 class="section-heading">{{ section.settings.heading }}</h2>
   <div class="faq-accordion__list" itemscope itemtype="https://schema.org/FAQPage">
+    {% assign visible_count = section.settings.initial_visible_count | default: 2 %}
     {% for block in section.blocks %}
-      <details class="faq-accordion__item" {{ block.shopify_attributes }} itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      {% liquid
+        assign is_hidden = false
+        if forloop.index > visible_count
+          assign is_hidden = true
+        endif
+      %}
+      <details
+        class="faq-accordion__item{% if is_hidden %} faq-accordion__item--collapsed{% endif %}"
+        {% if is_hidden %}hidden{% endif %}
+        {{ block.shopify_attributes }}
+        itemscope
+        itemprop="mainEntity"
+        itemtype="https://schema.org/Question"
+        data-faq-item
+      >
         <summary class="faq-accordion__question" itemprop="name">{{ block.settings.question }}</summary>
         <div class="faq-accordion__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
           <div itemprop="text">{{ block.settings.answer }}</div>
@@ -10,6 +25,13 @@
       </details>
     {% endfor %}
   </div>
+  {% if section.blocks.size > visible_count %}
+    <div class="faq-accordion__toggle-wrap">
+      <button type="button" class="btn btn--outline faq-accordion__toggle" data-faq-toggle data-hide-label="{{ 'sections.faq_accordion.show_less' | t }}" aria-expanded="false">
+        {{ 'sections.faq_accordion.show_more' | t }}
+      </button>
+    </div>
+  {% endif %}
 </section>
 
 {% stylesheet %}
@@ -34,6 +56,14 @@
     padding-block-end: 1rem;
     line-height: 1.8;
     color: var(--color-accent);
+  }
+  .faq-accordion__toggle-wrap {
+    text-align: center;
+    margin-block-start: 1rem;
+    padding-inline: var(--page-margin);
+  }
+  .faq-accordion__toggle {
+    min-width: 12rem;
   }
 
   @media (max-width: 767px) {
@@ -63,12 +93,46 @@
   }
 {% endstylesheet %}
 
+{% javascript %}
+  document.querySelectorAll('[data-faq-accordion]').forEach((section) => {
+    const toggle = section.querySelector('[data-faq-toggle]');
+    if (!toggle) return;
+
+    const hiddenItems = [...section.querySelectorAll('[data-faq-item][hidden]')];
+    if (!hiddenItems.length) {
+      toggle.closest('.faq-accordion__toggle-wrap')?.remove();
+      return;
+    }
+
+    const showLabel = toggle.textContent.trim();
+    const hideLabel = toggle.dataset.hideLabel || 'أخفي الأسئلة';
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      hiddenItems.forEach((item) => {
+        item.hidden = expanded;
+      });
+      toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      toggle.textContent = expanded ? showLabel : hideLabel;
+    });
+  });
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "t:sections.faq_accordion.name",
   "class": "faq-accordion-section",
   "settings": [
-    { "type": "text", "id": "heading", "label": "العنوان", "default": "في خاطرج سؤال؟ أنا حاضرة عشانج" }
+    { "type": "text", "id": "heading", "label": "العنوان", "default": "في خاطرج سؤال؟ أنا حاضرة عشانج" },
+    {
+      "type": "range",
+      "id": "initial_visible_count",
+      "label": "عدد الأسئلة الظاهرة",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2
+    }
   ],
   "blocks": [
     {

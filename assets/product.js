@@ -247,6 +247,7 @@
             document.head.appendChild(style);
           }
           target.innerHTML = grid.innerHTML;
+          window.initCarousels?.(section);
         } else {
           section.hidden = true;
         }

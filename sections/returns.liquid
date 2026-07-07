@@ -1,52 +1,74 @@
-<article class="page-content section-padding">
-  <div class="page-content__inner">
-    <h1 class="page-content__title">إذا ما عيبج؟</h1>
-    <div class="page-content__body rte">
-      {% if page.content != blank %}
-        {{ page.content }}
-      {% else %}
-        <p>راحتج تهمنا، وإذا وصلج طلبج وما كان على توقّعج، إحنا وياج خطوة بخطوة عشان نحلّها بأسرع وقت.</p>
+<article class="policy-page section-padding">
+  <div class="policy-page__inner">
+    <h1 class="policy-page__title">ما عجبج المنتج؟</h1>
+    <p class="policy-page__intro">
+      هلا بالغالية، نورتي متجري! راحتج وسعادتج هي أهم شي عندي. عشان كذا، سياسة الإرجاع عندي بسيطة وواضحة — بدون تعقيد ولا لف ودوران.
+    </p>
 
-        <h2>مدّة الإرجاع والاستبدال</h2>
-        <p>تقدرين تطلبين الإرجاع أو الاستبدال خلال ٣ أيام من استلامج للطلب، بشرط أن يكون المنتج بحالته الأصلية، غير مستخدَم، وبغلافه وتغليفه الأصلي.</p>
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>عندج 3 أيام للاسترجاع</h2>
+        <p>عندج 3 أيام من تاريخ استلامج للطلب ترجعين المنتج لأي سبب — حتى لو بس ما عجبج الريحة أو الحجم.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-calendar.svg' | inline_asset_content }}</div>
+    </div>
 
-        <h2>منتجات ما يمكن إرجاعها</h2>
-        <p>لأسباب صحيّة وحفاظًا على سلامتج، ما نقدر نستقبل إرجاع العطور والدخون ومنتجات العناية إذا انفتح غلافها أو استُخدمت، إلا إذا وصلتج تالفة أو فيها عيب من عندنا.</p>
+    <div class="policy-page__row">
+      <div class="policy-page__row-content">
+        <h2>لعيونج... بدون شروط</h2>
+        <p>ما عندي شروط معقدة ولا استبعادات طويلة. المهم عندي إنك تكونين مرتاحة وسعيدة — لأن رضاج هو رأس مالي.</p>
+      </div>
+      <div class="policy-page__row-icon" aria-hidden="true">{{ 'icon-policy-check.svg' | inline_asset_content }}</div>
+    </div>
 
-        <h2>إذا وصلج منتج تالف أو غلط</h2>
-        <p>إذا كان في خطأ من طرفنا (منتج تالف أو مختلف عن طلبج)، بنستبدله لج أو نرجّع لج مبلغه كامل بدون أي تكلفة إضافية. بس صوّري المنتج وراسلينا.</p>
+    <hr class="policy-page__divider">
 
-        <h2>خطوات الإرجاع</h2>
-        <ul>
-          <li>راسلينا عبر واتساب مع رقم طلبج وسبب الإرجاع.</li>
-          <li>بنأكد لج طلب الإرجاع ونرتّب لج طريقة الاستلام.</li>
-          <li>بعد وصول المنتج وفحصه، نبدأ إجراءات الاسترجاع أو الاستبدال.</li>
-        </ul>
-
-        <h2>استرجاع المبلغ</h2>
-        <p>يتم استرجاع المبلغ بنفس وسيلة الدفع خلال ٥ إلى ٧ أيام عمل بعد استلامنا للمنتج وفحصه.</p>
-
-        <p>لأي مساعدة، راسلينا عبر
+    <h2 class="policy-page__title" style="font-size: 1.15rem;">كيف ترجعين الطلب؟ (ولا أسهل!)</h2>
+    <div class="policy-page__steps">
+      <div class="policy-page__step">
+        <div class="policy-page__step-num">1</div>
+        <h3>طرشي لي واتساب</h3>
+        <p>
           {% if settings.whatsapp_number != blank %}
-            <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">واتساب</a>
+            على الرقم
+            <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{{ settings.whatsapp_number }}</a>
           {% else %}
-            قنواتنا الرسمية
+            على واتساب المتجر
           {% endif %}
-          ومابنقصّر وياج.</p>
-      {% endif %}
+          وقولي لي إنك تبين ترجعين.
+        </p>
+      </div>
+      <div class="policy-page__step">
+        <div class="policy-page__step-num">2</div>
+        <h3>عطيني التفاصيل</h3>
+        <p>رقم الطلب واسم المنتج اللي تبين ترجعينه.</p>
+      </div>
+      <div class="policy-page__step">
+        <div class="policy-page__step-num">3</div>
+        <h3>المندوب لين باب بيتج</h3>
+        <p>أرتّب لج مندوب يستلم المنتج من باب بيتج — ولا تشيلين هم.</p>
+      </div>
+    </div>
+
+    <hr class="policy-page__divider">
+
+    <h2 class="policy-page__title" style="font-size: 1.15rem;">متى ترجع لج بيزاتج؟</h2>
+    <p class="policy-page__intro" style="margin-block-end: 1rem;">
+      بمجرد ما أستلم المنتج، أرجع لج المبلغ بنفس طريقة الدفع. إذا كان الدفع عند الاستلام، نحوّل لج على حسابج البنكي.
+    </p>
+    <p class="policy-page__intro" style="font-size: 0.9rem;">
+      <strong>ملاحظة صغنونة:</strong> رسوم التوصيل ما تنرجع لأنها تروح لشركة الشحن مباشرة.
+    </p>
+
+    <hr class="policy-page__divider">
+
+    <div class="policy-page__closing">
+      <div class="policy-page__closing-icon">{{ 'icon-policy-heart.svg' | inline_asset_content }}</div>
+      <h2>كلمة أخيرة من القلب</h2>
+      <p>رضاج هو رأس مالي. إذا عندج أي استفسار عن الإرجاع، لا تترددين — أنا هني عشانج.</p>
     </div>
   </div>
 </article>
-
-{% stylesheet %}
-  .page-content__inner { max-width: 48rem; margin-inline: auto; padding-inline: var(--page-margin); line-height: 1.9; }
-  .page-content__title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; margin-block-end: 1.5rem; color: var(--color-dark); }
-  .page-content__body h2 { font-size: 1.2rem; color: var(--color-accent); margin-block: 1.75rem 0.5rem; }
-  .page-content__body p { margin-block-end: 0.85rem; }
-  .page-content__body ul { padding-inline-start: 1.5rem; margin-block-end: 0.85rem; }
-  .page-content__body li { margin-block-end: 0.35rem; }
-  .page-content__body a { color: var(--color-accent); font-weight: 600; }
-{% endstylesheet %}
 
 {% schema %}
 {

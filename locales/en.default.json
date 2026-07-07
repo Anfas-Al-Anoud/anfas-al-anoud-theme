@@ -149,7 +149,11 @@
     "image_with_text": { "name": "Image with text" },
     "testimonials": { "name": "Testimonials" },
     "quality_banner": { "name": "Quality banner" },
-    "faq_accordion": { "name": "FAQ" },
+    "faq_accordion": {
+      "name": "FAQ",
+      "show_more": "Show more questions",
+      "show_less": "Hide questions"
+    },
     "trust_features": { "name": "Trust features" },
     "ai_quiz": { "name": "AI quiz assistant" },
     "link_hub": {
@@ -162,7 +166,10 @@
       "threads": "Threads",
       "shop": "Store"
     },
-    "cart_drawer": { "name": "Cart drawer" }
+    "cart_drawer": { "name": "Cart drawer" },
+    "footer": {
+      "quick_links": "Quick links"
+    }
   },
   "404": {
     "title": "Page not found",

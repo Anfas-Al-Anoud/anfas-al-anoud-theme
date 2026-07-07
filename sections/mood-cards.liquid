@@ -1,8 +1,8 @@
 <section class="mood-cards section-padding" data-animate-section>
   <h2 class="section-heading">{{ section.settings.heading }}</h2>
-  <div class="mood-cards__grid">
+  {% capture mood_slides %}
     {% for block in section.blocks %}
-      <article class="mood-cards__card" {{ block.shopify_attributes }}>
+      <article class="carousel__slide mood-cards__card" {{ block.shopify_attributes }}>
         <a href="{{ block.settings.link }}">
           {% if block.settings.image %}
             {% render 'image', image: block.settings.image, alt: block.settings.image_alt, fallback_alt: block.settings.title, class: 'mood-cards__image', width: 600 %}
@@ -23,16 +23,25 @@
         </a>
       </article>
     {% endfor %}
-  </div>
+  {% endcapture %}
+  {% render 'carousel', slides: mood_slides, class: 'mood-cards__carousel', gap: '0.5rem' %}
 </section>
 
 {% stylesheet %}
-  .mood-cards__grid {
-    display: grid;
-    gap: 0.75rem;
-    max-width: var(--page-width);
-    margin-inline: auto;
-    padding-inline: var(--page-margin);
+  .mood-cards__carousel {
+    margin-block-start: 0.5rem;
+  }
+
+  .mood-cards__card {
+    flex: 0 0 calc(48% - 0.25rem);
+    width: calc(48% - 0.25rem);
+  }
+
+  @media (min-width: 768px) {
+    .mood-cards__card {
+      flex: 0 0 calc(20% - 0.4rem);
+      width: calc(20% - 0.4rem);
+    }
   }
 
   .mood-cards__card a {
@@ -95,17 +104,6 @@
     .mood-cards.section-padding {
       padding-block: 1rem;
     }
-
-    .mood-cards__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.5rem;
-    }
-
-    .mood-cards__card:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-      width: min(100%, 10.5rem);
-      justify-self: center;
-    }
   }
 
   @media (min-width: 768px) {
@@ -113,18 +111,9 @@
       padding-block: 1.5rem;
     }
 
-    .mood-cards__grid {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.625rem;
-    }
-
     .mood-cards__image {
       aspect-ratio: 4 / 5;
       max-height: 10.5rem;
-    }
-
-    .mood-cards__content h3 {
-      font-size: 0.8125rem;
     }
   }
 

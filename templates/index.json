@@ -183,13 +183,11 @@
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": {},
-      "blocks": {
-        "t1": { "type": "testimonial", "settings": { "quote": "الدخون يفوح فخامة، والتوصيل سريع!", "author": "فاطمة - دبي" } },
-        "t2": { "type": "testimonial", "settings": { "quote": "بدي أويل ناعم وريحته ثابتة طول اليوم.", "author": "مريم - أبوظبي" } },
-        "t3": { "type": "testimonial", "settings": { "quote": "بوكس الهدية كان تحفة، والتغليف فخم.", "author": "شما - الشارقة" } }
-      },
-      "block_order": ["t1", "t2", "t3"]
+      "settings": {
+        "heading": "شو قالوا عنا الحبايب؟",
+        "subheading": "تصفحي سوالف وتجارب البنات اللي وثقوا فينا.",
+        "review_count": 181
+      }
     },
     "quality": {
       "type": "quality-banner",
@@ -203,7 +201,10 @@
     },
     "faq": {
       "type": "faq-accordion",
-      "settings": {},
+      "settings": {
+        "heading": "في خاطرج سؤال؟ أنا حاضرة عشانج",
+        "initial_visible_count": 2
+      },
       "blocks": {
         "q1": { "type": "faq", "settings": { "question": "شو نوع الدخون اللي عندج؟", "answer": "<p>عندنا دخون إماراتي فاخر بخلطات أصلية ومكونات طبيعية.</p>" } },
         "q2": { "type": "faq", "settings": { "question": "ايش هي طرق الدفع المتوفرة عندج؟", "answer": "<p>بطاقات، Apple Pay، تابي، وتمارا.</p>" } },

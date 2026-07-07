@@ -149,7 +149,11 @@
     "image_with_text": { "name": "صورة مع نص" },
     "testimonials": { "name": "آراء العملاء" },
     "quality_banner": { "name": "بانر الجودة" },
-    "faq_accordion": { "name": "الأسئلة الشائعة" },
+    "faq_accordion": {
+      "name": "الأسئلة الشائعة",
+      "show_more": "شوفي باقي الأسئلة",
+      "show_less": "أخفي الأسئلة"
+    },
     "trust_features": { "name": "مميزات الثقة" },
     "ai_quiz": { "name": "مساعد العنود" },
     "link_hub": {
@@ -162,7 +166,10 @@
       "threads": "ثريدز",
       "shop": "المتجر"
     },
-    "cart_drawer": { "name": "درج السلة" }
+    "cart_drawer": { "name": "درج السلة" },
+    "footer": {
+      "quick_links": "وين طلبج؟"
+    }
   },
   "404": {
     "title": "ما لقينا الصفحة",

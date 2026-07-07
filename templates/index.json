@@ -186,7 +186,8 @@
       "settings": {
         "heading": "شو قالوا عنا الحبايب؟",
         "subheading": "تصفحي سوالف وتجارب البنات اللي وثقوا فينا.",
-        "review_count": 181
+        "review_pool": 181,
+        "visible_count": 10
       }
     },
     "quality": {

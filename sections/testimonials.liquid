@@ -7,39 +7,17 @@
     assign visible_count = section.settings.visible_count | default: 10
   -%}
 
-  {%- capture review_slides -%}
-    {%- for i in (1..review_pool) -%}
-      {%- if i < 10 -%}
-        {%- assign fname = 'review-0' | append: i | append: '.jpg' -%}
-      {%- else -%}
-        {%- assign fname = 'review-' | append: i | append: '.jpg' -%}
-      {%- endif -%}
-      <figure class="carousel__slide testimonials__slide" data-review-slide>
-        <div class="testimonials__phone">
-          <img
-            src="{{ fname | asset_url }}"
-            alt="{{ section.settings.image_alt | escape }}"
-            class="testimonials__shot"
-            loading="lazy"
-            decoding="async"
-            width="400"
-            height="711"
-          >
-        </div>
-      </figure>
-    {%- endfor -%}
-  {%- endcapture -%}
-
   <div
     class="testimonials__carousel carousel"
     data-testimonials
+    data-reviews-pool="{{ review_pool }}"
     data-reviews-show="{{ visible_count }}"
+    data-review-sample="{{ 'review-01.jpg' | asset_url | escape }}"
+    data-review-alt="{{ section.settings.image_alt | escape }}"
     style="--carousel-gap: 0.5rem;"
   >
     <div class="carousel__track-wrap">
-      <div class="carousel__track" data-carousel-track>
-        {{ review_slides }}
-      </div>
+      <div class="carousel__track" data-carousel-track></div>
     </div>
     <div class="carousel__dots" data-carousel-dots role="tablist" aria-label="{{ section.settings.heading | escape }}"></div>
   </div>
@@ -117,6 +95,14 @@
       return arr;
     }
 
+    function reviewFileName(n) {
+      return n < 10 ? `review-0${n}.jpg` : `review-${n}.jpg`;
+    }
+
+    function reviewUrlFromSample(sampleUrl, n) {
+      return sampleUrl.replace(/review-\d+\.jpg/, reviewFileName(n));
+    }
+
     function tryInit(section) {
       if (window.initCarousels) {
         window.initCarousels(section.parentNode || document);
@@ -128,24 +114,39 @@
     function buildReviews(root) {
       root.querySelectorAll('[data-testimonials]:not([data-testimonials-ready])').forEach((section) => {
         const track = section.querySelector('[data-carousel-track]');
-        if (!track) return;
-
-        const slides = [...track.querySelectorAll('[data-review-slide]')];
-        if (!slides.length) return;
+        const sample = section.getAttribute('data-review-sample');
+        if (!track || !sample) return;
 
         section.setAttribute('data-testimonials-ready', '');
 
+        const pool = parseInt(section.getAttribute('data-reviews-pool'), 10) || 181;
         const show = parseInt(section.getAttribute('data-reviews-show'), 10) || 10;
-        const keep = Math.min(show, slides.length);
+        const alt = section.getAttribute('data-review-alt') || '';
+        const keep = Math.min(show, pool);
 
-        // Randomize order, keep the first `keep`, drop the rest.
-        shuffle(slides);
-        slides.forEach((slide, index) => {
-          if (index < keep) {
-            track.appendChild(slide);
-          } else {
-            slide.remove();
-          }
+        const indices = Array.from({ length: pool }, (_, i) => i + 1);
+        shuffle(indices);
+
+        indices.slice(0, keep).forEach((n) => {
+          const figure = document.createElement('figure');
+          figure.className = 'carousel__slide testimonials__slide';
+          figure.setAttribute('data-review-slide', '');
+
+          const phone = document.createElement('div');
+          phone.className = 'testimonials__phone';
+
+          const img = document.createElement('img');
+          img.src = reviewUrlFromSample(sample, n);
+          img.alt = alt;
+          img.className = 'testimonials__shot';
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.width = 400;
+          img.height = 711;
+
+          phone.appendChild(img);
+          figure.appendChild(phone);
+          track.appendChild(figure);
         });
 
         section.setAttribute('data-carousel', '');

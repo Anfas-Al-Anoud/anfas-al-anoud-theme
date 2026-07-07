@@ -269,6 +269,19 @@
   .product-page__secondary .wishlist-btn { position: static; box-shadow: none; border: 1.5px solid var(--color-sand); }
   .product-page__ask { color: var(--color-accent); font-weight: 600; text-decoration: none; }
   .product-page__description { line-height: 1.9; margin-block-end: 1.25rem; }
+  .anfas-desc { display: grid; gap: 1.1rem; }
+  .anfas-desc__intro { margin: 0; line-height: 1.95; color: var(--color-dark); }
+  .anfas-desc__facts { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .anfas-desc__fact { flex: 1 1 45%; min-width: 12rem; display: grid; gap: 0.15rem; padding: 0.7rem 0.9rem; background: var(--color-cream); border: 1px solid color-mix(in srgb, var(--color-sand) 60%, transparent); border-radius: 0.9rem; }
+  .anfas-desc__fact-label { font-size: 0.78rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.01em; }
+  .anfas-desc__fact-value { font-size: 0.95rem; color: var(--color-dark); line-height: 1.6; }
+  .anfas-desc__uses-title { margin: 0 0 0.5rem; font-weight: 700; color: var(--color-dark); }
+  .anfas-desc__uses-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .anfas-desc__uses-list li { position: relative; padding-inline-start: 1.6rem; line-height: 1.7; }
+  .anfas-desc__uses-list li::before { content: ''; position: absolute; inset-inline-start: 0; inset-block-start: 0.55em; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--color-gold); }
+  .anfas-desc__uses-list--bundle li { padding-inline-start: 0; }
+  .anfas-desc__uses-list--bundle li::before { display: none; }
+  .anfas-desc__uses-list--bundle strong { color: var(--color-accent); }
   .product-page__accordion { border-block-start: 1px solid var(--color-sand); padding-block: 0.75rem; }
   .product-page__accordion summary { font-weight: 700; cursor: pointer; padding-block: 0.5rem; }
   .product-page__accordion .rte { line-height: 1.9; padding-block-end: 0.75rem; }

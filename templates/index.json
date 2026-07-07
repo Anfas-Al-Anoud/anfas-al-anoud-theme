@@ -239,6 +239,6 @@
       }
     }
   },
-  "order": ["hero", "categories", "featured_new", "mood", "bestsellers", "spotlight", "gifts", "featured_boxes", "testimonials", "quality", "faq", "trust", "quiz"]
+  "order": ["hero", "categories", "featured_new", "mood", "bestsellers", "spotlight", "gifts", "featured_boxes", "recently", "testimonials", "quality", "faq", "trust", "quiz"]
 }
 

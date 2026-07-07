@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="8" y="16" width="48" height="32" rx="8" fill="url(#tamara)"/><defs><linearGradient id="tamara" x1="8" y1="16" x2="56" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#FF6B3D"/><stop offset="1" stop-color="#FF3D8D"/></linearGradient></defs><text x="32" y="37" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial,sans-serif" font-weight="700">tamara</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 48" role="img" aria-label="tamara">
+  <rect x="0.75" y="0.75" width="126.5" height="46.5" rx="11" fill="#FFFFFF" stroke="#E7E1D8" stroke-width="1.5"/>
+  <text x="64" y="31" text-anchor="middle" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.3" fill="#1A1A2E">tamara</text>
+  <circle cx="103" cy="16" r="4" fill="#FF7A59"/>
+</svg>

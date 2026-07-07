@@ -394,14 +394,23 @@
   margin: 0;
 }
 
-.policy-page__payment-logos {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
+.policy-page__row-icon--logos {
+  width: auto;
+  flex-shrink: 0;
 }
 
-.policy-page__payment-logos img {
-  max-width: 5.5rem;
+.policy-page__payment-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.policy-page__payment-logos img,
+.policy-page__payment-logos svg {
+  width: 6.5rem;
+  max-width: 6.5rem;
   height: auto;
+  display: block;
 }

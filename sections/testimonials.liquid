@@ -7,46 +7,47 @@
     assign visible_count = section.settings.visible_count | default: 10
   -%}
 
+  {%- capture review_slides -%}
+    {%- for i in (1..review_pool) -%}
+      {%- if i < 10 -%}
+        {%- assign fname = 'review-0' | append: i | append: '.jpg' -%}
+      {%- else -%}
+        {%- assign fname = 'review-' | append: i | append: '.jpg' -%}
+      {%- endif -%}
+      <figure class="carousel__slide testimonials__slide" data-review-slide>
+        <div class="testimonials__phone">
+          <img
+            src="{{ fname | asset_url }}"
+            alt="{{ section.settings.image_alt | escape }}"
+            class="testimonials__shot"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="711"
+          >
+        </div>
+      </figure>
+    {%- endfor -%}
+  {%- endcapture -%}
+
   <div
     class="testimonials__carousel carousel"
     data-testimonials
     data-reviews-show="{{ visible_count }}"
-    data-review-alt="{{ section.settings.image_alt | escape }}"
     style="--carousel-gap: 0.5rem;"
   >
     <div class="carousel__track-wrap">
       <div class="carousel__track" data-carousel-track>
-        <div class="testimonials__loading" data-reviews-loading>{{ section.settings.loading_text }}</div>
+        {{ review_slides }}
       </div>
     </div>
     <div class="carousel__dots" data-carousel-dots role="tablist" aria-label="{{ section.settings.heading | escape }}"></div>
-
-    <script type="application/json" data-reviews-src>
-      [
-        {%- for i in (1..review_pool) -%}
-          {%- if i < 10 -%}
-            {%- assign fname = 'review-0' | append: i | append: '.jpg' -%}
-          {%- else -%}
-            {%- assign fname = 'review-' | append: i | append: '.jpg' -%}
-          {%- endif -%}
-          {{ fname | asset_url | json }}{%- unless forloop.last -%},{%- endunless -%}
-        {%- endfor -%}
-      ]
-    </script>
   </div>
 </section>
 
 {% stylesheet %}
   .testimonials__carousel {
     margin-block-start: 0.75rem;
-  }
-
-  .testimonials__loading {
-    flex: 0 0 100%;
-    text-align: center;
-    padding-block: 2rem;
-    color: color-mix(in srgb, var(--color-ink) 55%, transparent);
-    font-size: 0.95rem;
   }
 
   .testimonials__slide {
@@ -116,54 +117,39 @@
       return arr;
     }
 
+    function tryInit(section) {
+      if (window.initCarousels) {
+        window.initCarousels(section.parentNode || document);
+      } else {
+        setTimeout(function () { tryInit(section); }, 120);
+      }
+    }
+
     function buildReviews(root) {
       root.querySelectorAll('[data-testimonials]:not([data-testimonials-ready])').forEach((section) => {
         const track = section.querySelector('[data-carousel-track]');
-        const dataEl = section.querySelector('[data-reviews-src]');
-        if (!track || !dataEl) return;
+        if (!track) return;
 
-        let urls = [];
-        try {
-          urls = JSON.parse(dataEl.textContent) || [];
-        } catch (err) {
-          return;
-        }
-        urls = urls.filter(Boolean);
-        if (!urls.length) return;
+        const slides = [...track.querySelectorAll('[data-review-slide]')];
+        if (!slides.length) return;
 
         section.setAttribute('data-testimonials-ready', '');
 
         const show = parseInt(section.getAttribute('data-reviews-show'), 10) || 10;
-        const alt = section.getAttribute('data-review-alt') || '';
-        const picks = shuffle(urls.slice()).slice(0, Math.min(show, urls.length));
+        const keep = Math.min(show, slides.length);
 
-        const frag = document.createDocumentFragment();
-        picks.forEach((url) => {
-          const figure = document.createElement('figure');
-          figure.className = 'carousel__slide testimonials__slide';
-
-          const phone = document.createElement('div');
-          phone.className = 'testimonials__phone';
-
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = alt;
-          img.loading = 'lazy';
-          img.decoding = 'async';
-          img.className = 'testimonials__shot';
-
-          phone.appendChild(img);
-          figure.appendChild(phone);
-          frag.appendChild(figure);
+        // Randomize order, keep the first `keep`, drop the rest.
+        shuffle(slides);
+        slides.forEach((slide, index) => {
+          if (index < keep) {
+            track.appendChild(slide);
+          } else {
+            slide.remove();
+          }
         });
 
-        track.innerHTML = '';
-        track.appendChild(frag);
-
         section.setAttribute('data-carousel', '');
-        if (window.initCarousels) {
-          window.initCarousels(section.parentNode || document);
-        }
+        tryInit(section);
       });
     }
 
@@ -196,12 +182,6 @@
       "id": "image_alt",
       "label": "نص alt للقطات",
       "default": "رأي عميلة من متجر أنفاس العنود"
-    },
-    {
-      "type": "text",
-      "id": "loading_text",
-      "label": "نص أثناء التحميل",
-      "default": "نجيب لج آراء العميلات..."
     },
     {
       "type": "range",

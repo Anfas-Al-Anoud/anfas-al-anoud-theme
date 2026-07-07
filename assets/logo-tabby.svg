@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path fill="#1D1D1B" d="M8 18h12v8H8zm36 0h12v8H44zM8 38h12v8H8zm36 0h12v8H44z"/><path fill="#3BFF9D" d="M20 22h24v20H20z"/><text x="32" y="36" text-anchor="middle" fill="#1D1D1B" font-size="10" font-family="Arial,sans-serif" font-weight="700">tabby</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 48" role="img" aria-label="tabby">
+  <rect x="0.75" y="0.75" width="126.5" height="46.5" rx="11" fill="#FFFFFF" stroke="#E7E1D8" stroke-width="1.5"/>
+  <rect x="10" y="14" width="20" height="20" rx="5" fill="#3EE9B4"/>
+  <text x="72" y="31" text-anchor="middle" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="#0B1F33">tabby</text>
+</svg>

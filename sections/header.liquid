@@ -7,7 +7,7 @@
     </button>
 
     <a href="{{ routes.root_url }}" class="site-header__logo">
-      {% if settings.logo %}
+      {% if settings.logo != blank %}
         {% liquid
           assign logo_render_width = settings.logo_width | times: 2 | at_most: 440
         %}
@@ -20,8 +20,13 @@
             loading: 'eager'
         }}
       {% else %}
-        <span class="site-header__logo-text" translate="no">{{ shop.name }}</span>
-        <span class="site-header__logo-subtitle" aria-hidden="true" translate="no">ALANOUD</span>
+        <img
+          src="{{ 'anfas-alanoud-logo.jpg' | asset_url }}"
+          alt="{{ shop.name | escape }}"
+          width="{{ settings.logo_width }}"
+          height="{{ settings.logo_width }}"
+          loading="eager"
+        >
       {% endif %}
     </a>
 

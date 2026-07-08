@@ -32,10 +32,24 @@
         <h2>تابي وتمارا (تدلعي الحين وادفعي بعدين!)</h2>
         <p>تدلعي الحين وادفعي بعدين! قسّمي مشترياتج على دفعات شهرية بدون فوائد أو رسوم إضافية — متوفرة عند إتمام الطلب.</p>
       </div>
-      <div class="policy-page__row-icon policy-page__row-icon--logos" aria-hidden="true">
+      <div class="policy-page__row-icon policy-page__row-icon--logos">
         <div class="policy-page__payment-logos">
-          {{ 'logo-tamara.svg' | inline_asset_content }}
-          {{ 'logo-tabby.svg' | inline_asset_content }}
+          <img
+            src="{{ 'logo-tamara.svg' | asset_url }}"
+            alt="تمارا"
+            class="logo-tamara"
+            width="120"
+            height="35"
+            loading="lazy"
+          >
+          <img
+            src="{{ 'logo-tabby.svg' | asset_url }}"
+            alt="تابي"
+            class="logo-tabby"
+            width="120"
+            height="47"
+            loading="lazy"
+          >
         </div>
       </div>
     </div>

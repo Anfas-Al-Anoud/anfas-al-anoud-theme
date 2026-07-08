@@ -8,7 +8,7 @@
   -%}
 
   <div
-    class="testimonials__carousel carousel"
+    class="testimonials__carousel carousel carousel--with-nav"
     data-testimonials
     data-reviews-pool="{{ review_pool }}"
     data-reviews-show="{{ visible_count }}"
@@ -16,9 +16,21 @@
     data-review-alt="{{ section.settings.image_alt | escape }}"
     style="--carousel-gap: 0.5rem;"
   >
+    <button
+      type="button"
+      class="carousel__nav carousel__nav--prev"
+      data-carousel-prev
+      aria-label="{{ 'general.pagination.previous' | t }}"
+    >&lsaquo;</button>
     <div class="carousel__track-wrap">
       <div class="carousel__track" data-carousel-track></div>
     </div>
+    <button
+      type="button"
+      class="carousel__nav carousel__nav--next"
+      data-carousel-next
+      aria-label="{{ 'general.pagination.next' | t }}"
+    >&rsaquo;</button>
     <div class="carousel__dots" data-carousel-dots role="tablist" aria-label="{{ section.settings.heading | escape }}"></div>
   </div>
 </section>

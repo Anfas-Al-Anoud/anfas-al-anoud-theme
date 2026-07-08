@@ -51,6 +51,19 @@
         <span class="product-page__current" data-price>{{ current_variant.price | money_without_currency }} {{ 'general.currency' | t }}</span>
       </div>
 
+      {%- liquid
+        assign rating = product.metafields.reviews.rating.value
+        assign rating_count = product.metafields.reviews.rating_count.value
+      -%}
+      {% if rating != blank %}
+        <div class="product-page__rating" aria-label="{{ rating }}">
+          {% render 'rating-stars', rating: rating %}
+          {% if rating_count != blank %}
+            <span class="product-page__rating-count">({{ rating_count }})</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
       <p class="product-page__low-stock" data-low-stock hidden></p>
 
       <ul class="product-page__trust">
@@ -116,6 +129,10 @@
         {% endif %}
       </div>
 
+      {% if product.description != blank %}
+        <div class="product-page__description rte">{{ product.description }}</div>
+      {% endif %}
+
       {%- assign share_url = shop.secure_url | append: product.url -%}
       <div class="product-page__share" data-share data-title="{{ product.title | escape }}" data-url="{{ share_url }}">
         <span class="product-page__share-label">{{ 'products.share' | t }}</span>
@@ -134,10 +151,6 @@
         </button>
         <span class="product-page__share-toast" data-share-toast hidden>{{ 'products.copied' | t }}</span>
       </div>
-
-      {% if product.description != blank %}
-        <div class="product-page__description rte">{{ product.description }}</div>
-      {% endif %}
 
       {% assign ingredients = product.metafields.custom.ingredients %}
       {% if ingredients != blank %}
@@ -228,6 +241,17 @@
   .product-page__current { color: var(--color-primary); font-weight: 700; }
   .product-page__low-stock { color: #c0392b; font-weight: 700; font-size: 0.9rem; margin-block-end: 1.25rem; }
   .product-page__low-stock[hidden] { display: none; }
+  .product-page__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-block: 0.35rem 0.85rem;
+    color: var(--color-gold);
+  }
+  .product-page__rating-count {
+    color: #999;
+    font-size: 0.85rem;
+  }
   .product-page__share { display: flex; align-items: center; gap: 0.6rem; margin-block-start: 1.25rem; flex-wrap: wrap; }
   .product-page__share-label { font-weight: 600; color: var(--color-accent); font-size: 0.9rem; }
   .product-page__share-btn {

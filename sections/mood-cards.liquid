@@ -24,7 +24,7 @@
       </article>
     {% endfor %}
   {% endcapture %}
-  {% render 'carousel', slides: mood_slides, class: 'mood-cards__carousel', gap: '0.5rem' %}
+  {% render 'carousel', slides: mood_slides, class: 'mood-cards__carousel', gap: '0.5rem', show_nav: true %}
 </section>
 
 {% stylesheet %}
@@ -33,14 +33,21 @@
   }
 
   .mood-cards__card {
-    flex: 0 0 calc(48% - 0.25rem);
-    width: calc(48% - 0.25rem);
+    flex: 0 0 calc(72% - 0.5rem);
+    width: calc(72% - 0.5rem);
   }
 
   @media (min-width: 768px) {
     .mood-cards__card {
-      flex: 0 0 calc(20% - 0.4rem);
-      width: calc(20% - 0.4rem);
+      flex: 0 0 calc(33.333% - 0.667rem);
+      width: calc(33.333% - 0.667rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .mood-cards__card {
+      flex: 0 0 calc(25% - 0.75rem);
+      width: calc(25% - 0.75rem);
     }
   }
 

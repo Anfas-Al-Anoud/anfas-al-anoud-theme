@@ -229,13 +229,13 @@
   position: absolute;
   top: 42%;
   transform: translateY(-50%);
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
   border: none;
   background: var(--color-primary);
   color: var(--color-primary-foreground);
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   cursor: pointer;
   z-index: 2;
   display: none;
@@ -249,13 +249,26 @@
   background: var(--color-primary-dark);
 }
 
-@media (min-width: 768px) {
-  .carousel--nav-desktop .carousel__nav {
-    display: flex;
-  }
+.carousel--with-nav .carousel__nav,
+.carousel--nav-desktop .carousel__nav {
+  display: flex;
+}
 
+.carousel--with-nav,
+.carousel--nav-desktop {
+  padding-inline: calc(var(--page-margin) + 0.25rem);
+}
+
+@media (min-width: 768px) {
+  .carousel--with-nav,
   .carousel--nav-desktop {
     padding-inline: calc(var(--page-margin) + 2rem);
+  }
+
+  .carousel__nav {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
   }
 }
 

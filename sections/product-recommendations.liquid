@@ -16,7 +16,7 @@
       {% endcapture %}
       {% render 'carousel',
         slides: rec_slides,
-        class: 'product-recommendations__carousel carousel--nav-desktop',
+        class: 'product-recommendations__carousel',
         gap: '1rem',
         show_nav: true,
         show_dots: true
@@ -27,11 +27,18 @@
 
 {% stylesheet %}
   .product-recommendations__slide {
-    flex: 0 0 calc(50% - 0.5rem);
-    width: calc(50% - 0.5rem);
+    flex: 0 0 calc(72% - 0.5rem);
+    width: calc(72% - 0.5rem);
   }
 
   @media (min-width: 768px) {
+    .product-recommendations__slide {
+      flex: 0 0 calc(33.333% - 0.667rem);
+      width: calc(33.333% - 0.667rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
     .product-recommendations__slide {
       flex: 0 0 calc(25% - 0.75rem);
       width: calc(25% - 0.75rem);

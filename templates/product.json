@@ -1,8 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "product",
       "settings": {}
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "تقييمات البنات",
+        "subheading": "شاركي تجربتج وساعدي بنات ثانيين يختارون بثقة.",
+        "install_hint": "ثبّتي تطبيق Judge.me من متجر تطبيقات Shopify، ثم أضيفي ويدجت التقييمات هنا من محرر الثيم."
+      }
     },
     "recommendations": {
       "type": "product-recommendations",
@@ -15,5 +32,10 @@
       }
     }
   },
-  "order": ["main", "recommendations", "recently"]
+  "order": [
+    "main",
+    "reviews",
+    "recommendations",
+    "recently"
+  ]
 }

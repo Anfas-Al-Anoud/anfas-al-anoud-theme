@@ -2,15 +2,15 @@
   <div class="image-with-text__inner">
     {% if section.settings.image %}
       <div class="image-with-text__media">
-        {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, width: 800 %}
+        {% render 'image', image: section.settings.image, alt: section.settings.image_alt, fallback_alt: section.settings.heading, width: 1200 %}
       </div>
     {% elsif section.settings.image_asset != blank %}
       <div class="image-with-text__media">
-        {% render 'theme-asset-image', asset: section.settings.image_asset, alt: section.settings.image_alt, width: 800 %}
+        {% render 'theme-asset-image', asset: section.settings.image_asset, alt: section.settings.image_alt, width: 1200 %}
       </div>
     {% endif %}
     <div class="image-with-text__content">
-      <h2 class="section-heading" style="text-align: start;">{{ section.settings.heading }}</h2>
+      <h2 class="section-heading image-with-text__heading">{{ section.settings.heading }}</h2>
       <p>{{ section.settings.text }}</p>
       {% if section.settings.button_label != blank %}
         <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_label }}</a>
@@ -22,20 +22,80 @@
 {% stylesheet %}
   .image-with-text__inner {
     display: grid;
-    gap: 2rem;
+    gap: 1.75rem;
     align-items: center;
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-margin);
   }
-  @media (min-width: 768px) {
-    .image-with-text__inner { grid-template-columns: 1fr 1fr; }
+
+  .image-with-text__heading {
+    text-align: center;
+    margin-block-end: 0.75rem;
   }
-  .image-with-text__media img { border-radius: var(--style-border-radius-cards); width: 100%; }
+
+  .image-with-text__content {
+    text-align: center;
+  }
+
   .image-with-text__content p {
     line-height: 1.8;
     margin-block-end: 1.5rem;
     color: var(--color-accent);
+  }
+
+  .image-with-text__media img {
+    border-radius: var(--style-border-radius-cards);
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (max-width: 767px) {
+    .image-with-text.section-padding {
+      padding-inline: 0;
+      padding-block-start: 0;
+    }
+
+    .image-with-text__inner {
+      gap: 1.25rem;
+      max-width: none;
+      padding-inline: 0;
+    }
+
+    .image-with-text__media {
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+    }
+
+    .image-with-text__media img {
+      border-radius: 0;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .image-with-text__content {
+      padding-inline: var(--page-margin);
+      padding-block-end: 0.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .image-with-text__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .image-with-text__heading,
+    .image-with-text__content {
+      text-align: start;
+    }
+
+    .image-with-text__media img {
+      aspect-ratio: 5 / 4;
+    }
   }
 {% endstylesheet %}
 

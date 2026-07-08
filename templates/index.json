@@ -25,7 +25,7 @@
       "type": "category-icons",
       "settings": {
         "heading": "اختاري فئتج المفضلة",
-        "subheading": "اسحبي يمين ويسار لاستكشاف مجموعات أنفاس العنود"
+        "subheading": ""
       },
       "blocks": {
         "cat1": {
@@ -70,9 +70,9 @@
     "featured_new": {
       "type": "featured-collection",
       "settings": {
-        "heading": "جديدنا",
-        "subheading": "آخر ما وصل عند العنود — جربيه قبل ما ينفد.",
-        "collection": "",
+        "heading": "عروضنا",
+        "subheading": "عروض محدودة وتوفير حلو — خذي فرصتج قبل ما تروح.",
+        "collection": "offers",
         "products_to_show": 8,
         "show_view_all": true
       }

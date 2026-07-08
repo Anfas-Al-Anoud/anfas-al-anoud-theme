@@ -18,7 +18,10 @@
 {% liquid
   assign carousel_gap = gap | default: '0.5rem'
   assign carousel_track_tag = track_tag | default: 'div'
-  assign carousel_show_nav = show_nav | default: false
+  assign carousel_show_nav = true
+  if show_nav == false
+    assign carousel_show_nav = false
+  endif
   assign carousel_show_dots = true
   if show_dots == false
     assign carousel_show_dots = false
@@ -26,7 +29,7 @@
 %}
 
 <div
-  class="carousel{% if class != blank %} {{ class }}{% endif %}"
+  class="carousel{% if class != blank %} {{ class }}{% endif %}{% if carousel_show_nav %} carousel--with-nav{% endif %}"
   data-carousel
   style="--carousel-gap: {{ carousel_gap }};"
 >

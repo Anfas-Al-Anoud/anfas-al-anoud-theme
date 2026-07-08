@@ -50,11 +50,16 @@
     slides: category_slides,
     class: 'category-icons__carousel',
     gap: '0.5rem',
-    track_tag: 'ul'
+    track_tag: 'ul',
+    show_nav: true
   %}
 </section>
 
 {% stylesheet %}
+  .category-icons.section-padding {
+    padding-block-start: clamp(1.75rem, 6vw, 3rem);
+  }
+
   .category-icons__header {
     display: flex;
     align-items: flex-end;
@@ -74,6 +79,28 @@
   .category-icons__titles .section-subheading {
     text-align: start;
     margin-inline: 0;
+  }
+
+  @media (max-width: 767px) {
+    .category-icons.section-padding {
+      padding-block-start: clamp(2.25rem, 8vw, 3.25rem);
+    }
+
+    .category-icons__header {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .category-icons__titles .section-heading,
+    .category-icons__titles .section-subheading {
+      text-align: center;
+    }
+
+    .category-icons__view-all {
+      align-self: center;
+    }
   }
 
   .category-icons__view-all {

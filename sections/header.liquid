@@ -21,7 +21,7 @@
         }}
       {% else %}
         <img
-          src="{{ 'anfas-alanoud-logo.jpg' | asset_url }}"
+          src="{{ 'anfas-alanoud-logo.png' | asset_url }}"
           alt="{{ shop.name | escape }}"
           width="{{ settings.logo_width }}"
           height="{{ settings.logo_width }}"
@@ -204,13 +204,16 @@
     .site-header__menu-toggle {
       display: none;
     }
-    .site-header__inner { min-height: 3.25rem; }
+    .site-header__inner {
+      min-height: var(--header-height);
+      padding-block: 0.2rem;
+    }
     .site-header__logo {
       justify-self: center;
       grid-column: 1 / -1;
     }
     .site-header__logo img {
-      max-height: clamp(3.75rem, 18vw, 5rem);
+      max-height: clamp(4.25rem, 20vw, 5.5rem);
       width: auto;
     }
     .site-header__logo-text {

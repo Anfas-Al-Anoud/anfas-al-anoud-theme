@@ -44,25 +44,16 @@
       {% endif %}
       <h1 class="product-page__title">{% render 'tanween', text: product.title %}</h1>
 
+      <div class="product-page__badge">
+        {% render 'judge-me-preview-badge' %}
+      </div>
+
       <div class="product-page__price">
         <s data-compare {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
           {{ current_variant.compare_at_price | money_without_currency }} {{ 'general.currency' | t }}
         </s>
         <span class="product-page__current" data-price>{{ current_variant.price | money_without_currency }} {{ 'general.currency' | t }}</span>
       </div>
-
-      {%- liquid
-        assign rating = product.metafields.reviews.rating.value
-        assign rating_count = product.metafields.reviews.rating_count.value
-      -%}
-      {% if rating != blank %}
-        <div class="product-page__rating" aria-label="{{ rating }}">
-          {% render 'rating-stars', rating: rating %}
-          {% if rating_count != blank %}
-            <span class="product-page__rating-count">({{ rating_count }})</span>
-          {% endif %}
-        </div>
-      {% endif %}
 
       <p class="product-page__low-stock" data-low-stock hidden></p>
 
@@ -236,22 +227,17 @@
   @media (min-width: 900px) { .product-page__gallery { position: sticky; top: calc(var(--header-height) + 1rem); } }
   .product-page__vendor { color: var(--color-accent); font-weight: 600; margin-block-end: 0.35rem; }
   .product-page__title { font-size: clamp(1.5rem, 4vw, 2.25rem); margin-block-end: 0.75rem; }
+  .product-page__badge {
+    margin-block: 0.35rem 0.75rem;
+  }
+  .product-page__badge .jdgm-preview-badge {
+    font-size: 0.9rem;
+  }
   .product-page__price { display: flex; gap: 0.75rem; align-items: baseline; margin-block-end: 1.25rem; font-size: 1.4rem; }
   .product-page__price s { color: #b0a99f; font-size: 1rem; }
   .product-page__current { color: var(--color-primary); font-weight: 700; }
   .product-page__low-stock { color: #c0392b; font-weight: 700; font-size: 0.9rem; margin-block-end: 1.25rem; }
   .product-page__low-stock[hidden] { display: none; }
-  .product-page__rating {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-block: 0.35rem 0.85rem;
-    color: var(--color-gold);
-  }
-  .product-page__rating-count {
-    color: #999;
-    font-size: 0.85rem;
-  }
   .product-page__share { display: flex; align-items: center; gap: 0.6rem; margin-block-start: 1.25rem; flex-wrap: wrap; }
   .product-page__share-label { font-weight: 600; color: var(--color-accent); font-size: 0.9rem; }
   .product-page__share-btn {

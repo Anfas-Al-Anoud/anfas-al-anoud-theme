@@ -5,9 +5,11 @@
       <p class="section-subheading">{{ section.settings.subheading }}</p>
     {% endif %}
 
+    {% render 'judge-me-review-widget' %}
+
     {% content_for 'blocks' %}
 
-    {% if section.blocks.size == 0 %}
+    {% if section.blocks.size == 0 and request.design_mode %}
       <div class="product-reviews__install-hint">
         <p>{{ section.settings.install_hint }}</p>
       </div>
@@ -59,7 +61,7 @@
       "type": "textarea",
       "id": "install_hint",
       "label": "تلميح قبل تثبيت التطبيق",
-      "default": "ثبّتي تطبيق Judge.me من متجر تطبيقات Shopify، ثم أضيفي ويدجت التقييمات هنا من محرر الثيم."
+      "default": "ثبّتي تطبيق Judge.me من متجر تطبيقات Shopify وأكملي خطوة التثبيت. ويدجت التقييمات مضاف في الثيم تلقائيًا."
     }
   ],
   "presets": [{ "name": "تقييمات المنتج" }]

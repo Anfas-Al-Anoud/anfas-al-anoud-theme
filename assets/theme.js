@@ -201,7 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         navRowCount: [...new Set(rowTops)].length,
         navWraps: [...new Set(rowTops)].length > 1,
         breadcrumbText: crumb?.textContent?.trim() || null,
-        vendorText: vendor?.textContent?.trim() || null
+        vendorText: vendor?.textContent?.trim() || null,
+        documentTitle: document.title
       },
       timestamp: Date.now()
     };
@@ -211,11 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(payload)
     }).catch(() => {});
   };
-  logHeaderLayout('pre-fix');
+  logHeaderLayout('post-fix');
   let headerDbgTimer;
   window.addEventListener('resize', () => {
     clearTimeout(headerDbgTimer);
-    headerDbgTimer = setTimeout(() => logHeaderLayout('pre-fix'), 300);
+    headerDbgTimer = setTimeout(() => logHeaderLayout('post-fix'), 300);
   });
   // #endregion
 

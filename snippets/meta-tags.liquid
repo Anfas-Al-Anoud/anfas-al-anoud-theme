@@ -1,3 +1,4 @@
+{% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -5,7 +6,7 @@
 <link rel="alternate" hreflang="ar" href="{{ canonical_url }}">
 
 {%- liquid
-  assign seo_title = page_title | default: shop.name
+  assign seo_title = page_title | default: brand_display
 
   if request.page_type == 'index'
     assign seo_title = 'general.meta.home_title' | t
@@ -21,7 +22,7 @@
     assign seo_title = 'general.meta.not_found_title' | t
   endif
 
-  assign og_title = seo_title | default: shop.name
+  assign og_title = seo_title | default: brand_display
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: 'متجر أنفاس العنود - دخون وعطور ومنتجات عناية فاخرة'
@@ -37,7 +38,7 @@
 
 <meta
   property="og:site_name"
-  content="{{ shop.name }}"
+  content="{{ brand_display | escape }}"
 >
 <meta
   property="og:locale"
@@ -124,7 +125,7 @@
   {{ seo_title }}
   {%- if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} {{ current_tags | join: ', ' }}{% endif -%}
   {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
-  {%- unless seo_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- unless seo_title contains brand_display %} &ndash; {{ brand_display }}{% endunless -%}
 </title>
 
 {% render 'schema-breadcrumbs' %}

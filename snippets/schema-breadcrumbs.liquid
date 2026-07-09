@@ -2,6 +2,8 @@
   Emits BreadcrumbList JSON-LD for product and collection pages.
 {% enddoc %}
 
+{% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
+
 {%- if request.page_type == 'product' -%}
   <script type="application/ld+json">
   {
@@ -11,7 +13,7 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": {{ shop.name | json }},
+        "name": {{ brand_display | json }},
         "item": "{{ shop.url }}{{ routes.root_url }}"
       }{% if collection %},
       {
@@ -46,7 +48,7 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": {{ shop.name | json }},
+        "name": {{ brand_display | json }},
         "item": "{{ shop.url }}{{ routes.root_url }}"
       },
       {

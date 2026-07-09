@@ -24,6 +24,11 @@ function initCarousels(root = document) {
 
     const getSlides = () => [...track.querySelectorAll(':scope > *')];
 
+    const updateOverflow = () => {
+      const scrollable = track.scrollWidth > track.clientWidth + 2;
+      carousel.classList.toggle('carousel--no-overflow', !scrollable);
+    };
+
     const step = () => {
       const slides = getSlides();
       const gapPx = parseGapPx(track);
@@ -37,6 +42,14 @@ function initCarousels(root = document) {
     carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => {
       track.scrollBy({ left: isRTL ? -step() : step(), behavior: 'smooth' });
     });
+
+    updateOverflow();
+    window.addEventListener('resize', updateOverflow, { passive: true });
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(updateOverflow);
+      ro.observe(track);
+      getSlides().forEach((slide) => ro.observe(slide));
+    }
 
     if (!dotsContainer) return;
 
@@ -98,6 +111,7 @@ function initCarousels(root = document) {
         dotsContainer.appendChild(dot);
       }
       updateActiveDot();
+      updateOverflow();
     };
 
     renderDots();

@@ -102,6 +102,7 @@
   .featured-collection__track {
     display: flex;
     gap: 1rem;
+    align-items: stretch;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -120,6 +121,11 @@
     flex: 0 0 calc(72% - 0.5rem);
     scroll-snap-align: start;
     min-width: 0;
+    display: flex;
+  }
+
+  .featured-collection__slide .product-card {
+    width: 100%;
   }
 
   .featured-collection__dots {

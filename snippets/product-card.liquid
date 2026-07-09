@@ -103,14 +103,14 @@
     <a href="{{ product.url }}" class="product-card__title-link">
       <h3 class="product-card__title">{% render 'tanween', text: product.title %}</h3>
     </a>
-    {% if rating != blank %}
-      <div class="product-card__rating" aria-label="{{ rating }}">
+    <div class="product-card__rating"{% if rating == blank %} aria-hidden="true"{% else %} aria-label="{{ rating }}"{% endif %}>
+      {% if rating != blank %}
         {% render 'rating-stars', rating: rating %}
         {% if product.metafields.reviews.rating_count.value != blank %}
           <span class="product-card__rating-count">({{ product.metafields.reviews.rating_count.value }})</span>
         {% endif %}
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
     <div class="product-card__price">
       {% if on_sale %}
         <s class="product-card__compare">{{ product.compare_at_price | money_without_currency }} {{ 'general.currency' | t }}</s>
@@ -121,7 +121,7 @@
 </article>
 
 {% stylesheet %}
-  .product-card { position: relative; border-radius: var(--style-border-radius-cards); overflow: hidden; background: var(--color-white); box-shadow: var(--shadow-soft); transition: transform var(--transition-base), box-shadow var(--transition-base); }
+  .product-card { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--style-border-radius-cards); overflow: hidden; background: var(--color-white); box-shadow: var(--shadow-soft); transition: transform var(--transition-base), box-shadow var(--transition-base); }
   .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(61,43,31,0.12); }
   .product-card__media-wrap { position: relative; }
   .product-card__media { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: var(--color-sand); }
@@ -188,12 +188,23 @@
   .product-card__media-wrap:hover .product-card__quick-view,
   .product-card__quick-view:focus-visible { opacity: 1; transform: translateY(0); }
   @media (hover: none) { .product-card__quick-view { opacity: 1; transform: none; } }
-  .product-card__info { padding: 1rem; }
+  .product-card__info { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
   .product-card__title-link { text-decoration: none; color: inherit; }
-  .product-card__title { font-size: 0.95rem; font-weight: 600; margin-block-end: 0.5rem; line-height: 1.4; }
-  .product-card__rating { display: flex; align-items: center; gap: 0.35rem; margin-block-end: 0.4rem; color: var(--color-gold); }
+  .product-card__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-block-end: 0.5rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: calc(2 * 1.4 * 0.95rem);
+  }
+  .product-card__rating { display: flex; align-items: center; gap: 0.35rem; margin-block-end: 0.4rem; color: var(--color-gold); min-height: 1.15rem; }
+  .product-card__rating:empty { visibility: hidden; }
   .product-card__rating-count { color: #999; font-size: 0.8rem; }
-  .product-card__price { display: flex; gap: 0.5rem; align-items: center; }
+  .product-card__price { display: flex; gap: 0.5rem; align-items: center; margin-block-start: auto; }
   .product-card__compare { color: #6b635c; font-size: 0.85rem; text-decoration-thickness: 1px; }
   .product-card__current { color: var(--color-primary-dark); font-weight: 700; font-size: 1rem; }
 {% endstylesheet %}

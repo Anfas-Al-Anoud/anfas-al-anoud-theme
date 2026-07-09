@@ -250,12 +250,14 @@
 }
 
 .carousel--with-nav .carousel__nav,
-.carousel--nav-desktop .carousel__nav {
+.carousel--nav-desktop .carousel__nav,
+.carousel--nav-mobile-only .carousel__nav {
   display: flex;
 }
 
 .carousel--with-nav,
-.carousel--nav-desktop {
+.carousel--nav-desktop,
+.carousel--nav-mobile-only {
   padding-inline: calc(var(--page-margin) + 0.25rem);
 }
 
@@ -263,6 +265,14 @@
   .carousel--with-nav,
   .carousel--nav-desktop {
     padding-inline: calc(var(--page-margin) + 2rem);
+  }
+
+  .carousel--nav-mobile-only {
+    padding-inline: var(--page-margin);
+  }
+
+  .carousel--nav-mobile-only .carousel__nav {
+    display: none;
   }
 
   .carousel__nav {

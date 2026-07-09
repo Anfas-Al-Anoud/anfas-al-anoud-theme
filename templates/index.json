@@ -33,7 +33,7 @@
           "settings": {
             "title": "دخون السنع",
             "icon_alt": "أيقونة دخون السنع",
-            "icon_asset": "category-icon-dokhoon.jpg",
+            "icon_asset": "category-dokhoon-san3.png",
             "link": "/collections/dokhoon-al-san3"
           }
         },
@@ -42,7 +42,7 @@
           "settings": {
             "title": "عطور الكشخة",
             "icon_alt": "أيقونة عطور الكشخة",
-            "icon_asset": "category-icon-perfumes.jpg",
+            "icon_asset": "category-perfumes.png",
             "link": "/collections/perfumes"
           }
         },
@@ -51,7 +51,7 @@
           "settings": {
             "title": "دلع وعناية",
             "icon_alt": "أيقونة دلع وعناية",
-            "icon_asset": "category-icon-care.jpg",
+            "icon_asset": "category-care.png",
             "link": "/collections/care"
           }
         },
@@ -60,7 +60,7 @@
           "settings": {
             "title": "بوكسات الزين",
             "icon_alt": "أيقونة بوكسات الزين",
-            "icon_asset": "category-icon-gift-boxes.jpg",
+            "icon_asset": "category-gift-boxes.png",
             "link": "/collections/gift-boxes"
           }
         }
@@ -89,7 +89,7 @@
             "title": "حق الدوام والطلعات",
             "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم.",
             "image_alt": "بطاقة حق الدوام والطلعات",
-            "image_asset": "mood-card-1-work.jpg",
+            "image_asset": "mood-work.png",
             "link": "/collections/anoud-vibe-daily"
           }
         },
@@ -99,7 +99,7 @@
             "title": "الدلع والشاور",
             "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج.",
             "image_alt": "بطاقة الدلع والشاور",
-            "image_asset": "mood-card-2-shower.jpg",
+            "image_asset": "mood-shower.png",
             "link": "/collections/anoud-vibe-shower"
           }
         },
@@ -109,7 +109,7 @@
             "title": "فخامة الميلس والمواجيب",
             "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح.",
             "image_alt": "بطاقة فخامة الميلس والمواجيب",
-            "image_asset": "mood-card-3-majlis.jpg",
+            "image_asset": "mood-majlis.png",
             "link": "/collections/anoud-vibe-majlis"
           }
         },
@@ -119,7 +119,7 @@
             "title": "للسهرات والعزايم",
             "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟",
             "image_alt": "بطاقة للسهرات والعزايم",
-            "image_asset": "mood-card-4-evening.jpg",
+            "image_asset": "mood-evening.png",
             "link": "/collections/anoud-vibe-evening"
           }
         },
@@ -129,7 +129,7 @@
             "title": "زْهبة العروس",
             "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال.",
             "image_alt": "بطاقة زهبة العروس",
-            "image_asset": "mood-card-5-bride.jpg",
+            "image_asset": "mood-bride.png",
             "link": "/collections/anoud-vibe-bride"
           }
         }
@@ -167,7 +167,7 @@
     "gifts": {
       "type": "image-with-text",
       "settings": {
-        "image_asset": "gifts-image-with-text.jpg",
+        "image_asset": "gifts-section.png",
         "image_alt": "بوكسات هدايا فاخرة - أنفاس العنود",
         "heading": "تبين تهدين حد غالي؟",
         "text": "لا تحاتين غناتي، مجهزين لج بوكسات تبيض الويه وتفرح القلب، بس اختاري وبنوصلها للي يعزون عليج.",
@@ -193,7 +193,7 @@
     "quality": {
       "type": "quality-banner",
       "settings": {
-        "image_asset": "quality-banner-ingredients.jpg",
+        "image_asset": "quality-ingredients.png",
         "image_alt": "صورة تعبر عن جودة المكونات - أنفاس العنود",
         "heading": "سر الزين في تفاصيلنا.. أنا دايمًا أختار لج أصفى المكونات عشان تميزج في كل خطوة.",
         "button_label": "اكتشفي أسرار منتجاتي",
@@ -234,7 +234,7 @@
     "quiz": {
       "type": "ai-quiz",
       "settings": {
-        "avatar_asset": "anoud-avatar.jpg",
+        "avatar_asset": "anoud-avatar.png",
         "avatar_alt": "صورة العنود للمساعدة"
       }
     }

@@ -230,6 +230,7 @@
               ? addBtn.dataset.addText || 'أضيفي للسلة'
               : addBtn.dataset.soldoutText || 'نفدت الكمية';
         }
+        if (variant.featured_media_id || variant.featured_image) switchQvMedia(variant);
         if (lowStock) {
           const q = variant.inventory_quantity;
           if (variant.available && variant.inventory_management && threshold > 0 && q > 0 && q <= threshold) {
@@ -238,6 +239,20 @@
           } else {
             lowStock.hidden = true;
           }
+        }
+      }
+
+      const mediaEl = el.querySelector('[data-qv-media]');
+      function switchQvMedia(variant) {
+        if (!mediaEl) return;
+        const src = variant.featured_image;
+        if (!src) return;
+        const img = mediaEl.querySelector('img');
+        if (img) {
+          img.src = src;
+          img.srcset = '';
+        } else {
+          mediaEl.innerHTML = `<img class="quickview__image" src="${src}" alt="" width="700" height="700" loading="lazy">`;
         }
       }
 
@@ -288,6 +303,10 @@
         return;
       }
       if (e.target.closest('[data-qv-close]')) close();
+    });
+
+    document.addEventListener('anfas:quick-view', (e) => {
+      if (e.detail?.url) load(e.detail.url);
     });
 
     document.addEventListener('keydown', (e) => {

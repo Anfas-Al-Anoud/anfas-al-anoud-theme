@@ -35,6 +35,9 @@
       "next": "التالي",
       "label": "تصفح الصفحات"
     },
+    "breadcrumbs": {
+      "label": "مسار التنقل"
+    },
     "search": {
       "title": "دوري اللي بخاطرج",
       "placeholder": "دوري اللي بخاطرج...",
@@ -57,7 +60,10 @@
       "tax_note": "الضريبة والشحن يُحتسبان عند إتمام الطلب",
       "decrease": "نقص الكمية",
       "increase": "زيادة الكمية",
-      "upsell_title": "يكمّلون طلبج"
+      "upsell_title": "يكمّلون طلبج",
+      "note_label": "ملاحظة للطلب",
+      "note_placeholder": "اكتبي ملاحظة لطلبج أو رسالة للهدية...",
+      "gift_message_hint": "نرفق رسالة الهدية مع الطلب إذا أمكن."
     },
     "product": {
       "add_to_cart": "أضيفي للسلة",
@@ -70,7 +76,8 @@
       "search": "بحث",
       "wishlist": "مفضلتج",
       "cart": "سلتج",
-      "menu": "القائمة"
+      "menu": "القائمة",
+      "promo": "عرض"
     }
   },
   "products": {
@@ -85,6 +92,12 @@
     "ingredients": "المكونات",
     "usage": "طريقة الاستخدام",
     "story": "قصة {{ title }}",
+    "gallery": {
+      "zoom": "تكبير الصورة",
+      "tap_to_zoom": "اضغطي للتكبير",
+      "thumbnails": "صور المنتج",
+      "lightbox": "صورة المنتج مكبّرة"
+    },
     "trust": {
       "authentic": "منتج أصلي ١٠٠٪",
       "shipping": "توصيل سريع",
@@ -127,7 +140,20 @@
     "cart": {
       "name": "السلة",
       "free_shipping_threshold": "حد الشحن المجاني (درهم)",
-      "show_free_shipping_bar": "عرض شريط الشحن المجاني"
+      "show_free_shipping_bar": "عرض شريط الشحن المجاني",
+      "enable_cart_note": "تفعيل ملاحظات السلة",
+      "enable_gift_message": "عرض تلميح رسالة الهدية"
+    },
+    "header": {
+      "name": "التنقل",
+      "promo_enabled": "عرض رابط العروض في القائمة",
+      "promo_text": "نص رابط العروض",
+      "promo_link": "رابط العروض"
+    },
+    "product": {
+      "name": "المنتج",
+      "low_stock_threshold": "حد المخزون المنخفض",
+      "low_stock_info": "يظهر تنبيه الإلحاح عندما يكون المخزون عند هذا الرقم أو أقل."
     },
     "social": {
       "name": "وسائل التواصل"
@@ -143,7 +169,11 @@
     "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
     "featured_collection": {
       "name": "منتجات مميزة",
-      "view_all": "شوفي الكل"
+      "view_all": "شوفي الكل",
+      "enable_countdown": "عرض عداد العروض",
+      "countdown_end": "تاريخ انتهاء العرض",
+      "countdown_end_info": "صيغة ISO، مثال: 2026-08-31T23:59",
+      "countdown_label": "العرض ينتهي خلال"
     },
     "featured_product_spotlight": { "name": "منتج مميز" },
     "image_with_text": { "name": "صورة مع نص" },
@@ -156,6 +186,18 @@
     },
     "trust_features": { "name": "مميزات الثقة" },
     "ai_quiz": { "name": "مساعد العنود" },
+    "product_bundle": {
+      "name": "باقة منتجات",
+      "product_block": "منتج في الباقة",
+      "total": "مجموع الباقة",
+      "add": "أضيفي الباقة"
+    },
+    "newsletter_signup": {
+      "name": "اشتراك النشرة",
+      "email_label": "البريد الإلكتروني",
+      "email_placeholder": "إيميلج",
+      "success": "تم! صرتي معانا بالنشرة."
+    },
     "link_hub": {
       "name": "روابط التواصل",
       "whatsapp": "واتساب",

@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "1.7.13",
+    "theme_version": "1.8.1",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -131,6 +131,18 @@
         "id": "show_free_shipping_bar",
         "label": "t:settings.cart.show_free_shipping_bar",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_note",
+        "label": "t:settings.cart.enable_cart_note",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_gift_message",
+        "label": "t:settings.cart.enable_gift_message",
+        "default": true
       }
     ]
   },
@@ -143,6 +155,28 @@
         "label": "t:settings.product.low_stock_threshold",
         "info": "t:settings.product.low_stock_info",
         "default": 10
+      }
+    ]
+  },
+  {
+    "name": "t:settings.header.name",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "nav_promo_enabled",
+        "label": "t:settings.header.promo_enabled",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "nav_promo_text",
+        "label": "t:settings.header.promo_text",
+        "default": "عروضنا الحلوة"
+      },
+      {
+        "type": "url",
+        "id": "nav_promo_link",
+        "label": "t:settings.header.promo_link"
       }
     ]
   },

@@ -77,6 +77,12 @@
     </div>
   </div>
 
+  <div class="site-footer__apps">
+    {% for block in section.blocks %}
+      {% render block %}
+    {% endfor %}
+  </div>
+
   <div class="site-footer__bottom">
     <p>&copy; <span translate="no">أنفاس العنود</span>. جميع الحقوق محفوظة.</p>
     {% if section.settings.show_payment_icons %}
@@ -327,6 +333,7 @@
 {
   "name": "t:general.footer",
   "class": "site-footer-section",
+  "blocks": [{ "type": "@app" }],
   "settings": [
     {
       "type": "text",

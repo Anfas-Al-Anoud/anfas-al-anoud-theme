@@ -35,6 +35,9 @@
       "next": "Next",
       "label": "Pagination"
     },
+    "breadcrumbs": {
+      "label": "Breadcrumb"
+    },
     "search": {
       "title": "Search",
       "placeholder": "Search products...",
@@ -57,7 +60,10 @@
       "tax_note": "Taxes and shipping calculated at checkout",
       "decrease": "Decrease quantity",
       "increase": "Increase quantity",
-      "upsell_title": "Complete your order"
+      "upsell_title": "Complete your order",
+      "note_label": "Order note",
+      "note_placeholder": "Add a note for your order or a gift message...",
+      "gift_message_hint": "We'll include your gift message with the order when possible."
     },
     "product": {
       "add_to_cart": "Add to cart",
@@ -70,7 +76,8 @@
       "search": "Search",
       "wishlist": "Wishlist",
       "cart": "Cart",
-      "menu": "Menu"
+      "menu": "Menu",
+      "promo": "Offer"
     }
   },
   "products": {
@@ -85,6 +92,12 @@
     "ingredients": "Ingredients",
     "usage": "How to use",
     "story": "The story of {{ title }}",
+    "gallery": {
+      "zoom": "Zoom image",
+      "tap_to_zoom": "Tap to enlarge",
+      "thumbnails": "Product images",
+      "lightbox": "Enlarged product image"
+    },
     "trust": {
       "authentic": "100% authentic",
       "shipping": "Fast delivery",
@@ -106,7 +119,12 @@
     "input_corner_radius": "Input corner radius",
     "customer_account_menu": "Customer account menu",
     "show_payment_icons": "Show payment icons",
-    "arabic_font": "Arabic font"
+    "arabic_font": "Arabic font",
+    "heading": "Heading",
+    "subheading": "Subheading",
+    "button_label": "Button label",
+    "text": "Text",
+    "product": "Product"
   },
   "options": {
     "page_width": {
@@ -127,7 +145,20 @@
     "cart": {
       "name": "Cart",
       "free_shipping_threshold": "Free shipping threshold (AED)",
-      "show_free_shipping_bar": "Show free shipping bar"
+      "show_free_shipping_bar": "Show free shipping bar",
+      "enable_cart_note": "Enable cart notes",
+      "enable_gift_message": "Show gift message hint"
+    },
+    "header": {
+      "name": "Navigation",
+      "promo_enabled": "Show promo link in menu",
+      "promo_text": "Promo link label",
+      "promo_link": "Promo link URL"
+    },
+    "product": {
+      "name": "Product",
+      "low_stock_threshold": "Low stock threshold",
+      "low_stock_info": "Show urgency message when inventory is at or below this number."
     },
     "social": {
       "name": "Social media"
@@ -143,7 +174,11 @@
     "mood_cards": { "name": "Mood cards" },
     "featured_collection": {
       "name": "Featured collection",
-      "view_all": "View all"
+      "view_all": "View all",
+      "enable_countdown": "Show offer countdown",
+      "countdown_end": "Offer end date",
+      "countdown_end_info": "ISO format, e.g. 2026-08-31T23:59",
+      "countdown_label": "Offer ends in"
     },
     "featured_product_spotlight": { "name": "Featured product spotlight" },
     "image_with_text": { "name": "Image with text" },
@@ -156,6 +191,18 @@
     },
     "trust_features": { "name": "Trust features" },
     "ai_quiz": { "name": "AI quiz assistant" },
+    "product_bundle": {
+      "name": "Product bundle",
+      "product_block": "Bundle product",
+      "total": "Bundle total",
+      "add": "Add bundle to cart"
+    },
+    "newsletter_signup": {
+      "name": "Newsletter signup",
+      "email_label": "Email",
+      "email_placeholder": "Your email",
+      "success": "Thanks! You're subscribed."
+    },
     "link_hub": {
       "name": "Link hub",
       "whatsapp": "WhatsApp",

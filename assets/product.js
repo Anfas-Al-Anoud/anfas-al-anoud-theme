@@ -37,6 +37,7 @@
     const lowStock = el.querySelector('[data-low-stock]');
     const threshold = parseInt(el.dataset.threshold, 10) || 0;
     const lowTemplate = el.dataset.lowTemplate || 'باقٍ __N__ قطع بس!';
+    let switchMedia = () => {};
 
     function selectedOptions() {
       return optionGroups.map((group) => {
@@ -114,24 +115,8 @@
       });
     });
 
-    // Gallery
-    function switchMedia(mediaId) {
-      const thumb = el.querySelector(`[data-thumb][data-media-id="${mediaId}"]`);
-      const main = el.querySelector('[data-main-media] img');
-      if (thumb && main) {
-        const full = thumb.dataset.full;
-        if (full) {
-          main.src = full;
-          main.srcset = '';
-        }
-        el.querySelectorAll('[data-thumb]').forEach((t) => t.classList.remove('is-active'));
-        thumb.classList.add('is-active');
-      }
-    }
-
-    el.querySelectorAll('[data-thumb]').forEach((thumb) => {
-      thumb.addEventListener('click', () => switchMedia(thumb.dataset.mediaId));
-    });
+    // Gallery (zoom, lightbox, video)
+    switchMedia = initGallery(el);
 
     // Quantity stepper
     el.querySelectorAll('[data-qty-step]').forEach((btn) => {
@@ -180,6 +165,143 @@
     }
 
     updateForVariant();
+  }
+
+  function initGallery(root) {
+    const gallery = root.querySelector('[data-product-gallery]');
+    if (!gallery) return () => {};
+
+    let mediaList = [];
+    try {
+      mediaList = JSON.parse(gallery.querySelector('[data-gallery-json]')?.textContent || '[]');
+    } catch {
+      mediaList = [];
+    }
+
+    const mainWrap = gallery.querySelector('[data-gallery-main]');
+    const lightbox = root.querySelector('[data-product-lightbox]');
+    const lightboxBody = lightbox?.querySelector('[data-lightbox-body]');
+    let activeId = mediaList[0]?.id;
+    let lightboxIndex = 0;
+    const canHoverZoom = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function mediaById(id) {
+      return mediaList.find((m) => String(m.id) === String(id));
+    }
+
+    function renderMain(item) {
+      if (!mainWrap || !item) return;
+      activeId = item.id;
+      gallery.querySelectorAll('[data-thumb]').forEach((t) => {
+        const on = String(t.dataset.mediaId) === String(item.id);
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+
+      if (item.type === 'video' && item.video?.length) {
+        const src = item.video.find((s) => s.format === 'mp4') || item.video[0];
+        mainWrap.innerHTML = `<div class="product-gallery__video" data-gallery-media data-media-id="${item.id}" data-media-type="video"><video class="product-gallery__video-el" controls playsinline poster="${item.preview || ''}"><source src="${src.url}" type="${src.mime_type || 'video/mp4'}"></video></div>`;
+        return;
+      }
+
+      if (item.type === 'external_video' && item.external) {
+        const embed = item.external.includes('youtube')
+          ? item.external.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')
+          : item.external;
+        mainWrap.innerHTML = `<div class="product-gallery__external" data-gallery-media data-media-id="${item.id}" data-media-type="external_video"><iframe class="product-gallery__external-el" src="${embed}" allowfullscreen loading="lazy"></iframe></div>`;
+        return;
+      }
+
+      const src = item.src || item.preview;
+      mainWrap.innerHTML = `
+        <button type="button" class="product-gallery__zoom-wrap" data-gallery-zoom data-gallery-open aria-label="تكبير">
+          <img class="product-gallery__image" src="${src}" alt="${item.alt || ''}" width="1200" height="1200" loading="eager">
+          <span class="product-gallery__zoom-lens" data-gallery-lens hidden aria-hidden="true"></span>
+        </button>`;
+      bindZoom(mainWrap.querySelector('[data-gallery-zoom]'));
+    }
+
+    function bindZoom(wrap) {
+      if (!wrap || !canHoverZoom) return;
+      const img = wrap.querySelector('.product-gallery__image');
+      const lens = wrap.querySelector('[data-gallery-lens]');
+      wrap.addEventListener('mousemove', (e) => {
+        if (!img) return;
+        const rect = wrap.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        img.style.setProperty('--zoom-x', `${x}%`);
+        img.style.setProperty('--zoom-y', `${y}%`);
+        wrap.classList.add('is-zooming');
+        if (lens) {
+          lens.hidden = false;
+          lens.style.left = `${e.clientX - rect.left}px`;
+          lens.style.top = `${e.clientY - rect.top}px`;
+        }
+      });
+      wrap.addEventListener('mouseleave', () => {
+        wrap.classList.remove('is-zooming');
+        if (lens) lens.hidden = true;
+      });
+    }
+
+    function openLightbox(index) {
+      if (!lightbox || !lightboxBody || !mediaList.length) return;
+      lightboxIndex = (index + mediaList.length) % mediaList.length;
+      const item = mediaList[lightboxIndex];
+      if (item.type === 'image' && item.src) {
+        lightboxBody.innerHTML = `<img src="${item.src}" alt="${item.alt || ''}" width="1600" height="1600">`;
+      } else if (item.type === 'video' && item.video?.length) {
+        const src = item.video.find((s) => s.format === 'mp4') || item.video[0];
+        lightboxBody.innerHTML = `<video controls autoplay playsinline poster="${item.preview || ''}"><source src="${src.url}" type="${src.mime_type || 'video/mp4'}"></video>`;
+      } else if (item.preview) {
+        lightboxBody.innerHTML = `<img src="${item.preview}" alt="${item.alt || ''}" width="1200" height="1200">`;
+      }
+      lightbox.hidden = false;
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.hidden = true;
+      lightbox.setAttribute('aria-hidden', 'true');
+      if (lightboxBody) lightboxBody.innerHTML = '';
+      if (!document.querySelector('[data-cart-drawer].is-open')) {
+        document.body.style.overflow = '';
+      }
+    }
+
+    gallery.querySelectorAll('[data-thumb]').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const item = mediaById(thumb.dataset.mediaId);
+        if (item) renderMain(item);
+      });
+    });
+
+    gallery.addEventListener('click', (e) => {
+      if (e.target.closest('[data-gallery-open]')) {
+        const idx = mediaList.findIndex((m) => String(m.id) === String(activeId));
+        openLightbox(idx >= 0 ? idx : 0);
+      }
+    });
+
+    lightbox?.querySelector('[data-lightbox-close]')?.addEventListener('click', closeLightbox);
+    lightbox?.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => openLightbox(lightboxIndex - 1));
+    lightbox?.querySelector('[data-lightbox-next]')?.addEventListener('click', () => openLightbox(lightboxIndex + 1));
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox && !lightbox.hidden) closeLightbox();
+    });
+
+    bindZoom(gallery.querySelector('[data-gallery-zoom]'));
+
+    return (mediaId) => {
+      const item = mediaById(mediaId);
+      if (item) renderMain(item);
+    };
   }
 
   function initShare() {

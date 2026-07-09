@@ -1,0 +1,251 @@
+{% doc %}
+  Product media gallery with desktop zoom, lightbox, and video support.
+
+  @param {object} product - Product object
+{% enddoc %}
+
+{%- if product.media.size > 0 -%}
+  <div class="product-gallery" data-product-gallery>
+    <div class="product-gallery__stage" data-gallery-stage>
+      <div class="product-gallery__main" data-gallery-main>
+        {%- assign featured = product.featured_media -%}
+        {%- case featured.media_type -%}
+          {%- when 'video' -%}
+            <div class="product-gallery__video" data-gallery-media data-media-id="{{ featured.id }}" data-media-type="video">
+              {{ featured | video_tag: class: 'product-gallery__video-el', controls: true, autoplay: false, loop: false, muted: false, image_size: '900x' }}
+            </div>
+          {%- when 'external_video' -%}
+            <div class="product-gallery__external" data-gallery-media data-media-id="{{ featured.id }}" data-media-type="external_video">
+              {{ featured | external_video_tag: class: 'product-gallery__external-el' }}
+            </div>
+          {%- else -%}
+            <button
+              type="button"
+              class="product-gallery__zoom-wrap"
+              data-gallery-zoom
+              data-gallery-open
+              aria-label="{{ 'products.gallery.zoom' | t }}"
+            >
+              {% render 'image',
+                image: featured,
+                alt: featured.alt | default: product.title,
+                fallback_alt: product.title,
+                class: 'product-gallery__image',
+                width: 1200
+              %}
+              <span class="product-gallery__zoom-lens" data-gallery-lens hidden aria-hidden="true"></span>
+            </button>
+        {%- endcase -%}
+      </div>
+      {%- if featured.media_type == 'image' -%}
+        <span class="product-gallery__hint">{{ 'products.gallery.tap_to_zoom' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if product.media.size > 1 -%}
+      <div class="product-gallery__thumbs" role="tablist" aria-label="{{ 'products.gallery.thumbnails' | t }}">
+        {%- for media in product.media limit: 10 -%}
+          <button
+            type="button"
+            class="product-gallery__thumb {% if media.id == featured.id %}is-active{% endif %}"
+            data-thumb
+            data-media-id="{{ media.id }}"
+            data-media-type="{{ media.media_type }}"
+            role="tab"
+            aria-selected="{% if media.id == featured.id %}true{% else %}false{% endif %}"
+            aria-label="{{ product.title | escape }}"
+          >
+            {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+              <span class="product-gallery__thumb-play" aria-hidden="true">▶</span>
+            {%- endif -%}
+            {% render 'image', image: media.preview_image | default: media, alt: media.alt | default: product.title, width: 120 %}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <script type="application/json" data-gallery-json>
+      [
+        {%- for media in product.media limit: 10 -%}
+          {
+            "id": {{ media.id }},
+            "type": {{ media.media_type | json }},
+            "alt": {{ media.alt | default: product.title | json }},
+            "src": {% if media.media_type == 'image' %}{{ media | image_url: width: 1600 | json }}{% else %}null{% endif %},
+            "preview": {{ media.preview_image | image_url: width: 900 | json }},
+            "video": {% if media.media_type == 'video' %}{{ media.sources | json }}{% else %}null{% endif %},
+            "external": {% if media.media_type == 'external_video' %}{{ media | external_video_url | json }}{% else %}null{% endif %}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    </script>
+  </div>
+
+  <div class="product-lightbox" data-product-lightbox hidden aria-hidden="true" role="dialog" aria-label="{{ 'products.gallery.lightbox' | t }}">
+    <button type="button" class="product-lightbox__close" data-lightbox-close aria-label="{{ 'general.accessibility.close' | t }}">&times;</button>
+    <button type="button" class="product-lightbox__nav product-lightbox__nav--prev" data-lightbox-prev aria-label="{{ 'general.pagination.previous' | t }}">&lsaquo;</button>
+    <div class="product-lightbox__body" data-lightbox-body></div>
+    <button type="button" class="product-lightbox__nav product-lightbox__nav--next" data-lightbox-next aria-label="{{ 'general.pagination.next' | t }}">&rsaquo;</button>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-gallery__stage {
+    position: relative;
+    border-radius: var(--style-border-radius-cards);
+    overflow: hidden;
+    background: var(--color-cream);
+  }
+  .product-gallery__main { position: relative; }
+  .product-gallery__zoom-wrap {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-gallery__image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.15s ease-out;
+    transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .product-gallery__zoom-wrap.is-zooming .product-gallery__image {
+      transform: scale(1.75);
+    }
+  }
+  .product-gallery__zoom-lens {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.08);
+  }
+  .product-gallery__video,
+  .product-gallery__external {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+  }
+  .product-gallery__video-el,
+  .product-gallery__external-el {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .product-gallery__hint {
+    position: absolute;
+    inset-inline-end: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-white) 88%, transparent);
+    font-size: 0.72rem;
+    color: var(--color-accent);
+    pointer-events: none;
+  }
+  .product-gallery__thumbs {
+    display: flex;
+    gap: 0.5rem;
+    margin-block-start: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .product-gallery__thumb {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    width: 4.25rem;
+    height: 4.25rem;
+    flex-shrink: 0;
+  }
+  .product-gallery__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .product-gallery__thumb.is-active { border-color: var(--color-gold); }
+  .product-gallery__thumb-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 0.75rem;
+    pointer-events: none;
+  }
+  @media (min-width: 900px) {
+    .product-gallery { position: sticky; top: calc(var(--header-height) + 1rem); }
+  }
+  .product-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(31, 18, 12, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .product-lightbox[hidden] { display: none; }
+  .product-lightbox__body {
+    max-width: min(92vw, 56rem);
+    max-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-lightbox__body img,
+  .product-lightbox__body video,
+  .product-lightbox__body iframe {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: var(--style-border-radius-cards);
+  }
+  .product-lightbox__close {
+    position: absolute;
+    top: 1rem;
+    inset-inline-end: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-dark);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .product-lightbox__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .product-lightbox__nav--prev { inset-inline-start: 1rem; }
+  .product-lightbox__nav--next { inset-inline-end: 1rem; }
+{% endstylesheet %}

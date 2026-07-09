@@ -41,6 +41,19 @@
 
       <aside class="cart-page__summary">
         <h2>{{ 'general.cart.summary' | t }}</h2>
+        {% if settings.enable_cart_note %}
+          <label class="cart-page__note-label" for="CartNote">{{ 'general.cart.note_label' | t }}</label>
+          <textarea
+            id="CartNote"
+            class="cart-page__note-input"
+            name="note"
+            rows="4"
+            placeholder="{{ 'general.cart.note_placeholder' | t }}"
+          >{{ cart.note }}</textarea>
+          {% if settings.enable_gift_message %}
+            <p class="cart-page__note-hint">{{ 'general.cart.gift_message_hint' | t }}</p>
+          {% endif %}
+        {% endif %}
         <div class="cart-page__summary-row">
           <span>{{ 'general.cart.subtotal' | t }}</span>
           <span>{{ cart.total_price | money_without_currency }} {{ 'general.currency' | t }}</span>
@@ -71,6 +84,16 @@
   .cart-page__qty { width: 4rem; padding: 0.5rem; text-align: center; border: 1.5px solid var(--color-sand); border-radius: var(--style-border-radius-inputs); }
   .cart-page__line-price { font-weight: 700; }
   .cart-page__summary { background: var(--color-cream); border-radius: var(--style-border-radius-cards); padding: 1.5rem; display: flex; flex-direction: column; gap: 0.85rem; position: sticky; top: calc(var(--header-height) + 1rem); }
+  .cart-page__note-label { font-weight: 700; font-size: 0.9rem; }
+  .cart-page__note-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1.5px solid var(--color-sand);
+    border-radius: var(--style-border-radius-inputs);
+    font: inherit;
+    resize: vertical;
+  }
+  .cart-page__note-hint { font-size: 0.8rem; color: var(--color-accent); margin: 0; }
   .cart-page__summary-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; }
   .cart-page__note { font-size: 0.8rem; color: var(--color-accent); }
   .cart-page__continue { text-align: center; color: var(--color-accent); text-decoration: none; font-weight: 600; }

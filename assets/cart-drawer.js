@@ -18,7 +18,10 @@ class CartDrawer {
     this.currency = this.drawer.dataset.currency || 'AED';
     this.upsellEl = this.drawer.querySelector('[data-cart-upsell]');
     this.upsellBody = this.drawer.querySelector('[data-cart-upsell-body]');
+    this.noteEl = this.drawer.querySelector('[data-cart-note]');
+    this.notesWrap = this.drawer.querySelector('[data-cart-notes-wrap]');
     this.lastFocus = null;
+    this.noteTimer = null;
 
     document.addEventListener('click', (e) => {
       if (e.target.closest('[data-cart-open]')) {
@@ -48,6 +51,11 @@ class CartDrawer {
 
     // Sync counts/bar from the server-rendered state on load.
     this.fetchCart().then((cart) => cart && this.render(cart));
+
+    this.noteEl?.addEventListener('input', () => {
+      clearTimeout(this.noteTimer);
+      this.noteTimer = setTimeout(() => this.updateNote(this.noteEl.value), 400);
+    });
   }
 
   money(cents) {
@@ -103,6 +111,16 @@ class CartDrawer {
     return cart;
   }
 
+  async updateNote(note) {
+    const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/update.js`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ note }),
+    });
+    if (res.ok) return res.json();
+    return null;
+  }
+
   async changeLine(key, quantity) {
     const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/change.js`, {
       method: 'POST',
@@ -124,10 +142,16 @@ class CartDrawer {
       if (cart.item_count === 0) {
         this.itemsEl.innerHTML = `<p class="cart-drawer__empty">${this.itemsEl.dataset.emptyText || 'سلتج فاضية'}</p>`;
         if (this.footerEl) this.footerEl.hidden = true;
+        if (this.notesWrap) this.notesWrap.hidden = true;
       } else {
         if (this.footerEl) this.footerEl.hidden = false;
+        if (this.notesWrap) this.notesWrap.hidden = false;
         this.itemsEl.innerHTML = cart.items.map((item) => this.lineHTML(item)).join('');
       }
+    }
+
+    if (this.noteEl && document.activeElement !== this.noteEl && cart.note !== undefined) {
+      this.noteEl.value = cart.note || '';
     }
 
     this.renderShippingBar(cart.total_price);

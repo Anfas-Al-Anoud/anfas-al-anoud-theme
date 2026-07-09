@@ -28,7 +28,16 @@
     <ul class="mobile-menu__links">
       {%- if linklists.main-menu.links.size > 0 -%}
         {%- for link in linklists.main-menu.links -%}
-          <li><a href="{{ link.url }}" class="mobile-menu__link">{% render 'tanween', text: link.title %}</a></li>
+          <li>
+            <a href="{{ link.url }}" class="mobile-menu__link">{% render 'tanween', text: link.title %}</a>
+            {%- if link.links != blank -%}
+              <ul class="mobile-menu__sublinks">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}" class="mobile-menu__sublink">{% render 'tanween', text: child.title %}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
         {%- endfor -%}
       {%- else -%}
         <li><a href="{{ routes.root_url }}" class="mobile-menu__link">{{ 'general.nav.home' | t }}</a></li>
@@ -38,6 +47,13 @@
         <li><a href="{{ routes.account_url }}" class="mobile-menu__link">حسابج</a></li>
       {%- endif -%}
     </ul>
+
+    {%- if settings.nav_promo_enabled and settings.nav_promo_text != blank -%}
+      <a href="{{ settings.nav_promo_link | default: '/collections/offers' }}" class="mobile-menu__promo">
+        <span class="mobile-menu__promo-badge">{{ 'general.nav.promo' | t }}</span>
+        <span>{% render 'tanween', text: settings.nav_promo_text %}</span>
+      </a>
+    {%- endif -%}
 
     {%- if settings.whatsapp_number != blank -%}
       <a
@@ -116,6 +132,31 @@
     border-block-end: 1px solid color-mix(in srgb, var(--color-sand) 60%, transparent);
   }
   .mobile-menu__link:hover { color: var(--color-primary); }
+  .mobile-menu__sublinks { list-style: none; margin: 0; padding: 0 0 0.35rem 1rem; }
+  .mobile-menu__sublink {
+    display: block;
+    padding: 0.45rem 0.25rem;
+    text-decoration: none;
+    color: var(--color-accent);
+    font-size: 0.95rem;
+  }
+  .mobile-menu__promo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-block: 1rem 0.25rem;
+    padding: 0.9rem 1rem;
+    border-radius: var(--style-border-radius-cards);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: var(--color-primary-foreground);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .mobile-menu__promo-badge {
+    font-size: 0.72rem;
+    opacity: 0.9;
+    letter-spacing: 0.04em;
+  }
   .mobile-menu__whatsapp {
     display: flex;
     align-items: center;

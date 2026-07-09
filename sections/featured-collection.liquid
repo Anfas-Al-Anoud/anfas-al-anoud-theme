@@ -5,9 +5,15 @@
   endif
   assign collection_url = section.settings.collection.url | default: routes.all_products_collection_url
 %}
-<section class="featured-collection section-padding" data-animate-section>
+<section class="featured-collection section-padding" data-animate-section{% if section.settings.enable_countdown and section.settings.countdown_end != blank %} data-offers-countdown data-countdown-end="{{ section.settings.countdown_end }}"{% endif %}>
   <div class="featured-collection__header">
     <div class="featured-collection__titles">
+      {%- if section.settings.enable_countdown and section.settings.countdown_end != blank -%}
+        <div class="featured-collection__countdown" data-countdown hidden>
+          <span class="featured-collection__countdown-label">{{ 'sections.featured_collection.countdown_label' | t }}</span>
+          <div class="featured-collection__countdown-units" data-countdown-units aria-live="polite"></div>
+        </div>
+      {%- endif -%}
       <h2 class="section-heading featured-collection__heading">{% render 'tanween', text: section.settings.heading %}</h2>
       {% if section.settings.subheading != blank %}
         <p class="section-subheading featured-collection__subheading">{% render 'tanween', text: section.settings.subheading %}</p>
@@ -64,6 +70,40 @@
 
   .featured-collection__subheading {
     margin-block-end: 0;
+  }
+
+  .featured-collection__countdown {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin-block-end: 0.5rem;
+  }
+  .featured-collection__countdown[hidden] { display: none; }
+  .featured-collection__countdown-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .featured-collection__countdown-units {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .featured-collection__countdown-unit {
+    min-width: 3.25rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.65rem;
+    background: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+    text-align: center;
+    font-size: 0.78rem;
+    line-height: 1.2;
+  }
+  .featured-collection__countdown-unit strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--color-primary);
   }
 
   .featured-collection__view-all {
@@ -222,10 +262,61 @@
   }
 {% endstylesheet %}
 
+{% javascript %}
+  (function initOfferCountdowns() {
+    const sections = document.querySelectorAll('[data-offers-countdown]');
+    if (!sections.length) return;
+
+    const labels = {
+      days: 'يوم',
+      hours: 'ساعة',
+      minutes: 'دقيقة',
+      seconds: 'ثانية',
+    };
+
+    function renderUnit(value, label) {
+      return `<span class="featured-collection__countdown-unit"><strong>${value}</strong>${label}</span>`;
+    }
+
+    sections.forEach((section) => {
+      const endRaw = section.dataset.countdownEnd;
+      const wrap = section.querySelector('[data-countdown]');
+      const units = section.querySelector('[data-countdown-units]');
+      if (!endRaw || !wrap || !units) return;
+
+      const end = new Date(endRaw).getTime();
+      if (Number.isNaN(end)) return;
+
+      const tick = () => {
+        const diff = end - Date.now();
+        if (diff <= 0) {
+          units.textContent = '';
+          wrap.hidden = true;
+          return;
+        }
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        units.innerHTML =
+          renderUnit(days, labels.days) +
+          renderUnit(hours, labels.hours) +
+          renderUnit(minutes, labels.minutes) +
+          renderUnit(seconds, labels.seconds);
+        wrap.hidden = false;
+      };
+
+      tick();
+      setInterval(tick, 1000);
+    });
+  })();
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "t:sections.featured_collection.name",
   "class": "featured-collection-section",
+  "blocks": [{ "type": "@app" }],
   "settings": [
     {
       "type": "text",
@@ -258,6 +349,19 @@
       "id": "show_view_all",
       "label": "عرض رابط «شوفي الكل»",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_countdown",
+      "label": "t:sections.featured_collection.enable_countdown",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "countdown_end",
+      "label": "t:sections.featured_collection.countdown_end",
+      "info": "t:sections.featured_collection.countdown_end_info",
+      "placeholder": "2026-12-31T23:59"
     }
   ],
   "presets": [{ "name": "t:sections.featured_collection.name" }]

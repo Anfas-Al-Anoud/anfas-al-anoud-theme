@@ -95,6 +95,7 @@
         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
         data-url="{{ product.url }}"
         data-single="{% if product.variants.size == 1 %}true{% else %}false{% endif %}"
+        data-open-quick-view="{% if product.variants.size > 1 %}true{% else %}false{% endif %}"
       >{{ 'general.product.add_to_cart' | t }}</button>
     {% endif %}
   </div>

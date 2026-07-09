@@ -74,7 +74,9 @@
         "subheading": "عروض محدودة وتوفير حلو — خذي فرصتج قبل ما تروح.",
         "collection": "offers",
         "products_to_show": 8,
-        "show_view_all": true
+        "show_view_all": true,
+        "enable_countdown": true,
+        "countdown_end": "2026-08-31T23:59"
       }
     },
     "mood": {
@@ -175,6 +177,14 @@
         "button_link": "/collections/gift-boxes"
       }
     },
+    "gift_bundle": {
+      "type": "product-bundle",
+      "settings": {
+        "heading": "باقة بوكس الزين",
+        "subheading": "اختاري منتجات الباقة وأضيفيها للسلة دفعة واحدة — هدية جاهزة من العنود.",
+        "button_label": "أضيفي الباقة"
+      }
+    },
     "recently": {
       "type": "recently-viewed",
       "settings": {
@@ -220,6 +230,15 @@
       },
       "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"]
     },
+    "newsletter": {
+      "type": "newsletter-signup",
+      "settings": {
+        "heading": "خلينا على تواصل",
+        "text": "سجّلي إيميلج وكوني أول وحدة تعرفين العروض الحلوة ونصايح العنود للسنع.",
+        "email_placeholder": "حطي إيميلج هنيه",
+        "button_label": "اشتركي"
+      }
+    },
     "trust": {
       "type": "trust-features",
       "settings": {},
@@ -239,6 +258,6 @@
       }
     }
   },
-  "order": ["hero", "categories", "featured_new", "mood", "bestsellers", "spotlight", "gifts", "featured_boxes", "recently", "testimonials", "quality", "faq", "trust", "quiz"]
+  "order": ["hero", "categories", "featured_new", "mood", "bestsellers", "spotlight", "gifts", "gift_bundle", "featured_boxes", "recently", "testimonials", "quality", "faq", "newsletter", "trust", "quiz"]
 }
 

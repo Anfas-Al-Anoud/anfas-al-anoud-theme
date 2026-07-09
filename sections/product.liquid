@@ -7,35 +7,10 @@
 -%}
 
 <div class="product-page section-padding" data-product data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-currency-label="{{ 'general.currency' | t }}" data-threshold="{{ settings.low_stock_threshold | default: 10 }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
+  {% render 'breadcrumbs', product: product, collection: collection %}
   <div class="product-page__inner">
     <div class="product-page__gallery" data-gallery>
-      {% if product.media.size > 0 %}
-        <div class="product-page__main-image" data-main-media>
-          {% render 'image',
-            image: product.featured_media,
-            alt: product.featured_media.alt | default: product.title,
-            fallback_alt: product.title,
-            width: 900,
-            loading: 'eager'
-          %}
-        </div>
-        {% if product.media.size > 1 %}
-          <div class="product-page__thumbs">
-            {% for media in product.media limit: 8 %}
-              <button
-                type="button"
-                class="product-page__thumb {% if media.id == product.featured_media.id %}is-active{% endif %}"
-                data-thumb
-                data-media-id="{{ media.id }}"
-                data-full="{{ media | image_url: width: 900 }}"
-                aria-label="{{ product.title | escape }}"
-              >
-                {% render 'image', image: media, alt: media.alt | default: product.title, width: 120 %}
-              </button>
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endif %}
+      {% render 'product-gallery', product: product %}
     </div>
 
     <div class="product-page__info">
@@ -68,15 +43,12 @@
           {% for option in product.options_with_values %}
             <div class="product-page__option" data-option-index="{{ forloop.index0 }}">
               <span class="product-page__option-name">{{ option.name }}</span>
-              <div class="product-page__swatches">
-                {% for value in option.values %}
-                  <button
-                    type="button"
-                    class="product-page__swatch {% if option.selected_value == value %}is-active{% endif %}"
-                    data-option-value="{{ value | escape }}"
-                  >{{ value }}</button>
-                {% endfor %}
-              </div>
+              {% render 'variant-swatch',
+                option: option,
+                product: product,
+                option_index: forloop.index0,
+                swatch_class: 'product-page__swatch variant-swatch'
+              %}
             </div>
           {% endfor %}
         {% endif %}
@@ -158,6 +130,10 @@
           <div class="rte">{{ usage }}</div>
         </details>
       {% endif %}
+
+      {% for block in section.blocks %}
+        {% render block %}
+      {% endfor %}
     </div>
   </div>
 
@@ -218,13 +194,7 @@
 
 {% stylesheet %}
   .product-page__inner { display: grid; gap: 2.5rem; max-width: var(--page-width); margin-inline: auto; padding-inline: var(--page-margin); }
-  @media (min-width: 900px) { .product-page__inner { grid-template-columns: 1.1fr 1fr; align-items: start; } }
-  .product-page__main-image img { border-radius: var(--style-border-radius-cards); width: 100%; aspect-ratio: 1; object-fit: cover; }
-  .product-page__thumbs { display: flex; gap: 0.5rem; margin-block-start: 0.75rem; flex-wrap: wrap; }
-  .product-page__thumb { border: 2px solid transparent; border-radius: 10px; overflow: hidden; padding: 0; cursor: pointer; background: none; width: 4.25rem; height: 4.25rem; }
-  .product-page__thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .product-page__thumb.is-active { border-color: var(--color-gold); }
-  @media (min-width: 900px) { .product-page__gallery { position: sticky; top: calc(var(--header-height) + 1rem); } }
+  @media (min-width: 900px) { .product-page__inner { grid-template-columns: 1.15fr 1fr; align-items: start; } }
   .product-page__vendor { color: var(--color-accent); font-weight: 600; margin-block-end: 0.35rem; }
   .product-page__title { font-size: clamp(1.5rem, 4vw, 2.25rem); margin-block-end: 0.75rem; }
   .product-page__badge {
@@ -263,9 +233,11 @@
   .product-page__trust svg { width: 1.1rem; height: 1.1rem; color: var(--color-gold); }
   .product-page__option { margin-block-end: 1.25rem; }
   .product-page__option-name { display: block; font-weight: 600; margin-block-end: 0.5rem; }
-  .product-page__swatches { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .product-page__swatch { padding: 0.55rem 1.1rem; border: 1.5px solid var(--color-sand); border-radius: 999px; background: var(--color-white); cursor: pointer; font: inherit; transition: all var(--transition-base); }
-  .product-page__swatch.is-active { border-color: var(--color-gold); background: var(--color-gold); color: var(--color-white); }
+  .product-page__swatch.variant-swatch--pill.is-active {
+    border-color: var(--color-gold);
+    background: var(--color-gold);
+    color: var(--color-white);
+  }
   .product-page__buy { display: flex; gap: 0.75rem; align-items: stretch; margin-block-end: 0.75rem; }
   .product-page__quantity { display: inline-flex; align-items: center; border: 1.5px solid var(--color-sand); border-radius: 999px; padding: 0 0.35rem; }
   .product-page__quantity button { background: none; border: none; font-size: 1.2rem; width: 2.25rem; height: 2.75rem; cursor: pointer; color: var(--color-dark); }
@@ -312,6 +284,7 @@
 {
   "name": "Product",
   "class": "product-section",
+  "blocks": [{ "type": "@app" }],
   "settings": []
 }
 {% endschema %}

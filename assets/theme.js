@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCarousels();
 
-  document.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
     const qa = e.target.closest('[data-quick-add]');
     if (!qa) return;
     e.preventDefault();
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .finally(() => qa.classList.remove('is-loading'));
     } else if (qa.dataset.url) {
-      window.location.href = qa.dataset.url;
+      document.dispatchEvent(new CustomEvent('anfas:quick-view', { detail: { url: qa.dataset.url } }));
     }
   });
 });

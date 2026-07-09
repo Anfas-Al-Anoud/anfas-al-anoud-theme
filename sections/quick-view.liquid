@@ -14,13 +14,19 @@
 -%}
 
 <div class="quickview" data-quickview data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-currency-label="{{ 'general.currency' | t }}" data-threshold="{{ low_threshold }}" data-low-template="{{ 'products.low_stock' | t: count: '__N__' }}">
-  <div class="quickview__media">
-    {%- if product.featured_image -%}
-      {% render 'image',
-        image: product.featured_image,
-        fallback_alt: product.title,
-        width: 700
-      %}
+  <div class="quickview__media" data-qv-media>
+    {%- if product.featured_media -%}
+      {%- case product.featured_media.media_type -%}
+        {%- when 'video' -%}
+          {{ product.featured_media | video_tag: class: 'quickview__image', controls: true, image_size: '700x' }}
+        {%- else -%}
+          {% render 'image',
+            image: product.featured_media,
+            fallback_alt: product.title,
+            class: 'quickview__image',
+            width: 700
+          %}
+      {%- endcase -%}
     {%- endif -%}
   </div>
 
@@ -43,13 +49,13 @@
           <div class="quickview__option" data-qv-option-index="{{ forloop.index0 }}">
             <span class="quickview__option-name">{{ option.name }}</span>
             <div class="quickview__swatches">
-              {% for value in option.values %}
-                <button
-                  type="button"
-                  class="quickview__swatch {% if option.selected_value == value %}is-active{% endif %}"
-                  data-qv-option-value="{{ value | escape }}"
-                >{{ value }}</button>
-              {% endfor %}
+              {% render 'variant-swatch',
+                option: option,
+                product: product,
+                option_index: forloop.index0,
+                attr_prefix: 'qv-',
+                swatch_class: 'quickview__swatch variant-swatch'
+              %}
             </div>
           </div>
         {% endfor %}
@@ -91,7 +97,9 @@
           "compare_at_price": {{ variant.compare_at_price | default: 0 }},
           "available": {{ variant.available }},
           "inventory_management": {{ variant.inventory_management | json }},
-          "inventory_quantity": {{ variant.inventory_quantity | default: 0 }}
+          "inventory_quantity": {{ variant.inventory_quantity | default: 0 }},
+          "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id }}{% else %}null{% endif %},
+          "featured_image": {% if variant.featured_media %}{{ variant.featured_media | image_url: width: 700 | json }}{% elsif variant.image %}{{ variant.image | image_url: width: 700 | json }}{% else %}null{% endif %}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
@@ -111,9 +119,11 @@
   .quickview__low-stock[hidden] { display: none; }
   .quickview__option { margin-block-end: 1rem; }
   .quickview__option-name { display: block; font-weight: 600; margin-block-end: 0.4rem; }
-  .quickview__swatches { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .quickview__swatch { padding: 0.45rem 0.95rem; border: 1.5px solid var(--color-sand); border-radius: 999px; background: var(--color-white); cursor: pointer; font: inherit; transition: all var(--transition-base); }
-  .quickview__swatch.is-active { border-color: var(--color-primary); background: var(--color-primary); color: var(--color-primary-foreground); }
+  .quickview__swatch.variant-swatch--pill.is-active {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
   .quickview__buy { display: flex; gap: 0.6rem; margin-block-end: 0.5rem; }
   .quickview__qty { display: inline-flex; align-items: center; border: 1.5px solid var(--color-sand); border-radius: 999px; padding: 0 0.3rem; }
   .quickview__qty button { background: none; border: none; font-size: 1.1rem; width: 2rem; height: 2.5rem; cursor: pointer; color: var(--color-dark); }

@@ -1,0 +1,75 @@
+{% doc %}
+  Visible breadcrumb navigation for product and collection pages.
+
+  @param {object} [product] - Product object (product page)
+  @param {object} [collection] - Collection object
+{% enddoc %}
+
+{%- liquid
+  assign crumb_collection = collection
+  if product != blank and crumb_collection == blank and product.collections.first != blank
+    assign crumb_collection = product.collections.first
+  endif
+-%}
+
+<nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs.label' | t }}">
+  <ol class="breadcrumbs__list">
+    <li class="breadcrumbs__item">
+      <a class="breadcrumbs__link" href="{{ routes.root_url }}">{{ shop.name }}</a>
+    </li>
+    {%- if product != blank -%}
+      {%- if crumb_collection != blank -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ crumb_collection.url }}">{% render 'tanween', text: crumb_collection.title %}</a>
+        </li>
+      {%- endif -%}
+      <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+        <span>{% render 'tanween', text: product.title %}</span>
+      </li>
+    {%- elsif collection != blank -%}
+      <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+        <span>{% render 'tanween', text: collection.title %}</span>
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>
+
+{% stylesheet %}
+  .breadcrumbs {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    margin-block-end: 1rem;
+  }
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.82rem;
+    color: var(--color-accent);
+  }
+  .breadcrumbs__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .breadcrumbs__item:not(:last-child)::after {
+    content: '›';
+    color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+    font-size: 0.9rem;
+  }
+  .breadcrumbs__link {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+  .breadcrumbs__link:hover { color: var(--color-primary); }
+  .breadcrumbs__item--current span {
+    color: var(--color-dark);
+    font-weight: 600;
+  }
+{% endstylesheet %}

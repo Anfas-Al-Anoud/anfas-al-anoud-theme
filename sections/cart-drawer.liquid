@@ -47,6 +47,22 @@
       <div data-cart-upsell-body></div>
     </div>
 
+    {% if settings.enable_cart_note %}
+      <div class="cart-drawer__notes" data-cart-notes-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
+        <label class="cart-drawer__notes-label" for="CartDrawerNote">{{ 'general.cart.note_label' | t }}</label>
+        <textarea
+          id="CartDrawerNote"
+          class="cart-drawer__notes-input"
+          data-cart-note
+          rows="3"
+          placeholder="{{ 'general.cart.note_placeholder' | t }}"
+        >{{ cart.note }}</textarea>
+        {% if settings.enable_gift_message %}
+          <p class="cart-drawer__notes-hint">{{ 'general.cart.gift_message_hint' | t }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
     <footer class="cart-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}hidden{% endif %}>
       <div class="cart-drawer__subtotal">
         <span>{{ 'general.cart.subtotal' | t }}</span>
@@ -165,6 +181,25 @@
   .cart-drawer__upsell { padding: 0.9rem 1.25rem; border-block-start: 1px solid var(--color-sand); background: var(--color-cream); }
   .cart-drawer__upsell[hidden] { display: none; }
   .cart-drawer__upsell-title { font-size: 0.9rem; font-weight: 700; margin-block-end: 0.6rem; color: var(--color-dark); }
+  .cart-drawer__notes {
+    padding: 0.75rem 1.25rem;
+    border-block-start: 1px solid var(--color-sand);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .cart-drawer__notes[hidden] { display: none; }
+  .cart-drawer__notes-label { font-size: 0.85rem; font-weight: 700; color: var(--color-dark); }
+  .cart-drawer__notes-input {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--color-sand);
+    border-radius: var(--style-border-radius-inputs);
+    font: inherit;
+    resize: vertical;
+    min-height: 4.5rem;
+  }
+  .cart-drawer__notes-hint { font-size: 0.75rem; color: var(--color-accent); margin: 0; }
   .cart-drawer__footer {
     padding: 1.25rem;
     border-block-start: 1px solid var(--color-sand);

@@ -62,13 +62,23 @@
     sections.forEach((section) => observer.observe(section));
   };
 
+  let started = false;
   const boot = () => {
+    if (started) return;
+    started = true;
     if (!runGsap()) runFallback();
   };
 
+  const scheduleBoot = () => {
+    window.addEventListener('scroll', boot, { once: true, passive: true });
+    window.addEventListener('touchstart', boot, { once: true, passive: true });
+    window.addEventListener('keydown', boot, { once: true });
+    setTimeout(boot, 2500);
+  };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('DOMContentLoaded', scheduleBoot);
   } else {
-    boot();
+    scheduleBoot();
   }
 })();

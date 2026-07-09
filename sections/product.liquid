@@ -15,7 +15,7 @@
 
     <div class="product-page__info">
       {% if product.vendor != blank %}
-        <p class="product-page__vendor">{{ product.vendor }}</p>
+        <p class="product-page__vendor">{% render 'brand-name', name: product.vendor %}</p>
       {% endif %}
       <h1 class="product-page__title">{% render 'tanween', text: product.title %}</h1>
 

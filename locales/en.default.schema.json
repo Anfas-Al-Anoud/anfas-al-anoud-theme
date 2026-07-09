@@ -58,7 +58,11 @@
     "show_payment_icons": "Show payment icons",
     "arabic_font": "Arabic font",
     "text_style": "Text style",
-    "text": "Text"
+    "text": "Text",
+    "heading": "Heading",
+    "subheading": "Subheading",
+    "button_label": "Button label",
+    "product": "Product"
   },
   "options": {
     "alignment": {
@@ -97,12 +101,20 @@
     "cart": {
       "name": "Cart",
       "free_shipping_threshold": "Free shipping threshold (AED)",
-      "show_free_shipping_bar": "Show free shipping bar"
+      "show_free_shipping_bar": "Show free shipping bar",
+      "enable_cart_note": "Enable cart note",
+      "enable_gift_message": "Enable gift message"
     },
     "product": {
       "name": "Product",
       "low_stock_threshold": "Low stock threshold",
       "low_stock_info": "Shows an \"Only X left\" urgency notice when the remaining quantity is at or below this number."
+    },
+    "header": {
+      "name": "Header",
+      "promo_enabled": "Show promo pill in header",
+      "promo_text": "Promo pill text",
+      "promo_link": "Promo pill link"
     },
     "social": {
       "name": "Social media"
@@ -116,7 +128,12 @@
     "hero_banner": { "name": "Hero banner" },
     "category_icons": { "name": "Category icons" },
     "mood_cards": { "name": "Mood cards" },
-    "featured_collection": { "name": "Featured collection" },
+    "featured_collection": {
+      "name": "Featured collection",
+      "enable_countdown": "Show offer countdown",
+      "countdown_end": "Countdown end date",
+      "countdown_end_info": "Use ISO format, e.g. 2026-12-31T23:59"
+    },
     "image_with_text": { "name": "Image with text" },
     "testimonials": { "name": "Testimonials" },
     "quality_banner": { "name": "Quality banner" },
@@ -124,6 +141,15 @@
     "trust_features": { "name": "Trust features" },
     "ai_quiz": { "name": "AI quiz assistant" },
     "link_hub": { "name": "Link hub" },
-    "cart_drawer": { "name": "Cart drawer" }
+    "cart_drawer": { "name": "Cart drawer" },
+    "product_bundle": {
+      "name": "Product bundle",
+      "product_block": "Product"
+    },
+    "newsletter_signup": {
+      "name": "Newsletter signup",
+      "email_label": "Email label",
+      "email_placeholder": "Email placeholder"
+    }
   }
 }

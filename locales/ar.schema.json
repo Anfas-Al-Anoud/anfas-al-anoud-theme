@@ -58,7 +58,11 @@
     "show_payment_icons": "عرض أيقونات الدفع",
     "arabic_font": "خط عربي",
     "text_style": "نمط النص",
-    "text": "نص"
+    "text": "نص",
+    "heading": "العنوان",
+    "subheading": "النص الفرعي",
+    "button_label": "نص الزر",
+    "product": "المنتج"
   },
   "options": {
     "alignment": {
@@ -97,12 +101,20 @@
     "cart": {
       "name": "السلة",
       "free_shipping_threshold": "حد الشحن المجاني (درهم)",
-      "show_free_shipping_bar": "عرض شريط الشحن المجاني"
+      "show_free_shipping_bar": "عرض شريط الشحن المجاني",
+      "enable_cart_note": "تفعيل ملاحظة السلة",
+      "enable_gift_message": "تفعيل رسالة الهدية"
     },
     "product": {
       "name": "المنتج",
       "low_stock_threshold": "حد تنبيه قرب النفاد",
       "low_stock_info": "يظهر تنبيه \"باقٍ ٪ قطع\" لما تكون الكمية المتبقية أقل من أو تساوي هذا الرقم."
+    },
+    "header": {
+      "name": "الرأس",
+      "promo_enabled": "عرض زر العروض في الرأس",
+      "promo_text": "نص زر العروض",
+      "promo_link": "رابط زر العروض"
     },
     "social": {
       "name": "وسائل التواصل"
@@ -116,7 +128,12 @@
     "hero_banner": { "name": "بانر رئيسي" },
     "category_icons": { "name": "الفئات الرئيسية" },
     "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
-    "featured_collection": { "name": "منتجات مميزة" },
+    "featured_collection": {
+      "name": "منتجات مميزة",
+      "enable_countdown": "عرض عداد العروض",
+      "countdown_end": "تاريخ انتهاء العرض",
+      "countdown_end_info": "استخدمي صيغة ISO مثل 2026-12-31T23:59"
+    },
     "image_with_text": { "name": "صورة مع نص" },
     "testimonials": { "name": "آراء العملاء" },
     "quality_banner": { "name": "بانر الجودة" },
@@ -124,6 +141,15 @@
     "trust_features": { "name": "مميزات الثقة" },
     "ai_quiz": { "name": "مساعد العنود" },
     "link_hub": { "name": "روابط التواصل" },
-    "cart_drawer": { "name": "درج السلة" }
+    "cart_drawer": { "name": "درج السلة" },
+    "product_bundle": {
+      "name": "باقة منتجات",
+      "product_block": "منتج"
+    },
+    "newsletter_signup": {
+      "name": "النشرة البريدية",
+      "email_label": "تسمية البريد",
+      "email_placeholder": "نص الحقل التوضيحي"
+    }
   }
 }

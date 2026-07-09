@@ -32,7 +32,7 @@
 
   <div class="quickview__info">
     {% if product.vendor != blank %}
-      <p class="quickview__vendor">{{ product.vendor }}</p>
+      <p class="quickview__vendor">{% render 'brand-name', name: product.vendor %}</p>
     {% endif %}
     <h2 class="quickview__title">{% render 'tanween', text: product.title %}</h2>
 

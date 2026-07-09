@@ -1,4 +1,5 @@
 <header class="site-header full-width" data-header>
+  {% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
   <div class="site-header__inner">
     <button class="site-header__menu-toggle" type="button" aria-label="{{ 'general.accessibility.menu' | t }}" aria-expanded="false" aria-controls="MobileNav" data-menu-toggle>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -15,14 +16,14 @@
           settings.logo
           | image_url: width: logo_render_width
           | image_tag:
-            alt: shop.name,
+            alt: brand_display,
             width: settings.logo_width,
             loading: 'eager'
         }}
       {% else %}
         <img
           src="{{ 'anfas-alanoud-logo.png' | asset_url }}"
-          alt="{{ shop.name | escape }}"
+          alt="{{ brand_display | escape }}"
           width="{{ settings.logo_width }}"
           height="{{ settings.logo_width }}"
           loading="eager"
@@ -45,14 +46,14 @@
           <a href="{{ link.url }}" class="site-header__nav-link">{% render 'tanween', text: link.title %}</a>
         {%- endif -%}
       {% endfor %}
+    </nav>
+
+    <div class="site-header__actions">
       {%- if settings.nav_promo_enabled and settings.nav_promo_text != blank -%}
         <a href="{{ settings.nav_promo_link | default: '/collections/offers' }}" class="site-header__promo">
           {% render 'tanween', text: settings.nav_promo_text %}
         </a>
       {%- endif -%}
-    </nav>
-
-    <div class="site-header__actions">
       <form action="{{ routes.search_url }}" method="get" class="site-header__search" role="search" data-predictive-search>
         <input
           type="search"
@@ -266,14 +267,25 @@
       display: flex;
       position: static;
       flex-direction: row;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       padding: 0;
-      gap: 1.25rem;
+      gap: 0.65rem;
       align-items: center;
+      min-width: 0;
     }
-    .site-header__search { display: block; }
-    .site-header__nav-group { position: relative; }
+    .site-header__nav-link,
+    .site-header__nav-parent {
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 0;
+      font-size: 0.84rem;
+    }
+    .site-header__nav-group {
+      position: relative;
+      flex-direction: row;
+      flex-shrink: 0;
+    }
     .site-header__nav-group:hover .site-header__nav-children,
     .site-header__nav-group:focus-within .site-header__nav-children {
       display: flex;
@@ -292,6 +304,17 @@
       z-index: 120;
     }
     .site-header__nav-parent { cursor: default; }
+    .site-header__search { display: block; }
+    .site-header__search input { min-width: 9.5rem; }
+    .site-header__promo {
+      flex-shrink: 0;
+      white-space: nowrap;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.78rem;
+    }
+  }
+  @media (max-width: 767px) {
+    .site-header__promo { display: none; }
   }
 {% endstylesheet %}
 

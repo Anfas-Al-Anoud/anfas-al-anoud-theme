@@ -1,0 +1,18 @@
+{% doc %}
+  Outputs the storefront brand display name in Arabic.
+
+  @param {string} [name] - Optional vendor or shop name to normalize
+{% enddoc %}
+
+{%- liquid
+  assign brand_display = 'general.brand_name' | t
+  if name != blank
+    assign check = name | downcase | strip
+    if check == 'al-anoud' or check == 'anfas al-anoud'
+      assign brand_display = 'general.brand_name' | t
+    else
+      assign brand_display = name
+    endif
+  endif
+-%}
+{{- brand_display -}}

@@ -1,4 +1,5 @@
 {% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
+{% assign brand_display = brand_display | strip %}
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -125,7 +126,8 @@
   {{ seo_title }}
   {%- if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} {{ current_tags | join: ', ' }}{% endif -%}
   {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
-  {%- unless seo_title contains brand_display %} &ndash; {{ brand_display }}{% endunless -%}
+  {%- assign seo_title_check = seo_title | strip -%}
+  {%- unless seo_title_check contains brand_display %} &ndash; {{ brand_display }}{% endunless -%}
 </title>
 
 {% render 'schema-breadcrumbs' %}

@@ -3,6 +3,7 @@
 {% enddoc %}
 
 {% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
+{% assign brand_display = brand_display | strip %}
 
 {%- if request.page_type == 'product' -%}
   <script type="application/ld+json">

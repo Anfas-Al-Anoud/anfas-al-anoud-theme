@@ -175,52 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCarousels();
 
-  // #region agent log
-  const logHeaderLayout = (runId = 'pre-fix') => {
-    if (window.innerWidth < 768) return;
-    const nav = document.querySelector('.site-header__nav');
-    const promo = document.querySelector('.site-header__promo');
-    const actions = document.querySelector('.site-header__actions');
-    const crumb = document.querySelector('.breadcrumbs__link');
-    const vendor = document.querySelector('.product-page__vendor');
-    const rowTops = nav
-      ? [...nav.children].map((el) => Math.round(el.getBoundingClientRect().top))
-      : [];
-    const payload = {
-      sessionId: '489563',
-      runId,
-      hypothesisId: 'H1-H4',
-      location: 'theme.js:header-debug',
-      message: 'Header layout and brand diagnostics',
-      data: {
-        themeVersion: document.body?.dataset?.themeVersion || 'unknown',
-        viewportWidth: window.innerWidth,
-        promoInActions: !!(actions && promo && actions.contains(promo)),
-        promoInNav: !!(nav && promo && nav.contains(promo)),
-        navChildCount: nav?.children?.length ?? 0,
-        navRowCount: [...new Set(rowTops)].length,
-        navWraps: [...new Set(rowTops)].length > 1,
-        breadcrumbText: crumb?.textContent?.trim() || null,
-        vendorText: vendor?.textContent?.trim() || null,
-        documentTitle: document.title
-      },
-      timestamp: Date.now()
-    };
-    fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
-      body: JSON.stringify(payload)
-    }).catch(() => {});
-  };
-  logHeaderLayout('post-fix');
-  let headerDbgTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(headerDbgTimer);
-    headerDbgTimer = setTimeout(() => logHeaderLayout('post-fix'), 300);
-  });
-  // #endregion
-
-    document.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
     const qa = e.target.closest('[data-quick-add]');
     if (!qa) return;
     e.preventDefault();

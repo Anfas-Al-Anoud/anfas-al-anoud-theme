@@ -46,14 +46,14 @@
           <a href="{{ link.url }}" class="site-header__nav-link">{% render 'tanween', text: link.title %}</a>
         {%- endif -%}
       {% endfor %}
-    </nav>
-
-    <div class="site-header__actions">
       {%- if settings.nav_promo_enabled and settings.nav_promo_text != blank -%}
         <a href="{{ settings.nav_promo_link | default: '/collections/offers' }}" class="site-header__promo">
           {% render 'tanween', text: settings.nav_promo_text %}
         </a>
       {%- endif -%}
+    </nav>
+
+    <div class="site-header__actions">
       <form action="{{ routes.search_url }}" method="get" class="site-header__search" role="search" data-predictive-search>
         <input
           type="search"

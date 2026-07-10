@@ -23,49 +23,55 @@
     },
     "categories": {
       "type": "category-icons",
-      "settings": {
-        "heading": "اختاري فئتج المفضلة",
-        "subheading": ""
-      },
       "blocks": {
         "cat1": {
           "type": "category",
           "settings": {
-            "title": "دخون السنع",
-            "icon_alt": "أيقونة دخون السنع",
             "icon_asset": "category-dokhoon-san3.png",
+            "icon_alt": "أيقونة دخون السنع",
+            "title": "دخون السنع",
             "link": "/collections/dokhoon-al-san3"
           }
         },
         "cat2": {
           "type": "category",
           "settings": {
-            "title": "عطور الكشخة",
-            "icon_alt": "أيقونة عطور الكشخة",
             "icon_asset": "category-perfumes.png",
+            "icon_alt": "أيقونة عطور الكشخة",
+            "title": "عطور الكشخة",
             "link": "/collections/perfumes"
           }
         },
         "cat3": {
           "type": "category",
           "settings": {
-            "title": "دلع وعناية",
-            "icon_alt": "أيقونة دلع وعناية",
             "icon_asset": "category-care.png",
+            "icon_alt": "أيقونة دلع وعناية",
+            "title": "دلع وعناية",
             "link": "/collections/care"
           }
         },
         "cat4": {
           "type": "category",
           "settings": {
-            "title": "بوكسات الزين",
-            "icon_alt": "أيقونة بوكسات الزين",
             "icon_asset": "category-gift-boxes.png",
+            "icon_alt": "أيقونة بوكسات الزين",
+            "title": "بوكسات الزين",
             "link": "/collections/gift-boxes"
           }
         }
       },
-      "block_order": ["cat1", "cat2", "cat3", "cat4"]
+      "block_order": [
+        "cat1",
+        "cat2",
+        "cat3",
+        "cat4"
+      ],
+      "settings": {
+        "heading": "اختاري فئتج المفضلة",
+        "subheading": "",
+        "show_view_all": true
+      }
     },
     "featured_new": {
       "type": "featured-collection",
@@ -81,62 +87,68 @@
     },
     "mood": {
       "type": "mood-cards",
-      "settings": {
-        "heading": "اختاري اللي يلوق على جوج"
-      },
       "blocks": {
         "m1": {
           "type": "mood",
           "settings": {
+            "image_asset": "mood-work.png",
+            "image_alt": "بطاقة حق الدوام والطلعات",
             "title": "حق الدوام والطلعات",
             "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم.",
-            "image_alt": "بطاقة حق الدوام والطلعات",
-            "image_asset": "mood-work.png",
             "link": "/collections/anoud-vibe-daily"
           }
         },
         "m2": {
           "type": "mood",
           "settings": {
+            "image_asset": "mood-shower.png",
+            "image_alt": "بطاقة الدلع والشاور",
             "title": "الدلع والشاور",
             "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج.",
-            "image_alt": "بطاقة الدلع والشاور",
-            "image_asset": "mood-shower.png",
             "link": "/collections/anoud-vibe-shower"
           }
         },
         "m3": {
           "type": "mood",
           "settings": {
+            "image_asset": "mood-majlis.png",
+            "image_alt": "بطاقة فخامة الميلس والمواجيب",
             "title": "فخامة الميلس والمواجيب",
             "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح.",
-            "image_alt": "بطاقة فخامة الميلس والمواجيب",
-            "image_asset": "mood-majlis.png",
             "link": "/collections/anoud-vibe-majlis"
           }
         },
         "m4": {
           "type": "mood",
           "settings": {
+            "image_asset": "mood-evening.png",
+            "image_alt": "بطاقة للسهرات والعزايم",
             "title": "للسهرات والعزايم",
             "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟",
-            "image_alt": "بطاقة للسهرات والعزايم",
-            "image_asset": "mood-evening.png",
             "link": "/collections/anoud-vibe-evening"
           }
         },
         "m5": {
           "type": "mood",
           "settings": {
+            "image_asset": "mood-bride.png",
+            "image_alt": "بطاقة زهبة العروس",
             "title": "زْهبة العروس",
             "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال.",
-            "image_alt": "بطاقة زهبة العروس",
-            "image_asset": "mood-bride.png",
             "link": "/collections/anoud-vibe-bride"
           }
         }
       },
-      "block_order": ["m1", "m2", "m3", "m4", "m5"]
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ],
+      "settings": {
+        "heading": "اختاري اللي يلوق على جوج"
+      }
     },
     "bestsellers": {
       "type": "featured-collection",
@@ -145,25 +157,18 @@
         "subheading": "هذي أكثر المنتجات اللي حبوها البنات ورجعوا طلبوها مرة ثانية.. جربيها وما بتندمين.",
         "collection": "best-sellers",
         "products_to_show": 8,
-        "show_view_all": true
+        "show_view_all": true,
+        "enable_countdown": false,
+        "countdown_end": ""
       }
     },
     "spotlight": {
       "type": "featured-product-spotlight",
       "settings": {
+        "product": "",
         "heading": "",
         "subheading": "عرض حصري لفترة محدودة — لا تفوتيه.",
         "badge": "عرض محدود"
-      }
-    },
-    "featured_boxes": {
-      "type": "featured-collection",
-      "settings": {
-        "heading": "بوكسات الزين",
-        "subheading": "هدايا تبيّض الويه وتفرح القلب — اختاري ونوصّلها لمن يعزّ عليج.",
-        "collection": "gift-boxes",
-        "products_to_show": 8,
-        "show_view_all": true
       }
     },
     "gifts": {
@@ -179,10 +184,23 @@
     },
     "gift_bundle": {
       "type": "product-bundle",
+      "disabled": true,
       "settings": {
         "heading": "باقة بوكس الزين",
         "subheading": "اختاري منتجات الباقة وأضيفيها للسلة دفعة واحدة — هدية جاهزة من العنود.",
         "button_label": "أضيفي الباقة"
+      }
+    },
+    "featured_boxes": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "بوكسات الزين",
+        "subheading": "هدايا تبيّض الويه وتفرح القلب — اختاري ونوصّلها لمن يعزّ عليج.",
+        "collection": "gift-boxes",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "enable_countdown": false,
+        "countdown_end": ""
       }
     },
     "recently": {
@@ -196,6 +214,7 @@
       "settings": {
         "heading": "شو قالوا عنا الحبايب؟",
         "subheading": "تصفحي سوالف وتجارب البنات اللي وثقوا فينا.",
+        "image_alt": "رأي عميلة من متجر أنفاس العنود",
         "review_pool": 181,
         "visible_count": 10
       }
@@ -212,52 +231,176 @@
     },
     "faq": {
       "type": "faq-accordion",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "شو نوع الدخون اللي عندج؟",
+            "answer": "<p>عندنا دخون إماراتي فاخر بخلطات أصلية ومكونات طبيعية.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "ايش هي طرق الدفع المتوفرة عندج؟",
+            "answer": "<p>بطاقات، Apple Pay، تابي، وتمارا.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "كم حبة دخون في الغرشة؟",
+            "answer": "<p>تختلف حسب المنتج، التفاصيل موجودة في صفحة كل منتج.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "كيف أطلب؟",
+            "answer": "<p>اختاري المنتج، أضيفيه للسلة، وكمّلي الدفع.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "اقدر أدفع بتابي أو تمارا؟",
+            "answer": "<p>نعم، متوفرين في صفحة الدفع.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "وين توصلين؟",
+            "answer": "<p>نوصل لكل الإمارات، وخارج الإمارات حسب التوفر.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq",
+          "settings": {
+            "question": "ايش هي العروض اللي عاملتيها؟",
+            "answer": "<p>تابعينا على السوشيال أو اشتركي بالنشرة للعروض.</p>"
+          }
+        },
+        "q8": {
+          "type": "faq",
+          "settings": {
+            "question": "هل في شحن لخارج الإمارات؟",
+            "answer": "<p>نعم، حسب الدولة والوزن.</p>"
+          }
+        },
+        "q9": {
+          "type": "faq",
+          "settings": {
+            "question": "ايش أسوي لو المنتج لو ما عيبني؟",
+            "answer": "<p>تقدرين ترجعينه خلال 3 أيام حسب سياسة الإرجاع.</p>"
+          }
+        },
+        "q10": {
+          "type": "faq",
+          "settings": {
+            "question": "هل الروائح عندج مناسبة للنساء والرجال؟",
+            "answer": "<p>نعم، عندنا روائح تناسب الجميع.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10"
+      ],
       "settings": {
         "heading": "في خاطرج سؤال؟ أنا حاضرة عشانج",
         "initial_visible_count": 2
-      },
-      "blocks": {
-        "q1": { "type": "faq", "settings": { "question": "شو نوع الدخون اللي عندج؟", "answer": "<p>عندنا دخون إماراتي فاخر بخلطات أصلية ومكونات طبيعية.</p>" } },
-        "q2": { "type": "faq", "settings": { "question": "ايش هي طرق الدفع المتوفرة عندج؟", "answer": "<p>بطاقات، Apple Pay، تابي، وتمارا.</p>" } },
-        "q3": { "type": "faq", "settings": { "question": "كم حبة دخون في الغرشة؟", "answer": "<p>تختلف حسب المنتج، التفاصيل موجودة في صفحة كل منتج.</p>" } },
-        "q4": { "type": "faq", "settings": { "question": "كيف أطلب؟", "answer": "<p>اختاري المنتج، أضيفيه للسلة، وكمّلي الدفع.</p>" } },
-        "q5": { "type": "faq", "settings": { "question": "اقدر أدفع بتابي أو تمارا؟", "answer": "<p>نعم، متوفرين في صفحة الدفع.</p>" } },
-        "q6": { "type": "faq", "settings": { "question": "وين توصلين؟", "answer": "<p>نوصل لكل الإمارات، وخارج الإمارات حسب التوفر.</p>" } },
-        "q7": { "type": "faq", "settings": { "question": "ايش هي العروض اللي عاملتيها؟", "answer": "<p>تابعينا على السوشيال أو اشتركي بالنشرة للعروض.</p>" } },
-        "q8": { "type": "faq", "settings": { "question": "هل في شحن لخارج الإمارات؟", "answer": "<p>نعم، حسب الدولة والوزن.</p>" } },
-        "q9": { "type": "faq", "settings": { "question": "ايش أسوي لو المنتج لو ما عيبني؟", "answer": "<p>تقدرين ترجعينه خلال 3 أيام حسب سياسة الإرجاع.</p>" } },
-        "q10": { "type": "faq", "settings": { "question": "هل الروائح عندج مناسبة للنساء والرجال؟", "answer": "<p>نعم، عندنا روائح تناسب الجميع.</p>" } }
-      },
-      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"]
+      }
     },
     "newsletter": {
       "type": "newsletter-signup",
       "settings": {
         "heading": "خلينا على تواصل",
         "text": "سجّلي إيميلج وكوني أول وحدة تعرفين العروض الحلوة ونصايح العنود للسنع.",
+        "email_label": "البريد الإلكتروني",
         "email_placeholder": "حطي إيميلج هنيه",
         "button_label": "اشتركي"
       }
     },
     "trust": {
       "type": "trust-features",
-      "settings": {},
       "blocks": {
-        "f1": { "type": "feature", "settings": { "icon": "delivery", "label": "توصيل سريع", "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت." } },
-        "f2": { "type": "feature", "settings": { "icon": "payment", "label": "دفع آمن", "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة." } },
-        "f3": { "type": "feature", "settings": { "icon": "quality", "label": "جودة أصلية", "text": "جودة تبيّض الويه: منتجاتي أصلية 100%." } },
-        "f4": { "type": "feature", "settings": { "icon": "support", "label": "دعم مباشر", "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج." } }
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "delivery",
+            "label": "توصيل سريع",
+            "text": "لحد باب دارج: وين ما كنتي في الإمارات، طلبج يوصل بأسرع وقت."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "payment",
+            "label": "دفع آمن",
+            "text": "دفعج بأمان وراحة: طرق دفع متعددة ومضمونة."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "quality",
+            "label": "جودة أصلية",
+            "text": "جودة تبيّض الويه: منتجاتي أصلية 100%."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "support",
+            "label": "دعم مباشر",
+            "text": "حاضرة للطيبين: دايمًا موجودة عشان أخدمج."
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3", "f4"]
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {}
     },
     "quiz": {
       "type": "ai-quiz",
       "settings": {
         "avatar_asset": "anoud-avatar.png",
-        "avatar_alt": "صورة العنود للمساعدة"
+        "avatar_alt": "صورة العنود للمساعدة",
+        "collection": "",
+        "heading": "سولفي وياي",
+        "subheading": "محتارة شو اللي يلوق على شخصيتج؟ أنا هنيه عشان أساعدج تختارين صح."
       }
     }
   },
-  "order": ["hero", "categories", "featured_new", "mood", "bestsellers", "spotlight", "gifts", "gift_bundle", "featured_boxes", "recently", "testimonials", "quality", "faq", "newsletter", "trust", "quiz"]
+  "order": [
+    "hero",
+    "categories",
+    "featured_new",
+    "mood",
+    "bestsellers",
+    "spotlight",
+    "gifts",
+    "gift_bundle",
+    "featured_boxes",
+    "recently",
+    "testimonials",
+    "quality",
+    "faq",
+    "newsletter",
+    "trust",
+    "quiz"
+  ]
 }
-

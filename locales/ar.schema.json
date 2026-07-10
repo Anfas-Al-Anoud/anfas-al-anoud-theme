@@ -134,6 +134,7 @@
       "countdown_end": "تاريخ انتهاء العرض",
       "countdown_end_info": "استخدمي صيغة ISO مثل 2026-12-31T23:59"
     },
+    "featured_product_spotlight": { "name": "منتج مميز بارز" },
     "image_with_text": { "name": "صورة مع نص" },
     "testimonials": { "name": "آراء العملاء" },
     "quality_banner": { "name": "بانر الجودة" },

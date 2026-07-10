@@ -134,6 +134,7 @@
       "countdown_end": "Countdown end date",
       "countdown_end_info": "Use ISO format, e.g. 2026-12-31T23:59"
     },
+    "featured_product_spotlight": { "name": "Featured product spotlight" },
     "image_with_text": { "name": "Image with text" },
     "testimonials": { "name": "Testimonials" },
     "quality_banner": { "name": "Quality banner" },

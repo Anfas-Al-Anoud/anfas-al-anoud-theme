@@ -35,6 +35,15 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
+
+  assign seo_title = seo_title | strip
+  assign append_brand_suffix = true
+  if request.page_type == 'index'
+    assign append_brand_suffix = false
+  endif
+  if seo_title contains brand_display
+    assign append_brand_suffix = false
+  endif
 %}
 
 <meta
@@ -122,13 +131,7 @@
   content="{{ og_description | escape }}"
 >
 
-<title>
-  {{ seo_title }}
-  {%- if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} {{ current_tags | join: ', ' }}{% endif -%}
-  {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
-  {%- assign seo_title_check = seo_title | strip -%}
-  {%- unless seo_title_check contains brand_display %} &ndash; {{ brand_display }}{% endunless -%}
-</title>
+<title>{{ seo_title }}{%- if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} {{ current_tags | join: ', ' }}{% endif -%}{%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}{%- if append_brand_suffix %} &ndash; {{ brand_display }}{% endif -%}</title>
 
 {% render 'schema-breadcrumbs' %}
 

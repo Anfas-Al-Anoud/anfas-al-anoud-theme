@@ -286,8 +286,20 @@
       "availability": "Availability",
       "price": "Price",
       "product_type": "Product type",
+      "all_types": "All types",
       "in_stock": "In stock",
-      "out_of_stock": "Out of stock"
+      "out_of_stock": "Out of stock",
+      "types": {
+        "bakhoor": "Bakhoor",
+        "perfume": "Perfume",
+        "spray": "Spray",
+        "body_oil": "Body oil",
+        "bundle": "Gift sets",
+        "shampoo": "Shampoo",
+        "shower": "Shower gel",
+        "lotion": "Lotion",
+        "care": "Care"
+      }
     }
   },
   "gift_card": {

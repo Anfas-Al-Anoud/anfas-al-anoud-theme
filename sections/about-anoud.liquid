@@ -19,8 +19,8 @@
           class="about-anoud__hero-img"
           src="{{ section.settings.hero_asset | asset_url }}"
           alt="{{ section.settings.hero_image_alt | escape }}"
-          width="1000"
-          height="560"
+          width="1080"
+          height="1080"
           loading="eager"
         >
       {% else %}
@@ -93,8 +93,9 @@
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
+    object-position: center;
   }
 
   .about-anoud__hero-placeholder {

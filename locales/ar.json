@@ -281,8 +281,20 @@
       "availability": "التوفّر",
       "price": "السعر",
       "product_type": "نوع المنتج",
+      "all_types": "كل الأنواع",
       "in_stock": "متوفّر",
-      "out_of_stock": "خلص من عندنا"
+      "out_of_stock": "خلص من عندنا",
+      "types": {
+        "bakhoor": "دخون",
+        "perfume": "عطور",
+        "spray": "مرشات",
+        "body_oil": "بدي أويل",
+        "bundle": "بوكسات ومجموعات",
+        "shampoo": "شامبو",
+        "shower": "شاور جل",
+        "lotion": "لوشن",
+        "care": "عناية"
+      }
     }
   },
   "gift_card": {

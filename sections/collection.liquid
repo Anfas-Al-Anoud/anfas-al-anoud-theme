@@ -14,61 +14,137 @@
 
   {% paginate collection.products by section.settings.products_per_page %}
     <div class="collection-page__layout">
-      {% if collection.filters.size > 0 and section.settings.show_filters %}
+      {%- liquid
+        assign show_type_filter = false
+        if section.settings.show_filters and collection.all_types.size > 0
+          assign show_type_filter = true
+        endif
+        assign has_store_filters = false
+        if section.settings.show_filters and collection.filters.size > 0
+          for filter in collection.filters
+            if filter.type == 'price_range'
+              continue
+            endif
+            assign fl = filter.label | downcase
+            if fl == 'product type' or fl == 'type' or filter.label == 'نوع المنتج' or filter.label == 'النوع' or filter.label == 'التصنيف'
+              continue
+            endif
+            assign has_store_filters = true
+          endfor
+        endif
+      -%}
+      {% if show_type_filter or has_store_filters %}
         <details class="collection-filters">
           <summary class="collection-filters__toggle">
             {% render 'icon-inline', name: 'filter' %} {{ 'collections.filter' | t }}
           </summary>
-          <form class="collection-filters__form">
-            {% for filter in collection.filters %}
-              {%- if filter.type == 'price_range' -%}
-                {%- continue -%}
-              {%- endif -%}
-              {%- liquid
-                assign filter_label = filter.label
-                assign filter_label_down = filter.label | downcase
-                if filter.label == 'Availability' or filter_label_down == 'availability'
-                  assign filter_label = 'collections.filters.availability' | t
-                elsif filter.label == 'Product type' or filter.label == 'Type' or filter_label_down == 'product type' or filter_label_down == 'type' or filter.label == 'نوع المنتج' or filter.label == 'النوع' or filter.label == 'التصنيف'
-                  assign filter_label = 'collections.filters.product_type' | t
-                endif
-              -%}
+          <div class="collection-filters__form">
+            {% if show_type_filter %}
               <div class="collection-filters__group">
-                <p class="collection-filters__group-title">{{ filter_label }}</p>
-                {% case filter.type %}
-                  {% when 'list', 'boolean' %}
-                    <ul class="collection-filters__list">
-                      {% for value in filter.values %}
-                        {%- liquid
-                          assign value_label = value.label
-                          case value.label
-                            when 'In stock'
-                              assign value_label = 'collections.filters.in_stock' | t
-                            when 'Out of stock'
-                              assign value_label = 'collections.filters.out_of_stock' | t
-                          endcase
-                        -%}
-                        <li>
-                          <label class="collection-filters__option {% if value.count == 0 and value.active == false %}is-disabled{% endif %}">
-                            <input
-                              type="checkbox"
-                              name="{{ value.param_name }}"
-                              value="{{ value.value }}"
-                              {% if value.active %}checked{% endif %}
-                            >
-                            <span>{{ value_label }} ({{ value.count }})</span>
-                          </label>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                {% endcase %}
+                <p class="collection-filters__group-title">{{ 'collections.filters.product_type' | t }}</p>
+                <ul class="collection-filters__list collection-filters__list--types">
+                  <li>
+                    <a
+                      href="{{ collection.url }}"
+                      class="collection-filters__type-link{% if collection.current_type == blank %} is-active{% endif %}"
+                    >
+                      {{ 'collections.filters.all_types' | t }}
+                    </a>
+                  </li>
+                  {% for product_type in collection.all_types %}
+                    {%- if product_type == blank -%}{%- continue -%}{%- endif -%}
+                    {%- liquid
+                      assign type_key = product_type | downcase | strip
+                      assign type_label = product_type
+                      case type_key
+                        when 'bakhoor'
+                          assign type_label = 'collections.filters.types.bakhoor' | t
+                        when 'perfume'
+                          assign type_label = 'collections.filters.types.perfume' | t
+                        when 'spray'
+                          assign type_label = 'collections.filters.types.spray' | t
+                        when 'body-oil', 'body oil'
+                          assign type_label = 'collections.filters.types.body_oil' | t
+                        when 'bundle'
+                          assign type_label = 'collections.filters.types.bundle' | t
+                        when 'care-shampoo'
+                          assign type_label = 'collections.filters.types.shampoo' | t
+                        when 'care-shower'
+                          assign type_label = 'collections.filters.types.shower' | t
+                        when 'care-lotion'
+                          assign type_label = 'collections.filters.types.lotion' | t
+                        when 'care'
+                          assign type_label = 'collections.filters.types.care' | t
+                      endcase
+                    -%}
+                    <li>
+                      <a
+                        href="{{ collection.url }}/{{ product_type | handleize }}"
+                        class="collection-filters__type-link{% if collection.current_type == product_type %} is-active{% endif %}"
+                      >
+                        {{ type_label }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
-            {% endfor %}
-            <div class="collection-filters__actions">
-              <button type="submit" class="btn">{{ 'collections.apply' | t }}</button>
-              <a href="{{ collection.url }}" class="collection-filters__clear">{{ 'collections.clear' | t }}</a>
-            </div>
-          </form>
+            {% endif %}
+
+            {% if has_store_filters %}
+              <form class="collection-filters__store-form" method="get">
+                {% for filter in collection.filters %}
+                  {%- if filter.type == 'price_range' -%}{%- continue -%}{%- endif -%}
+                  {%- liquid
+                    assign filter_label = filter.label
+                    assign filter_label_down = filter.label | downcase
+                    if filter.label == 'Availability' or filter_label_down == 'availability'
+                      assign filter_label = 'collections.filters.availability' | t
+                    elsif filter_label_down == 'product type' or filter_label_down == 'type' or filter.label == 'نوع المنتج' or filter.label == 'النوع' or filter.label == 'التصنيف'
+                      continue
+                    endif
+                  -%}
+                  <div class="collection-filters__group">
+                    <p class="collection-filters__group-title">{{ filter_label }}</p>
+                    {% case filter.type %}
+                      {% when 'list', 'boolean' %}
+                        <ul class="collection-filters__list">
+                          {% for value in filter.values %}
+                            {%- liquid
+                              assign value_label = value.label
+                              case value.label
+                                when 'In stock'
+                                  assign value_label = 'collections.filters.in_stock' | t
+                                when 'Out of stock'
+                                  assign value_label = 'collections.filters.out_of_stock' | t
+                              endcase
+                            -%}
+                            <li>
+                              <label class="collection-filters__option {% if value.count == 0 and value.active == false %}is-disabled{% endif %}">
+                                <input
+                                  type="checkbox"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value }}"
+                                  {% if value.active %}checked{% endif %}
+                                >
+                                <span>{{ value_label }} ({{ value.count }})</span>
+                              </label>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                    {% endcase %}
+                  </div>
+                {% endfor %}
+                <div class="collection-filters__actions">
+                  <button type="submit" class="btn">{{ 'collections.apply' | t }}</button>
+                  <a href="{{ collection.url }}" class="collection-filters__clear">{{ 'collections.clear' | t }}</a>
+                </div>
+              </form>
+            {% elsif show_type_filter and collection.current_type != blank %}
+              <div class="collection-filters__actions">
+                <a href="{{ collection.url }}" class="collection-filters__clear">{{ 'collections.clear' | t }}</a>
+              </div>
+            {% endif %}
+          </div>
         </details>
       {% endif %}
 
@@ -155,10 +231,29 @@
   .collection-filters__group { margin-block-start: 1rem; }
   .collection-filters__group-title { font-weight: 600; margin-block-end: 0.5rem; }
   .collection-filters__list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; max-height: 14rem; overflow-y: auto; }
+  .collection-filters__list--types { max-height: none; }
+  .collection-filters__type-link {
+    display: block;
+    padding: 0.45rem 0.7rem;
+    border-radius: var(--style-border-radius-inputs);
+    border: 1px solid var(--color-sand);
+    text-decoration: none;
+    color: var(--color-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: border-color var(--transition-base), background var(--transition-base), color var(--transition-base);
+  }
+  .collection-filters__type-link:hover {
+    border-color: var(--color-gold);
+    background: var(--color-cream);
+  }
+  .collection-filters__type-link.is-active {
+    border-color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 10%, var(--color-white));
+    color: var(--color-primary);
+  }
   .collection-filters__option { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
   .collection-filters__option.is-disabled { opacity: 0.45; }
-  .collection-filters__price { display: flex; gap: 0.5rem; }
-  .collection-filters__price input { width: 100%; padding: 0.5rem; border: 1px solid var(--color-sand); border-radius: var(--style-border-radius-inputs); }
   .collection-filters__actions { display: flex; align-items: center; gap: 1rem; margin-block-start: 1.25rem; }
   .collection-filters__clear { color: var(--color-accent); text-decoration: none; font-weight: 600; }
   .collection-page__toolbar { display: flex; justify-content: space-between; align-items: center; margin-block-end: 1.5rem; gap: 1rem; }

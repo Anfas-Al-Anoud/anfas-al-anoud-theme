@@ -82,6 +82,7 @@
     }
   },
   "products": {
+    "write_review": "Write a review",
     "quick_add": "Quick add",
     "quick_view": "Quick view",
     "view_details": "Full details",
@@ -284,6 +285,7 @@
     "filters": {
       "availability": "Availability",
       "price": "Price",
+      "product_type": "Product type",
       "in_stock": "In stock",
       "out_of_stock": "Out of stock"
     }

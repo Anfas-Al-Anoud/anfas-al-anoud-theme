@@ -13,7 +13,8 @@
       "type": "about-anoud",
       "settings": {
         "heading": "منو هي العنود؟",
-        "hero_image_alt": "مجلس دافئ - أنفاس العنود",
+        "hero_asset": "about-anoud-hero.png",
+        "hero_image_alt": "العنود - أنفاس العنود",
         "welcome_bubble": "يا هلا بالغالية.. نورتي مكاني!"
       },
       "blocks": {

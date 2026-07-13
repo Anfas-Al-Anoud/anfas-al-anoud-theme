@@ -15,18 +15,22 @@
   {% paginate collection.products by section.settings.products_per_page %}
     <div class="collection-page__layout">
       {% if collection.filters.size > 0 and section.settings.show_filters %}
-        <details class="collection-filters" open>
+        <details class="collection-filters">
           <summary class="collection-filters__toggle">
             {% render 'icon-inline', name: 'filter' %} {{ 'collections.filter' | t }}
           </summary>
           <form class="collection-filters__form">
             {% for filter in collection.filters %}
+              {%- if filter.type == 'price_range' -%}
+                {%- continue -%}
+              {%- endif -%}
               {%- liquid
                 assign filter_label = filter.label
-                if filter.type == 'price_range'
-                  assign filter_label = 'collections.filters.price' | t
-                elsif filter.label == 'Availability'
+                assign filter_label_down = filter.label | downcase
+                if filter.label == 'Availability' or filter_label_down == 'availability'
                   assign filter_label = 'collections.filters.availability' | t
+                elsif filter.label == 'Product type' or filter.label == 'Type' or filter_label_down == 'product type' or filter_label_down == 'type' or filter.label == 'نوع المنتج' or filter.label == 'النوع' or filter.label == 'التصنيف'
+                  assign filter_label = 'collections.filters.product_type' | t
                 endif
               -%}
               <div class="collection-filters__group">
@@ -57,11 +61,6 @@
                         </li>
                       {% endfor %}
                     </ul>
-                  {% when 'price_range' %}
-                    <div class="collection-filters__price">
-                      <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="{{ 'collections.price_from' | t }}" min="0" max="{{ filter.range_max | money_without_currency | round }}">
-                      <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="{{ 'collections.price_to' | t }}" min="0" max="{{ filter.range_max | money_without_currency | round }}">
-                    </div>
                 {% endcase %}
               </div>
             {% endfor %}

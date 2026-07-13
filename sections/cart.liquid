@@ -59,6 +59,7 @@
           <span>{{ cart.total_price | money_without_currency }} {{ 'general.currency' | t }}</span>
         </div>
         <p class="cart-page__note">{{ 'general.cart.tax_note' | t }}</p>
+        {% render 'anoud-heart-note', variant: 'compact' %}
         <button type="submit" name="update" class="btn btn--outline cart-page__update">{{ 'general.cart.update' | t }}</button>
         <button type="submit" name="checkout" class="btn cart-page__checkout">{{ 'general.cart.checkout' | t }}</button>
         <a href="{{ routes.all_products_collection_url }}" class="cart-page__continue">{{ 'general.cart.continue' | t }}</a>

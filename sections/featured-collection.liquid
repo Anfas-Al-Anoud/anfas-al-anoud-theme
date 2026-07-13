@@ -8,13 +8,13 @@
 <section class="featured-collection section-padding" data-animate-section{% if section.settings.enable_countdown and section.settings.countdown_end != blank %} data-offers-countdown data-countdown-end="{{ section.settings.countdown_end }}"{% endif %}>
   <div class="featured-collection__header">
     <div class="featured-collection__titles">
+      <h2 class="section-heading featured-collection__heading">{% render 'tanween', text: section.settings.heading %}</h2>
       {%- if section.settings.enable_countdown and section.settings.countdown_end != blank -%}
         <div class="featured-collection__countdown" data-countdown hidden>
           <span class="featured-collection__countdown-label">{{ 'sections.featured_collection.countdown_label' | t }}</span>
           <div class="featured-collection__countdown-units" data-countdown-units aria-live="polite"></div>
         </div>
       {%- endif -%}
-      <h2 class="section-heading featured-collection__heading">{% render 'tanween', text: section.settings.heading %}</h2>
       {% if section.settings.subheading != blank %}
         <p class="section-subheading featured-collection__subheading">{% render 'tanween', text: section.settings.subheading %}</p>
       {% endif %}
@@ -74,35 +74,45 @@
 
   .featured-collection__countdown {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 0.5rem 0.75rem;
-    margin-block-end: 0.5rem;
+    gap: 0.5rem 0.65rem;
+    margin-block-start: 0.55rem;
+    margin-block-end: 0.35rem;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .featured-collection__countdown::-webkit-scrollbar { display: none; }
   .featured-collection__countdown[hidden] { display: none; }
   .featured-collection__countdown-label {
+    flex-shrink: 0;
     font-size: 0.82rem;
     font-weight: 700;
     color: var(--color-primary);
+    white-space: nowrap;
   }
   .featured-collection__countdown-units {
     display: flex;
-    gap: 0.45rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    flex-shrink: 0;
   }
   .featured-collection__countdown-unit {
-    min-width: 3.25rem;
-    padding: 0.35rem 0.5rem;
+    min-width: 2.85rem;
+    padding: 0.3rem 0.4rem;
     border-radius: 0.65rem;
     background: var(--color-cream);
     border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
     text-align: center;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     line-height: 1.2;
+    white-space: nowrap;
   }
   .featured-collection__countdown-unit strong {
     display: block;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--color-primary);
   }
 

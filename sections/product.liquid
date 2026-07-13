@@ -21,6 +21,16 @@
 
       <div class="product-page__badge">
         {% render 'judge-me-preview-badge' %}
+        {%- if product.metafields.judgeme.badge == blank and product.metafields.reviews.rating.value == blank -%}
+          <a
+            href="#judgeme_product_reviews"
+            class="product-page__write-review"
+            data-write-review
+          >
+            {% render 'rating-stars', rating: 0 %}
+            <span>{{ 'products.write_review' | t }}</span>
+          </a>
+        {%- endif -%}
       </div>
 
       <div class="product-page__price">
@@ -202,6 +212,24 @@
   }
   .product-page__badge .jdgm-preview-badge {
     font-size: 0.9rem;
+  }
+  .product-page__badge .jdgm-prev-badge,
+  .product-page__badge .jdgm-preview-badge {
+    min-height: 1.25rem;
+  }
+  .product-page__write-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .product-page__write-review span {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
   }
   .product-page__price { display: flex; gap: 0.75rem; align-items: baseline; margin-block-end: 1.25rem; font-size: 1.4rem; }
   .product-page__price s { color: #b0a99f; font-size: 1rem; }

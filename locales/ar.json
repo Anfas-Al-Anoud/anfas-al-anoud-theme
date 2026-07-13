@@ -82,6 +82,7 @@
     }
   },
   "products": {
+    "write_review": "اكتبي مراجعة",
     "quick_add": "أضيفي بسرعة",
     "quick_view": "معاينة سريعة",
     "view_details": "التفاصيل الكاملة",
@@ -279,6 +280,7 @@
     "filters": {
       "availability": "التوفّر",
       "price": "السعر",
+      "product_type": "نوع المنتج",
       "in_stock": "متوفّر",
       "out_of_stock": "خلص من عندنا"
     }

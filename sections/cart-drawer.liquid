@@ -69,6 +69,7 @@
         <span data-cart-subtotal>{{ cart.total_price | money }}</span>
       </div>
       <p class="cart-drawer__taxnote">{{ 'general.cart.tax_note' | t }}</p>
+      {% render 'anoud-heart-note', variant: 'compact' %}
       <a href="{{ routes.cart_url }}" class="btn btn--outline">{{ 'general.cart.view_cart' | t }}</a>
       <form action="{{ routes.cart_url }}" method="post">
         <button type="submit" name="checkout" class="btn cart-drawer__checkout">{{ 'general.cart.checkout' | t }}</button>

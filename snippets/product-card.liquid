@@ -104,12 +104,21 @@
     <a href="{{ product.url }}" class="product-card__title-link">
       <h3 class="product-card__title">{% render 'tanween', text: product.title %}</h3>
     </a>
-    <div class="product-card__rating"{% if rating == blank %} aria-hidden="true"{% else %} aria-label="{{ rating }}"{% endif %}>
+    <div class="product-card__rating"{% if rating == blank %} data-empty-rating{% endif %}>
       {% if rating != blank %}
         {% render 'rating-stars', rating: rating %}
         {% if product.metafields.reviews.rating_count.value != blank %}
           <span class="product-card__rating-count">({{ product.metafields.reviews.rating_count.value }})</span>
         {% endif %}
+      {% else %}
+        <a
+          href="{{ product.url }}#judgeme_product_reviews"
+          class="product-card__rating-cta"
+          aria-label="{{ 'products.write_review' | t }}"
+        >
+          {% render 'rating-stars', rating: 0 %}
+          <span class="product-card__write-review">{{ 'products.write_review' | t }}</span>
+        </a>
       {% endif %}
     </div>
     <div class="product-card__price">
@@ -203,7 +212,21 @@
     min-height: calc(2 * 1.4 * 0.95rem);
   }
   .product-card__rating { display: flex; align-items: center; gap: 0.35rem; margin-block-end: 0.4rem; color: var(--color-gold); min-height: 1.15rem; }
-  .product-card__rating:empty { visibility: hidden; }
+  .product-card__rating-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .product-card__rating-cta .rating-stars { color: color-mix(in srgb, var(--color-gold) 55%, #cfc8be); }
+  .product-card__write-review {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+  }
   .product-card__rating-count { color: #999; font-size: 0.8rem; }
   .product-card__price { display: flex; gap: 0.5rem; align-items: center; margin-block-start: auto; }
   .product-card__compare { color: #6b635c; font-size: 0.85rem; text-decoration-thickness: 1px; }

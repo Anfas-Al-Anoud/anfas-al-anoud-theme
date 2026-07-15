@@ -109,7 +109,8 @@
       "sale": "عرض",
       "sold_out": "نفدت الكمية",
       "percent_off": "−{{ percent }}%",
-      "promo": "عرض"
+      "promo": "عرض",
+      "new": "جديد"
     }
   },
   "labels": {
@@ -171,7 +172,7 @@
     "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
     "featured_collection": {
       "name": "منتجات مميزة",
-      "view_all": "شوفي الكل",
+      "view_all": "زوري المتجر",
       "enable_countdown": "عرض عداد العروض",
       "countdown_end": "تاريخ انتهاء العرض",
       "countdown_end_info": "صيغة ISO، مثال: 2026-08-31T23:59",
@@ -187,6 +188,13 @@
       "show_less": "أخفي الأسئلة"
     },
     "trust_features": { "name": "مميزات الثقة" },
+    "trust_bar": {
+      "name": "شريط الثقة",
+      "free_shipping": "توصيل مجاني فوق {{ amount }} د.إ.",
+      "fast_prep": "تجهيز سريع لطلبج",
+      "cod": "الدفع عند الاستلام متاح",
+      "returns": "إرجاع خلال ٧ أيام"
+    },
     "ai_quiz": { "name": "مساعد العنود" },
     "product_bundle": {
       "name": "باقة منتجات",

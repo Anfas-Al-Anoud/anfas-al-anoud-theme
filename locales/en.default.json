@@ -109,7 +109,8 @@
       "sale": "Sale",
       "sold_out": "Sold out",
       "percent_off": "-{{ percent }}%",
-      "promo": "Offer"
+      "promo": "Offer",
+      "new": "New in"
     }
   },
   "labels": {
@@ -176,7 +177,7 @@
     "mood_cards": { "name": "Mood cards" },
     "featured_collection": {
       "name": "Featured collection",
-      "view_all": "View all",
+      "view_all": "Visit the shop",
       "enable_countdown": "Show offer countdown",
       "countdown_end": "Offer end date",
       "countdown_end_info": "ISO format, e.g. 2026-08-31T23:59",
@@ -192,6 +193,13 @@
       "show_less": "Hide questions"
     },
     "trust_features": { "name": "Trust features" },
+    "trust_bar": {
+      "name": "Trust bar",
+      "free_shipping": "Free delivery over {{ amount }} AED",
+      "fast_prep": "Fast order prep",
+      "cod": "Cash on delivery available",
+      "returns": "Returns within 7 days"
+    },
     "ai_quiz": { "name": "AI quiz assistant" },
     "product_bundle": {
       "name": "Product bundle",

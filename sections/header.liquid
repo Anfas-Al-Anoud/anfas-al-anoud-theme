@@ -60,8 +60,21 @@
     </nav>
 
     <div class="site-header__actions">
-      {%- comment -%} Commerce (IMG_7838): language label before search + bag {%- endcomment -%}
-      <a href="{{ routes.root_url }}" class="site-header__lang" hreflang="en" lang="en">EN</a>
+      {%- if localization.available_languages.size > 1 -%}
+        {%- for language in localization.available_languages -%}
+          {%- if language.iso_code != localization.language.iso_code -%}
+            <a
+              href="{{ language.root_url }}"
+              class="site-header__lang"
+              hreflang="{{ language.iso_code }}"
+              lang="{{ language.iso_code }}"
+            >
+              {{ language.iso_code | upcase }}
+            </a>
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
 
       <a href="{{ routes.search_url }}" class="site-header__icon site-header__search-trigger" aria-label="{{ 'general.search.title' | t }}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">

@@ -15,6 +15,13 @@
   endif
   assign rating = product.metafields.reviews.rating.value
   assign promo_label = ''
+  assign is_new = false
+  assign now_ts = 'now' | date: '%s' | plus: 0
+  assign created_ts = product.created_at | date: '%s' | plus: 0
+  assign age_days = now_ts | minus: created_ts | divided_by: 86400
+  if age_days < 45
+    assign is_new = true
+  endif
   for tag in product.tags
     assign tag_down = tag | downcase
     if tag contains '1+1'
@@ -27,6 +34,13 @@
     endif
     if tag_down contains 'offer'
       assign promo_label = tag
+      break
+    endif
+  endfor
+  for tag in product.tags
+    assign tag_down = tag | downcase
+    if tag contains 'جديد' or tag_down == 'new' or tag_down == 'new in'
+      assign is_new = true
       break
     endif
   endfor
@@ -59,6 +73,9 @@
         {% if product.available == false %}
           <span class="product-card__badge product-card__badge--sold">{{ 'products.badges.sold_out' | t }}</span>
         {% else %}
+          {% if is_new %}
+            <span class="product-card__badge product-card__badge--new">{{ 'products.badges.new' | t }}</span>
+          {% endif %}
           {% if promo_label != blank %}
             <span class="product-card__badge product-card__badge--promo">{{ promo_label }}</span>
           {% endif %}
@@ -141,6 +158,11 @@
   .product-card__media-wrap:hover .product-card__image:not(.product-card__image--hover) { transform: scale(1.03); }
   .product-card__badges { position: absolute; top: 0.75rem; inset-inline-start: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
   .product-card__badge { padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: var(--color-white); }
+  .product-card__badge--new {
+    background: var(--color-white);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
   .product-card__badge--sale { background: var(--color-gold); }
   .product-card__badge--percent { background: var(--color-primary); }
   .product-card__badge--promo { background: var(--color-primary-dark); }

@@ -174,7 +174,7 @@
     "spotlight": {
       "type": "featured-product-spotlight",
       "settings": {
-        "product": "",
+        "product": "عطر-عتيق",
         "heading": "",
         "subheading": "عرض حصري لفترة محدودة — لا تفوتيه.",
         "badge": "عرض محدود"
@@ -191,13 +191,15 @@
         "button_link": "/collections/gift-boxes"
       }
     },
-    "gift_bundle": {
-      "type": "product-bundle",
-      "disabled": true,
+    "founder": {
+      "type": "image-with-text",
       "settings": {
-        "heading": "باقة بوكس الزين",
-        "subheading": "اختاري منتجات الباقة وأضيفيها للسلة دفعة واحدة — هدية جاهزة من العنود.",
-        "button_label": "أضيفي الباقة"
+        "image_asset": "about-anoud-hero.png",
+        "image_alt": "العنود - مؤسسة أنفاس العنود",
+        "heading": "منو هي العنود؟",
+        "text": "سويت أنفاس العنود عشان ترجعين لنفسج بهدوء — ريحة تصفي، وتذكّرج توقفين لحظة لج. أقل ضغط، وأكثر حضور.",
+        "button_label": "تعرفين عليّ أكثر",
+        "button_link": "/pages/about-anoud"
       }
     },
     "featured_boxes": {
@@ -388,7 +390,7 @@
       "settings": {
         "avatar_asset": "anoud-avatar.png",
         "avatar_alt": "صورة العنود للمساعدة",
-        "collection": "",
+        "collection": "best-sellers",
         "heading": "سولفي وياي",
         "subheading": "محتارة شو اللي يلوق على شخصيتج؟ أنا هنيه عشان أساعدج تختارين صح."
       }
@@ -402,7 +404,7 @@
     "bestsellers",
     "spotlight",
     "gifts",
-    "gift_bundle",
+    "founder",
     "featured_boxes",
     "recently",
     "testimonials",

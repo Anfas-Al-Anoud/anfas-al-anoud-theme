@@ -242,77 +242,31 @@
     justify-self: start;
   }
   @media (max-width: 767px) {
-    /* Classic: app-style top bar — bottom nav handles actions */
-    .header-style--classic .site-header__actions,
-    .header-style--classic .site-header__menu-toggle {
+    /* Keep existing mobile chrome for all styles: logo-only header + bottom nav */
+    .site-header__actions,
+    .site-header__menu-toggle,
+    .site-header__search-trigger {
       display: none;
     }
-    .header-style--classic .site-header__logo {
-      justify-self: center;
-      grid-column: 1 / -1;
-    }
-    .header-style--classic .site-header__inner {
+    .site-header__inner {
       min-height: var(--header-height);
       padding-block: 0.2rem;
     }
-    .header-style--classic .site-header__logo img {
+    .site-header__logo {
+      justify-self: center;
+      grid-column: 1 / -1;
+    }
+    .site-header__logo img {
       max-height: clamp(4.25rem, 20vw, 5.5rem);
       width: auto;
     }
 
-    /* Commerce + Overlay: show menu + compact icons like reference apps */
-    .header-style--commerce .site-header__menu-toggle,
-    .header-style--overlay .site-header__menu-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 2.75rem;
-      min-height: 2.75rem;
-    }
-    .header-style--commerce .site-header__actions,
-    .header-style--overlay .site-header__actions {
-      display: flex;
-      gap: 0.15rem;
-    }
-    .header-style--commerce .site-header__search,
-    .header-style--overlay .site-header__search,
-    .header-style--commerce .site-header__account,
-    .header-style--overlay .site-header__account,
-    .header-style--commerce .site-header__wishlist,
-    .header-style--overlay .site-header__wishlist {
-      display: none;
-    }
-    .header-style--commerce .site-header__search-trigger {
-      display: inline-flex;
-    }
-    .header-style--commerce .site-header__inner,
-    .header-style--overlay .site-header__inner {
-      grid-template-columns: auto 1fr auto;
-      min-height: 3.25rem;
-      padding-block: 0.35rem;
-    }
-    .header-style--commerce .site-header__logo {
-      justify-self: center;
-    }
     .header-style--commerce .site-header__logo img {
-      max-height: 2.65rem;
-      width: auto;
-    }
-    .header-style--overlay .site-header__logo {
-      justify-self: start;
+      max-height: clamp(3.25rem, 16vw, 4.25rem);
     }
     .header-style--overlay .site-header__logo img {
-      max-height: 2.4rem;
-      width: auto;
+      max-height: clamp(3rem, 14vw, 3.75rem);
     }
-    .header-style--overlay .site-header__inner {
-      grid-template-columns: 1fr auto;
-    }
-    .header-style--overlay .site-header__menu-toggle {
-      order: 3;
-    }
-    .header-style--overlay .site-header__logo { order: 1; }
-    .header-style--overlay .site-header__actions { order: 2; }
   }
   @media (min-width: 768px) {
     .site-header__menu-toggle { display: none; }
@@ -371,7 +325,7 @@
     .site-header__promo { display: none; }
   }
 
-  /* —— Commerce style (IMG_7838-inspired) —— */
+  /* —— Commerce: white header bar (reference IMG_7838) —— */
   .header-style--commerce .site-header {
     background: var(--color-white);
     backdrop-filter: none;
@@ -380,9 +334,8 @@
     box-shadow: none;
   }
 
-  /* —— Overlay style (IMG_7839-inspired) —— */
-  .header-style--overlay.template-index .shopify-section-group-header-group,
-  .header-style--overlay.template-index .header-group {
+  /* —— Overlay: transparent over homepage hero (reference IMG_7839) —— */
+  .header-style--overlay.template-index .shopify-section-group-header-group {
     position: absolute;
     inset-inline: 0;
     top: 0;
@@ -395,10 +348,6 @@
     -webkit-backdrop-filter: none;
     border: none;
     box-shadow: none;
-  }
-  .header-style--overlay.template-index .site-header__icon,
-  .header-style--overlay.template-index .site-header__menu-toggle {
-    color: var(--color-dark);
   }
   .header-style--overlay:not(.template-index) .site-header {
     background: var(--color-white);

@@ -113,11 +113,11 @@
     "header": {
       "name": "Header",
       "style": "Header & announcement style",
-      "style_info": "Try Classic (current), Commerce (centered logo), or Overlay (transparent over hero). Switch anytime in Theme settings.",
+      "style_info": "Changes only the announcement bar, header look, and homepage hero. Navigation and the rest of the store stay the same.",
       "style_options": {
-        "classic": "Classic — current frosted header",
-        "commerce": "Commerce — white bar, centered logo",
-        "overlay": "Overlay — transparent over hero"
+        "classic": "Classic — frosted header + current hero",
+        "commerce": "Commerce — white header + card-style hero",
+        "overlay": "Overlay — transparent header over tall hero"
       },
       "promo_enabled": "Show promo pill in header",
       "promo_text": "Promo pill text",

@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "1.8.10",
+    "theme_version": "1.9.0",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -161,6 +161,18 @@
   {
     "name": "t:settings.header.name",
     "settings": [
+      {
+        "type": "select",
+        "id": "header_style",
+        "label": "t:settings.header.style",
+        "info": "t:settings.header.style_info",
+        "default": "classic",
+        "options": [
+          { "value": "classic", "label": "t:settings.header.style_options.classic" },
+          { "value": "commerce", "label": "t:settings.header.style_options.commerce" },
+          { "value": "overlay", "label": "t:settings.header.style_options.overlay" }
+        ]
+      },
       {
         "type": "checkbox",
         "id": "nav_promo_enabled",

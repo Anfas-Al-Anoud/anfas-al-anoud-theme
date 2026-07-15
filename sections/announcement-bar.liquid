@@ -1,15 +1,15 @@
-<div class="announcement-bar full-width" role="region" aria-label="{{ 'sections.announcement_bar.name' | t }}">
+<div class="announcement-bar full-width announcement-bar--{{ settings.header_style | default: 'classic' }}" role="region" aria-label="{{ 'sections.announcement_bar.name' | t }}">
   <div class="announcement-bar__track">
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
         <p class="announcement-bar__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
       {% endfor %}
       {% for block in section.blocks %}
-        <p class="announcement-bar__text" aria-hidden="true">{{ block.settings.text }}</p>
+        <p class="announcement-bar__text announcement-bar__text--clone" aria-hidden="true">{{ block.settings.text }}</p>
       {% endfor %}
     {% else %}
       <p class="announcement-bar__text">{{ section.settings.text }}</p>
-      <p class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</p>
+      <p class="announcement-bar__text announcement-bar__text--clone" aria-hidden="true">{{ section.settings.text }}</p>
     {% endif %}
   </div>
 </div>
@@ -49,6 +49,57 @@
     animation-name: marquee-rtl;
   }
 
+  /* Commerce: solid static bar (IMG_7838) */
+  .announcement-bar--commerce {
+    padding-block: 0.55rem;
+  }
+  .announcement-bar--commerce .announcement-bar__track {
+    width: 100%;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+    animation: none;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  .announcement-bar--commerce .announcement-bar__text {
+    padding-inline: 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .announcement-bar--commerce .announcement-bar__text--clone {
+    display: none;
+  }
+  .announcement-bar--commerce .announcement-bar__text:not(:first-child):not(.announcement-bar__text--clone) {
+    display: none;
+  }
+
+  /* Overlay: slim dark bar (IMG_7839) */
+  .announcement-bar--overlay {
+    background: #16120f;
+    color: #f7f2ea;
+    padding-block: 0.4rem;
+  }
+  .announcement-bar--overlay .announcement-bar__track {
+    width: 100%;
+    animation: none;
+    justify-content: center;
+  }
+  .announcement-bar--overlay .announcement-bar__text {
+    padding-inline: 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+  .announcement-bar--overlay .announcement-bar__text--clone {
+    display: none;
+  }
+  .announcement-bar--overlay .announcement-bar__text:not(:first-child):not(.announcement-bar__text--clone) {
+    display: none;
+  }
+
   @media (max-width: 767px) {
     .announcement-bar {
       padding-block: 0.35rem;
@@ -57,6 +108,12 @@
     .announcement-bar__text {
       font-size: 0.75rem;
       padding-inline: 1.75rem;
+    }
+
+    .announcement-bar--commerce .announcement-bar__text,
+    .announcement-bar--overlay .announcement-bar__text {
+      font-size: 0.68rem;
+      padding-inline: 0.5rem;
     }
   }
 
@@ -68,7 +125,7 @@
       justify-content: center;
     }
 
-    .announcement-bar__text[aria-hidden="true"] {
+    .announcement-bar__text--clone {
       display: none;
     }
   }
@@ -105,18 +162,7 @@
     {
       "name": "t:sections.announcement_bar.name",
       "blocks": [
-        {
-          "type": "message",
-          "settings": {
-            "text": "🚚 توصيل مجاني داخل الإمارات للطلبات فوق 200 درهم"
-          }
-        },
-        {
-          "type": "message",
-          "settings": {
-            "text": "🎁 هدية مجانية مع طلبات مختارة – تابعي حساباتنا"
-          }
-        }
+        { "type": "message", "settings": { "text": "🚚 توصيل مجاني داخل الإمارات للطلبات فوق 200 درهم" } }
       ]
     }
   ]

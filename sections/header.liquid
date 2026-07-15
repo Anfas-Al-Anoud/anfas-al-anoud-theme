@@ -54,6 +54,12 @@
     </nav>
 
     <div class="site-header__actions">
+      <a href="{{ routes.search_url }}" class="site-header__icon site-header__search-trigger" aria-label="{{ 'general.search.title' | t }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </a>
       <form action="{{ routes.search_url }}" method="get" class="site-header__search" role="search" data-predictive-search>
         <input
           type="search"
@@ -68,11 +74,11 @@
         <div class="site-header__predictive" id="PredictiveResults" data-predictive-results role="listbox" hidden></div>
       </form>
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="site-header__icon" aria-label="حسابج">
+        <a href="{{ routes.account_url }}" class="site-header__icon site-header__account" aria-label="حسابج">
           {{ 'icon-account.svg' | inline_asset_content }}
         </a>
       {% endif %}
-      <button type="button" class="site-header__icon" data-wishlist-open aria-label="المفضلة">
+      <button type="button" class="site-header__icon site-header__wishlist" data-wishlist-open aria-label="المفضلة">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="1.6"/></svg>
         <span class="site-header__cart-count" data-wishlist-count hidden>0</span>
       </button>
@@ -227,6 +233,7 @@
     align-items: center;
     justify-content: center;
   }
+  .site-header__search-trigger { display: none; text-decoration: none; color: inherit; }
   .site-header__menu-toggle {
     background: none;
     border: none;
@@ -235,34 +242,81 @@
     justify-self: start;
   }
   @media (max-width: 767px) {
-    /* App-style top bar: the fixed bottom nav + menu sheet already provide
-       menu, search, wishlist, cart and account, so hide the duplicated
-       header controls and keep a clean, centered logo. */
-    .site-header__actions,
-    .site-header__menu-toggle {
+    /* Classic: app-style top bar — bottom nav handles actions */
+    .header-style--classic .site-header__actions,
+    .header-style--classic .site-header__menu-toggle {
       display: none;
     }
-    .site-header__inner {
-      min-height: var(--header-height);
-      padding-block: 0.2rem;
-    }
-    .site-header__logo {
+    .header-style--classic .site-header__logo {
       justify-self: center;
       grid-column: 1 / -1;
     }
-    .site-header__logo img {
+    .header-style--classic .site-header__inner {
+      min-height: var(--header-height);
+      padding-block: 0.2rem;
+    }
+    .header-style--classic .site-header__logo img {
       max-height: clamp(4.25rem, 20vw, 5.5rem);
       width: auto;
     }
-    .site-header__logo-text {
-      font-size: clamp(1.35rem, 5.5vw, 1.65rem);
+
+    /* Commerce + Overlay: show menu + compact icons like reference apps */
+    .header-style--commerce .site-header__menu-toggle,
+    .header-style--overlay .site-header__menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.75rem;
+      min-height: 2.75rem;
     }
-    .site-header__logo-subtitle {
-      font-size: 0.62rem;
+    .header-style--commerce .site-header__actions,
+    .header-style--overlay .site-header__actions {
+      display: flex;
+      gap: 0.15rem;
     }
+    .header-style--commerce .site-header__search,
+    .header-style--overlay .site-header__search,
+    .header-style--commerce .site-header__account,
+    .header-style--overlay .site-header__account,
+    .header-style--commerce .site-header__wishlist,
+    .header-style--overlay .site-header__wishlist {
+      display: none;
+    }
+    .header-style--commerce .site-header__search-trigger {
+      display: inline-flex;
+    }
+    .header-style--commerce .site-header__inner,
+    .header-style--overlay .site-header__inner {
+      grid-template-columns: auto 1fr auto;
+      min-height: 3.25rem;
+      padding-block: 0.35rem;
+    }
+    .header-style--commerce .site-header__logo {
+      justify-self: center;
+    }
+    .header-style--commerce .site-header__logo img {
+      max-height: 2.65rem;
+      width: auto;
+    }
+    .header-style--overlay .site-header__logo {
+      justify-self: start;
+    }
+    .header-style--overlay .site-header__logo img {
+      max-height: 2.4rem;
+      width: auto;
+    }
+    .header-style--overlay .site-header__inner {
+      grid-template-columns: 1fr auto;
+    }
+    .header-style--overlay .site-header__menu-toggle {
+      order: 3;
+    }
+    .header-style--overlay .site-header__logo { order: 1; }
+    .header-style--overlay .site-header__actions { order: 2; }
   }
   @media (min-width: 768px) {
     .site-header__menu-toggle { display: none; }
+    .site-header__search-trigger { display: none; }
     .site-header__nav {
       display: flex;
       position: static;
@@ -315,6 +369,42 @@
   }
   @media (max-width: 767px) {
     .site-header__promo { display: none; }
+  }
+
+  /* —— Commerce style (IMG_7838-inspired) —— */
+  .header-style--commerce .site-header {
+    background: var(--color-white);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-block-end: 1px solid color-mix(in srgb, var(--color-sand) 80%, transparent);
+    box-shadow: none;
+  }
+
+  /* —— Overlay style (IMG_7839-inspired) —— */
+  .header-style--overlay.template-index .shopify-section-group-header-group,
+  .header-style--overlay.template-index .header-group {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: 120;
+    width: 100%;
+  }
+  .header-style--overlay.template-index .site-header {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+  }
+  .header-style--overlay.template-index .site-header__icon,
+  .header-style--overlay.template-index .site-header__menu-toggle {
+    color: var(--color-dark);
+  }
+  .header-style--overlay:not(.template-index) .site-header {
+    background: var(--color-white);
+    backdrop-filter: none;
+    border-block-end: 1px solid var(--color-sand);
+    box-shadow: none;
   }
 {% endstylesheet %}
 

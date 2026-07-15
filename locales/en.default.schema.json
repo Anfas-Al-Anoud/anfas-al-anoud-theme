@@ -112,6 +112,13 @@
     },
     "header": {
       "name": "Header",
+      "style": "Header & announcement style",
+      "style_info": "Try Classic (current), Commerce (centered logo), or Overlay (transparent over hero). Switch anytime in Theme settings.",
+      "style_options": {
+        "classic": "Classic — current frosted header",
+        "commerce": "Commerce — white bar, centered logo",
+        "overlay": "Overlay — transparent over hero"
+      },
       "promo_enabled": "Show promo pill in header",
       "promo_text": "Promo pill text",
       "promo_link": "Promo pill link"

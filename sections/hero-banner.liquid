@@ -1,9 +1,45 @@
-<section class="hero-banner full-width" data-animate-section>
+{%- liquid
+  assign header_style = settings.header_style | default: 'classic'
+  assign desktop_asset = section.settings.image_desktop_asset | default: 'hero-banner-desktop.jpg'
+  assign mobile_asset = section.settings.image_mobile_asset | default: 'hero-banner-mobile.jpg'
+  assign desktop_image = section.settings.image_desktop
+  assign mobile_image = section.settings.image_mobile
+
+  if header_style == 'commerce'
+    assign desktop_asset = section.settings.commerce_desktop_asset | default: 'hero-commerce-desktop.png'
+    assign mobile_asset = section.settings.commerce_mobile_asset | default: 'hero-commerce-mobile.png'
+    if section.settings.commerce_image_desktop != blank
+      assign desktop_image = section.settings.commerce_image_desktop
+    endif
+    if section.settings.commerce_image_mobile != blank
+      assign mobile_image = section.settings.commerce_image_mobile
+    endif
+  elsif header_style == 'overlay'
+    assign desktop_asset = section.settings.overlay_desktop_asset | default: 'hero-overlay-desktop.png'
+    assign mobile_asset = section.settings.overlay_mobile_asset | default: 'hero-overlay-mobile.png'
+    if section.settings.overlay_image_desktop != blank
+      assign desktop_image = section.settings.overlay_image_desktop
+    endif
+    if section.settings.overlay_image_mobile != blank
+      assign mobile_image = section.settings.overlay_image_mobile
+    endif
+  endif
+
+  assign inset_asset = section.settings.overlay_inset_asset | default: 'hero-overlay-inset.png'
+
+  assign hero_heading = section.settings.heading
+  if header_style == 'commerce'
+    if section.settings.commerce_heading != blank
+      assign hero_heading = section.settings.commerce_heading
+    endif
+  endif
+-%}
+<section class="hero-banner full-width hero-banner--{{ header_style }}" data-animate-section>
   <div class="hero-banner__frame">
     <div class="hero-banner__media" aria-hidden="true">
-      {% if section.settings.image_desktop %}
+      {% if desktop_image %}
         {% render 'image',
-          image: section.settings.image_desktop,
+          image: desktop_image,
           alt: section.settings.image_alt,
           fallback_alt: section.settings.heading,
           class: 'hero-banner__image hero-banner__image--desktop',
@@ -11,9 +47,6 @@
           loading: 'eager'
         %}
       {% else %}
-        {% liquid
-          assign desktop_asset = section.settings.image_desktop_asset | default: 'hero-banner-desktop.jpg'
-        %}
         {% render 'theme-asset-image',
           asset: desktop_asset,
           alt: section.settings.image_alt,
@@ -22,18 +55,19 @@
           loading: 'eager'
         %}
       {% endif %}
-      {% if section.settings.image_mobile %}
+
+      {% if mobile_image %}
         {% render 'image',
-          image: section.settings.image_mobile,
+          image: mobile_image,
           alt: section.settings.image_alt,
           fallback_alt: section.settings.heading,
           class: 'hero-banner__image hero-banner__image--mobile',
           width: 900,
           loading: 'eager'
         %}
-      {% elsif section.settings.image_desktop %}
+      {% elsif desktop_image %}
         {% render 'image',
-          image: section.settings.image_desktop,
+          image: desktop_image,
           alt: section.settings.image_alt,
           fallback_alt: section.settings.heading,
           class: 'hero-banner__image hero-banner__image--mobile',
@@ -41,9 +75,6 @@
           loading: 'eager'
         %}
       {% else %}
-        {% liquid
-          assign mobile_asset = section.settings.image_mobile_asset | default: 'hero-banner-mobile.jpg'
-        %}
         {% render 'theme-asset-image',
           asset: mobile_asset,
           alt: section.settings.image_alt,
@@ -55,13 +86,36 @@
       <div class="hero-banner__veil"></div>
     </div>
 
+    {%- if header_style == 'overlay' and section.settings.show_overlay_inset != false -%}
+      <div class="hero-banner__inset">
+        {% if section.settings.overlay_inset_image != blank %}
+          {% render 'image',
+            image: section.settings.overlay_inset_image,
+            alt: section.settings.overlay_inset_alt,
+            fallback_alt: section.settings.heading,
+            class: 'hero-banner__inset-image',
+            width: 900,
+            loading: 'eager'
+          %}
+        {% else %}
+          {% render 'theme-asset-image',
+            asset: inset_asset,
+            alt: section.settings.overlay_inset_alt,
+            class: 'hero-banner__inset-image',
+            width: 900,
+            loading: 'eager'
+          %}
+        {% endif %}
+      </div>
+    {%- endif -%}
+
     <div class="hero-banner__content">
       {% if section.settings.eyebrow != blank %}
         <p class="hero-banner__eyebrow">{{ section.settings.eyebrow }}</p>
       {% else %}
         <p class="hero-banner__eyebrow">أنفاس العنود</p>
       {% endif %}
-      <h1 class="hero-banner__heading">{{ section.settings.heading }}</h1>
+      <h1 class="hero-banner__heading">{{ hero_heading }}</h1>
       <p class="hero-banner__text">{{ section.settings.text }}</p>
       {% if section.settings.button_label != blank %}
         <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn">
@@ -112,6 +166,8 @@
       radial-gradient(circle at 90% 15%, rgba(201, 162, 76, 0.32), transparent 55%);
   }
 
+  .hero-banner__inset { display: none; }
+
   .hero-banner__content {
     position: relative;
     z-index: 1;
@@ -161,105 +217,154 @@
     font-weight: 700;
     text-decoration: none;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .hero-banner__btn:hover {
+    transform: translateY(-1px);
   }
 
-  /*
-   * Commerce (IMG_7838): white stage, image toward the end,
-   * copy mid-start — NEW / title / rectangular primary CTA
-   */
-  .header-style--commerce .hero-banner {
+  /* —— Commerce: white stage, model right, copy left (Narins layout) —— */
+  .hero-banner--commerce {
     padding: 0;
     background: #fff;
   }
-  .header-style--commerce .hero-banner__frame {
+  .hero-banner--commerce .hero-banner__frame {
     max-width: none;
     width: 100%;
     border-radius: 0;
     box-shadow: none;
     background: #fff;
-    min-height: clamp(26rem, 72vh, 40rem);
+    min-height: clamp(28rem, 74vh, 42rem);
   }
-  .header-style--commerce .hero-banner__media {
-    inset-inline-start: 32%;
+  .hero-banner--commerce .hero-banner__media {
+    inset: 0;
   }
-  .header-style--commerce .hero-banner__image {
+  .hero-banner--commerce .hero-banner__image {
     object-fit: cover;
-    object-position: center top;
+    object-position: 72% center;
   }
-  .header-style--commerce .hero-banner__veil {
+  .hero-banner--commerce .hero-banner__veil {
     display: none;
   }
-  .header-style--commerce .hero-banner__content {
+  .hero-banner--commerce .hero-banner__content {
+    position: absolute;
+    z-index: 2;
+    /* Keep copy on the visual left (white space in photo), Arabic text stays RTL */
+    left: 0;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: min(48%, 15.5rem);
+    max-width: none;
+    min-height: 0;
     justify-content: center;
-    align-items: flex-start;
-    padding: 2rem 1.15rem;
-    max-width: 48%;
+    padding: 1.5rem 1rem 1.75rem 1.15rem;
     color: var(--color-primary);
-    min-height: clamp(26rem, 72vh, 40rem);
   }
-  .header-style--commerce .hero-banner__eyebrow {
+  .hero-banner--commerce .hero-banner__eyebrow {
     color: var(--color-primary);
-    font-size: clamp(2rem, 9vw, 2.75rem);
-    letter-spacing: 0.04em;
+    font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     font-weight: 800;
-    line-height: 1;
-    margin: 0 0 0.35rem;
+    line-height: 0.95;
+    margin: 0 0 0.2rem;
   }
-  .header-style--commerce .hero-banner__heading {
+  .hero-banner--commerce .hero-banner__heading {
     color: var(--color-primary);
-    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+    font-size: clamp(1rem, 3.8vw, 1.2rem);
     font-weight: 700;
     line-height: 1.35;
-    margin: 0 0 1.15rem;
+    margin: 0 0 1.1rem;
   }
-  .header-style--commerce .hero-banner__text {
+  .hero-banner--commerce .hero-banner__text {
     display: none;
   }
-  .header-style--commerce .hero-banner__btn {
-    border-radius: 0.15rem;
+  .hero-banner--commerce .hero-banner__btn {
+    border-radius: 0.2rem;
     background: var(--color-primary);
     color: #fff;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.78rem;
+    padding: 0.72rem 1.35rem;
+    font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     box-shadow: none;
-    min-width: 9rem;
+    min-width: 8.75rem;
+  }
+  .hero-banner--commerce .hero-banner__btn:hover {
+    background: var(--color-primary-dark);
   }
 
-  /*
-   * Overlay (IMG_7839): full-viewport photography only —
-   * no veil, no copy, header floats above
-   */
-  .header-style--overlay.template-index .hero-banner {
+  /* —— Overlay: full-bleed photo + centered PiP inset —— */
+  .hero-banner--overlay {
     padding: 0;
-    background: #f3f1ee;
+    background: #eceae7;
   }
-  .header-style--overlay.template-index .hero-banner__frame {
+  .hero-banner--overlay .hero-banner__frame {
     max-width: none;
     width: 100%;
     border-radius: 0;
     box-shadow: none;
-    min-height: calc(100svh - 2.5rem);
-    min-height: calc(100vh - 2.5rem);
+    min-height: calc(100svh - 2.75rem);
+    min-height: calc(100vh - 2.75rem);
   }
-  .header-style--overlay.template-index .hero-banner__veil {
+  .hero-banner--overlay .hero-banner__veil {
     display: none;
   }
-  .header-style--overlay.template-index .hero-banner__content {
+  .hero-banner--overlay .hero-banner__content {
     display: none;
   }
-  .header-style--overlay.template-index .hero-banner__image {
-    object-position: center top;
+  .hero-banner--overlay .hero-banner__image {
+    object-position: center 18%;
+  }
+  .hero-banner--overlay .hero-banner__inset {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    width: min(72vw, 22rem);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 0.15rem;
+    box-shadow: 0 18px 48px rgba(20, 12, 8, 0.28);
+    animation: hero-inset-in 0.7s ease both;
+  }
+  .hero-banner--overlay .hero-banner__inset-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    display: block;
+  }
+
+  @keyframes hero-inset-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -46%) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-banner--overlay .hero-banner__inset {
+      animation: none;
+    }
+    .hero-banner__btn {
+      transition: none;
+    }
   }
 
   @media (max-width: 767px) {
-    .header-style--classic .hero-banner {
+    .hero-banner--classic {
       padding: 0;
     }
-    .header-style--classic .hero-banner__frame {
+    .hero-banner--classic .hero-banner__frame {
       max-width: none;
       width: 100%;
       border-radius: 0;
@@ -267,12 +372,12 @@
       aspect-ratio: 1.7 / 1;
       min-height: 14.5rem;
     }
-    .header-style--classic .hero-banner__veil {
+    .hero-banner--classic .hero-banner__veil {
       background:
         linear-gradient(90deg, rgba(94, 20, 31, 0.88) 0%, rgba(94, 20, 31, 0.45) 55%, rgba(94, 20, 31, 0.15) 100%),
         linear-gradient(0deg, rgba(61, 43, 31, 0.55) 0%, transparent 50%);
     }
-    .header-style--classic .hero-banner__content {
+    .hero-banner--classic .hero-banner__content {
       position: absolute;
       inset: 0;
       z-index: 2;
@@ -282,38 +387,30 @@
       padding: 0.75rem var(--page-margin);
       max-width: 72%;
     }
-    .header-style--classic .hero-banner__eyebrow {
+    .hero-banner--classic .hero-banner__eyebrow {
       font-size: 0.625rem;
       margin-block-end: 0.25rem;
     }
-    .header-style--classic .hero-banner__heading {
+    .hero-banner--classic .hero-banner__heading {
       font-size: clamp(1.0625rem, 4.2vw, 1.25rem);
       margin-block-end: 0.5rem;
       line-height: 1.3;
     }
-    .header-style--classic .hero-banner__text { display: none; }
-    .header-style--classic .hero-banner__btn {
+    .hero-banner--classic .hero-banner__text { display: none; }
+    .hero-banner--classic .hero-banner__btn {
       padding: 0.4375rem 0.875rem;
       font-size: 0.75rem;
     }
 
-    .header-style--commerce .hero-banner__frame {
-      min-height: 70vh;
+    .hero-banner--commerce .hero-banner__frame {
+      min-height: 72vh;
     }
-    .header-style--commerce .hero-banner__media {
-      inset-inline-start: 28%;
+    .hero-banner--commerce .hero-banner__image {
+      object-position: 78% center;
     }
-    .header-style--commerce .hero-banner__content {
-      max-width: 52%;
-      padding: 1.5rem 1rem;
-      min-height: 70vh;
-    }
-    .header-style--commerce .hero-banner__eyebrow {
-      font-size: 2.15rem;
-    }
-    .header-style--commerce .hero-banner__heading {
-      font-size: 1.05rem;
-      margin-block-end: 1rem;
+    .hero-banner--commerce .hero-banner__content {
+      width: min(46%, 12.5rem);
+      padding: 1.25rem 0.75rem 1.5rem 1rem;
     }
   }
 
@@ -321,28 +418,44 @@
     .hero-banner__image--mobile { display: none; }
     .hero-banner__image--desktop { display: block; }
 
-    .header-style--classic .hero-banner__frame {
+    .hero-banner--classic .hero-banner__frame {
       max-height: 80vh;
       min-height: 28rem;
     }
-    .header-style--classic .hero-banner__content {
+    .hero-banner--classic .hero-banner__content {
       min-height: 100%;
       max-width: 34rem;
     }
 
-    .header-style--commerce .hero-banner__frame {
-      min-height: min(78vh, 44rem);
+    .hero-banner--commerce .hero-banner__frame {
+      min-height: min(80vh, 46rem);
     }
-    .header-style--commerce .hero-banner__media {
-      inset-inline-start: 38%;
+    .hero-banner--commerce .hero-banner__image {
+      object-position: 68% center;
     }
-    .header-style--commerce .hero-banner__content {
-      max-width: 36%;
-      padding-inline-start: clamp(2rem, 6vw, 4.5rem);
-      min-height: min(78vh, 44rem);
+    .hero-banner--commerce .hero-banner__content {
+      width: min(38%, 22rem);
+      padding: 2.5rem 1.5rem 3rem 3rem;
     }
-    .header-style--commerce .hero-banner__eyebrow {
-      font-size: 3.25rem;
+    .hero-banner--commerce .hero-banner__eyebrow {
+      font-size: 3.5rem;
+    }
+    .hero-banner--commerce .hero-banner__heading {
+      font-size: 1.45rem;
+      margin-block-end: 1.35rem;
+    }
+    .hero-banner--commerce .hero-banner__btn {
+      min-width: 11rem;
+      padding: 0.85rem 1.75rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-banner--overlay .hero-banner__inset {
+      width: min(42vw, 28rem);
+      top: 54%;
+    }
+    .hero-banner--overlay .hero-banner__image {
+      object-position: center 22%;
     }
   }
 {% endstylesheet %}
@@ -353,34 +466,115 @@
   "class": "hero-banner-section",
   "settings": [
     {
+      "type": "header",
+      "content": "الصورة الافتراضية (Classic)"
+    },
+    {
       "type": "image_picker",
       "id": "image_desktop",
-      "label": "صورة سطح المكتب (hero_banner_desktop.jpg)"
+      "label": "صورة سطح المكتب"
     },
     {
       "type": "image_picker",
       "id": "image_mobile",
-      "label": "صورة الجوال (hero_banner_mobile.jpg)"
+      "label": "صورة الجوال"
     },
     {
       "type": "text",
       "id": "image_desktop_asset",
-      "label": "ملف صورة الديسكتوب (assets/)",
-      "default": "hero-banner-desktop.jpg",
-      "info": "صورة سياقية من مجلد assets — ليست صورة منتج."
+      "label": "ملف ديسكتوب (assets/)",
+      "default": "hero-banner-desktop.jpg"
     },
     {
       "type": "text",
       "id": "image_mobile_asset",
-      "label": "ملف صورة الجوال (assets/)",
+      "label": "ملف جوال (assets/)",
       "default": "hero-banner-mobile.jpg"
+    },
+    {
+      "type": "header",
+      "content": "صور Commerce"
+    },
+    {
+      "type": "image_picker",
+      "id": "commerce_image_desktop",
+      "label": "Commerce — ديسكتوب"
+    },
+    {
+      "type": "image_picker",
+      "id": "commerce_image_mobile",
+      "label": "Commerce — جوال"
+    },
+    {
+      "type": "text",
+      "id": "commerce_desktop_asset",
+      "label": "Commerce ملف ديسكتوب",
+      "default": "hero-commerce-desktop.png"
+    },
+    {
+      "type": "text",
+      "id": "commerce_mobile_asset",
+      "label": "Commerce ملف جوال",
+      "default": "hero-commerce-mobile.png"
+    },
+    {
+      "type": "header",
+      "content": "صور Overlay"
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_image_desktop",
+      "label": "Overlay — ديسكتوب"
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_image_mobile",
+      "label": "Overlay — جوال"
+    },
+    {
+      "type": "text",
+      "id": "overlay_desktop_asset",
+      "label": "Overlay ملف ديسكتوب",
+      "default": "hero-overlay-desktop.png"
+    },
+    {
+      "type": "text",
+      "id": "overlay_mobile_asset",
+      "label": "Overlay ملف جوال",
+      "default": "hero-overlay-mobile.png"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay_inset",
+      "label": "إظهار الصورة المصغّرة وسط Overlay",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_inset_image",
+      "label": "صورة الـ inset"
+    },
+    {
+      "type": "text",
+      "id": "overlay_inset_asset",
+      "label": "ملف inset (assets/)",
+      "default": "hero-overlay-inset.png"
+    },
+    {
+      "type": "text",
+      "id": "overlay_inset_alt",
+      "label": "نص alt للصورة المصغّرة",
+      "default": "تفاصيل طقوس العناية - أنفاس العنود"
+    },
+    {
+      "type": "header",
+      "content": "المحتوى"
     },
     {
       "type": "text",
       "id": "image_alt",
-      "label": "نص alt للصورة (مطلوب)",
-      "default": "صورة للمنتجات من الأعلى - أنفاس العنود",
-      "info": "مطلوب لإمكانية الوصول ومحركات البحث. لا تتركي الحقل فارغًا."
+      "label": "نص alt للصورة الرئيسية",
+      "default": "صورة للمنتجات من الأعلى - أنفاس العنود"
     },
     {
       "type": "text",
@@ -393,6 +587,13 @@
       "id": "heading",
       "label": "العنوان",
       "default": "عيشي جوج.. وخلج غير عنهم"
+    },
+    {
+      "type": "text",
+      "id": "commerce_heading",
+      "label": "عنوان Commerce (قصير)",
+      "default": "خلطات العنود",
+      "info": "يُعرض بدل العنوان الرئيسي عند اختيار أسلوب Commerce"
     },
     {
       "type": "textarea",

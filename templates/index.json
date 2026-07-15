@@ -14,12 +14,20 @@
       "settings": {
         "image_desktop_asset": "hero-banner-desktop.jpg",
         "image_mobile_asset": "hero-banner-mobile.jpg",
-        "image_alt": "صورة للمنتجات من الأعلى - أنفاس العنود",
+        "image_alt": "عطر وطقوس أنفاس العنود",
         "eyebrow": "جديد",
         "heading": "عيشي جوج.. وخلج غير عنهم",
+        "commerce_heading": "خلطات العنود",
         "text": "تميزي بخلطات ما تتقلد، تعطيج حضورًا قويًا وتلفت الانتباه",
         "button_label": "تسوقي الآن",
-        "button_link": "/collections/all"
+        "button_link": "/collections/all",
+        "commerce_desktop_asset": "hero-commerce-desktop.png",
+        "commerce_mobile_asset": "hero-commerce-mobile.png",
+        "overlay_desktop_asset": "hero-overlay-desktop.png",
+        "overlay_mobile_asset": "hero-overlay-mobile.png",
+        "overlay_inset_asset": "hero-overlay-inset.png",
+        "show_overlay_inset": true,
+        "overlay_inset_alt": "تفاصيل طقوس العناية - أنفاس العنود"
       }
     },
     "categories": {

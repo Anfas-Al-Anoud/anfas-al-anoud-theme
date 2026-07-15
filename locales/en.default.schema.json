@@ -113,11 +113,11 @@
     "header": {
       "name": "Header",
       "style": "Header & announcement style",
-      "style_info": "Changes only the announcement bar, header look, and homepage hero. Navigation and the rest of the store stay the same.",
+      "style_info": "Commerce matches IMG_7838 (slim bar + white header + CTA hero). Overlay matches IMG_7839 (no announcement + transparent header + image-only hero).",
       "style_options": {
         "classic": "Classic — frosted header + current hero",
-        "commerce": "Commerce — white header + card-style hero",
-        "overlay": "Overlay — transparent header over tall hero"
+        "commerce": "Commerce — like first reference",
+        "overlay": "Overlay — like second reference"
       },
       "promo_enabled": "Show promo pill in header",
       "promo_text": "Promo pill text",

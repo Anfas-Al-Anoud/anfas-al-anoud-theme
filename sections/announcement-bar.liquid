@@ -1,3 +1,4 @@
+{%- unless settings.header_style == 'overlay' -%}
 <div class="announcement-bar full-width announcement-bar--{{ settings.header_style | default: 'classic' }}" role="region" aria-label="{{ 'sections.announcement_bar.name' | t }}">
   <div class="announcement-bar__track">
     {% if section.blocks.size > 0 %}
@@ -13,6 +14,7 @@
     {% endif %}
   </div>
 </div>
+{%- endunless -%}
 
 {% stylesheet %}
   .announcement-bar {
@@ -49,54 +51,26 @@
     animation-name: marquee-rtl;
   }
 
-  /* Commerce: solid static bar (IMG_7838) */
+  /* Commerce: slim solid static bar like IMG_7838 */
   .announcement-bar--commerce {
-    padding-block: 0.55rem;
+    padding-block: 0.45rem;
   }
   .announcement-bar--commerce .announcement-bar__track {
     width: 100%;
-    max-width: var(--page-width);
-    margin-inline: auto;
-    padding-inline: var(--page-margin);
     animation: none;
     justify-content: center;
-    flex-wrap: nowrap;
     overflow: hidden;
   }
   .announcement-bar--commerce .announcement-bar__text {
-    padding-inline: 0.75rem;
-    font-size: 0.78rem;
+    padding-inline: 1rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     text-align: center;
   }
-  .announcement-bar--commerce .announcement-bar__text--clone {
-    display: none;
-  }
-  .announcement-bar--commerce .announcement-bar__text:not(:first-child):not(.announcement-bar__text--clone) {
-    display: none;
-  }
-
-  /* Overlay: slim dark bar (IMG_7839) */
-  .announcement-bar--overlay {
-    background: #16120f;
-    color: #f7f2ea;
-    padding-block: 0.4rem;
-  }
-  .announcement-bar--overlay .announcement-bar__track {
-    width: 100%;
-    animation: none;
-    justify-content: center;
-  }
-  .announcement-bar--overlay .announcement-bar__text {
-    padding-inline: 1rem;
-    font-size: 0.72rem;
-    font-weight: 500;
-  }
-  .announcement-bar--overlay .announcement-bar__text--clone {
-    display: none;
-  }
-  .announcement-bar--overlay .announcement-bar__text:not(:first-child):not(.announcement-bar__text--clone) {
+  .announcement-bar--commerce .announcement-bar__text--clone,
+  .announcement-bar--commerce .announcement-bar__text:not(:first-of-type) {
     display: none;
   }
 
@@ -104,16 +78,16 @@
     .announcement-bar {
       padding-block: 0.35rem;
     }
-
     .announcement-bar__text {
       font-size: 0.75rem;
       padding-inline: 1.75rem;
     }
-
-    .announcement-bar--commerce .announcement-bar__text,
-    .announcement-bar--overlay .announcement-bar__text {
-      font-size: 0.68rem;
-      padding-inline: 0.5rem;
+    .announcement-bar--commerce {
+      padding-block: 0.4rem;
+    }
+    .announcement-bar--commerce .announcement-bar__text {
+      font-size: 0.65rem;
+      padding-inline: 0.75rem;
     }
   }
 
@@ -124,7 +98,6 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .announcement-bar__text--clone {
       display: none;
     }

@@ -108,4 +108,10 @@
   @media (min-width: 768px) {
     .mobile-bottom-nav { display: none; }
   }
+
+  /* Reference header styles replace bottom nav on mobile */
+  .header-style--commerce .mobile-bottom-nav,
+  .header-style--overlay .mobile-bottom-nav {
+    display: none;
+  }
 {% endstylesheet %}

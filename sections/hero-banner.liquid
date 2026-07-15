@@ -56,11 +56,15 @@
     </div>
 
     <div class="hero-banner__content">
-      <p class="hero-banner__eyebrow">أنفاس العنود</p>
+      {% if section.settings.eyebrow != blank %}
+        <p class="hero-banner__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% else %}
+        <p class="hero-banner__eyebrow">أنفاس العنود</p>
+      {% endif %}
       <h1 class="hero-banner__heading">{{ section.settings.heading }}</h1>
       <p class="hero-banner__text">{{ section.settings.text }}</p>
       {% if section.settings.button_label != blank %}
-        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn btn btn--gold">
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn">
           {{ section.settings.button_label }}
         </a>
       {% endif %}
@@ -147,15 +151,96 @@
   }
 
   .hero-banner__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.6rem;
+    border-radius: var(--style-border-radius-buttons, 999px);
+    background: var(--color-gold);
+    color: var(--color-white);
+    font-weight: 700;
+    text-decoration: none;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
   }
 
+  /* —— Commerce hero (IMG_7838): lifestyle image + bottom-start copy + rectangular CTA —— */
+  .header-style--commerce .hero-banner {
+    padding: 0;
+    background: #f6f4f1;
+  }
+  .header-style--commerce .hero-banner__frame {
+    max-width: none;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: clamp(28rem, 78vh, 44rem);
+  }
+  .header-style--commerce .hero-banner__veil {
+    background:
+      linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.08) 42%, transparent 70%);
+  }
+  .header-style--commerce .hero-banner__content {
+    justify-content: flex-end;
+    padding: 1.5rem var(--page-margin) 2rem;
+    color: var(--color-primary);
+    max-width: 18rem;
+  }
+  .header-style--commerce .hero-banner__eyebrow {
+    color: var(--color-primary);
+    font-size: 1.65rem;
+    letter-spacing: 0.02em;
+    font-weight: 800;
+    margin-block-end: 0.15rem;
+  }
+  .header-style--commerce .hero-banner__heading {
+    color: var(--color-primary);
+    font-size: clamp(1.15rem, 4.5vw, 1.45rem);
+    font-weight: 700;
+    margin-block-end: 0.85rem;
+  }
+  .header-style--commerce .hero-banner__text {
+    display: none;
+  }
+  .header-style--commerce .hero-banner__btn {
+    border-radius: 0.2rem;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.7rem 1.35rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: none;
+    min-width: 9.5rem;
+  }
+
+  /* —— Overlay hero (IMG_7839): tall image-only, no copy —— */
+  .header-style--overlay.template-index .hero-banner {
+    padding: 0;
+    background: #f3f1ee;
+  }
+  .header-style--overlay.template-index .hero-banner__frame {
+    max-width: none;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100svh;
+    min-height: 100vh;
+  }
+  .header-style--overlay.template-index .hero-banner__veil {
+    display: none;
+  }
+  .header-style--overlay.template-index .hero-banner__content {
+    display: none;
+  }
+  .header-style--overlay.template-index .hero-banner__image {
+    object-position: center top;
+  }
+
   @media (max-width: 767px) {
-    .hero-banner {
+    .header-style--classic .hero-banner {
       padding: 0;
     }
-
-    .hero-banner__frame {
+    .header-style--classic .hero-banner__frame {
       max-width: none;
       width: 100%;
       border-radius: 0;
@@ -163,31 +248,12 @@
       aspect-ratio: 1.7 / 1;
       min-height: 14.5rem;
     }
-
-    .header-style--overlay.template-index .hero-banner__frame {
-      aspect-ratio: 3 / 4;
-      min-height: 70vh;
-      max-height: 85vh;
-    }
-
-    .header-style--commerce .hero-banner {
-      padding-block-start: 0.75rem;
-      padding-inline: var(--page-margin);
-    }
-    .header-style--commerce .hero-banner__frame {
-      border-radius: calc(var(--style-border-radius-cards) + 2px);
-      aspect-ratio: 4 / 5;
-      min-height: 18rem;
-      box-shadow: 0 12px 28px rgba(61, 43, 31, 0.12);
-    }
-
-    .hero-banner__veil {
+    .header-style--classic .hero-banner__veil {
       background:
         linear-gradient(90deg, rgba(94, 20, 31, 0.88) 0%, rgba(94, 20, 31, 0.45) 55%, rgba(94, 20, 31, 0.15) 100%),
         linear-gradient(0deg, rgba(61, 43, 31, 0.55) 0%, transparent 50%);
     }
-
-    .hero-banner__content {
+    .header-style--classic .hero-banner__content {
       position: absolute;
       inset: 0;
       z-index: 2;
@@ -197,42 +263,59 @@
       padding: 0.75rem var(--page-margin);
       max-width: 72%;
     }
-
-    .hero-banner__eyebrow {
+    .header-style--classic .hero-banner__eyebrow {
       font-size: 0.625rem;
       margin-block-end: 0.25rem;
-      letter-spacing: 0.08em;
     }
-
-    .hero-banner__heading {
+    .header-style--classic .hero-banner__heading {
       font-size: clamp(1.0625rem, 4.2vw, 1.25rem);
       margin-block-end: 0.5rem;
       line-height: 1.3;
     }
-
-    .hero-banner__text {
-      display: none;
-    }
-
-    .hero-banner__btn {
+    .header-style--classic .hero-banner__text { display: none; }
+    .header-style--classic .hero-banner__btn {
       padding: 0.4375rem 0.875rem;
       font-size: 0.75rem;
-      margin-block-start: 0;
+    }
+
+    .header-style--commerce .hero-banner__frame {
+      min-height: 72vh;
+      aspect-ratio: auto;
+    }
+    .header-style--commerce .hero-banner__content {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 1.25rem 1.1rem 1.5rem;
+      max-width: 70%;
+    }
+    .header-style--commerce .hero-banner__eyebrow {
+      font-size: 1.5rem;
+    }
+    .header-style--commerce .hero-banner__heading {
+      font-size: 1.05rem;
     }
   }
 
   @media (min-width: 768px) {
-    .hero-banner__frame {
-      max-height: 80vh;
-      min-height: 28rem;
-    }
-
     .hero-banner__image--mobile { display: none; }
     .hero-banner__image--desktop { display: block; }
 
-    .hero-banner__content {
+    .header-style--classic .hero-banner__frame {
+      max-height: 80vh;
+      min-height: 28rem;
+    }
+    .header-style--classic .hero-banner__content {
       min-height: 100%;
       max-width: 34rem;
+    }
+
+    .header-style--commerce .hero-banner__frame {
+      min-height: min(80vh, 46rem);
+    }
+    .header-style--commerce .hero-banner__content {
+      max-width: 22rem;
+      padding-inline-start: clamp(2rem, 6vw, 4rem);
+      padding-block-end: 3rem;
     }
   }
 {% endstylesheet %}
@@ -271,6 +354,12 @@
       "label": "نص alt للصورة (مطلوب)",
       "default": "صورة للمنتجات من الأعلى - أنفاس العنود",
       "info": "مطلوب لإمكانية الوصول ومحركات البحث. لا تتركي الحقل فارغًا."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "سطر فوق العنوان (مثل NEW)",
+      "default": "جديد"
     },
     {
       "type": "text",

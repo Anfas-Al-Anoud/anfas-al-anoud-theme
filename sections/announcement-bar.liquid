@@ -1,5 +1,15 @@
-{%- unless settings.header_style == 'overlay' -%}
-<div class="announcement-bar full-width announcement-bar--{{ settings.header_style | default: 'classic' }}" role="region" aria-label="{{ 'sections.announcement_bar.name' | t }}">
+{%- liquid
+  assign header_style = settings.header_style | default: 'classic'
+-%}
+<div
+  class="announcement-bar full-width announcement-bar--{{ header_style }}"
+  role="region"
+  aria-label="{{ 'sections.announcement_bar.name' | t }}"
+>
+  {%- if header_style == 'overlay' -%}
+    <span class="announcement-bar__dots" aria-hidden="true"></span>
+  {%- endif -%}
+
   <div class="announcement-bar__track">
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
@@ -13,8 +23,11 @@
       <p class="announcement-bar__text announcement-bar__text--clone" aria-hidden="true">{{ section.settings.text }}</p>
     {% endif %}
   </div>
+
+  {%- if header_style == 'overlay' -%}
+    <span class="announcement-bar__chevron" aria-hidden="true">‹</span>
+  {%- endif -%}
 </div>
-{%- endunless -%}
 
 {% stylesheet %}
   .announcement-bar {
@@ -37,6 +50,11 @@
     margin: 0;
   }
 
+  .announcement-bar__dots,
+  .announcement-bar__chevron {
+    display: none;
+  }
+
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -51,9 +69,9 @@
     animation-name: marquee-rtl;
   }
 
-  /* Commerce: slim solid static bar like IMG_7838 */
+  /* Commerce (IMG_7838): slim solid static centered bar */
   .announcement-bar--commerce {
-    padding-block: 0.45rem;
+    padding-block: 0.42rem;
   }
   .announcement-bar--commerce .announcement-bar__track {
     width: 100%;
@@ -63,15 +81,65 @@
   }
   .announcement-bar--commerce .announcement-bar__text {
     padding-inline: 1rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     text-align: center;
   }
   .announcement-bar--commerce .announcement-bar__text--clone,
   .announcement-bar--commerce .announcement-bar__text:not(:first-of-type) {
     display: none;
+  }
+
+  /* Overlay (IMG_7839): black bar + dots + chevron */
+  .announcement-bar--overlay {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.35rem;
+    background: #0a0a0a;
+    color: #fff;
+    padding-block: 0.55rem;
+    padding-inline: 0.75rem;
+  }
+  .announcement-bar--overlay .announcement-bar__dots {
+    display: block;
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 50%;
+    background: #fff;
+    margin-inline-end: 0.85rem;
+    box-shadow:
+      0.42rem 0 0 rgba(255, 255, 255, 0.55),
+      0.84rem 0 0 rgba(255, 255, 255, 0.35);
+  }
+  .announcement-bar--overlay .announcement-bar__track {
+    width: 100%;
+    max-width: 100%;
+    animation: none;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .announcement-bar--overlay .announcement-bar__text {
+    padding-inline: 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .announcement-bar--overlay .announcement-bar__text--clone,
+  .announcement-bar--overlay .announcement-bar__text:not(:first-of-type) {
+    display: none;
+  }
+  .announcement-bar--overlay .announcement-bar__chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.9;
+    padding-inline: 0.15rem;
   }
 
   @media (max-width: 767px) {
@@ -86,8 +154,14 @@
       padding-block: 0.4rem;
     }
     .announcement-bar--commerce .announcement-bar__text {
-      font-size: 0.65rem;
-      padding-inline: 0.75rem;
+      font-size: 0.6rem;
+      padding-inline: 0.65rem;
+    }
+    .announcement-bar--overlay {
+      padding-block: 0.5rem;
+    }
+    .announcement-bar--overlay .announcement-bar__text {
+      font-size: 0.62rem;
     }
   }
 

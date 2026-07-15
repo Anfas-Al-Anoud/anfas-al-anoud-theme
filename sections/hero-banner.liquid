@@ -163,57 +163,76 @@
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
   }
 
-  /* —— Commerce hero (IMG_7838): lifestyle image + bottom-start copy + rectangular CTA —— */
+  /*
+   * Commerce (IMG_7838): white stage, image toward the end,
+   * copy mid-start — NEW / title / rectangular primary CTA
+   */
   .header-style--commerce .hero-banner {
     padding: 0;
-    background: #f6f4f1;
+    background: #fff;
   }
   .header-style--commerce .hero-banner__frame {
     max-width: none;
     width: 100%;
     border-radius: 0;
     box-shadow: none;
-    min-height: clamp(28rem, 78vh, 44rem);
+    background: #fff;
+    min-height: clamp(26rem, 72vh, 40rem);
+  }
+  .header-style--commerce .hero-banner__media {
+    inset-inline-start: 32%;
+  }
+  .header-style--commerce .hero-banner__image {
+    object-fit: cover;
+    object-position: center top;
   }
   .header-style--commerce .hero-banner__veil {
-    background:
-      linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.08) 42%, transparent 70%);
+    display: none;
   }
   .header-style--commerce .hero-banner__content {
-    justify-content: flex-end;
-    padding: 1.5rem var(--page-margin) 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1.15rem;
+    max-width: 48%;
     color: var(--color-primary);
-    max-width: 18rem;
+    min-height: clamp(26rem, 72vh, 40rem);
   }
   .header-style--commerce .hero-banner__eyebrow {
     color: var(--color-primary);
-    font-size: 1.65rem;
-    letter-spacing: 0.02em;
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     font-weight: 800;
-    margin-block-end: 0.15rem;
+    line-height: 1;
+    margin: 0 0 0.35rem;
   }
   .header-style--commerce .hero-banner__heading {
     color: var(--color-primary);
-    font-size: clamp(1.15rem, 4.5vw, 1.45rem);
+    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
     font-weight: 700;
-    margin-block-end: 0.85rem;
+    line-height: 1.35;
+    margin: 0 0 1.15rem;
   }
   .header-style--commerce .hero-banner__text {
     display: none;
   }
   .header-style--commerce .hero-banner__btn {
-    border-radius: 0.2rem;
+    border-radius: 0.15rem;
     background: var(--color-primary);
     color: #fff;
-    padding: 0.7rem 1.35rem;
+    padding: 0.75rem 1.5rem;
     font-size: 0.78rem;
-    letter-spacing: 0.06em;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     box-shadow: none;
-    min-width: 9.5rem;
+    min-width: 9rem;
   }
 
-  /* —— Overlay hero (IMG_7839): tall image-only, no copy —— */
+  /*
+   * Overlay (IMG_7839): full-viewport photography only —
+   * no veil, no copy, header floats above
+   */
   .header-style--overlay.template-index .hero-banner {
     padding: 0;
     background: #f3f1ee;
@@ -223,8 +242,8 @@
     width: 100%;
     border-radius: 0;
     box-shadow: none;
-    min-height: 100svh;
-    min-height: 100vh;
+    min-height: calc(100svh - 2.5rem);
+    min-height: calc(100vh - 2.5rem);
   }
   .header-style--overlay.template-index .hero-banner__veil {
     display: none;
@@ -279,20 +298,22 @@
     }
 
     .header-style--commerce .hero-banner__frame {
-      min-height: 72vh;
-      aspect-ratio: auto;
+      min-height: 70vh;
+    }
+    .header-style--commerce .hero-banner__media {
+      inset-inline-start: 28%;
     }
     .header-style--commerce .hero-banner__content {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 1.25rem 1.1rem 1.5rem;
-      max-width: 70%;
+      max-width: 52%;
+      padding: 1.5rem 1rem;
+      min-height: 70vh;
     }
     .header-style--commerce .hero-banner__eyebrow {
-      font-size: 1.5rem;
+      font-size: 2.15rem;
     }
     .header-style--commerce .hero-banner__heading {
       font-size: 1.05rem;
+      margin-block-end: 1rem;
     }
   }
 
@@ -310,12 +331,18 @@
     }
 
     .header-style--commerce .hero-banner__frame {
-      min-height: min(80vh, 46rem);
+      min-height: min(78vh, 44rem);
+    }
+    .header-style--commerce .hero-banner__media {
+      inset-inline-start: 38%;
     }
     .header-style--commerce .hero-banner__content {
-      max-width: 22rem;
-      padding-inline-start: clamp(2rem, 6vw, 4rem);
-      padding-block-end: 3rem;
+      max-width: 36%;
+      padding-inline-start: clamp(2rem, 6vw, 4.5rem);
+      min-height: min(78vh, 44rem);
+    }
+    .header-style--commerce .hero-banner__eyebrow {
+      font-size: 3.25rem;
     }
   }
 {% endstylesheet %}

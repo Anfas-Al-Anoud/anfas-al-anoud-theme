@@ -1,5 +1,8 @@
-<header class="site-header full-width" data-header>
-  {% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
+{%- liquid
+  assign header_style = settings.header_style | default: 'classic'
+-%}
+{% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
+<header class="site-header full-width site-header--{{ header_style }}" data-header>
   <div class="site-header__inner">
     <button class="site-header__menu-toggle" type="button" aria-label="{{ 'general.accessibility.menu' | t }}" aria-expanded="false" data-menu-toggle>
       <svg class="site-header__burger site-header__burger--3" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -57,6 +60,9 @@
     </nav>
 
     <div class="site-header__actions">
+      {%- comment -%} Commerce (IMG_7838): language label before search + bag {%- endcomment -%}
+      <a href="{{ routes.root_url }}" class="site-header__lang" hreflang="en" lang="en">EN</a>
+
       <a href="{{ routes.search_url }}" class="site-header__icon site-header__search-trigger" aria-label="{{ 'general.search.title' | t }}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
@@ -86,7 +92,11 @@
         <span class="site-header__cart-count" data-wishlist-count hidden>0</span>
       </button>
       <button type="button" class="site-header__icon site-header__cart-trigger" data-cart-open aria-label="{{ 'general.cart.title' | t }}">
-        {{ 'icon-cart.svg' | inline_asset_content }}
+        <svg class="site-header__bag" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 8h12l-1 11H7L6 8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M9 8V7a3 3 0 0 1 6 0v1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          <path class="site-header__bag-heart" d="M12 16.2l-.55-.5C9.4 14.05 8 13 8 11.75 8 10.7 8.85 10 9.85 10c.56 0 1.1.26 1.45.7.35-.44.89-.7 1.45-.7 1 0 1.85.7 1.85 1.75 0 1.25-1.4 2.3-3.45 3.95L12 16.2Z" fill="currentColor"/>
+        </svg>
         <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
       </button>
     </div>
@@ -213,6 +223,7 @@
   }
   .site-header__promo:hover { background: var(--color-primary); color: var(--color-primary-foreground); }
   .site-header__icon svg { width: 1.35rem; height: 1.35rem; }
+  .site-header__bag-heart { color: var(--color-primary); }
   .site-header__cart-count {
     position: absolute;
     top: 2px;
@@ -229,6 +240,15 @@
     justify-content: center;
   }
   .site-header__search-trigger { display: none; text-decoration: none; color: inherit; }
+  .site-header__lang {
+    display: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 0.25rem 0.15rem;
+    letter-spacing: 0.02em;
+  }
   .site-header__menu-toggle {
     background: none;
     border: none;
@@ -248,7 +268,8 @@
   @media (max-width: 767px) {
     .header-style--classic .site-header__actions,
     .header-style--classic .site-header__menu-toggle,
-    .header-style--classic .site-header__search-trigger {
+    .header-style--classic .site-header__search-trigger,
+    .header-style--classic .site-header__lang {
       display: none;
     }
     .header-style--classic .site-header__inner {
@@ -264,40 +285,59 @@
       width: auto;
     }
 
-    /* —— Commerce mobile (IMG_7838): menu | logo | search+cart —— */
+    /* —— Commerce (IMG_7838): [menu 2-line] [logo] [EN + search + bag] —— */
     .header-style--commerce .site-header {
       background: #fff;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       border: none;
+      border-block-end: 1px solid #e8e8e8;
       box-shadow: none;
     }
     .header-style--commerce .site-header__inner {
-      grid-template-columns: 2.75rem 1fr auto;
-      gap: 0.25rem;
-      min-height: 3.35rem;
-      padding-block: 0.45rem;
-      padding-inline: 0.75rem;
+      display: grid;
+      grid-template-columns: 2.5rem 1fr auto;
+      grid-template-areas: "menu logo actions";
+      gap: 0.15rem;
+      min-height: 3.25rem;
+      padding-block: 0.4rem;
+      padding-inline: 0.65rem;
       max-width: none;
     }
     .header-style--commerce .site-header__menu-toggle {
       display: inline-flex;
+      grid-area: menu;
       justify-self: start;
+      color: #111;
     }
     .header-style--commerce .site-header__burger--3 { display: none; }
     .header-style--commerce .site-header__burger--2 { display: block; }
     .header-style--commerce .site-header__logo {
+      grid-area: logo;
       justify-self: center;
-      grid-column: auto;
     }
     .header-style--commerce .site-header__logo img {
-      max-height: 2.5rem;
+      max-height: 2.35rem;
       width: auto;
     }
+    .header-style--commerce .site-header__nav { display: none !important; }
     .header-style--commerce .site-header__actions {
       display: flex;
-      gap: 0.1rem;
+      grid-area: actions;
+      gap: 0.05rem;
       justify-self: end;
+      align-items: center;
+    }
+    .header-style--commerce .site-header__lang {
+      display: inline-flex;
+      margin-inline-end: 0.15rem;
+    }
+    .header-style--commerce .site-header__search-trigger {
+      display: inline-flex;
+      color: #111;
+    }
+    .header-style--commerce .site-header__cart-trigger {
+      color: #111;
     }
     .header-style--commerce .site-header__search,
     .header-style--commerce .site-header__account,
@@ -305,12 +345,8 @@
     .header-style--commerce .site-header__promo {
       display: none !important;
     }
-    .header-style--commerce .site-header__search-trigger {
-      display: inline-flex;
-    }
-    .header-style--commerce .site-header__nav { display: none !important; }
 
-    /* —— Overlay mobile (IMG_7839): logo | cart+menu —— */
+    /* —— Overlay (IMG_7839): [logo] …… [bag + menu 3-line] —— */
     .header-style--overlay .site-header {
       background: transparent;
       backdrop-filter: none;
@@ -319,39 +355,51 @@
       box-shadow: none;
     }
     .header-style--overlay .site-header__inner {
-      grid-template-columns: 1fr auto;
-      gap: 0.35rem;
-      min-height: 3.5rem;
-      padding-block: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      min-height: 3.35rem;
+      padding-block: 0.55rem;
       padding-inline: 1rem;
       max-width: none;
     }
     .header-style--overlay .site-header__logo {
-      justify-self: start;
       order: 1;
+      margin-inline-end: auto;
+      justify-self: start;
     }
     .header-style--overlay .site-header__logo img {
-      max-height: 2.35rem;
+      max-height: 2.2rem;
       width: auto;
+      filter: none;
     }
+    .header-style--overlay .site-header__nav { display: none !important; }
     .header-style--overlay .site-header__actions {
       display: flex;
-      gap: 0.15rem;
       order: 2;
-      justify-self: end;
+      gap: 0.05rem;
+      color: var(--color-gold);
     }
     .header-style--overlay .site-header__menu-toggle {
       display: inline-flex;
       order: 3;
+      color: var(--color-gold);
+      min-width: 2.5rem;
     }
     .header-style--overlay .site-header__burger--2 { display: none; }
     .header-style--overlay .site-header__burger--3 { display: block; }
+    .header-style--overlay .site-header__cart-trigger {
+      color: var(--color-gold);
+    }
+    .header-style--overlay .site-header__bag-heart {
+      color: var(--color-gold);
+    }
+    .header-style--overlay .site-header__lang,
     .header-style--overlay .site-header__search,
     .header-style--overlay .site-header__search-trigger,
     .header-style--overlay .site-header__account,
     .header-style--overlay .site-header__wishlist,
-    .header-style--overlay .site-header__promo,
-    .header-style--overlay .site-header__nav {
+    .header-style--overlay .site-header__promo {
       display: none !important;
     }
   }
@@ -359,6 +407,7 @@
   @media (min-width: 768px) {
     .site-header__menu-toggle { display: none; }
     .site-header__search-trigger { display: none; }
+    .site-header__lang { display: none; }
     .site-header__nav {
       display: flex;
       position: static;
@@ -413,6 +462,7 @@
       background: #fff;
       backdrop-filter: none;
       border: none;
+      border-block-end: 1px solid #e8e8e8;
       box-shadow: none;
     }
     .header-style--overlay.template-index .site-header {
@@ -427,13 +477,20 @@
     .site-header__promo { display: none; }
   }
 
-  /* Overlay: pin header group over homepage hero */
-  .header-style--overlay.template-index .shopify-section-group-header-group {
+  /* Overlay: announcement stays in flow; header floats over the hero */
+  .header-style--overlay.template-index .site-header-section {
+    position: relative;
+    z-index: 50;
+    height: 0;
+    overflow: visible;
+  }
+  .header-style--overlay.template-index .site-header {
     position: absolute;
     inset-inline: 0;
     top: 0;
-    z-index: 120;
-    width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
   .header-style--overlay:not(.template-index) .site-header {
     background: #fff;

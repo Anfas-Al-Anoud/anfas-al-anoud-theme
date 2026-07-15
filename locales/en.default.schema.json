@@ -113,7 +113,7 @@
     "header": {
       "name": "Header",
       "style": "Header & announcement style",
-      "style_info": "Commerce matches IMG_7838 (slim bar + white header + CTA hero). Overlay matches IMG_7839 (no announcement + transparent header + image-only hero).",
+      "style_info": "Commerce = IMG_7838 (slim bar + white header menu|logo|EN+search+bag + white hero with NEW/CTA). Overlay = IMG_7839 (black bar + gold logo|bag+menu over image-only hero). Only these three areas change.",
       "style_options": {
         "classic": "Classic — frosted header + current hero",
         "commerce": "Commerce — like first reference",

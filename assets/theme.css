@@ -148,18 +148,9 @@
     padding-bottom: calc(var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom));
   }
 
-  .header-style--commerce,
-  .header-style--overlay {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
   /* Lift the floating WhatsApp button above the bottom nav. */
   body .whatsapp-float {
     bottom: calc(var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom) + 0.75rem);
-  }
-  .header-style--commerce .whatsapp-float,
-  .header-style--overlay .whatsapp-float {
-    bottom: calc(env(safe-area-inset-bottom) + 1rem);
   }
   /* Product pages already surface WhatsApp (ask + share); hide the float to
      avoid clashing with the sticky add-to-cart bar. */

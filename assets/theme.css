@@ -122,7 +122,8 @@
   }
 
   .template-index .section-subheading,
-  .template-index .featured-collection__subheading {
+  .template-index .featured-collection__subheading,
+  .template-index .image-with-text__text {
     display: none;
   }
 }

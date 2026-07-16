@@ -11,7 +11,7 @@
     {% endif %}
     <div class="image-with-text__content">
       <h2 class="section-heading image-with-text__heading">{{ section.settings.heading }}</h2>
-      <p>{{ section.settings.text }}</p>
+      <p class="image-with-text__text">{{ section.settings.text }}</p>
       {% if section.settings.button_label != blank %}
         <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_label }}</a>
       {% endif %}
@@ -38,10 +38,16 @@
     text-align: center;
   }
 
-  .image-with-text__content p {
+  .image-with-text__text {
     line-height: 1.8;
     margin-block-end: 1.5rem;
     color: var(--color-accent);
+  }
+
+  @media (max-width: 767px) {
+    .template-index .image-with-text__text {
+      display: none;
+    }
   }
 
   .image-with-text__media img {

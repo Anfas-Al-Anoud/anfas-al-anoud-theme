@@ -147,6 +147,7 @@
     "quality_banner": { "name": "Quality banner" },
     "faq_accordion": { "name": "FAQ" },
     "trust_features": { "name": "Trust features" },
+    "trust_bar": { "name": "Trust bar" },
     "ai_quiz": { "name": "AI quiz assistant" },
     "link_hub": { "name": "Link hub" },
     "cart_drawer": { "name": "Cart drawer" },

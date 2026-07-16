@@ -5,8 +5,30 @@
       <p class="section-subheading">{{ section.settings.subheading }}</p>
     {% endif %}
 
-    <!-- Start of Judge.me code -->{% assign has_legacy = false %}{% if product.metafields.judgeme.widget.size > 20 %}{% assign has_legacy = true %}{% endif %}<div style='clear:both'></div><div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-product-title='{{ product.title | escape }}' data-id='{{ product.id }}' data-product-id='{{ product.id }}' data-widget='review' data-auto-install='false' data-shop-reviews-count='{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}' data-entry-point='review_widget.js' data-entry-key='review-widget/main.js'>{% if has_legacy %}<div class='jdgm-legacy-widget-content' style='display: none;'>{{ product.metafields.judgeme.widget }}</div>{% endif %}</div>{% if product.metafields.judgeme.review_widget_data %}<script>jdgm.data ||= {}; jdgm.data.reviewWidget ||= {}; jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }}</script>{% endif %}<!-- End of Judge.me code -->
-
+    <!-- Start of Judge.me code -->{% assign has_legacy = false %}{% if product.metafields.judgeme.widget.size > 20 %}{% assign has_legacy = true %}{% endif %}
+    {%- liquid
+      assign can_write_review = false
+      if customer
+        for order in customer.orders
+          for line_item in order.line_items
+            if line_item.product_id == product.id
+              assign can_write_review = true
+              break
+            endif
+          endfor
+          if can_write_review
+            break
+          endif
+        endfor
+      endif
+    -%}
+    <div class="product-reviews__widget{% unless can_write_review %} product-reviews__widget--view-only{% endunless %}" data-can-write-review="{{ can_write_review }}">
+      <div style='clear:both'></div><div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-product-title='{{ product.title | escape }}' data-id='{{ product.id }}' data-product-id='{{ product.id }}' data-widget='review' data-auto-install='false' data-shop-reviews-count='{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}' data-entry-point='review_widget.js' data-entry-key='review-widget/main.js'>{% if has_legacy %}<div class='jdgm-legacy-widget-content' style='display: none;'>{{ product.metafields.judgeme.widget }}</div>{% endif %}</div>{% if product.metafields.judgeme.review_widget_data %}<script>jdgm.data ||= {}; jdgm.data.reviewWidget ||= {}; jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }}</script>{% endif %}
+    </div>
+    <!-- End of Judge.me code -->
+    {% unless can_write_review %}
+      <p class="product-reviews__buyer-note">{{ 'products.reviews_verified_only' | t }}</p>
+    {% endunless %}
     {% content_for 'blocks' %}
 
     {% if section.blocks.size == 0 and request.design_mode %}
@@ -36,6 +58,24 @@
 
   .product-reviews__install-hint p {
     margin: 0;
+  }
+
+  .product-reviews__buyer-note {
+    margin-block-start: 0.85rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--color-accent);
+    line-height: 1.6;
+  }
+
+  .product-reviews__widget--view-only :is(
+    .jdgm-write-rev-link,
+    .jdgm-write-rev,
+    .jdgm-form,
+    .jdgm-rev-widg__summary-actions,
+    a[href*="write-review"]
+  ) {
+    display: none !important;
   }
 {% endstylesheet %}
 

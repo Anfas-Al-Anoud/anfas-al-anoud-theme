@@ -147,6 +147,7 @@
     "quality_banner": { "name": "بانر الجودة" },
     "faq_accordion": { "name": "الأسئلة الشائعة" },
     "trust_features": { "name": "مميزات الثقة" },
+    "trust_bar": { "name": "شريط الثقة" },
     "ai_quiz": { "name": "مساعد العنود" },
     "link_hub": { "name": "روابط التواصل" },
     "cart_drawer": { "name": "درج السلة" },

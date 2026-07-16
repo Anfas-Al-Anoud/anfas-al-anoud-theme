@@ -12,6 +12,7 @@
     data-testimonials
     data-reviews-pool="{{ review_pool }}"
     data-reviews-show="{{ visible_count }}"
+    data-reviews-exclude="162"
     data-review-sample="{{ 'review-01.jpg' | asset_url | escape }}"
     data-review-alt="{{ section.settings.image_alt | escape }}"
     style="--carousel-gap: 0.5rem;"
@@ -134,9 +135,16 @@
         const pool = parseInt(section.getAttribute('data-reviews-pool'), 10) || 181;
         const show = parseInt(section.getAttribute('data-reviews-show'), 10) || 10;
         const alt = section.getAttribute('data-review-alt') || '';
-        const keep = Math.min(show, pool);
+        const excludeRaw = section.getAttribute('data-reviews-exclude') || '';
+        const excluded = new Set(
+          excludeRaw
+            .split(',')
+            .map((v) => parseInt(v.trim(), 10))
+            .filter((n) => Number.isFinite(n) && n > 0)
+        );
+        const keep = Math.min(show, Math.max(0, pool - excluded.size));
 
-        const indices = Array.from({ length: pool }, (_, i) => i + 1);
+        const indices = Array.from({ length: pool }, (_, i) => i + 1).filter((n) => !excluded.has(n));
         shuffle(indices);
 
         indices.slice(0, keep).forEach((n) => {

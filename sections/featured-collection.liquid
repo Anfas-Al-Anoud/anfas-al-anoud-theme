@@ -116,6 +116,39 @@
     color: var(--color-primary);
   }
 
+  @media (max-width: 767px) {
+    .featured-collection__header {
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .featured-collection__titles {
+      width: 100%;
+    }
+    .featured-collection__countdown {
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: visible;
+      width: 100%;
+      gap: 0.4rem;
+    }
+    .featured-collection__countdown-units {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      width: 100%;
+      gap: 0.35rem;
+      flex-shrink: 1;
+    }
+    .featured-collection__countdown-unit {
+      min-width: 0;
+      width: 100%;
+      padding: 0.35rem 0.25rem;
+      font-size: 0.65rem;
+    }
+    .featured-collection__countdown-unit strong {
+      font-size: 0.88rem;
+    }
+  }
+
   .featured-collection__view-all {
     flex-shrink: 0;
     display: inline-flex;

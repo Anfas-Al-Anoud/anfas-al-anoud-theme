@@ -47,6 +47,41 @@
       <div data-cart-upsell-body></div>
     </div>
 
+    <div class="cart-drawer__upsell" data-cart-upsell hidden>
+      <h3 class="cart-drawer__upsell-title">{{ 'general.cart.upsell_title' | t }}</h3>
+      <div data-cart-upsell-body></div>
+    </div>
+
+    <div class="cart-drawer__gift" data-cart-gift-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
+      <label class="cart-drawer__gift-option">
+        <input
+          type="checkbox"
+          data-cart-attr="إرسال كهدية"
+          {% if cart.attributes['إرسال كهدية'] == 'نعم' %}checked{% endif %}
+        >
+        <span>{{ 'general.cart.send_as_gift' | t }}</span>
+      </label>
+      <label class="cart-drawer__gift-option">
+        <input
+          type="checkbox"
+          data-cart-attr="تغليف الهدايا"
+          {% if cart.attributes['تغليف الهدايا'] == 'نعم' %}checked{% endif %}
+        >
+        <span>{{ 'general.cart.gift_wrap' | t }}</span>
+      </label>
+      <div class="cart-drawer__gift-message" data-gift-message-wrap {% unless cart.attributes['إرسال كهدية'] == 'نعم' %}hidden{% endunless %}>
+        <label class="cart-drawer__notes-label" for="CartDrawerGiftMessage">{{ 'general.cart.gift_message_label' | t }}</label>
+        <textarea
+          id="CartDrawerGiftMessage"
+          class="cart-drawer__notes-input"
+          data-cart-attr-text="رسالة هدية"
+          rows="2"
+          maxlength="200"
+          placeholder="{{ 'general.cart.gift_message_placeholder' | t }}"
+        >{{ cart.attributes['رسالة هدية'] }}</textarea>
+      </div>
+    </div>
+
     {% if settings.enable_cart_note %}
       <div class="cart-drawer__notes" data-cart-notes-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
         <label class="cart-drawer__notes-label" for="CartDrawerNote">{{ 'general.cart.note_label' | t }}</label>
@@ -57,9 +92,6 @@
           rows="3"
           placeholder="{{ 'general.cart.note_placeholder' | t }}"
         >{{ cart.note }}</textarea>
-        {% if settings.enable_gift_message %}
-          <p class="cart-drawer__notes-hint">{{ 'general.cart.gift_message_hint' | t }}</p>
-        {% endif %}
       </div>
     {% endif %}
 
@@ -201,6 +233,29 @@
     min-height: 4.5rem;
   }
   .cart-drawer__notes-hint { font-size: 0.75rem; color: var(--color-accent); margin: 0; }
+  .cart-drawer__gift {
+    padding: 0.75rem 1.25rem;
+    border-block-start: 1px solid var(--color-sand);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .cart-drawer__gift[hidden] { display: none; }
+  .cart-drawer__gift-option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    cursor: pointer;
+  }
+  .cart-drawer__gift-option input {
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--color-primary);
+  }
+  .cart-drawer__gift-message[hidden] { display: none; }
   .cart-drawer__footer {
     padding: 1.25rem;
     border-block-start: 1px solid var(--color-sand);

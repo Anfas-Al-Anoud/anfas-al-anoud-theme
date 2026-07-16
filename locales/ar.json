@@ -63,8 +63,12 @@
       "increase": "زيادة الكمية",
       "upsell_title": "يكمّلون طلبج",
       "note_label": "ملاحظة للطلب",
-      "note_placeholder": "اكتبي ملاحظة لطلبج أو رسالة للهدية...",
-      "gift_message_hint": "نرفق رسالة الهدية مع الطلب إذا أمكن."
+      "note_placeholder": "اكتبي ملاحظة لطلبج...",
+      "gift_message_hint": "نرفق رسالة الهدية مع الطلب إذا أمكن.",
+      "send_as_gift": "إرسال كهدية",
+      "gift_wrap": "تغليف الهدايا",
+      "gift_message_label": "رسالة الهدية",
+      "gift_message_placeholder": "اكتبي رسالة قصيرة للهدية..."
     },
     "product": {
       "add_to_cart": "أضيفي للسلة",
@@ -83,6 +87,7 @@
   },
   "products": {
     "write_review": "اكتبي مراجعة",
+    "reviews_verified_only": "التقييم للمشترين بعد الشراء فقط.",
     "quick_add": "أضيفي بسرعة",
     "quick_view": "معاينة سريعة",
     "view_details": "التفاصيل الكاملة",

@@ -14,6 +14,20 @@
     assign discount_percent = savings | times: 100 | divided_by: product.compare_at_price
   endif
   assign rating = product.metafields.reviews.rating.value
+  assign can_write_review = false
+  if customer
+    for order in customer.orders
+      for line_item in order.line_items
+        if line_item.product_id == product.id
+          assign can_write_review = true
+          break
+        endif
+      endfor
+      if can_write_review
+        break
+      endif
+    endfor
+  endif
   assign promo_label = ''
   assign is_new = false
   assign now_ts = 'now' | date: '%s' | plus: 0
@@ -128,14 +142,20 @@
           <span class="product-card__rating-count">({{ product.metafields.reviews.rating_count.value }})</span>
         {% endif %}
       {% else %}
-        <a
-          href="{{ product.url }}#judgeme_product_reviews"
-          class="product-card__rating-cta"
-          aria-label="{{ 'products.write_review' | t }}"
-        >
-          {% render 'rating-stars', rating: 0 %}
-          <span class="product-card__write-review">{{ 'products.write_review' | t }}</span>
-        </a>
+        {% if can_write_review %}
+          <a
+            href="{{ product.url }}#judgeme_product_reviews"
+            class="product-card__rating-cta"
+            aria-label="{{ 'products.write_review' | t }}"
+          >
+            {% render 'rating-stars', rating: 0 %}
+            <span class="product-card__write-review">{{ 'products.write_review' | t }}</span>
+          </a>
+        {% else %}
+          <div class="product-card__rating-static" aria-hidden="true">
+            {% render 'rating-stars', rating: 0 %}
+          </div>
+        {% endif %}
       {% endif %}
     </div>
     <div class="product-card__price">
@@ -240,6 +260,11 @@
     gap: 0.35rem;
     text-decoration: none;
     color: inherit;
+  }
+  .product-card__rating-static {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.55;
   }
   .product-card__rating-cta .rating-stars { color: color-mix(in srgb, var(--color-gold) 55%, #cfc8be); }
   .product-card__write-review {

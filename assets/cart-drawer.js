@@ -20,8 +20,12 @@ class CartDrawer {
     this.upsellBody = this.drawer.querySelector('[data-cart-upsell-body]');
     this.noteEl = this.drawer.querySelector('[data-cart-note]');
     this.notesWrap = this.drawer.querySelector('[data-cart-notes-wrap]');
+    this.giftWrap = this.drawer.querySelector('[data-cart-gift-wrap]');
+    this.giftMessageWrap = this.drawer.querySelector('[data-gift-message-wrap]');
+    this.giftMessageEl = this.drawer.querySelector('[data-cart-attr-text="رسالة هدية"]');
     this.lastFocus = null;
     this.noteTimer = null;
+    this.attrTimer = null;
 
     document.addEventListener('click', (e) => {
       if (e.target.closest('[data-cart-open]')) {
@@ -55,6 +59,14 @@ class CartDrawer {
     this.noteEl?.addEventListener('input', () => {
       clearTimeout(this.noteTimer);
       this.noteTimer = setTimeout(() => this.updateNote(this.noteEl.value), 400);
+    });
+
+    this.drawer.querySelectorAll('[data-cart-attr]').forEach((input) => {
+      input.addEventListener('change', () => this.syncGiftAttributes());
+    });
+    this.giftMessageEl?.addEventListener('input', () => {
+      clearTimeout(this.attrTimer);
+      this.attrTimer = setTimeout(() => this.syncGiftAttributes(), 400);
     });
   }
 
@@ -121,6 +133,30 @@ class CartDrawer {
     return null;
   }
 
+  async syncGiftAttributes() {
+    const attrs = {};
+    this.drawer.querySelectorAll('[data-cart-attr]').forEach((input) => {
+      const key = input.getAttribute('data-cart-attr');
+      if (!key) return;
+      attrs[key] = input.checked ? 'نعم' : '';
+      if (key === 'إرسال كهدية' && this.giftMessageWrap) {
+        this.giftMessageWrap.hidden = !input.checked;
+        if (!input.checked && this.giftMessageEl) this.giftMessageEl.value = '';
+      }
+    });
+    if (this.giftMessageEl) {
+      const giftOn = !!this.drawer.querySelector('[data-cart-attr="إرسال كهدية"]')?.checked;
+      attrs['رسالة هدية'] = giftOn ? (this.giftMessageEl.value || '').trim() : '';
+    }
+    const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/update.js`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ attributes: attrs }),
+    });
+    if (res.ok) return res.json();
+    return null;
+  }
+
   async changeLine(key, quantity) {
     const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/change.js`, {
       method: 'POST',
@@ -143,15 +179,30 @@ class CartDrawer {
         this.itemsEl.innerHTML = `<p class="cart-drawer__empty">${this.itemsEl.dataset.emptyText || 'سلتج فاضية'}</p>`;
         if (this.footerEl) this.footerEl.hidden = true;
         if (this.notesWrap) this.notesWrap.hidden = true;
+        if (this.giftWrap) this.giftWrap.hidden = true;
       } else {
         if (this.footerEl) this.footerEl.hidden = false;
         if (this.notesWrap) this.notesWrap.hidden = false;
+        if (this.giftWrap) this.giftWrap.hidden = false;
         this.itemsEl.innerHTML = cart.items.map((item) => this.lineHTML(item)).join('');
       }
     }
 
     if (this.noteEl && document.activeElement !== this.noteEl && cart.note !== undefined) {
       this.noteEl.value = cart.note || '';
+    }
+
+    const attrs = cart.attributes || {};
+    this.drawer.querySelectorAll('[data-cart-attr]').forEach((input) => {
+      const key = input.getAttribute('data-cart-attr');
+      if (!key || document.activeElement === input) return;
+      input.checked = attrs[key] === 'نعم';
+    });
+    if (this.giftMessageEl && document.activeElement !== this.giftMessageEl) {
+      this.giftMessageEl.value = attrs['رسالة هدية'] || '';
+    }
+    if (this.giftMessageWrap) {
+      this.giftMessageWrap.hidden = attrs['إرسال كهدية'] !== 'نعم';
     }
 
     this.renderShippingBar(cart.total_price);

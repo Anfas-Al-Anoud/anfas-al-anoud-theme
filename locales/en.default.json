@@ -63,8 +63,12 @@
       "increase": "Increase quantity",
       "upsell_title": "Complete your order",
       "note_label": "Order note",
-      "note_placeholder": "Add a note for your order or a gift message...",
-      "gift_message_hint": "We'll include your gift message with the order when possible."
+      "note_placeholder": "Add a note for your order...",
+      "gift_message_hint": "We'll include your gift message with the order when possible.",
+      "send_as_gift": "Send as a gift",
+      "gift_wrap": "Gift wrapping",
+      "gift_message_label": "Gift message",
+      "gift_message_placeholder": "Write a short gift message..."
     },
     "product": {
       "add_to_cart": "Add to cart",
@@ -83,6 +87,7 @@
   },
   "products": {
     "write_review": "Write a review",
+    "reviews_verified_only": "Reviews are for verified buyers after purchase.",
     "quick_add": "Quick add",
     "quick_view": "Quick view",
     "view_details": "Full details",

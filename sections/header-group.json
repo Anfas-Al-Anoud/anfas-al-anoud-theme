@@ -24,11 +24,7 @@
     "header": {
       "type": "header",
       "settings": {}
-    },
-    "trust_bar": {
-      "type": "trust-bar",
-      "settings": {}
     }
   },
-  "order": ["announcement", "header", "trust_bar"]
+  "order": ["announcement", "header"]
 }

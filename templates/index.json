@@ -30,6 +30,10 @@
         "overlay_inset_alt": "تفاصيل طقوس العناية - أنفاس العنود"
       }
     },
+    "trust_bar": {
+      "type": "trust-bar",
+      "settings": {}
+    },
     "categories": {
       "type": "category-icons",
       "blocks": {
@@ -398,6 +402,7 @@
   },
   "order": [
     "hero",
+    "trust_bar",
     "categories",
     "featured_new",
     "mood",

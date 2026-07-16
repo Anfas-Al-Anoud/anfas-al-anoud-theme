@@ -6,8 +6,8 @@
   assign mobile_image = section.settings.image_mobile
 
   if header_style == 'commerce'
-    assign desktop_asset = section.settings.commerce_desktop_asset | default: 'hero-commerce-desktop.png'
-    assign mobile_asset = section.settings.commerce_mobile_asset | default: 'hero-commerce-mobile.png'
+    assign desktop_asset = section.settings.commerce_desktop_asset | default: 'hero-commerce-v203-desktop.png'
+    assign mobile_asset = section.settings.commerce_mobile_asset | default: 'hero-commerce-v203-mobile.png'
     if section.settings.commerce_image_desktop != blank
       assign desktop_image = section.settings.commerce_image_desktop
     endif
@@ -511,13 +511,13 @@
       "type": "text",
       "id": "commerce_desktop_asset",
       "label": "Commerce ملف ديسكتوب",
-      "default": "hero-commerce-desktop.png"
+      "default": "hero-commerce-v203-desktop.png"
     },
     {
       "type": "text",
       "id": "commerce_mobile_asset",
       "label": "Commerce ملف جوال",
-      "default": "hero-commerce-mobile.png"
+      "default": "hero-commerce-v203-mobile.png"
     },
     {
       "type": "header",

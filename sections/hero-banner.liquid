@@ -226,22 +226,26 @@
   /* —— Commerce: white stage, model right, copy left (Narins layout) —— */
   .hero-banner--commerce {
     padding: 0;
-    background: #fff;
+    background: #f7f3ec;
   }
   .hero-banner--commerce .hero-banner__frame {
     max-width: none;
     width: 100%;
     border-radius: 0;
     box-shadow: none;
-    background: #fff;
-    min-height: clamp(28rem, 74vh, 42rem);
+    background: #f7f3ec;
+    /* Match landscape hero art — avoid tall cover crop that chops the model */
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    max-height: min(72vh, 40rem);
   }
   .hero-banner--commerce .hero-banner__media {
     inset: 0;
   }
   .hero-banner--commerce .hero-banner__image {
     object-fit: cover;
-    object-position: 72% center;
+    /* Model + bags live on the right; keep them fully in frame */
+    object-position: 92% center;
   }
   .hero-banner--commerce .hero-banner__veil {
     display: none;
@@ -249,12 +253,12 @@
   .hero-banner--commerce .hero-banner__content {
     position: absolute;
     z-index: 2;
-    /* Keep copy on the visual left (white space in photo), Arabic text stays RTL */
+    /* Keep copy on the visual left (negative space in photo), Arabic text stays RTL */
     left: 0;
     right: auto;
     top: 0;
     bottom: 0;
-    width: min(48%, 15.5rem);
+    width: min(42%, 20rem);
     max-width: none;
     min-height: 0;
     justify-content: center;
@@ -403,12 +407,16 @@
     }
 
     .hero-banner--commerce .hero-banner__frame {
+      aspect-ratio: auto;
       min-height: 72vh;
+      max-height: none;
     }
     .hero-banner--commerce .hero-banner__image {
       object-position: 82% 58%;
     }
     .hero-banner--commerce .hero-banner__content {
+      left: 0;
+      right: auto;
       width: min(46%, 12.5rem);
       padding: 5.25rem 0.75rem 1.5rem 1rem;
     }
@@ -428,16 +436,19 @@
     }
 
     .hero-banner--commerce .hero-banner__frame {
-      min-height: min(80vh, 46rem);
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      max-height: min(70vh, 38rem);
     }
     .hero-banner--commerce .hero-banner__image {
-      object-position: 28% center;
+      object-fit: cover;
+      object-position: 90% center;
     }
     .hero-banner--commerce .hero-banner__content {
-      left: auto;
-      right: 0;
-      width: min(38%, 22rem);
-      padding: 2.5rem 3rem 3rem 1.5rem;
+      left: 0;
+      right: auto;
+      width: min(36%, 22rem);
+      padding: 2.5rem 1.5rem 3rem 3rem;
     }
     .hero-banner--commerce .hero-banner__eyebrow {
       font-size: 3.5rem;

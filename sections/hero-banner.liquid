@@ -6,8 +6,8 @@
   assign mobile_image = section.settings.image_mobile
 
   if header_style == 'commerce'
-    assign desktop_asset = section.settings.commerce_desktop_asset | default: 'hero-commerce-v203-desktop.png'
-    assign mobile_asset = section.settings.commerce_mobile_asset | default: 'hero-commerce-v203-mobile.png'
+    assign desktop_asset = section.settings.commerce_desktop_asset | default: 'hero-commerce-v3.png'
+    assign mobile_asset = section.settings.commerce_mobile_asset | default: 'hero-commerce-v3.png'
     if section.settings.commerce_image_desktop != blank
       assign desktop_image = section.settings.commerce_image_desktop
     endif
@@ -223,29 +223,29 @@
     transform: translateY(-1px);
   }
 
-  /* —— Commerce: white stage, model right, copy left (Narins layout) —— */
+  /* —— Commerce: v3 2×3 art — dark left stage, model right —— */
   .hero-banner--commerce {
     padding: 0;
-    background: #f7f3ec;
+    background: #2a221c;
   }
   .hero-banner--commerce .hero-banner__frame {
     max-width: none;
     width: 100%;
     border-radius: 0;
     box-shadow: none;
-    background: #f7f3ec;
-    /* Match landscape hero art — avoid tall cover crop that chops the model */
-    aspect-ratio: 16 / 9;
+    background: #2a221c;
+    /* Portrait source (2:3): taller crop so the model isn’t chopped */
+    aspect-ratio: 3 / 2;
     min-height: 0;
-    max-height: min(72vh, 40rem);
+    max-height: min(78vh, 44rem);
   }
   .hero-banner--commerce .hero-banner__media {
     inset: 0;
   }
   .hero-banner--commerce .hero-banner__image {
     object-fit: cover;
-    /* Model + bags live on the right; keep them fully in frame */
-    object-position: 92% center;
+    /* Keep model + bags on the right fully visible */
+    object-position: 78% center;
   }
   .hero-banner--commerce .hero-banner__veil {
     display: none;
@@ -253,7 +253,7 @@
   .hero-banner--commerce .hero-banner__content {
     position: absolute;
     z-index: 2;
-    /* Keep copy on the visual left (negative space in photo), Arabic text stays RTL */
+    /* Copy on dark negative space (left) */
     left: 0;
     right: auto;
     top: 0;
@@ -263,10 +263,10 @@
     min-height: 0;
     justify-content: center;
     padding: 1.5rem 1rem 1.75rem 1.15rem;
-    color: var(--color-primary);
+    color: var(--color-cream);
   }
   .hero-banner--commerce .hero-banner__eyebrow {
-    color: var(--color-primary);
+    color: var(--color-gold);
     font-size: clamp(1.85rem, 8.5vw, 2.6rem);
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -275,7 +275,7 @@
     margin: 0 0 0.2rem;
   }
   .hero-banner--commerce .hero-banner__heading {
-    color: var(--color-primary);
+    color: var(--color-cream);
     font-size: clamp(1rem, 3.8vw, 1.2rem);
     font-weight: 700;
     line-height: 1.35;
@@ -286,8 +286,8 @@
   }
   .hero-banner--commerce .hero-banner__btn {
     border-radius: 0.2rem;
-    background: var(--color-primary);
-    color: #fff;
+    background: var(--color-gold);
+    color: var(--color-dark);
     padding: 0.72rem 1.35rem;
     font-size: 0.72rem;
     font-weight: 800;
@@ -297,7 +297,7 @@
     min-width: 8.75rem;
   }
   .hero-banner--commerce .hero-banner__btn:hover {
-    background: var(--color-primary-dark);
+    background: color-mix(in srgb, var(--color-gold) 85%, #fff);
   }
 
   /* —— Overlay: full-bleed photo + centered PiP inset —— */
@@ -407,17 +407,17 @@
     }
 
     .hero-banner--commerce .hero-banner__frame {
-      aspect-ratio: auto;
-      min-height: 72vh;
-      max-height: none;
+      aspect-ratio: 2 / 3;
+      min-height: 0;
+      max-height: min(88vh, 46rem);
     }
     .hero-banner--commerce .hero-banner__image {
-      object-position: 82% 58%;
+      object-position: 72% 42%;
     }
     .hero-banner--commerce .hero-banner__content {
       left: 0;
       right: auto;
-      width: min(46%, 12.5rem);
+      width: min(52%, 13.5rem);
       padding: 5.25rem 0.75rem 1.5rem 1rem;
     }
   }
@@ -436,13 +436,13 @@
     }
 
     .hero-banner--commerce .hero-banner__frame {
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 3 / 2;
       min-height: 0;
-      max-height: min(70vh, 38rem);
+      max-height: min(78vh, 44rem);
     }
     .hero-banner--commerce .hero-banner__image {
       object-fit: cover;
-      object-position: 90% center;
+      object-position: 76% center;
     }
     .hero-banner--commerce .hero-banner__content {
       left: 0;
@@ -522,13 +522,13 @@
       "type": "text",
       "id": "commerce_desktop_asset",
       "label": "Commerce ملف ديسكتوب",
-      "default": "hero-commerce-v203-desktop.png"
+      "default": "hero-commerce-v3.png"
     },
     {
       "type": "text",
       "id": "commerce_mobile_asset",
       "label": "Commerce ملف جوال",
-      "default": "hero-commerce-v203-mobile.png"
+      "default": "hero-commerce-v3.png"
     },
     {
       "type": "header",

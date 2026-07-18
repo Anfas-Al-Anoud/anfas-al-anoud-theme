@@ -66,6 +66,8 @@ shopify theme dev
 - `emirati_woman_modest.jpg` (صفحة من نحن — لاحقًا)
 - `quiz_mood_1.jpg`, `quiz_mood_2.jpg`
 
+**الشعار:** السمة تستخدم `assets/anfas-alanoud-logo.png` تلقائيًا إن كان حقل الشعار فارغًا. اختياريًا ارفعي شعارًا من **تخصيص → إعدادات السمة → العلامة التجارية → الشعار**.
+
 ## الصفحات المطلوب إنشاؤها في Admin
 
 | Handle | القالب |

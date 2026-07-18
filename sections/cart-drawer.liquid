@@ -52,35 +52,37 @@
       <div data-cart-upsell-body></div>
     </div>
 
-    <div class="cart-drawer__gift" data-cart-gift-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
-      <label class="cart-drawer__gift-option">
-        <input
-          type="checkbox"
-          data-cart-attr="إرسال كهدية"
-          {% if cart.attributes['إرسال كهدية'] == 'نعم' %}checked{% endif %}
-        >
-        <span>{{ 'general.cart.send_as_gift' | t }}</span>
-      </label>
-      <label class="cart-drawer__gift-option">
-        <input
-          type="checkbox"
-          data-cart-attr="تغليف الهدايا"
-          {% if cart.attributes['تغليف الهدايا'] == 'نعم' %}checked{% endif %}
-        >
-        <span>{{ 'general.cart.gift_wrap' | t }}</span>
-      </label>
-      <div class="cart-drawer__gift-message" data-gift-message-wrap {% unless cart.attributes['إرسال كهدية'] == 'نعم' %}hidden{% endunless %}>
-        <label class="cart-drawer__notes-label" for="CartDrawerGiftMessage">{{ 'general.cart.gift_message_label' | t }}</label>
-        <textarea
-          id="CartDrawerGiftMessage"
-          class="cart-drawer__notes-input"
-          data-cart-attr-text="رسالة هدية"
-          rows="2"
-          maxlength="200"
-          placeholder="{{ 'general.cart.gift_message_placeholder' | t }}"
-        >{{ cart.attributes['رسالة هدية'] }}</textarea>
+    {% if settings.enable_gift_message %}
+      <div class="cart-drawer__gift" data-cart-gift-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
+        <label class="cart-drawer__gift-option">
+          <input
+            type="checkbox"
+            data-cart-attr="إرسال كهدية"
+            {% if cart.attributes['إرسال كهدية'] == 'نعم' %}checked{% endif %}
+          >
+          <span>{{ 'general.cart.send_as_gift' | t }}</span>
+        </label>
+        <label class="cart-drawer__gift-option">
+          <input
+            type="checkbox"
+            data-cart-attr="تغليف الهدايا"
+            {% if cart.attributes['تغليف الهدايا'] == 'نعم' %}checked{% endif %}
+          >
+          <span>{{ 'general.cart.gift_wrap' | t }}</span>
+        </label>
+        <div class="cart-drawer__gift-message" data-gift-message-wrap {% unless cart.attributes['إرسال كهدية'] == 'نعم' %}hidden{% endunless %}>
+          <label class="cart-drawer__notes-label" for="CartDrawerGiftMessage">{{ 'general.cart.gift_message_label' | t }}</label>
+          <textarea
+            id="CartDrawerGiftMessage"
+            class="cart-drawer__notes-input"
+            data-cart-attr-text="رسالة هدية"
+            rows="2"
+            maxlength="200"
+            placeholder="{{ 'general.cart.gift_message_placeholder' | t }}"
+          >{{ cart.attributes['رسالة هدية'] }}</textarea>
+        </div>
       </div>
-    </div>
+    {% endif %}
 
     {% if settings.enable_cart_note %}
       <div class="cart-drawer__notes" data-cart-notes-wrap {% if cart.item_count == 0 %}hidden{% endif %}>

@@ -20,6 +20,8 @@
     "input_corner_radius": 24,
     "free_shipping_threshold": 200,
     "show_free_shipping_bar": true,
+    "enable_cart_note": true,
+    "enable_gift_message": true,
     "low_stock_threshold": 10,
     "header_style": "commerce",
     "social_instagram": "https://www.instagram.com/al.anoud2000",

@@ -179,7 +179,10 @@
     "announcement_bar": { "name": "Announcement bar" },
     "hero_banner": { "name": "Hero banner" },
     "category_icons": { "name": "Category icons" },
-    "mood_cards": { "name": "Mood cards" },
+    "mood_cards": {
+      "name": "Mood cards",
+      "shop_cta": "Shop this mood"
+    },
     "featured_collection": {
       "name": "Featured collection",
       "view_all": "Visit the shop",
@@ -210,7 +213,8 @@
       "name": "Product bundle",
       "product_block": "Bundle product",
       "total": "Bundle total",
-      "add": "Add bundle to cart"
+      "add": "Add bundle to cart",
+      "save_percent": "Save {{ percent }}%"
     },
     "newsletter_signup": {
       "name": "Newsletter signup",

@@ -174,7 +174,10 @@
     "announcement_bar": { "name": "شريط الإعلانات" },
     "hero_banner": { "name": "بانر رئيسي" },
     "category_icons": { "name": "الفئات الرئيسية" },
-    "mood_cards": { "name": "اختاري اللي يلوق على جوج" },
+    "mood_cards": {
+      "name": "اختاري حسب حالتج",
+      "shop_cta": "تسوّقي من هنا"
+    },
     "featured_collection": {
       "name": "منتجات مميزة",
       "view_all": "زوري المتجر",
@@ -205,7 +208,8 @@
       "name": "باقة منتجات",
       "product_block": "منتج في الباقة",
       "total": "مجموع الباقة",
-      "add": "أضيفي الباقة"
+      "add": "أضيفي الباقة",
+      "save_percent": "وفّري {{ percent }}%"
     },
     "newsletter_signup": {
       "name": "اشتراك النشرة",

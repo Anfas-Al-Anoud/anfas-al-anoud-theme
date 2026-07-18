@@ -43,6 +43,13 @@
     </div>
 
     {%- if item_count > 1 -%}
+      {%- liquid
+        assign bundle_save_percent = 0
+        if bundle_compare > bundle_total
+          assign bundle_savings = bundle_compare | minus: bundle_total
+          assign bundle_save_percent = bundle_savings | times: 100 | divided_by: bundle_compare
+        endif
+      -%}
       <div class="product-bundle__footer">
         <div class="product-bundle__pricing">
           <span class="product-bundle__pricing-label">{{ 'sections.product_bundle.total' | t }}</span>
@@ -51,6 +58,9 @@
               <s class="product-bundle__compare">{{ bundle_compare | money_without_currency }} {{ 'general.currency' | t }}</s>
             {% endif %}
             <span class="product-bundle__total">{{ bundle_total | money_without_currency }} {{ 'general.currency' | t }}</span>
+            {% if bundle_save_percent > 0 %}
+              <span class="product-bundle__save">{{ 'sections.product_bundle.save_percent' | t: percent: bundle_save_percent }}</span>
+            {% endif %}
           </div>
         </div>
         <button type="button" class="btn product-bundle__add" data-bundle-add data-add-text="{{ section.settings.button_label | default: 'sections.product_bundle.add' | t }}">
@@ -109,9 +119,18 @@
   }
   .product-bundle__pricing { display: flex; flex-direction: column; gap: 0.25rem; }
   .product-bundle__pricing-label { font-size: 0.9rem; color: var(--color-accent); font-weight: 600; }
-  .product-bundle__pricing-values { display: flex; gap: 0.6rem; align-items: baseline; justify-content: center; }
+  .product-bundle__pricing-values { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: baseline; justify-content: center; }
   .product-bundle__compare { color: #6b635c; }
   .product-bundle__total { font-size: 1.35rem; font-weight: 700; color: var(--color-primary); }
+  .product-bundle__save {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground, #fff);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
   .product-bundle__add { min-width: min(100%, 18rem); }
   .product-bundle__add.is-loading { opacity: 0.7; pointer-events: none; }
   .product-bundle__error { color: #c0392b; font-size: 0.9rem; }

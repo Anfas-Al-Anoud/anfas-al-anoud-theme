@@ -4,23 +4,24 @@
   assign mobile_asset = section.settings.image_mobile_asset | default: 'hero-banner-mobile.jpg'
   assign desktop_image = section.settings.image_desktop
   assign mobile_image = section.settings.image_mobile
+  assign hero_bg_color = section.settings.background_color | default: '#2a221c'
 
   if header_style == 'commerce'
     assign desktop_asset = section.settings.commerce_desktop_asset | default: 'hero-commerce-v3.png'
     assign mobile_asset = section.settings.commerce_mobile_asset | default: 'hero-commerce-v3.png'
-    if section.settings.commerce_image_desktop != blank
+    if desktop_image == blank and section.settings.commerce_image_desktop != blank
       assign desktop_image = section.settings.commerce_image_desktop
     endif
-    if section.settings.commerce_image_mobile != blank
+    if mobile_image == blank and section.settings.commerce_image_mobile != blank
       assign mobile_image = section.settings.commerce_image_mobile
     endif
   elsif header_style == 'overlay'
     assign desktop_asset = section.settings.overlay_desktop_asset | default: 'hero-overlay-desktop.png'
     assign mobile_asset = section.settings.overlay_mobile_asset | default: 'hero-overlay-mobile.png'
-    if section.settings.overlay_image_desktop != blank
+    if desktop_image == blank and section.settings.overlay_image_desktop != blank
       assign desktop_image = section.settings.overlay_image_desktop
     endif
-    if section.settings.overlay_image_mobile != blank
+    if mobile_image == blank and section.settings.overlay_image_mobile != blank
       assign mobile_image = section.settings.overlay_image_mobile
     endif
   endif
@@ -34,7 +35,11 @@
     endif
   endif
 -%}
-<section class="hero-banner full-width hero-banner--{{ header_style }}" data-animate-section>
+<section
+  class="hero-banner full-width hero-banner--{{ header_style }}"
+  data-animate-section
+  style="--hero-bg: {{ hero_bg_color }};"
+>
   <div class="hero-banner__frame">
     <div class="hero-banner__media" aria-hidden="true">
       {% if desktop_image %}
@@ -226,14 +231,14 @@
   /* —— Commerce: v3 2×3 art — dark left stage, model right —— */
   .hero-banner--commerce {
     padding: 0;
-    background: #2a221c;
+    background: var(--hero-bg, #2a221c);
   }
   .hero-banner--commerce .hero-banner__frame {
     max-width: none;
     width: 100%;
     border-radius: 0;
     box-shadow: none;
-    background: #2a221c;
+    background: var(--hero-bg, #2a221c);
     /* Portrait source (2:3): taller crop so the model isn’t chopped */
     aspect-ratio: 3 / 2;
     min-height: 0;
@@ -480,17 +485,39 @@
   "settings": [
     {
       "type": "header",
-      "content": "الصورة الافتراضية (Classic)"
+      "content": "خلفية الـ Hero"
+    },
+    {
+      "type": "paragraph",
+      "content": "اختاري صورة من المكتبة لتغيير خلفية الـ Hero. تعمل مع Classic و Commerce و Overlay. إذا تركتِها فارغة تُستخدم الصورة الافتراضية للنمط الحالي."
     },
     {
       "type": "image_picker",
       "id": "image_desktop",
-      "label": "صورة سطح المكتب"
+      "label": "صورة الـ Hero — سطح المكتب"
     },
     {
       "type": "image_picker",
       "id": "image_mobile",
-      "label": "صورة الجوال"
+      "label": "صورة الـ Hero — الجوال",
+      "info": "اختياري. إن تُركت فارغة تُستخدم صورة سطح المكتب على الجوال."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "لون خلفية الـ Hero",
+      "default": "#2A221C",
+      "info": "يظهر خلف الصورة أو في الحواف عند القصّ."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "نص alt للصورة الرئيسية",
+      "default": "صورة للمنتجات من الأعلى - أنفاس العنود"
+    },
+    {
+      "type": "header",
+      "content": "ملفات افتراضية (Classic)"
     },
     {
       "type": "text",
@@ -506,7 +533,11 @@
     },
     {
       "type": "header",
-      "content": "صور Commerce"
+      "content": "صور Commerce (احتياطي)"
+    },
+    {
+      "type": "paragraph",
+      "content": "تُستخدم فقط إذا لم تختاري صورة في «خلفية الـ Hero» أعلاه."
     },
     {
       "type": "image_picker",
@@ -532,7 +563,7 @@
     },
     {
       "type": "header",
-      "content": "صور Overlay"
+      "content": "صور Overlay (احتياطي)"
     },
     {
       "type": "image_picker",
@@ -582,12 +613,6 @@
     {
       "type": "header",
       "content": "المحتوى"
-    },
-    {
-      "type": "text",
-      "id": "image_alt",
-      "label": "نص alt للصورة الرئيسية",
-      "default": "صورة للمنتجات من الأعلى - أنفاس العنود"
     },
     {
       "type": "text",

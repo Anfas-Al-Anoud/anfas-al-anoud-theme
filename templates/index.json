@@ -12,22 +12,25 @@
     "hero": {
       "type": "hero-banner",
       "settings": {
+        "image_desktop": "shopify://shop_images/hero-banner-desktop.jpg",
+        "image_mobile": "shopify://shop_images/alanoud_hero_image_v3_2x3_abb07bb5-6fff-45b5-9ea6-4928099ed465.png",
+        "background_color": "#2a221c",
+        "image_alt": "عطر وطقوس أنفاس العنود",
         "image_desktop_asset": "hero-banner-desktop.jpg",
         "image_mobile_asset": "hero-banner-mobile.jpg",
-        "image_alt": "عطر وطقوس أنفاس العنود",
+        "commerce_desktop_asset": "hero-commerce-v3.png",
+        "commerce_mobile_asset": "hero-commerce-v3.png",
+        "overlay_desktop_asset": "hero-overlay-desktop.png",
+        "overlay_mobile_asset": "hero-overlay-mobile.png",
+        "show_overlay_inset": true,
+        "overlay_inset_asset": "hero-overlay-inset.png",
+        "overlay_inset_alt": "تفاصيل طقوس العناية - أنفاس العنود",
         "eyebrow": "جديد",
         "heading": "عيشي جوج.. وخلج غير عنهم",
         "commerce_heading": "خلطات العنود",
         "text": "تميزي بخلطات ما تتقلد، تعطيج حضورًا قويًا وتلفت الانتباه",
         "button_label": "تسوقي الآن",
-        "button_link": "/collections/all",
-        "commerce_desktop_asset": "hero-commerce-v3.png",
-        "commerce_mobile_asset": "hero-commerce-v3.png",
-        "overlay_desktop_asset": "hero-overlay-desktop.png",
-        "overlay_mobile_asset": "hero-overlay-mobile.png",
-        "overlay_inset_asset": "hero-overlay-inset.png",
-        "show_overlay_inset": true,
-        "overlay_inset_alt": "تفاصيل طقوس العناية - أنفاس العنود"
+        "button_link": "/collections/all"
       }
     },
     "trust_bar": {

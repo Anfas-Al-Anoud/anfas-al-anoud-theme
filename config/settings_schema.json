@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "2.1.0",
+    "theme_version": "2.1.1",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -24,6 +24,13 @@
         "unit": "px",
         "label": "t:settings.brand.logo_width",
         "default": 160
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_header_logo_mobile",
+        "label": "t:settings.brand.hide_header_logo_mobile",
+        "info": "t:settings.brand.hide_header_logo_mobile_info",
+        "default": false
       },
       {
         "type": "text",

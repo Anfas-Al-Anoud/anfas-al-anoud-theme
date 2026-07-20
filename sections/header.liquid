@@ -1,8 +1,12 @@
 {%- liquid
   assign header_style = settings.header_style | default: 'classic'
+  assign hide_header_logo_mobile = settings.hide_header_logo_mobile
 -%}
 {% capture brand_display %}{% render 'brand-name' %}{% endcapture %}
-<header class="site-header full-width site-header--{{ header_style }}" data-header>
+<header
+  class="site-header full-width site-header--{{ header_style }}{% if hide_header_logo_mobile %} site-header--logo-hidden-mobile{% endif %}"
+  data-header
+>
   <div class="site-header__inner">
     <button class="site-header__menu-toggle" type="button" aria-label="{{ 'general.accessibility.menu' | t }}" aria-expanded="false" data-menu-toggle>
       <svg class="site-header__burger site-header__burger--3" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -137,6 +141,23 @@
     max-width: var(--page-width);
     margin-inline: auto;
   }
+  /* Mobile only: hide header logo (and floating commerce logo over the hero) */
+  @media (max-width: 767px) {
+    .site-header--logo-hidden-mobile .site-header__logo {
+      display: none;
+    }
+
+    .header-style--commerce .site-header--logo-hidden-mobile .site-header__inner {
+      min-height: 0;
+      padding-block: 0;
+    }
+
+    .header-style--classic .site-header--logo-hidden-mobile,
+    .header-style--commerce.template-index .site-header--logo-hidden-mobile {
+      display: none;
+    }
+  }
+
   .site-header__logo {
     justify-self: start;
     display: flex;

@@ -11,6 +11,7 @@
   "current": {
     "logo": "",
     "logo_width": 180,
+    "hide_header_logo_mobile": false,
     "whatsapp_number": "971503140223",
     "arabic_font_family": "tajawal",
     "max_page_width": "100rem",

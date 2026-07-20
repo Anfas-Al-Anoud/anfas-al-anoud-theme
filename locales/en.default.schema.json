@@ -93,6 +93,8 @@
       "name": "Brand",
       "logo": "Logo",
       "logo_width": "Logo width",
+      "hide_header_logo_mobile": "Hide logo on mobile",
+      "hide_header_logo_mobile_info": "Hides the header logo on mobile only — including the theme’s default logo when no custom logo is selected. Desktop is unchanged.",
       "whatsapp": "WhatsApp number"
     },
     "colors": {

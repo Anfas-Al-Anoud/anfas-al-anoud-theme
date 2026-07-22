@@ -12,14 +12,14 @@
     "hero": {
       "type": "hero-banner",
       "settings": {
-        "image_desktop": "shopify://shop_images/hero-banner-desktop.jpg",
-        "image_mobile": "shopify://shop_images/alanoud_hero_image_v3_2x3_abb07bb5-6fff-45b5-9ea6-4928099ed465.png",
+        "image_desktop": "",
+        "image_mobile": "",
         "background_color": "#2a221c",
         "image_alt": "عطر وطقوس أنفاس العنود",
         "image_desktop_asset": "hero-banner-desktop.jpg",
         "image_mobile_asset": "hero-banner-mobile.jpg",
-        "commerce_desktop_asset": "hero-commerce-v3.png",
-        "commerce_mobile_asset": "hero-commerce-v3.png",
+        "commerce_desktop_asset": "hero-banner-desktop.jpg",
+        "commerce_mobile_asset": "hero-banner-mobile.jpg",
         "overlay_desktop_asset": "hero-overlay-desktop.png",
         "overlay_mobile_asset": "hero-overlay-mobile.png",
         "show_overlay_inset": true,

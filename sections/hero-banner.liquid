@@ -123,9 +123,11 @@
       <h1 class="hero-banner__heading">{{ hero_heading }}</h1>
       <p class="hero-banner__text">{{ section.settings.text }}</p>
       {% if section.settings.button_label != blank %}
-        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn">
-          {{ section.settings.button_label }}
-        </a>
+        {% unless header_style == 'commerce' %}
+          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn">
+            {{ section.settings.button_label }}
+          </a>
+        {% endunless %}
       {% endif %}
     </div>
   </div>
@@ -251,21 +253,29 @@
     object-position: center 30%;
   }
   .hero-banner--commerce .hero-banner__veil {
-    display: none;
+    display: block;
+    background: linear-gradient(
+      to left,
+      rgba(42, 34, 28, 0.88) 0%,
+      rgba(42, 34, 28, 0.62) 38%,
+      rgba(42, 34, 28, 0.18) 68%,
+      transparent 100%
+    );
   }
   .hero-banner--commerce .hero-banner__content {
     position: absolute;
     z-index: 2;
-    /* Copy on dark negative space (left) */
-    left: 0;
-    right: auto;
+    left: auto;
+    right: 0;
     top: 0;
     bottom: 0;
-    width: min(42%, 20rem);
+    width: min(46%, 22rem);
     max-width: none;
     min-height: 0;
     justify-content: center;
-    padding: 1.5rem 1rem 1.75rem 1.15rem;
+    align-items: flex-start;
+    text-align: start;
+    padding: 1.5rem 1.25rem 1.75rem 1rem;
     color: var(--color-cream);
   }
   .hero-banner--commerce .hero-banner__eyebrow {
@@ -276,31 +286,21 @@
     font-weight: 800;
     line-height: 0.95;
     margin: 0 0 0.2rem;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
   }
   .hero-banner--commerce .hero-banner__heading {
     color: var(--color-cream);
     font-size: clamp(1rem, 3.8vw, 1.2rem);
     font-weight: 700;
     line-height: 1.35;
-    margin: 0 0 1.1rem;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
   .hero-banner--commerce .hero-banner__text {
     display: none;
   }
   .hero-banner--commerce .hero-banner__btn {
-    border-radius: 0.2rem;
-    background: var(--color-gold);
-    color: var(--color-dark);
-    padding: 0.72rem 1.35rem;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    box-shadow: none;
-    min-width: 8.75rem;
-  }
-  .hero-banner--commerce .hero-banner__btn:hover {
-    background: color-mix(in srgb, var(--color-gold) 85%, #fff);
+    display: none;
   }
 
   /* —— Overlay: full-bleed photo + centered PiP inset —— */
@@ -417,26 +417,29 @@
     }
     .hero-banner--commerce .hero-banner__image {
       object-fit: cover;
-      object-position: 22% center;
+      object-position: center 32%;
+    }
+    .hero-banner--commerce .hero-banner__veil {
+      background: linear-gradient(
+        to left,
+        rgba(42, 34, 28, 0.9) 0%,
+        rgba(42, 34, 28, 0.55) 42%,
+        transparent 78%
+      );
     }
     .hero-banner--commerce .hero-banner__content {
-      left: 0;
-      right: auto;
-      width: min(58%, 14rem);
-      padding: 1.25rem 0.75rem 1.25rem 1rem;
-      justify-content: flex-end;
+      left: auto;
+      right: 0;
+      width: min(62%, 15rem);
+      padding: 1.15rem 1rem 1.15rem 0.75rem;
+      justify-content: center;
     }
     .hero-banner--commerce .hero-banner__eyebrow {
       font-size: clamp(1.35rem, 6.5vw, 1.85rem);
     }
     .hero-banner--commerce .hero-banner__heading {
       font-size: clamp(0.9rem, 3.4vw, 1.05rem);
-      margin: 0 0 0.75rem;
-    }
-    .hero-banner--commerce .hero-banner__btn {
-      min-width: 7.5rem;
-      padding: 0.6rem 1.1rem;
-      font-size: 0.68rem;
+      margin: 0;
     }
   }
 
@@ -463,22 +466,17 @@
       object-position: center 28%;
     }
     .hero-banner--commerce .hero-banner__content {
-      left: 0;
-      right: auto;
-      width: min(36%, 22rem);
-      padding: 2.5rem 1.5rem 3rem 3rem;
+      left: auto;
+      right: 0;
+      width: min(40%, 24rem);
+      padding: 2.5rem 2.5rem 3rem 1.5rem;
     }
     .hero-banner--commerce .hero-banner__eyebrow {
       font-size: 3.5rem;
     }
     .hero-banner--commerce .hero-banner__heading {
       font-size: 1.45rem;
-      margin-block-end: 1.35rem;
-    }
-    .hero-banner--commerce .hero-banner__btn {
-      min-width: 11rem;
-      padding: 0.85rem 1.75rem;
-      font-size: 0.8rem;
+      margin: 0;
     }
 
     .hero-banner--overlay .hero-banner__inset {

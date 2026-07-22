@@ -177,8 +177,7 @@
     "hero_banner": { "name": "بانر رئيسي" },
     "category_icons": { "name": "الفئات الرئيسية" },
     "mood_cards": {
-      "name": "اختاري حسب حالتج",
-      "shop_cta": "تسوّقي من هنا"
+      "name": "اختاري حسب حالتج"
     },
     "featured_collection": {
       "name": "منتجات مميزة",

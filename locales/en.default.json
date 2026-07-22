@@ -182,8 +182,7 @@
     "hero_banner": { "name": "Hero banner" },
     "category_icons": { "name": "Category icons" },
     "mood_cards": {
-      "name": "Mood cards",
-      "shop_cta": "Shop this mood"
+      "name": "Mood cards"
     },
     "featured_collection": {
       "name": "Featured collection",

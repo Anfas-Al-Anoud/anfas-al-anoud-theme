@@ -241,9 +241,9 @@
     border-radius: 0;
     box-shadow: none;
     background: var(--hero-bg, #2a221c);
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 16 / 9;
     min-height: 0;
-    max-height: min(78vh, 44rem);
+    max-height: min(70vh, 40rem);
   }
   .hero-banner--commerce .hero-banner__media {
     inset: 0;
@@ -297,7 +297,13 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
   .hero-banner--commerce .hero-banner__text {
-    display: none;
+    display: block;
+    color: rgba(250, 246, 239, 0.92);
+    font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+    line-height: 1.7;
+    margin: 0.65rem 0 0;
+    max-width: 18rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
   .hero-banner--commerce .hero-banner__btn {
     display: none;
@@ -410,14 +416,14 @@
     }
 
     .hero-banner--commerce .hero-banner__frame {
-      aspect-ratio: auto;
-      height: 50svh;
-      min-height: 50svh;
-      max-height: 50svh;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      max-height: min(48vh, 22rem);
     }
     .hero-banner--commerce .hero-banner__image {
       object-fit: cover;
-      object-position: center 32%;
+      object-position: center 40%;
     }
     .hero-banner--commerce .hero-banner__veil {
       background: linear-gradient(
@@ -457,9 +463,9 @@
     }
 
     .hero-banner--commerce .hero-banner__frame {
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 21 / 9;
       min-height: 0;
-      max-height: min(72vh, 40rem);
+      max-height: min(68vh, 38rem);
     }
     .hero-banner--commerce .hero-banner__image {
       object-fit: cover;

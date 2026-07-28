@@ -25,9 +25,9 @@
         "show_overlay_inset": true,
         "overlay_inset_asset": "hero-overlay-inset.png",
         "overlay_inset_alt": "تفاصيل طقوس العناية - أنفاس العنود",
-        "eyebrow": "جديد",
+        "eyebrow": "",
         "heading": "عيشي جوج.. وخلج غير عنهم",
-        "commerce_heading": "خلطات العنود",
+        "commerce_heading": "عيشي جوج.. وخلج غير عنهم",
         "text": "تميزي بخلطات ما تتقلد، تعطيج حضورًا قويًا وتلفت الانتباه",
         "button_label": "",
         "button_link": "/collections/all"
@@ -84,8 +84,8 @@
         "cat4"
       ],
       "settings": {
-        "heading": "تسوّقي حسب احتياجج",
-        "subheading": "دخون، عطور، عناية، أو بوكسات — اختاري فئتج وادخلي مباشرة.",
+        "heading": "اختاري فئتج المفضلة",
+        "subheading": "",
         "show_view_all": true
       }
     },
@@ -110,7 +110,7 @@
             "image_asset": "mood-work.png",
             "image_alt": "بطاقة حق الدوام والطلعات",
             "title": "حق الدوام والطلعات",
-            "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم.",
+            "text": "عطور باردة وهادية تفتح النفس من الصبح وتثبت معاج طول اليوم... وتخلي كل من سلم عليج يسألج عن ريحتج!",
             "link": "/collections/anoud-vibe-daily"
           }
         },
@@ -120,7 +120,7 @@
             "image_asset": "mood-shower.png",
             "image_alt": "بطاقة الدلع والشاور",
             "title": "الدلع والشاور",
-            "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج.",
+            "text": "إحساس النظافة اللي يرد الروح! منتجات تدلع بشرتج وشعرج وتخليج تحسين إنج غيمة تمشي على الأرض.",
             "link": "/collections/anoud-vibe-shower"
           }
         },
@@ -130,7 +130,7 @@
             "image_asset": "mood-majlis.png",
             "image_alt": "بطاقة فخامة الميلس والمواجيب",
             "title": "فخامة الميلس والمواجيب",
-            "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت تفوح.",
+            "text": "بيّضي ويهج جدام خطاريج... دخون ومرشات تخلي ريحة البيت والميلس تفوح قبل لا يدخلون من الباب.",
             "link": "/collections/anoud-vibe-majlis"
           }
         },
@@ -140,7 +140,7 @@
             "image_asset": "mood-evening.png",
             "image_alt": "بطاقة للسهرات والعزايم",
             "title": "للسهرات والعزايم",
-            "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟",
+            "text": "تبين تلفتين الانتباه من أول ما تدخلين الصالة؟ هذي الروايح الفخمة حق المناسبات اللي تبين تكونين فيها 'حديث الموسم'.",
             "link": "/collections/anoud-vibe-evening"
           }
         },
@@ -150,7 +150,7 @@
             "image_asset": "mood-bride.png",
             "image_alt": "بطاقة زهبة العروس",
             "title": "زْهبة العروس",
-            "text": "لأن هالليلة ليلتج ومحد بيطوفج.. بوكسات ملكية تخلي ريحتج خيال.",
+            "text": "لأن هالليلة ليلتج ومحد بيطوفج.. جهزتالج بوكسات ومجموعات ملكية تخلي ريحتج خيال، وتبقى ذكرى ما تنسى في أهم يوم بحياتج.",
             "link": "/collections/anoud-vibe-bride"
           }
         }
@@ -163,14 +163,14 @@
         "m5"
       ],
       "settings": {
-        "heading": "اختاري حسب حالتج",
-        "subheading": "دوام، شاور، ميلس، سهرة، أو زهبة — ادخلي من اللي يناسبج الحين."
+        "heading": "اختاري اللي يلوق على جوج",
+        "subheading": ""
       }
     },
     "bestsellers": {
       "type": "featured-collection",
       "settings": {
-        "heading": "الأكثر مبيعًا",
+        "heading": "البيست سيلر اللي طاروا فيه البنات",
         "subheading": "هذي أكثر المنتجات اللي حبوها البنات ورجعوا طلبوها مرة ثانية.. جربيها وما بتندمين.",
         "collection": "best-sellers",
         "products_to_show": 8,
@@ -214,7 +214,7 @@
       "type": "featured-collection",
       "settings": {
         "heading": "بوكسات الزين",
-        "subheading": "باقات جاهزة بهدايا تبيّض الويه — وفّري أكثر لما تشوفين شارة الخصم على البطاقة.",
+        "subheading": "لا تحاتين غناتي، مجهزين لج بوكسات تبيض الويه وتفرح القلب، بس اختاري وبنوصلها للي يعزون عليج.",
         "collection": "gift-boxes",
         "products_to_show": 8,
         "show_view_all": true,
@@ -412,9 +412,9 @@
     "mood",
     "bestsellers",
     "spotlight",
+    "featured_boxes",
     "gifts",
     "founder",
-    "featured_boxes",
     "recently",
     "testimonials",
     "quality",

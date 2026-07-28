@@ -52,9 +52,9 @@
 
           <div class="product-spotlight__price">
             {% if on_sale %}
-              <s class="product-spotlight__compare">{{ product.compare_at_price | money_with_currency }}</s>
+              <s class="product-spotlight__compare">{{ product.compare_at_price | money_without_currency }} {{ 'general.currency' | t }}</s>
             {% endif %}
-            <span class="product-spotlight__current">{{ product.price | money_with_currency }}</span>
+            <span class="product-spotlight__current">{{ product.price | money_without_currency }} {{ 'general.currency' | t }}</span>
           </div>
 
           {% if product.available %}

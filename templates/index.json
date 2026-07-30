@@ -340,8 +340,8 @@
     "newsletter": {
       "type": "newsletter-signup",
       "settings": {
-        "heading": "",
-        "text": "",
+        "heading": "لمتنا أحلى وياج",
+        "text": "خلك قريبة من القلب وتابعينا.. عشان تشوفين نصايحي السريعة للسنع، وأجدد عروضي، وتكونين جزء من عايلتنا.",
         "email_label": "البريد الإلكتروني",
         "email_placeholder": "حطي إيميلج هنيه",
         "button_label": "خلينا على تواصل"

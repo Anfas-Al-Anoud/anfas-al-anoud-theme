@@ -117,17 +117,15 @@
     <div class="hero-banner__content">
       {% if section.settings.eyebrow != blank %}
         <p class="hero-banner__eyebrow">{{ section.settings.eyebrow }}</p>
-      {% else %}
-        <p class="hero-banner__eyebrow">أنفاس العنود</p>
       {% endif %}
       <h1 class="hero-banner__heading">{{ hero_heading }}</h1>
-      <p class="hero-banner__text">{{ section.settings.text }}</p>
+      {% if section.settings.text != blank %}
+        <p class="hero-banner__text">{{ section.settings.text }}</p>
+      {% endif %}
       {% if section.settings.button_label != blank %}
-        {% unless header_style == 'commerce' %}
-          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn">
-            {{ section.settings.button_label }}
-          </a>
-        {% endunless %}
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__btn">
+          {{ section.settings.button_label }}
+        </a>
       {% endif %}
     </div>
   </div>
@@ -306,7 +304,15 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
   .hero-banner--commerce .hero-banner__btn {
-    display: none;
+    display: inline-flex;
+    margin-block-start: 1rem;
+    background: var(--color-cream, #faf6ef);
+    color: var(--color-dark, #1a1410);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+  }
+  .hero-banner--commerce .hero-banner__btn:hover {
+    background: var(--color-gold, #c4a46c);
+    color: var(--color-dark, #1a1410);
   }
 
   /* —— Overlay: full-bleed photo + centered PiP inset —— */

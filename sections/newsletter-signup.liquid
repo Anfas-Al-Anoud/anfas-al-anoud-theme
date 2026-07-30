@@ -8,7 +8,9 @@
         </svg>
       </span>
       <div>
-        <h2 class="section-heading newsletter-signup__heading">{% render 'tanween', text: section.settings.heading %}</h2>
+        {% if section.settings.heading != blank %}
+          <h2 class="section-heading newsletter-signup__heading">{% render 'tanween', text: section.settings.heading %}</h2>
+        {% endif %}
         {% if section.settings.text != blank %}
           <p class="newsletter-signup__text">{% render 'tanween', text: section.settings.text %}</p>
         {% endif %}

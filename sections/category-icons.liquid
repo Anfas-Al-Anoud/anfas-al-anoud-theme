@@ -1,18 +1,22 @@
 <section class="category-icons section-padding" data-animate-section>
-  <div class="category-icons__header">
-    <div class="category-icons__titles">
-      <h2 class="section-heading">{{ section.settings.heading }}</h2>
-      {% if section.settings.subheading != blank %}
-        <p class="section-subheading">{{ section.settings.subheading }}</p>
+  {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.show_view_all %}
+    <div class="category-icons__header">
+      <div class="category-icons__titles">
+        {% if section.settings.heading != blank %}
+          <h2 class="section-heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <p class="section-subheading">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+      {% if section.settings.show_view_all %}
+        <a href="{{ routes.collections_url }}" class="category-icons__view-all">
+          {{ 'sections.featured_collection.view_all' | t }}
+          <span aria-hidden="true">&lsaquo;</span>
+        </a>
       {% endif %}
     </div>
-    {% if section.settings.show_view_all %}
-      <a href="{{ routes.collections_url }}" class="category-icons__view-all">
-        {{ 'sections.featured_collection.view_all' | t }}
-        <span aria-hidden="true">&lsaquo;</span>
-      </a>
-    {% endif %}
-  </div>
+  {% endif %}
 
   {% capture category_slides %}
     {% for block in section.blocks %}

@@ -95,8 +95,13 @@
     border-radius: var(--style-border-radius-cards);
     overflow: hidden;
     background: var(--color-cream);
+    touch-action: pan-y;
   }
-  .product-gallery__main { position: relative; }
+  .product-gallery__main {
+    position: relative;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
   .product-gallery__zoom-wrap {
     display: block;
     width: 100%;

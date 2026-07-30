@@ -181,7 +181,7 @@
     },
     "featured_collection": {
       "name": "منتجات مميزة",
-      "view_all": "عرض الكل",
+      "view_all": "شوفي الكل",
       "enable_countdown": "عرض عداد العروض",
       "countdown_end": "تاريخ انتهاء العرض",
       "countdown_end_info": "صيغة ISO، مثال: 2026-08-31T23:59",

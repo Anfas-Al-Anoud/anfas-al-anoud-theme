@@ -279,6 +279,46 @@
       });
     });
 
+    // Touch / swipe between product images (mobile-friendly)
+    const stage = gallery.querySelector('[data-gallery-stage]') || mainWrap;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchActive = false;
+
+    function stepMedia(delta) {
+      if (!mediaList.length) return;
+      const idx = mediaList.findIndex((m) => String(m.id) === String(activeId));
+      const next = mediaList[(idx + delta + mediaList.length) % mediaList.length];
+      if (next) renderMain(next);
+    }
+
+    stage?.addEventListener(
+      'touchstart',
+      (e) => {
+        if (!e.touches?.[0] || mediaList.length < 2) return;
+        touchActive = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+
+    stage?.addEventListener(
+      'touchend',
+      (e) => {
+        if (!touchActive || mediaList.length < 2) return;
+        touchActive = false;
+        const t = e.changedTouches?.[0];
+        if (!t) return;
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+        // RTL: swipe left (negative dx) → next; swipe right → previous
+        stepMedia(dx < 0 ? 1 : -1);
+      },
+      { passive: true }
+    );
+
     gallery.addEventListener('click', (e) => {
       if (e.target.closest('[data-gallery-open]')) {
         const idx = mediaList.findIndex((m) => String(m.id) === String(activeId));

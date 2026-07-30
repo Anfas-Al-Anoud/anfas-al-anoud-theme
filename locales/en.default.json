@@ -186,7 +186,7 @@
     },
     "featured_collection": {
       "name": "Featured collection",
-      "view_all": "View all",
+      "view_all": "See all",
       "enable_countdown": "Show offer countdown",
       "countdown_end": "Offer end date",
       "countdown_end_info": "ISO format, e.g. 2026-08-31T23:59",

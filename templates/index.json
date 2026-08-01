@@ -95,7 +95,7 @@
         "collection": "offers",
         "products_to_show": 8,
         "show_view_all": true,
-        "enable_countdown": true,
+        "enable_countdown": false,
         "countdown_end": "2026-08-31T23:59"
       }
     },
@@ -179,6 +179,7 @@
     },
     "spotlight": {
       "type": "featured-product-spotlight",
+      "disabled": true,
       "settings": {
         "product": "عطر-عتيق",
         "heading": "",

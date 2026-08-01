@@ -88,15 +88,19 @@
       }
     },
     "featured_new": {
-      "type": "featured-collection",
+      "type": "offers-showcase",
       "settings": {
+        "eyebrow": "",
         "heading": "عروضنا",
         "subheading": "عروض محدودة وتوفير حلو — خذي فرصتج قبل ما تروح.",
-        "collection": "offers",
-        "products_to_show": 8,
+        "layout": "carousel",
+        "page_mode": false,
+        "product_handles": "offer-burhan-box-ava,offer-4-home-2-luxury-spray,offer-4-luxury-2-spray-bodyoil,offer-3-home-spray-gift",
+        "page_link": "/pages/offers",
         "show_view_all": true,
         "enable_countdown": false,
-        "countdown_end": "2026-08-31T23:59"
+        "countdown_end": "2026-08-31T23:59",
+        "empty_text": "العروض بتظهر هنا قريب."
       }
     },
     "mood": {

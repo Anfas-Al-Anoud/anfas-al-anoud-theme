@@ -265,18 +265,21 @@
 }
 
 .carousel--no-overflow .carousel__nav,
-.carousel--no-overflow .featured-collection__nav {
+.carousel--no-overflow .featured-collection__nav,
+.carousel--no-overflow .offers-showcase__nav {
   display: none !important;
 }
 
 .carousel--no-overflow .carousel__dots,
-.carousel--no-overflow .featured-collection__dots {
+.carousel--no-overflow .featured-collection__dots,
+.carousel--no-overflow .offers-showcase__dots {
   display: none;
 }
 
 .carousel--no-overflow.carousel--with-nav,
 .carousel--no-overflow.carousel--nav-desktop,
-.carousel--no-overflow.featured-collection__carousel {
+.carousel--no-overflow.featured-collection__carousel,
+.carousel--no-overflow.offers-showcase__carousel {
   padding-inline: var(--page-margin);
 }
 

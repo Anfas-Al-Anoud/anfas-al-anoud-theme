@@ -1,0 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * Offers landing page — عروضنا الحلوة
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "offers": {
+      "type": "offers-showcase",
+      "settings": {
+        "eyebrow": "أنفاس العنود",
+        "heading": "عروضنا الحلوة",
+        "subheading": "أربع بكجات مختارة بتوفير واضح — دخون، مرش، عطور، وهدايا تكمل جوج. اختاري اللي يناسبج والحين وقتها.",
+        "layout": "grid",
+        "page_mode": true,
+        "product_handles": "offer-burhan-box-ava,offer-4-home-2-luxury-spray,offer-4-luxury-2-spray-bodyoil,offer-3-home-spray-gift",
+        "page_link": "/pages/offers",
+        "show_view_all": false,
+        "enable_countdown": false,
+        "countdown_end": "2026-08-31T23:59",
+        "empty_text": "العروض بتظهر هنا قريب."
+      }
+    },
+    "trust": {
+      "type": "trust-bar",
+      "settings": {}
+    }
+  },
+  "order": ["offers", "trust"]
+}

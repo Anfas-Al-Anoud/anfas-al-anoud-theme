@@ -33,8 +33,13 @@
   assign now_ts = 'now' | date: '%s' | plus: 0
   assign created_ts = product.created_at | date: '%s' | plus: 0
   assign age_days = now_ts | minus: created_ts | divided_by: 86400
-  if age_days < 45
-    assign is_new = true
+  assign new_badge_days = settings.new_badge_days | default: 30
+  assign cutoff_raw = settings.new_badge_after | default: '2026-08-02'
+  assign cutoff_ts = cutoff_raw | date: '%s' | plus: 0
+  if created_ts >= cutoff_ts
+    if age_days < new_badge_days
+      assign is_new = true
+    endif
   endif
   for tag in product.tags
     assign tag_down = tag | downcase
@@ -51,13 +56,15 @@
       break
     endif
   endfor
-  for tag in product.tags
-    assign tag_down = tag | downcase
-    if tag contains 'جديد' or tag_down == 'new' or tag_down == 'new in'
-      assign is_new = true
-      break
-    endif
-  endfor
+  if created_ts >= cutoff_ts
+    for tag in product.tags
+      assign tag_down = tag | downcase
+      if tag contains 'جديد' or tag_down == 'new' or tag_down == 'new in'
+        assign is_new = true
+        break
+      endif
+    endfor
+  endif
 -%}
 
 <article class="product-card" data-product-id="{{ product.id }}">

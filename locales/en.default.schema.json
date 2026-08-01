@@ -110,7 +110,11 @@
     "product": {
       "name": "Product",
       "low_stock_threshold": "Low stock threshold",
-      "low_stock_info": "Shows an \"Only X left\" urgency notice when the remaining quantity is at or below this number."
+      "low_stock_info": "Shows an \"Only X left\" urgency notice when the remaining quantity is at or below this number.",
+      "new_badge_days": "Show \"New\" badge for",
+      "new_badge_days_info": "Days after create date that a product keeps the New badge (only if created on/after the cutoff date).",
+      "new_badge_after": "New badge cutoff date",
+      "new_badge_after_info": "ISO date (YYYY-MM-DD). Products created before this date never show the New badge."
     },
     "header": {
       "name": "Header",

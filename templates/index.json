@@ -23,7 +23,7 @@
         "show_overlay_inset": true,
         "overlay_inset_asset": "hero-overlay-inset.png",
         "overlay_inset_alt": "تفاصيل طقوس العناية - أنفاس العنود",
-        "eyebrow": "",
+        "eyebrow": "أنفاس العنود",
         "heading": "عيشي جوج.. وخلج غير عنهم",
         "commerce_heading": "عيشي جوج.. وخلج غير عنهم",
         "text": "تميزي بخلطات ما تتقلد، تعطيج حضور قوي وتلفت الانتباه",
@@ -82,8 +82,8 @@
         "cat4"
       ],
       "settings": {
-        "heading": "",
-        "subheading": "",
+        "heading": "اختاري فئتج المفضلة",
+        "subheading": "اسحبي يمين ويسار لاستكشاف مجموعات أنفاس العنود",
         "show_view_all": true
       }
     },

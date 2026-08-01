@@ -278,34 +278,39 @@
   }
   .hero-banner--commerce .hero-banner__eyebrow {
     color: var(--color-gold);
-    font-size: clamp(1.85rem, 8.5vw, 2.6rem);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: clamp(2.1rem, 9.5vw, 3rem);
+    letter-spacing: 0.04em;
+    text-transform: none;
     font-weight: 800;
-    line-height: 0.95;
-    margin: 0 0 0.2rem;
+    line-height: 1.05;
+    margin: 0 0 0.35rem;
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
   }
   .hero-banner--commerce .hero-banner__heading {
     color: var(--color-cream);
-    font-size: clamp(1rem, 3.8vw, 1.2rem);
+    font-size: clamp(0.95rem, 3.4vw, 1.15rem);
     font-weight: 700;
-    line-height: 1.35;
+    line-height: 1.4;
     margin: 0;
+    opacity: 0.98;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
   .hero-banner--commerce .hero-banner__text {
     display: block;
     color: rgba(250, 246, 239, 0.92);
-    font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+    font-size: clamp(0.8rem, 2.6vw, 0.98rem);
     line-height: 1.7;
-    margin: 0.65rem 0 0;
+    margin: 0.55rem 0 0;
     max-width: 18rem;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
   .hero-banner--commerce .hero-banner__btn {
     display: inline-flex;
-    margin-block-start: 1rem;
+    margin-block-start: 0.85rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
     background: var(--color-cream, #faf6ef);
     color: var(--color-dark, #1a1410);
     border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
@@ -453,11 +458,16 @@
       justify-content: center;
     }
     .hero-banner--commerce .hero-banner__eyebrow {
-      font-size: clamp(1.35rem, 6.5vw, 1.85rem);
+      font-size: clamp(1.65rem, 7.5vw, 2.15rem);
     }
     .hero-banner--commerce .hero-banner__heading {
-      font-size: clamp(0.9rem, 3.4vw, 1.05rem);
+      font-size: clamp(0.85rem, 3.2vw, 1rem);
       margin: 0;
+    }
+    .hero-banner--commerce .hero-banner__btn {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.75rem;
+      margin-block-start: 0.75rem;
     }
   }
 
@@ -491,11 +501,18 @@
       padding: 2.5rem 2.5rem 3rem 1.5rem;
     }
     .hero-banner--commerce .hero-banner__eyebrow {
-      font-size: 3.5rem;
+      font-size: clamp(2.75rem, 4.2vw, 3.75rem);
     }
     .hero-banner--commerce .hero-banner__heading {
-      font-size: 1.45rem;
+      font-size: 1.3rem;
       margin: 0;
+    }
+    .hero-banner--commerce .hero-banner__text {
+      font-size: 1rem;
+    }
+    .hero-banner--commerce .hero-banner__btn {
+      padding: 0.55rem 1.15rem;
+      font-size: 0.875rem;
     }
 
     .hero-banner--overlay .hero-banner__inset {

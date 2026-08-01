@@ -16,7 +16,7 @@
 -%}
 
 <section
-  class="offers-showcase section-padding offers-showcase--{{ layout }}{% if section.settings.page_mode %} offers-showcase--page{% endif %}"
+  class="offers-showcase section-padding offers-showcase--{{ layout }}{% if section.settings.page_mode %} offers-showcase--page full-width{% endif %}"
   data-animate-section
   {% if section.settings.enable_countdown and section.settings.countdown_end != blank %}
     data-offers-countdown
@@ -84,10 +84,15 @@
 {% stylesheet %}
   .offers-showcase--page {
     position: relative;
-    background:
-      radial-gradient(ellipse 80% 50% at 100% 0%, color-mix(in srgb, var(--color-gold) 18%, transparent), transparent 55%),
-      radial-gradient(ellipse 70% 45% at 0% 100%, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 50%),
-      var(--color-background, #faf6ef);
+    width: 100%;
+    /* Full-bleed cream so side gutters never show a different tone */
+    background-color: var(--color-background, #faf6ef);
+    background-image:
+      radial-gradient(ellipse 70% 40% at 50% 0%, color-mix(in srgb, var(--color-gold) 12%, transparent), transparent 70%);
+  }
+
+  .offers-showcase--page.full-width {
+    grid-column: 1 / -1;
   }
 
   .offers-showcase__header {

@@ -43,6 +43,68 @@ function initCarousels(root = document) {
       track.scrollBy({ left: isRTL ? -step() : step(), behavior: 'smooth' });
     });
 
+    // #region agent log
+    (function debugOffersCarousel() {
+      const isOffers = !!carousel.closest('.offers-showcase') || carousel.classList.contains('offers-showcase__carousel');
+      if (!isOffers) return;
+      const cs = getComputedStyle(track);
+      const wrap = carousel.querySelector('.offers-showcase__track-wrap, [data-carousel-track]')?.parentElement;
+      const wrapCs = wrap ? getComputedStyle(wrap) : null;
+      const slides = getSlides();
+      const payload = {
+        sessionId: '489563',
+        runId: 'pre-fix',
+        hypothesisId: 'A-B-C',
+        location: 'theme.js:initCarousels',
+        message: 'offers carousel metrics',
+        timestamp: Date.now(),
+        data: {
+          isRTL,
+          slideCount: slides.length,
+          trackScrollWidth: track.scrollWidth,
+          trackClientWidth: track.clientWidth,
+          scrollable: track.scrollWidth > track.clientWidth + 2,
+          trackOverflowX: cs.overflowX,
+          trackOverflowY: cs.overflowY,
+          trackScrollSnap: cs.scrollSnapType,
+          trackWebkitOverflow: cs.webkitOverflowScrolling || null,
+          wrapOverflow: wrapCs ? wrapCs.overflow + '/' + wrapCs.overflowX : null,
+          firstSlideWidth: slides[0]?.offsetWidth || 0,
+          stepPx: (slides[0]?.offsetWidth || 0) + parseGapPx(track),
+          viewport: window.innerWidth,
+          dir: document.documentElement.getAttribute('dir'),
+        },
+      };
+      fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+      track.addEventListener(
+        'scroll',
+        () => {
+          fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
+            body: JSON.stringify({
+              sessionId: '489563',
+              runId: 'pre-fix',
+              hypothesisId: 'D-E',
+              location: 'theme.js:offers-scroll',
+              message: 'offers track scrolled',
+              timestamp: Date.now(),
+              data: {
+                scrollLeft: track.scrollLeft,
+                maxScroll: track.scrollWidth - track.clientWidth,
+              },
+            }),
+          }).catch(() => {});
+        },
+        { passive: true, once: false }
+      );
+    })();
+    // #endregion
+
     updateOverflow();
     window.addEventListener('resize', updateOverflow, { passive: true });
     if (typeof ResizeObserver !== 'undefined') {

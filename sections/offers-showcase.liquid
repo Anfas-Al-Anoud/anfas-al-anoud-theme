@@ -193,16 +193,30 @@
     margin-inline: auto;
     padding-inline: var(--page-margin);
   }
-  .offers-showcase__track-wrap { overflow: hidden; }
+  .offers-showcase__track-wrap {
+    overflow: hidden;
+  }
   .offers-showcase__track {
     display: flex;
     gap: 1rem;
     align-items: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+  }
+  .offers-showcase__track::-webkit-scrollbar {
+    display: none;
   }
   .offers-showcase__item {
-    flex: 0 0 calc(72% - 0.5rem);
+    flex: 0 0 calc(78% - 0.5rem);
     min-width: 0;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   .offers-showcase__item .product-card { width: 100%; height: 100%; }
 
@@ -262,13 +276,14 @@
 
   @media (min-width: 768px) {
     .offers-showcase__carousel { padding-inline: calc(var(--page-margin) + 2rem); }
-    .offers-showcase__item { flex: 0 0 calc(33.333% - 0.667rem); }
+    .offers-showcase__item { flex: 0 0 calc(40% - 0.6rem); }
     .offers-showcase__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
     .offers-showcase__nav { width: 2.5rem; height: 2.5rem; font-size: 1.5rem; }
   }
 
   @media (min-width: 1024px) {
-    .offers-showcase__item { flex: 0 0 calc(25% - 0.75rem); }
+    /* Keep a peek of the next card so horizontal scroll stays available */
+    .offers-showcase__item { flex: 0 0 calc(28% - 0.75rem); }
     .offers-showcase__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
 

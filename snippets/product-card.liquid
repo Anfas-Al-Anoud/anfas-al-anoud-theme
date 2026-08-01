@@ -34,7 +34,7 @@
   assign created_ts = product.created_at | date: '%s' | plus: 0
   assign age_days = now_ts | minus: created_ts | divided_by: 86400
   assign new_badge_days = settings.new_badge_days | default: 30
-  assign cutoff_raw = settings.new_badge_after | default: '2026-08-02'
+  assign cutoff_raw = settings.new_badge_after | default: '2026-08-01'
   assign cutoff_ts = cutoff_raw | date: '%s' | plus: 0
   if created_ts >= cutoff_ts
     if age_days < new_badge_days

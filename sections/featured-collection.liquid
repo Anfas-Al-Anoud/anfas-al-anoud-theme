@@ -1,9 +1,12 @@
 {% liquid
   assign featured_products = section.settings.collection.products
-  if featured_products == blank or featured_products.size == 0
-    assign featured_products = collections.all.products
-  endif
   assign collection_url = section.settings.collection.url | default: routes.all_products_collection_url
+  # Only fall back to all products when no collection is selected.
+  # A selected but empty/unpublished collection must stay empty.
+  if section.settings.collection == blank
+    assign featured_products = collections.all.products
+    assign collection_url = routes.all_products_collection_url
+  endif
 %}
 <section class="featured-collection section-padding" data-animate-section{% if section.settings.enable_countdown and section.settings.countdown_end != blank %} data-offers-countdown data-countdown-end="{{ section.settings.countdown_end }}"{% endif %}>
   <div class="featured-collection__header">

@@ -43,42 +43,6 @@ function initCarousels(root = document) {
       track.scrollBy({ left: isRTL ? -step() : step(), behavior: 'smooth' });
     });
 
-    // #region agent log
-    (function debugCarouselMetrics() {
-      const cs = getComputedStyle(track);
-      const wrap = track.parentElement;
-      const wrapCs = wrap ? getComputedStyle(wrap) : null;
-      const slides = getSlides();
-      const kind = carousel.className || 'carousel';
-      fetch('http://127.0.0.1:7633/ingest/ff8eed13-b12d-47e3-97c3-f819c2954f19', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '489563' },
-        body: JSON.stringify({
-          sessionId: '489563',
-          runId: 'post-fix',
-          hypothesisId: 'A-B-C',
-          location: 'theme.js:initCarousels',
-          message: 'carousel metrics',
-          timestamp: Date.now(),
-          data: {
-            kind,
-            isOffers: /offers-showcase/.test(kind) || !!carousel.closest('.offers-showcase'),
-            isRTL,
-            slideCount: slides.length,
-            trackScrollWidth: track.scrollWidth,
-            trackClientWidth: track.clientWidth,
-            scrollable: track.scrollWidth > track.clientWidth + 2,
-            trackOverflowX: cs.overflowX,
-            trackScrollSnap: cs.scrollSnapType,
-            wrapOverflowX: wrapCs ? wrapCs.overflowX : null,
-            firstSlideWidth: slides[0]?.offsetWidth || 0,
-            viewport: window.innerWidth,
-          },
-        }),
-      }).catch(() => {});
-    })();
-    // #endregion
-
     updateOverflow();
     window.addEventListener('resize', updateOverflow, { passive: true });
     if (typeof ResizeObserver !== 'undefined') {

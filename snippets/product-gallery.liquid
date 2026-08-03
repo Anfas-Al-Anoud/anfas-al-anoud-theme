@@ -65,7 +65,11 @@
             class="product-gallery__nav product-gallery__nav--prev"
             data-gallery-prev
             aria-label="{{ 'general.pagination.previous' | t }}"
-          >&lsaquo;</button>
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
           <div class="product-gallery__dots" role="tablist" aria-label="{{ 'products.gallery.thumbnails' | t }}">
             {%- for media in product.media limit: 10 -%}
               <button
@@ -84,7 +88,11 @@
             class="product-gallery__nav product-gallery__nav--next"
             data-gallery-next
             aria-label="{{ 'general.pagination.next' | t }}"
-          >&rsaquo;</button>
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
       {%- else -%}
         <div class="product-gallery__thumbs" role="tablist" aria-label="{{ 'products.gallery.thumbnails' | t }}">
@@ -248,20 +256,25 @@
     margin-block-start: 0.85rem;
   }
   .product-gallery__nav {
+    box-sizing: border-box;
     width: 2.5rem;
     height: 2.5rem;
     min-width: 2.5rem;
+    padding: 0;
     border: 1.5px solid var(--color-sand);
     border-radius: 50%;
     background: var(--color-white);
     color: var(--color-dark);
-    font-size: 1.35rem;
-    line-height: 1;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-grid;
+    place-items: center;
+    line-height: 0;
     transition: border-color var(--transition-base), background var(--transition-base);
+  }
+  .product-gallery__nav svg {
+    display: block;
+    width: 1rem;
+    height: 1rem;
   }
   .product-gallery__nav:hover {
     border-color: var(--color-gold);

@@ -10,7 +10,7 @@
   {% render 'breadcrumbs', product: product, collection: collection %}
   <div class="product-page__inner">
     <div class="product-page__gallery" data-gallery>
-      {% render 'product-gallery', product: product %}
+      {% render 'product-gallery', product: product, hide_thumbnails: section.settings.hide_thumbnails %}
     </div>
 
     <div class="product-page__info">
@@ -325,6 +325,18 @@
   "name": "Product",
   "class": "product-section",
   "blocks": [{ "type": "@app" }],
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:settings.product.gallery_header"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_thumbnails",
+      "label": "t:settings.product.hide_thumbnails",
+      "info": "t:settings.product.hide_thumbnails_info",
+      "default": false
+    }
+  ]
 }
 {% endschema %}

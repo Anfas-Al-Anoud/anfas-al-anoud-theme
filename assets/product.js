@@ -192,7 +192,7 @@
     function renderMain(item) {
       if (!mainWrap || !item) return;
       activeId = item.id;
-      gallery.querySelectorAll('[data-thumb]').forEach((t) => {
+      gallery.querySelectorAll('[data-thumb], [data-gallery-dot]').forEach((t) => {
         const on = String(t.dataset.mediaId) === String(item.id);
         t.classList.toggle('is-active', on);
         t.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -272,12 +272,15 @@
       }
     }
 
-    gallery.querySelectorAll('[data-thumb]').forEach((thumb) => {
+    gallery.querySelectorAll('[data-thumb], [data-gallery-dot]').forEach((thumb) => {
       thumb.addEventListener('click', () => {
         const item = mediaById(thumb.dataset.mediaId);
         if (item) renderMain(item);
       });
     });
+
+    gallery.querySelector('[data-gallery-prev]')?.addEventListener('click', () => stepMedia(-1));
+    gallery.querySelector('[data-gallery-next]')?.addEventListener('click', () => stepMedia(1));
 
     // Touch / swipe between product images (mobile-friendly)
     const stage = gallery.querySelector('[data-gallery-stage]') || mainWrap;

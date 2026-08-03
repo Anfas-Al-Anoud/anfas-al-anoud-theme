@@ -109,6 +109,9 @@
     },
     "product": {
       "name": "Product",
+      "gallery_header": "Media gallery",
+      "hide_thumbnails": "Hide thumbnail strip",
+      "hide_thumbnails_info": "Hides the small image row. Shoppers browse remaining photos by swiping or using the arrows.",
       "low_stock_threshold": "Low stock threshold",
       "low_stock_info": "Shows an \"Only X left\" urgency notice when the remaining quantity is at or below this number.",
       "new_badge_days": "Show \"New\" badge for",

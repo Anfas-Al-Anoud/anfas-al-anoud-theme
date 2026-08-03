@@ -102,7 +102,9 @@
     "gallery": {
       "zoom": "Zoom image",
       "tap_to_zoom": "Tap to enlarge",
+      "swipe_hint": "Swipe for more photos",
       "thumbnails": "Product images",
+      "image_n": "Image {{ n }}",
       "lightbox": "Enlarged product image"
     },
     "trust": {

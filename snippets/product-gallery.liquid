@@ -2,10 +2,19 @@
   Product media gallery with desktop zoom, lightbox, and video support.
 
   @param {object} product - Product object
+  @param {boolean} [hide_thumbnails] - Hide thumbnail strip; browse media via swipe/controls only
 {% enddoc %}
 
+{%- liquid
+  assign hide_thumbs = hide_thumbnails | default: false
+-%}
+
 {%- if product.media.size > 0 -%}
-  <div class="product-gallery" data-product-gallery>
+  <div
+    class="product-gallery{% if hide_thumbs %} product-gallery--no-thumbs{% endif %}"
+    data-product-gallery
+    {% if hide_thumbs %}data-hide-thumbnails{% endif %}
+  >
     <div class="product-gallery__stage" data-gallery-stage>
       <div class="product-gallery__main" data-gallery-main>
         {%- assign featured = product.featured_media -%}
@@ -38,30 +47,66 @@
         {%- endcase -%}
       </div>
       {%- if featured.media_type == 'image' -%}
-        <span class="product-gallery__hint">{{ 'products.gallery.tap_to_zoom' | t }}</span>
+        <span class="product-gallery__hint">
+          {%- if hide_thumbs and product.media.size > 1 -%}
+            {{ 'products.gallery.swipe_hint' | t }}
+          {%- else -%}
+            {{ 'products.gallery.tap_to_zoom' | t }}
+          {%- endif -%}
+        </span>
       {%- endif -%}
     </div>
 
     {%- if product.media.size > 1 -%}
-      <div class="product-gallery__thumbs" role="tablist" aria-label="{{ 'products.gallery.thumbnails' | t }}">
-        {%- for media in product.media limit: 10 -%}
+      {%- if hide_thumbs -%}
+        <div class="product-gallery__pager" data-gallery-pager>
           <button
             type="button"
-            class="product-gallery__thumb {% if media.id == featured.id %}is-active{% endif %}"
-            data-thumb
-            data-media-id="{{ media.id }}"
-            data-media-type="{{ media.media_type }}"
-            role="tab"
-            aria-selected="{% if media.id == featured.id %}true{% else %}false{% endif %}"
-            aria-label="{{ product.title | escape }}"
-          >
-            {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
-              <span class="product-gallery__thumb-play" aria-hidden="true">▶</span>
-            {%- endif -%}
-            {% render 'image', image: media.preview_image | default: media, alt: media.alt | default: product.title, width: 120 %}
-          </button>
-        {%- endfor -%}
-      </div>
+            class="product-gallery__nav product-gallery__nav--prev"
+            data-gallery-prev
+            aria-label="{{ 'general.pagination.previous' | t }}"
+          >&lsaquo;</button>
+          <div class="product-gallery__dots" role="tablist" aria-label="{{ 'products.gallery.thumbnails' | t }}">
+            {%- for media in product.media limit: 10 -%}
+              <button
+                type="button"
+                class="product-gallery__dot{% if media.id == featured.id %} is-active{% endif %}"
+                data-gallery-dot
+                data-media-id="{{ media.id }}"
+                role="tab"
+                aria-selected="{% if media.id == featured.id %}true{% else %}false{% endif %}"
+                aria-label="{{ 'products.gallery.image_n' | t: n: forloop.index }}"
+              ></button>
+            {%- endfor -%}
+          </div>
+          <button
+            type="button"
+            class="product-gallery__nav product-gallery__nav--next"
+            data-gallery-next
+            aria-label="{{ 'general.pagination.next' | t }}"
+          >&rsaquo;</button>
+        </div>
+      {%- else -%}
+        <div class="product-gallery__thumbs" role="tablist" aria-label="{{ 'products.gallery.thumbnails' | t }}">
+          {%- for media in product.media limit: 10 -%}
+            <button
+              type="button"
+              class="product-gallery__thumb {% if media.id == featured.id %}is-active{% endif %}"
+              data-thumb
+              data-media-id="{{ media.id }}"
+              data-media-type="{{ media.media_type }}"
+              role="tab"
+              aria-selected="{% if media.id == featured.id %}true{% else %}false{% endif %}"
+              aria-label="{{ product.title | escape }}"
+            >
+              {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                <span class="product-gallery__thumb-play" aria-hidden="true">▶</span>
+              {%- endif -%}
+              {% render 'image', image: media.preview_image | default: media, alt: media.alt | default: product.title, width: 120 %}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     {%- endif -%}
 
     <script type="application/json" data-gallery-json>
@@ -194,6 +239,56 @@
     color: #fff;
     font-size: 0.75rem;
     pointer-events: none;
+  }
+  .product-gallery__pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-block-start: 0.85rem;
+  }
+  .product-gallery__nav {
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    border: 1.5px solid var(--color-sand);
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-dark);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--transition-base), background var(--transition-base);
+  }
+  .product-gallery__nav:hover {
+    border-color: var(--color-gold);
+    background: var(--color-cream);
+  }
+  .product-gallery__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .product-gallery__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    min-width: 0.55rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-sand) 85%, var(--color-dark));
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease, width 180ms ease;
+  }
+  .product-gallery__dot.is-active {
+    width: 1.15rem;
+    border-radius: 999px;
+    background: var(--color-gold);
   }
   @media (min-width: 900px) {
     .product-gallery { position: sticky; top: calc(var(--header-height) + 1rem); }

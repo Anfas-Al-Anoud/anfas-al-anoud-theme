@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "hide_thumbnails": true
+      }
     },
     "reviews": {
       "type": "product-reviews",
@@ -23,7 +25,10 @@
     },
     "recommendations": {
       "type": "product-recommendations",
-      "settings": {}
+      "settings": {
+        "heading": "قد يعجبج أيضًا",
+        "limit": 4
+      }
     },
     "recently": {
       "type": "recently-viewed",

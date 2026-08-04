@@ -280,7 +280,7 @@
         const qty = Math.max(1, parseInt(qtyInput?.value, 10) || 1);
         addBtn?.classList.add('is-loading');
         try {
-          await window.cartDrawer.addItem(Number(idInput.value), qty);
+          await window.cartDrawer.addItem(Number(idInput.value), qty, addBtn);
           close();
         } catch (err) {
           if (errorEl) {

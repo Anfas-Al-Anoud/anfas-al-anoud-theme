@@ -128,13 +128,14 @@
     });
 
     // Add to cart (AJAX)
-    async function submit() {
+    async function submit(triggerEl) {
       if (!idInput?.value || !window.cartDrawer) return;
       if (errorEl) errorEl.hidden = true;
       const qty = Math.max(1, parseInt(qtyInput?.value, 10) || 1);
+      const source = triggerEl || addButton;
       addButton?.classList.add('is-loading');
       try {
-        await window.cartDrawer.addItem(Number(idInput.value), qty);
+        await window.cartDrawer.addItem(Number(idInput.value), qty, source);
       } catch (err) {
         if (errorEl) {
           errorEl.textContent = err.message || 'صار خطأ، حاولي مرة ثانية';
@@ -147,9 +148,11 @@
 
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      submit();
+      submit(addButton);
     });
-    document.querySelector('[data-sticky-add]')?.addEventListener('click', submit);
+    document.querySelector('[data-sticky-add]')?.addEventListener('click', (e) => {
+      submit(e.currentTarget);
+    });
 
     // Sticky add-to-cart bar visibility (mobile)
     const sticky = document.querySelector('[data-sticky-atc]');

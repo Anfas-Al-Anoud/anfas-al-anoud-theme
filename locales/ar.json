@@ -72,6 +72,7 @@
     },
     "product": {
       "add_to_cart": "أضيفي للسلة",
+      "added": "تمت الإضافة",
       "sold_out": "نفدت الكمية",
       "unavailable": "غير متوفر",
       "quantity": "الكمية"

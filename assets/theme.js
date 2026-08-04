@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (qa.dataset.single === 'true' && qa.dataset.variantId && window.cartDrawer) {
       qa.classList.add('is-loading');
       window.cartDrawer
-        .addItem(Number(qa.dataset.variantId), 1)
+        .addItem(Number(qa.dataset.variantId), 1, qa)
         .catch(() => {
           window.location.href = qa.dataset.url;
         })

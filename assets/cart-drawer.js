@@ -23,6 +23,7 @@ class CartDrawer {
     this.giftWrap = this.drawer.querySelector('[data-cart-gift-wrap]');
     this.giftMessageWrap = this.drawer.querySelector('[data-gift-message-wrap]');
     this.giftMessageEl = this.drawer.querySelector('[data-cart-attr-text="رسالة هدية"]');
+    this.heartWrap = this.drawer.querySelector('[data-cart-heart]');
     this.lastFocus = null;
     this.noteTimer = null;
     this.attrTimer = null;
@@ -107,7 +108,7 @@ class CartDrawer {
     }
   }
 
-  async addItem(id, quantity = 1) {
+  async addItem(id, quantity = 1, sourceEl = null) {
     const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/add.js`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -119,11 +120,161 @@ class CartDrawer {
     }
     const cart = await this.fetchCart();
     if (cart) this.render(cart);
-    // Desktop: open drawer. Mobile: update counts only (user opens cart manually).
-    if (!window.matchMedia('(max-width: 899px)').matches) {
+
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (isMobile) {
+      this.flyToCart(sourceEl);
+    } else {
       this.open();
     }
+    this.flashAddedFeedback(sourceEl);
     return cart;
+  }
+
+  findSourceImage(sourceEl) {
+    const scopes = [];
+    if (sourceEl?.closest) {
+      const card = sourceEl.closest('.product-card, [data-product-card]');
+      const page = sourceEl.closest('[data-product], .product-page');
+      if (card) scopes.push(card);
+      if (page) scopes.push(page);
+    }
+    scopes.push(document);
+    for (const scope of scopes) {
+      const img =
+        scope.querySelector?.('[data-gallery-main] img') ||
+        scope.querySelector?.('.product-gallery__image') ||
+        scope.querySelector?.('.product-card__media img') ||
+        scope.querySelector?.('.product-card img') ||
+        (scope.tagName === 'IMG' ? scope : null);
+      if (img?.getBoundingClientRect) return img;
+    }
+    return null;
+  }
+
+  cartFlyTarget() {
+    return (
+      document.querySelector('.mobile-bottom-nav__item[data-cart-open] .mobile-bottom-nav__icon-wrap') ||
+      document.querySelector('.mobile-bottom-nav__item[data-cart-open]') ||
+      document.querySelector('.site-header__cart-trigger') ||
+      document.querySelector('[data-cart-open]')
+    );
+  }
+
+  pulseCartBadge() {
+    this.countEls.forEach((el) => {
+      el.classList.remove('is-cart-pulse');
+      // Force reflow so the animation can replay.
+      void el.offsetWidth;
+      el.classList.add('is-cart-pulse');
+      el.addEventListener(
+        'animationend',
+        () => el.classList.remove('is-cart-pulse'),
+        { once: true }
+      );
+    });
+    const icon = this.cartFlyTarget();
+    if (icon) {
+      icon.classList.remove('is-cart-pulse');
+      void icon.offsetWidth;
+      icon.classList.add('is-cart-pulse');
+      icon.addEventListener(
+        'animationend',
+        () => icon.classList.remove('is-cart-pulse'),
+        { once: true }
+      );
+    }
+  }
+
+  flyToCart(sourceEl) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.pulseCartBadge();
+      return;
+    }
+    const img = this.findSourceImage(sourceEl);
+    const target = this.cartFlyTarget();
+    if (!img || !target) {
+      this.pulseCartBadge();
+      return;
+    }
+
+    const sr = img.getBoundingClientRect();
+    const tr = target.getBoundingClientRect();
+    if (sr.width < 8 || sr.height < 8) {
+      this.pulseCartBadge();
+      return;
+    }
+
+    const ghost = img.cloneNode(true);
+    ghost.removeAttribute('srcset');
+    ghost.removeAttribute('sizes');
+    ghost.className = 'fly-to-cart-ghost';
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.style.cssText = [
+      'position:fixed',
+      `left:${sr.left}px`,
+      `top:${sr.top}px`,
+      `width:${sr.width}px`,
+      `height:${sr.height}px`,
+      'z-index:320',
+      'pointer-events:none',
+      'margin:0',
+      'border-radius:12px',
+      'object-fit:cover',
+      'box-shadow:0 8px 24px rgba(31,18,12,0.22)',
+    ].join(';');
+    document.body.appendChild(ghost);
+
+    const startX = sr.left + sr.width / 2;
+    const startY = sr.top + sr.height / 2;
+    const endX = tr.left + tr.width / 2;
+    const endY = tr.top + tr.height / 2;
+    const dx = endX - startX;
+    const dy = endY - startY;
+
+    const anim = ghost.animate(
+      [
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        {
+          transform: `translate(${dx * 0.45}px, ${dy * 0.25 - 48}px) scale(0.55)`,
+          opacity: 0.95,
+          offset: 0.55,
+        },
+        { transform: `translate(${dx}px, ${dy}px) scale(0.12)`, opacity: 0.25 },
+      ],
+      {
+        duration: 560,
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        fill: 'forwards',
+      }
+    );
+
+    anim.finished
+      .catch(() => {})
+      .finally(() => {
+        ghost.remove();
+        this.pulseCartBadge();
+      });
+  }
+
+  flashAddedFeedback(sourceEl) {
+    if (!sourceEl) return;
+    const btn =
+      sourceEl.closest?.('[data-add-button], [data-quick-add], [data-sticky-add], button') || sourceEl;
+    if (!btn || btn.nodeType !== 1) return;
+    const label = btn.querySelector?.('[data-add-label]') || btn;
+    if (btn.dataset.addedBusy === '1') return;
+    const original = label.textContent;
+    const added = this.drawer?.dataset?.addedText || 'تمت الإضافة';
+    btn.dataset.addedBusy = '1';
+    label.textContent = added;
+    btn.classList.add('is-added');
+    clearTimeout(this._addedTimer);
+    this._addedTimer = setTimeout(() => {
+      label.textContent = original;
+      btn.classList.remove('is-added');
+      delete btn.dataset.addedBusy;
+    }, 1200);
   }
 
   async updateNote(note) {
@@ -183,10 +334,12 @@ class CartDrawer {
         if (this.footerEl) this.footerEl.hidden = true;
         if (this.notesWrap) this.notesWrap.hidden = true;
         if (this.giftWrap) this.giftWrap.hidden = true;
+        if (this.heartWrap) this.heartWrap.hidden = true;
       } else {
         if (this.footerEl) this.footerEl.hidden = false;
         if (this.notesWrap) this.notesWrap.hidden = false;
         if (this.giftWrap) this.giftWrap.hidden = false;
+        if (this.heartWrap) this.heartWrap.hidden = false;
         this.itemsEl.innerHTML = cart.items.map((item) => this.lineHTML(item)).join('');
       }
     }

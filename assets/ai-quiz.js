@@ -416,7 +416,7 @@
         add.disabled = true;
         add.textContent = 'جارٍ الإضافة...';
         window.cartDrawer
-          .addItem(Number(add.dataset.variantId), 1)
+          .addItem(Number(add.dataset.variantId), 1, add)
           .then(() => {
             add.textContent = 'تمت الإضافة ✓';
           })

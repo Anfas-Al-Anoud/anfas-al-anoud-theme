@@ -1,4 +1,10 @@
-<div class="cart-drawer" data-cart-drawer aria-hidden="true" data-currency="{{ cart.currency.iso_code | default: shop.currency }}">
+<div
+  class="cart-drawer"
+  data-cart-drawer
+  aria-hidden="true"
+  data-currency="{{ cart.currency.iso_code | default: shop.currency }}"
+  data-added-text="{{ 'general.product.added' | t }}"
+>
   <div class="cart-drawer__overlay" data-cart-close></div>
   <aside class="cart-drawer__panel" role="dialog" aria-label="{{ 'general.cart.title' | t }}">
     <header class="cart-drawer__header">
@@ -96,6 +102,10 @@
           >{{ cart.note }}</textarea>
         </div>
       {% endif %}
+
+      <div class="cart-drawer__heart" data-cart-heart {% if cart.item_count == 0 %}hidden{% endif %}>
+        {% render 'anoud-heart-note', variant: 'compact' %}
+      </div>
     </div>
 
     <footer class="cart-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}hidden{% endif %}>
@@ -104,8 +114,7 @@
         <span data-cart-subtotal>{{ cart.total_price | money }}</span>
       </div>
       <p class="cart-drawer__taxnote">{{ 'general.cart.tax_note' | t }}</p>
-      {% render 'anoud-heart-note', variant: 'compact' %}
-      <a href="{{ routes.cart_url }}" class="btn btn--outline">{{ 'general.cart.view_cart' | t }}</a>
+      <a href="{{ routes.cart_url }}" class="btn btn--outline cart-drawer__view">{{ 'general.cart.view_cart' | t }}</a>
       <form action="{{ routes.cart_url }}" method="post">
         <button type="submit" name="checkout" class="btn cart-drawer__checkout">{{ 'general.cart.checkout' | t }}</button>
       </form>
@@ -284,28 +293,55 @@
     accent-color: var(--color-primary);
   }
   .cart-drawer__gift-message[hidden] { display: none; }
+  .cart-drawer__heart {
+    padding: 0.55rem 1rem 0.75rem;
+  }
+  .cart-drawer__heart[hidden] { display: none; }
   .cart-drawer__footer {
-    padding: 1.25rem;
-    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.75rem 1rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
     border-block-start: 1px solid var(--color-sand);
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.4rem;
     flex-shrink: 0;
     background: var(--color-white);
   }
   @media (max-width: 899px) {
     .cart-drawer__footer {
-      padding-bottom: calc(1.25rem + var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom, 0px));
+      padding-bottom: calc(0.65rem + var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom, 0px));
     }
   }
   .cart-drawer__subtotal {
     display: flex;
     justify-content: space-between;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+  .cart-drawer__taxnote {
+    font-size: 0.7rem;
+    margin: 0;
+  }
+  .cart-drawer__footer .btn {
+    padding-block: 0.65rem;
+    min-height: 2.65rem;
   }
   .cart-drawer__checkout { width: 100%; }
+  .fly-to-cart-ghost {
+    will-change: transform, opacity;
+  }
+  .is-cart-pulse {
+    animation: cart-badge-pulse 420ms ease;
+  }
+  @keyframes cart-badge-pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.28); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fly-to-cart-ghost { display: none !important; }
+    .is-cart-pulse { animation: none; }
+  }
 {% endstylesheet %}
 
 {% schema %}

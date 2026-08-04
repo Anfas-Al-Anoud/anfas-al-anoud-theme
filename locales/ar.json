@@ -204,7 +204,7 @@
       "free_shipping": "توصيل مجاني فوق {{ amount }} د.إ.",
       "fast_prep": "تجهيز سريع لطلبج",
       "cod": "الدفع عند الاستلام متاح",
-      "returns": "إرجاع خلال ٧ أيام"
+      "returns": "إرجاع خلال ٣ أيام"
     },
     "ai_quiz": { "name": "مساعد العنود" },
     "product_bundle": {
@@ -232,7 +232,7 @@
     },
     "cart_drawer": { "name": "درج السلة" },
     "footer": {
-      "quick_links": "وين طلبج؟"
+      "quick_links": "روابط مهمة"
     }
   },
   "404": {

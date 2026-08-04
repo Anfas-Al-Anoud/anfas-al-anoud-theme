@@ -119,7 +119,10 @@ class CartDrawer {
     }
     const cart = await this.fetchCart();
     if (cart) this.render(cart);
-    this.open();
+    // Desktop: open drawer. Mobile: update counts only (user opens cart manually).
+    if (!window.matchMedia('(max-width: 899px)').matches) {
+      this.open();
+    }
     return cart;
   }
 
@@ -205,7 +208,7 @@ class CartDrawer {
       this.giftMessageWrap.hidden = attrs['إرسال كهدية'] !== 'نعم';
     }
 
-    this.renderShippingBar(cart.total_price);
+    this.renderShippingBar(cart);
     this.renderUpsell(cart);
   }
 
@@ -286,8 +289,23 @@ class CartDrawer {
       </div>`;
   }
 
-  renderShippingBar(total) {
+  /** Line items that count toward free shipping (excludes discounted / sale items). */
+  eligibleShippingTotal(cart) {
+    if (!cart?.items?.length) return 0;
+    return cart.items.reduce((sum, item) => {
+      const compareAt = Number(item.compare_at_price) || 0;
+      const price = Number(item.final_price ?? item.price) || 0;
+      const originalLine = Number(item.original_line_price) || 0;
+      const finalLine = Number(item.final_line_price ?? item.line_price) || 0;
+      const onSale = (compareAt > 0 && compareAt > price) || originalLine > finalLine;
+      return onSale ? sum : sum + finalLine;
+    }, 0);
+  }
+
+  renderShippingBar(cartOrTotal) {
     if (!this.bar || !this.threshold) return;
+    const total =
+      typeof cartOrTotal === 'number' ? cartOrTotal : this.eligibleShippingTotal(cartOrTotal);
     const remaining = Math.max(0, this.threshold - total);
     const progress = Math.min(100, (total / this.threshold) * 100);
     const msg = this.bar.querySelector('[data-shipping-message]');

@@ -7,7 +7,7 @@
       <a href="{{ routes.all_products_collection_url }}" class="btn">{{ 'general.cart.continue' | t }}</a>
     </div>
   {% else %}
-    <form action="{{ routes.cart_url }}" method="post" class="cart-page__form">
+    <form action="{{ routes.cart_url }}" method="post" class="cart-page__form" data-cart-page-form>
       <div class="cart-page__items">
         {% for item in cart.items %}
           <div class="cart-page__item">
@@ -25,14 +25,19 @@
               <a href="{{ item.url_to_remove }}" class="cart-page__remove">{{ 'general.cart.remove' | t }}</a>
             </div>
             <div class="cart-page__item-controls">
-              <input
-                type="number"
-                name="updates[]"
-                value="{{ item.quantity }}"
-                min="0"
-                aria-label="{{ 'general.product.quantity' | t }}"
-                class="cart-page__qty"
-              >
+              <div class="cart-page__qty" data-cart-qty>
+                <button type="button" class="cart-page__qty-btn" data-qty-step="-1" aria-label="{{ 'general.cart.decrease' | t }}">&minus;</button>
+                <input
+                  type="number"
+                  name="updates[]"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  aria-label="{{ 'general.product.quantity' | t }}"
+                  class="cart-page__qty-input"
+                  inputmode="numeric"
+                >
+                <button type="button" class="cart-page__qty-btn" data-qty-step="1" aria-label="{{ 'general.cart.increase' | t }}">+</button>
+              </div>
               <span class="cart-page__line-price">{{ item.final_line_price | money_without_currency }} {{ 'general.currency' | t }}</span>
             </div>
           </div>
@@ -82,7 +87,50 @@
   .cart-page__item-variant { color: var(--color-accent); font-size: 0.85rem; }
   .cart-page__remove { color: #c0392b; font-size: 0.85rem; text-decoration: none; }
   .cart-page__item-controls { display: flex; flex-direction: column; align-items: end; gap: 0.75rem; }
-  .cart-page__qty { width: 4rem; padding: 0.5rem; text-align: center; border: 1.5px solid var(--color-sand); border-radius: var(--style-border-radius-inputs); }
+  .cart-page__qty {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    min-height: 2.75rem;
+    border: 1.5px solid var(--color-sand);
+    border-radius: 999px;
+    padding: 0 0.25rem;
+    background: var(--color-cream);
+  }
+  .cart-page__qty-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-dark);
+    padding: 0;
+  }
+  .cart-page__qty-input {
+    width: 2.5rem;
+    height: 2.25rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font: inherit;
+    line-height: 2.25rem;
+    color: var(--color-dark);
+    font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+  }
+  .cart-page__qty-input::-webkit-outer-spin-button,
+  .cart-page__qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   .cart-page__line-price { font-weight: 700; }
   .cart-page__summary { background: var(--color-cream); border-radius: var(--style-border-radius-cards); padding: 1.5rem; display: flex; flex-direction: column; gap: 0.85rem; position: sticky; top: calc(var(--header-height) + 1rem); }
   .cart-page__note-label { font-weight: 700; font-size: 0.9rem; }
@@ -99,6 +147,21 @@
   .cart-page__note { font-size: 0.8rem; color: var(--color-accent); }
   .cart-page__continue { text-align: center; color: var(--color-accent); text-decoration: none; font-weight: 600; }
 {% endstylesheet %}
+
+{% javascript %}
+  document.querySelectorAll('[data-cart-qty]').forEach((wrap) => {
+    const input = wrap.querySelector('.cart-page__qty-input');
+    if (!input) return;
+    wrap.querySelectorAll('[data-qty-step]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const step = parseInt(btn.getAttribute('data-qty-step'), 10) || 0;
+        const next = Math.max(0, (parseInt(input.value, 10) || 0) + step);
+        input.value = String(next);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    });
+  });
+{% endjavascript %}
 
 {% schema %}
 {

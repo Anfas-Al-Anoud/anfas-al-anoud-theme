@@ -209,7 +209,7 @@
       "free_shipping": "Free delivery over {{ amount }} AED",
       "fast_prep": "Fast order prep",
       "cod": "Cash on delivery available",
-      "returns": "Returns within 7 days"
+      "returns": "Returns within 3 days"
     },
     "ai_quiz": { "name": "AI quiz assistant" },
     "product_bundle": {

@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Anfas Al-Anoud",
-    "theme_version": "2.2.14",
+    "theme_version": "2.2.15",
     "theme_author": "Anfas Al-Anoud",
     "theme_documentation_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme",
     "theme_support_url": "https://github.com/Anfas-Al-Anoud/anfas-al-anoud-theme/issues"
@@ -131,7 +131,7 @@
         "type": "number",
         "id": "free_shipping_threshold",
         "label": "t:settings.cart.free_shipping_threshold",
-        "default": 200
+        "default": 250
       },
       {
         "type": "checkbox",

@@ -19,7 +19,7 @@
     "background_color": "#FAF6EF",
     "foreground_color": "#3A2418",
     "input_corner_radius": 24,
-    "free_shipping_threshold": 200,
+    "free_shipping_threshold": 250,
     "show_free_shipping_bar": true,
     "enable_cart_note": true,
     "enable_gift_message": true,

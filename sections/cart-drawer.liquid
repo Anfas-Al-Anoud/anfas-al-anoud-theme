@@ -7,7 +7,11 @@
     </header>
 
     {% if settings.show_free_shipping_bar %}
-      <div class="cart-drawer__shipping" data-free-shipping-bar data-threshold="{{ settings.free_shipping_threshold | times: 100 }}">
+      <div
+        class="cart-drawer__shipping"
+        data-free-shipping-bar
+        data-threshold="{{ settings.free_shipping_threshold | times: 100 }}"
+      >
         <p data-shipping-message></p>
         <div class="cart-drawer__shipping-bar">
           <div class="cart-drawer__shipping-progress" data-shipping-progress></div>
@@ -15,87 +19,84 @@
       </div>
     {% endif %}
 
-    <div class="cart-drawer__items" data-cart-items data-empty-text="{{ 'general.cart.empty' | t }}">
-      {% if cart.item_count > 0 %}
-        {% for item in cart.items %}
-          <div class="cart-drawer__item" data-line-key="{{ item.key }}">
-            {% if item.image %}
-              <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.image.alt | default: item.product.title | escape }}" width="60" height="60" loading="lazy">
-            {% endif %}
-            <div class="cart-drawer__item-info">
-              <a href="{{ item.url }}">{{ item.product.title }}</a>
-              {% unless item.variant.title contains 'Default' %}
-                <span class="cart-drawer__variant">{{ item.variant.title }}</span>
-              {% endunless %}
-              <div class="cart-drawer__qty">
-                <button type="button" data-qty-change="{{ item.quantity | minus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.decrease' | t }}">&minus;</button>
-                <span>{{ item.quantity }}</span>
-                <button type="button" data-qty-change="{{ item.quantity | plus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.increase' | t }}">+</button>
+    <div class="cart-drawer__body">
+      <div class="cart-drawer__items" data-cart-items data-empty-text="{{ 'general.cart.empty' | t }}">
+        {% if cart.item_count > 0 %}
+          {% for item in cart.items %}
+            <div class="cart-drawer__item" data-line-key="{{ item.key }}">
+              {% if item.image %}
+                <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.image.alt | default: item.product.title | escape }}" width="60" height="60" loading="lazy">
+              {% endif %}
+              <div class="cart-drawer__item-info">
+                <a href="{{ item.url }}">{{ item.product.title }}</a>
+                {% unless item.variant.title contains 'Default' %}
+                  <span class="cart-drawer__variant">{{ item.variant.title }}</span>
+                {% endunless %}
+                <div class="cart-drawer__qty">
+                  <button type="button" data-qty-change="{{ item.quantity | minus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.decrease' | t }}">&minus;</button>
+                  <span>{{ item.quantity }}</span>
+                  <button type="button" data-qty-change="{{ item.quantity | plus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.increase' | t }}">+</button>
+                </div>
+                <p class="cart-drawer__line-price">{{ item.final_line_price | money }}</p>
               </div>
-              <p class="cart-drawer__line-price">{{ item.final_line_price | money }}</p>
+              <button type="button" class="cart-drawer__remove" data-remove-line="{{ item.key }}" aria-label="{{ 'general.cart.remove' | t }}">&times;</button>
             </div>
-            <button type="button" class="cart-drawer__remove" data-remove-line="{{ item.key }}" aria-label="{{ 'general.cart.remove' | t }}">&times;</button>
+          {% endfor %}
+        {% else %}
+          <p class="cart-drawer__empty">{{ 'general.cart.empty' | t }}</p>
+        {% endif %}
+      </div>
+
+      <div class="cart-drawer__upsell" data-cart-upsell hidden>
+        <h3 class="cart-drawer__upsell-title">{{ 'general.cart.upsell_title' | t }}</h3>
+        <div data-cart-upsell-body></div>
+      </div>
+
+      {% if settings.enable_gift_message %}
+        <div class="cart-drawer__gift" data-cart-gift-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
+          <label class="cart-drawer__gift-option">
+            <input
+              type="checkbox"
+              data-cart-attr="إرسال كهدية"
+              {% if cart.attributes['إرسال كهدية'] == 'نعم' %}checked{% endif %}
+            >
+            <span>{{ 'general.cart.send_as_gift' | t }}</span>
+          </label>
+          <label class="cart-drawer__gift-option">
+            <input
+              type="checkbox"
+              data-cart-attr="تغليف الهدايا"
+              {% if cart.attributes['تغليف الهدايا'] == 'نعم' %}checked{% endif %}
+            >
+            <span>{{ 'general.cart.gift_wrap' | t }}</span>
+          </label>
+          <div class="cart-drawer__gift-message" data-gift-message-wrap {% unless cart.attributes['إرسال كهدية'] == 'نعم' %}hidden{% endunless %}>
+            <label class="cart-drawer__notes-label" for="CartDrawerGiftMessage">{{ 'general.cart.gift_message_label' | t }}</label>
+            <textarea
+              id="CartDrawerGiftMessage"
+              class="cart-drawer__notes-input"
+              data-cart-attr-text="رسالة هدية"
+              rows="2"
+              maxlength="200"
+              placeholder="{{ 'general.cart.gift_message_placeholder' | t }}"
+            >{{ cart.attributes['رسالة هدية'] }}</textarea>
           </div>
-        {% endfor %}
-      {% else %}
-        <p class="cart-drawer__empty">{{ 'general.cart.empty' | t }}</p>
+        </div>
+      {% endif %}
+
+      {% if settings.enable_cart_note %}
+        <div class="cart-drawer__notes" data-cart-notes-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
+          <label class="cart-drawer__notes-label" for="CartDrawerNote">{{ 'general.cart.note_label' | t }}</label>
+          <textarea
+            id="CartDrawerNote"
+            class="cart-drawer__notes-input"
+            data-cart-note
+            rows="3"
+            placeholder="{{ 'general.cart.note_placeholder' | t }}"
+          >{{ cart.note }}</textarea>
+        </div>
       {% endif %}
     </div>
-
-    <div class="cart-drawer__upsell" data-cart-upsell hidden>
-      <h3 class="cart-drawer__upsell-title">{{ 'general.cart.upsell_title' | t }}</h3>
-      <div data-cart-upsell-body></div>
-    </div>
-
-    <div class="cart-drawer__upsell" data-cart-upsell hidden>
-      <h3 class="cart-drawer__upsell-title">{{ 'general.cart.upsell_title' | t }}</h3>
-      <div data-cart-upsell-body></div>
-    </div>
-
-    {% if settings.enable_gift_message %}
-      <div class="cart-drawer__gift" data-cart-gift-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
-        <label class="cart-drawer__gift-option">
-          <input
-            type="checkbox"
-            data-cart-attr="إرسال كهدية"
-            {% if cart.attributes['إرسال كهدية'] == 'نعم' %}checked{% endif %}
-          >
-          <span>{{ 'general.cart.send_as_gift' | t }}</span>
-        </label>
-        <label class="cart-drawer__gift-option">
-          <input
-            type="checkbox"
-            data-cart-attr="تغليف الهدايا"
-            {% if cart.attributes['تغليف الهدايا'] == 'نعم' %}checked{% endif %}
-          >
-          <span>{{ 'general.cart.gift_wrap' | t }}</span>
-        </label>
-        <div class="cart-drawer__gift-message" data-gift-message-wrap {% unless cart.attributes['إرسال كهدية'] == 'نعم' %}hidden{% endunless %}>
-          <label class="cart-drawer__notes-label" for="CartDrawerGiftMessage">{{ 'general.cart.gift_message_label' | t }}</label>
-          <textarea
-            id="CartDrawerGiftMessage"
-            class="cart-drawer__notes-input"
-            data-cart-attr-text="رسالة هدية"
-            rows="2"
-            maxlength="200"
-            placeholder="{{ 'general.cart.gift_message_placeholder' | t }}"
-          >{{ cart.attributes['رسالة هدية'] }}</textarea>
-        </div>
-      </div>
-    {% endif %}
-
-    {% if settings.enable_cart_note %}
-      <div class="cart-drawer__notes" data-cart-notes-wrap {% if cart.item_count == 0 %}hidden{% endif %}>
-        <label class="cart-drawer__notes-label" for="CartDrawerNote">{{ 'general.cart.note_label' | t }}</label>
-        <textarea
-          id="CartDrawerNote"
-          class="cart-drawer__notes-input"
-          data-cart-note
-          rows="3"
-          placeholder="{{ 'general.cart.note_placeholder' | t }}"
-        >{{ cart.note }}</textarea>
-      </div>
-    {% endif %}
 
     <footer class="cart-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}hidden{% endif %}>
       <div class="cart-drawer__subtotal">
@@ -123,7 +124,6 @@
     transition: opacity var(--transition-base);
   }
   .cart-drawer.is-open .cart-drawer__overlay { opacity: 1; }
-  /* Opens from the physical left — matches cart icon placement in this RTL layout. */
   .cart-drawer__panel {
     position: absolute;
     top: 0;
@@ -131,6 +131,9 @@
     right: auto;
     width: min(100%, 24rem);
     height: 100%;
+    height: 100dvh;
+    max-height: 100%;
+    max-height: 100dvh;
     background: var(--color-white);
     display: flex;
     flex-direction: column;
@@ -145,6 +148,7 @@
     align-items: center;
     padding: 1.25rem;
     border-block-end: 1px solid var(--color-sand);
+    flex-shrink: 0;
   }
   .cart-drawer__close {
     background: none;
@@ -153,7 +157,11 @@
     cursor: pointer;
     color: var(--color-dark);
   }
-  .cart-drawer__shipping { padding: 1rem 1.25rem; background: var(--color-cream); }
+  .cart-drawer__shipping {
+    padding: 1rem 1.25rem;
+    background: var(--color-cream);
+    flex-shrink: 0;
+  }
   .cart-drawer__shipping-bar {
     height: 6px;
     background: var(--color-sand);
@@ -167,9 +175,14 @@
     width: 0%;
     transition: width var(--transition-base);
   }
-  .cart-drawer__items {
-    flex: 1;
+  .cart-drawer__body {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cart-drawer__items {
     padding: 1rem 1.25rem;
   }
   .cart-drawer__item {
@@ -187,11 +200,21 @@
   .cart-drawer__qty {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     align-self: flex-start;
     border: 1px solid var(--color-sand);
     border-radius: 999px;
     padding: 0.15rem 0.5rem;
+    min-height: 2rem;
+  }
+  .cart-drawer__qty span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
   .cart-drawer__qty button {
     background: none;
@@ -202,6 +225,10 @@
     color: var(--color-dark);
     width: 1.5rem;
     height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
   .cart-drawer__taxnote { font-size: 0.75rem; color: var(--color-accent); text-align: center; }
   .cart-drawer__remove {
@@ -234,7 +261,6 @@
     resize: vertical;
     min-height: 4.5rem;
   }
-  .cart-drawer__notes-hint { font-size: 0.75rem; color: var(--color-accent); margin: 0; }
   .cart-drawer__gift {
     padding: 0.75rem 1.25rem;
     border-block-start: 1px solid var(--color-sand);
@@ -260,10 +286,18 @@
   .cart-drawer__gift-message[hidden] { display: none; }
   .cart-drawer__footer {
     padding: 1.25rem;
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
     border-block-start: 1px solid var(--color-sand);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    flex-shrink: 0;
+    background: var(--color-white);
+  }
+  @media (max-width: 899px) {
+    .cart-drawer__footer {
+      padding-bottom: calc(1.25rem + var(--mobile-nav-height, 3.75rem) + env(safe-area-inset-bottom, 0px));
+    }
   }
   .cart-drawer__subtotal {
     display: flex;

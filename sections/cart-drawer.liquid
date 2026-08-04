@@ -43,7 +43,13 @@
                   <span>{{ item.quantity }}</span>
                   <button type="button" data-qty-change="{{ item.quantity | plus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'general.cart.increase' | t }}">+</button>
                 </div>
-                <p class="cart-drawer__line-price">{{ item.final_line_price | money }}</p>
+                <p class="cart-drawer__line-price">
+                  {%- if item.variant.compare_at_price > item.final_price -%}
+                    {%- assign compare_line = item.variant.compare_at_price | times: item.quantity -%}
+                    <s>{{ compare_line | money }}</s>
+                  {%- endif -%}
+                  <span>{{ item.final_line_price | money }}</span>
+                </p>
               </div>
               <button type="button" class="cart-drawer__remove" data-remove-line="{{ item.key }}" aria-label="{{ 'general.cart.remove' | t }}">&times;</button>
             </div>
@@ -205,7 +211,19 @@
   .cart-drawer__item-info { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
   .cart-drawer__item-info a { color: var(--color-dark); text-decoration: none; font-weight: 600; }
   .cart-drawer__variant { font-size: 0.8rem; color: var(--color-accent); }
-  .cart-drawer__line-price { font-weight: 700; color: var(--color-dark); }
+  .cart-drawer__line-price {
+    font-weight: 700;
+    color: var(--color-dark);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: baseline;
+  }
+  .cart-drawer__line-price s {
+    color: #b0a99f;
+    font-weight: 500;
+    font-size: 0.9em;
+  }
   .cart-drawer__qty {
     display: inline-flex;
     align-items: center;

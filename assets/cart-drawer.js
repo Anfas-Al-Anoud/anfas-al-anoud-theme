@@ -24,6 +24,7 @@ class CartDrawer {
     this.giftMessageWrap = this.drawer.querySelector('[data-gift-message-wrap]');
     this.giftMessageEl = this.drawer.querySelector('[data-cart-attr-text="رسالة هدية"]');
     this.heartWrap = this.drawer.querySelector('[data-cart-heart]');
+    this.productCache = new Map();
     this.lastFocus = null;
     this.noteTimer = null;
     this.attrTimer = null;
@@ -320,7 +321,51 @@ class CartDrawer {
     if (res.ok) this.render(await res.json());
   }
 
-  render(cart) {
+  async fetchProduct(handle) {
+    if (!handle) return null;
+    if (this.productCache.has(handle)) return this.productCache.get(handle);
+    const root = window.Shopify?.routes?.root || '/';
+    const promise = fetch(`${root}products/${encodeURIComponent(handle)}.js`)
+      .then((res) => (res.ok ? res.json() : null))
+      .catch(() => null);
+    this.productCache.set(handle, promise);
+    return promise;
+  }
+
+  /** Cart.js often omits compare_at_price; enrich from /products/handle.js */
+  async enrichCartItems(cart) {
+    if (!cart?.items?.length) return cart;
+    await Promise.all(
+      cart.items.map(async (item) => {
+        if (Number(item.compare_at_price) > 0) return;
+        const product = await this.fetchProduct(item.handle);
+        if (!product?.variants?.length) {
+          item.compare_at_price = Number(item.compare_at_price) || 0;
+          return;
+        }
+        const variant = product.variants.find((v) => Number(v.id) === Number(item.variant_id));
+        item.compare_at_price =
+          variant?.compare_at_price != null ? Number(variant.compare_at_price) : 0;
+      })
+    );
+    return cart;
+  }
+
+  isDiscountedItem(item) {
+    const compareAt = Number(item.compare_at_price) || 0;
+    const unitPrice = Number(item.final_price ?? item.price) || 0;
+    const originalLine = Number(item.original_line_price) || 0;
+    const finalLine = Number(item.final_line_price ?? item.line_price) || 0;
+    const lineDiscount = Number(item.line_level_total_discount ?? item.total_discount) || 0;
+    if (lineDiscount > 0) return true;
+    if (originalLine > finalLine) return true;
+    if (compareAt > 0 && compareAt > unitPrice) return true;
+    return false;
+  }
+
+  async render(cart) {
+    await this.enrichCartItems(cart);
+
     this.countEls.forEach((el) => {
       el.textContent = cart.item_count;
       el.hidden = cart.item_count === 0;
@@ -425,6 +470,15 @@ class CartDrawer {
       item.variant_title && !/^default title$/i.test(item.variant_title)
         ? `<span class="cart-drawer__variant">${this.escape(item.variant_title)}</span>`
         : '';
+    const unitPrice = Number(item.final_price ?? item.price) || 0;
+    const compareAt = Number(item.compare_at_price) || 0;
+    const qty = Number(item.quantity) || 1;
+    const finalLine = Number(item.final_line_price ?? item.line_price) || 0;
+    const showCompare = compareAt > unitPrice;
+    const compareLine = showCompare ? compareAt * qty : 0;
+    const priceHtml = showCompare
+      ? `<p class="cart-drawer__line-price"><s>${this.money(compareLine)}</s> <span>${this.money(finalLine)}</span></p>`
+      : `<p class="cart-drawer__line-price">${this.money(finalLine)}</p>`;
     return `
       <div class="cart-drawer__item" data-line-key="${item.key}">
         ${img}
@@ -436,7 +490,7 @@ class CartDrawer {
             <span>${item.quantity}</span>
             <button type="button" data-qty-change="${item.quantity + 1}" data-key="${item.key}" aria-label="زيادة">+</button>
           </div>
-          <p class="cart-drawer__line-price">${this.money(item.final_line_price)}</p>
+          ${priceHtml}
         </div>
         <button type="button" class="cart-drawer__remove" data-remove-line="${item.key}" aria-label="حذف">&times;</button>
       </div>`;
@@ -446,12 +500,8 @@ class CartDrawer {
   eligibleShippingTotal(cart) {
     if (!cart?.items?.length) return 0;
     return cart.items.reduce((sum, item) => {
-      const compareAt = Number(item.compare_at_price) || 0;
-      const price = Number(item.final_price ?? item.price) || 0;
-      const originalLine = Number(item.original_line_price) || 0;
-      const finalLine = Number(item.final_line_price ?? item.line_price) || 0;
-      const onSale = (compareAt > 0 && compareAt > price) || originalLine > finalLine;
-      return onSale ? sum : sum + finalLine;
+      if (this.isDiscountedItem(item)) return sum;
+      return sum + (Number(item.final_line_price ?? item.line_price) || 0);
     }, 0);
   }
 

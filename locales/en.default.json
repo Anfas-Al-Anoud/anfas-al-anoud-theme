@@ -58,7 +58,7 @@
       "view_cart": "View cart",
       "update": "Update",
       "summary": "Order summary",
-      "tax_note": "Taxes and shipping calculated at checkout",
+      "tax_note": "Shipping calculated at checkout",
       "decrease": "Decrease quantity",
       "increase": "Increase quantity",
       "upsell_title": "Complete your order",
